@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.geometry.line &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.geometry.line</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.constraints</span> <span class="kn">import</span> <span class="n">SymbolicLine</span>
+
+
+<div class="viewcode-block" id="Line"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.line.Line">[docs]</a><span class="k">class</span> <span class="nc">Line</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Line</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertex1</span> <span class="o">=</span> <span class="n">v1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertex2</span> <span class="o">=</span> <span class="n">v2</span>
+
+<div class="viewcode-block" id="Line.vertices"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.line.Line.vertices">[docs]</a>    <span class="k">def</span> <span class="nf">vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex2</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="Line.constrained_shift"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.line.Line.constrained_shift">[docs]</a>    <span class="k">def</span> <span class="nf">constrained_shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dxdy</span><span class="p">,</span> <span class="n">constraintsystem</span><span class="p">):</span>
+        <span class="n">constraintsystem</span><span class="o">.</span><span class="n">constrained_shift</span><span class="p">(</span>
+            <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex1</span><span class="p">,</span> <span class="n">dxdy</span><span class="p">),</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex2</span><span class="p">,</span> <span class="n">dxdy</span><span class="p">)])</span>
+</div>
+<div class="viewcode-block" id="Line.constraints_ref"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.line.Line.constraints_ref">[docs]</a>    <span class="k">def</span> <span class="nf">constraints_ref</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_constraints_ref</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_constraints_ref</span> <span class="o">=</span> <span class="n">SymbolicLine</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vertex1</span><span class="o">.</span><span class="n">constraints_ref</span><span class="p">(),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vertex2</span><span class="o">.</span><span class="n">constraints_ref</span><span class="p">())</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_constraints_ref</span>
+</div>
+<div class="viewcode-block" id="Line.vertex_constraints_ref"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.line.Line.vertex_constraints_ref">[docs]</a>    <span class="k">def</span> <span class="nf">vertex_constraints_ref</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex1</span><span class="o">.</span><span class="n">constraints_ref</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex2</span><span class="o">.</span><span class="n">constraints_ref</span><span class="p">()]</span>
+</div>
+<div class="viewcode-block" id="Line.gen_interactive"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.line.Line.gen_interactive">[docs]</a>    <span class="k">def</span> <span class="nf">gen_interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">popupcad.graphics2d.interactiveedge</span> <span class="kn">import</span> <span class="n">InteractiveEdge</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">InteractiveEdge</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+</div></div>
+<div class="viewcode-block" id="ShapeLine"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.line.ShapeLine">[docs]</a><span class="k">class</span> <span class="nc">ShapeLine</span><span class="p">(</span><span class="n">Line</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="ReferenceLine"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.line.ReferenceLine">[docs]</a><span class="k">class</span> <span class="nc">ReferenceLine</span><span class="p">(</span><span class="n">Line</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ReferenceLine.gen_interactive"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.line.ReferenceLine.gen_interactive">[docs]</a>    <span class="k">def</span> <span class="nf">gen_interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">popupcad.graphics2d.interactiveedge</span> <span class="kn">import</span> <span class="n">ReferenceInteractiveEdge</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">ReferenceInteractiveEdge</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">v</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

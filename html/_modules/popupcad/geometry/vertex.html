@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.geometry.vertex &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.geometry.vertex</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.constraints</span> <span class="kn">import</span> <span class="n">SymbolicVertex</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="kn">as</span> <span class="nn">sg</span>
+
+<div class="viewcode-block" id="BaseVertex"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex">[docs]</a><span class="k">class</span> <span class="nc">BaseVertex</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">editable</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;position&#39;</span><span class="p">]</span>
+    <span class="n">hidden</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;roundvalue,yaml_node_name&#39;</span><span class="p">]</span>
+    <span class="n">deletable</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">roundvalue</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">geometry_round_value</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span><span class="n">scaling</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setpos</span><span class="p">(</span><span class="n">position</span><span class="p">,</span><span class="n">scaling</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BaseVertex.constraints_ref"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.constraints_ref">[docs]</a>    <span class="k">def</span> <span class="nf">constraints_ref</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_constraints_ref</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_constraints_ref</span> <span class="o">=</span> <span class="n">SymbolicVertex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_constraints_ref</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.isValid"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.isValid">[docs]</a>    <span class="k">def</span> <span class="nf">isValid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</div>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;vertex&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">())</span>
+        
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BaseVertex.vertices"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.vertices">[docs]</a>    <span class="k">def</span> <span class="nf">vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span>
+</div>
+    <span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+<div class="viewcode-block" id="BaseVertex.p"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.p">[docs]</a>    <span class="k">def</span> <span class="nf">p</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints_ref</span><span class="p">()</span><span class="o">.</span><span class="n">p</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.setpos"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.setpos">[docs]</a>    <span class="k">def</span> <span class="nf">setpos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span><span class="n">scaling</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="o">*</span><span class="n">scaling</span>
+<span class="c">#        pos = pos.round(self.roundvalue)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.round"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.round">[docs]</a>    <span class="k">def</span> <span class="nf">round</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">decimal_places</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">decimal_places</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">decimal_places</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">geometry_round_value</span>
+
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">())</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">decimal_places</span><span class="p">)</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="n">pos</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.getpos"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.getpos">[docs]</a>    <span class="k">def</span> <span class="nf">getpos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_position</span><span class="p">,</span><span class="n">scaling</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s">&#39;_pos&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pos</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pos</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">deprecated_internal_argument_scaling</span> <span class="p">)</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pos</span>
+            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s">&#39;__pos&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__pos</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">deprecated_internal_argument_scaling</span> <span class="p">)</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pos</span>
+            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s">&#39;_Vertex__pos&#39;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Vertex__pos</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">deprecated_internal_argument_scaling</span> <span class="p">)</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Vertex__pos</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_position</span><span class="p">,</span><span class="n">scaling</span><span class="p">)</span></div>
+    <span class="n">position</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">getpos</span><span class="p">,</span><span class="n">setpos</span><span class="p">)</span>
+    
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="BaseVertex.scale_tuple"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.scale_tuple">[docs]</a>    <span class="k">def</span> <span class="nf">scale_tuple</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">scale</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">item</span> <span class="o">*</span> <span class="n">scale</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">value</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">value</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.getpos3D"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.getpos3D">[docs]</a>    <span class="k">def</span> <span class="nf">getpos3D</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">(),</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.setsymbol"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.setsymbol">[docs]</a>    <span class="k">def</span> <span class="nf">setsymbol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints_ref</span><span class="p">()</span><span class="o">.</span><span class="n">p</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">variable</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setpos</span><span class="p">((</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">()[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">variable</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setpos</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">value</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.properties"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.properties">[docs]</a>    <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">dev_tools.propertyeditor</span> <span class="kn">import</span> <span class="n">PropertyEditor</span>
+        <span class="k">return</span> <span class="n">PropertyEditor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.upgrade"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.upgrade">[docs]</a>    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.is_equal"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.is_equal">[docs]</a>    <span class="k">def</span> <span class="nf">is_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">tolerance</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">popupcad.algorithms.points</span> <span class="kn">as</span> <span class="nn">points</span>
+        <span class="k">if</span> <span class="n">tolerance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">tolerance</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">distinguishable_number_difference</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">points</span><span class="o">.</span><span class="n">twopointsthesame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">(),</span><span class="n">other</span><span class="o">.</span><span class="n">getpos</span><span class="p">(),</span><span class="n">tolerance</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.rounded_is_equal"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.rounded_is_equal">[docs]</a>    <span class="k">def</span> <span class="nf">rounded_is_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">decimal_places</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">popupcad.algorithms.points</span> <span class="kn">as</span> <span class="nn">points</span>
+
+        <span class="k">if</span> <span class="n">decimal_places</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">decimal_places</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">geometry_round_value</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">points</span><span class="o">.</span><span class="n">rounded_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">(),</span><span class="n">other</span><span class="o">.</span><span class="n">getpos</span><span class="p">(),</span><span class="n">decimal_places</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.is_identical"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.is_identical">[docs]</a>    <span class="k">def</span> <span class="nf">is_identical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">popupcad.algorithms.points</span> <span class="kn">as</span> <span class="nn">points</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">points</span><span class="o">.</span><span class="n">identical</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">(),</span><span class="n">other</span><span class="o">.</span><span class="n">getpos</span><span class="p">())</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.shift"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.shift">[docs]</a>    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dxdy</span><span class="p">):</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">())</span>
+        <span class="n">dxdy</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dxdy</span><span class="p">)</span>
+        <span class="n">newpos</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">dxdy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setpos</span><span class="p">(</span><span class="n">newpos</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.constrained_shift"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.constrained_shift">[docs]</a>    <span class="k">def</span> <span class="nf">constrained_shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dxdy</span><span class="p">,</span> <span class="n">constraintsystem</span><span class="p">):</span>
+        <span class="n">constraintsystem</span><span class="o">.</span><span class="n">constrained_shift</span><span class="p">([(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dxdy</span><span class="p">)])</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseVertex.delistify_0"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.delistify_0">[docs]</a>    <span class="k">def</span> <span class="nf">delistify_0</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">cls</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">deprecated_internal_argument_scaling</span><span class="p">,</span> <span class="n">y</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">deprecated_internal_argument_scaling</span><span class="p">))</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseVertex.delistify_1"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.delistify_1">[docs]</a>    <span class="k">def</span> <span class="nf">delistify_1</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">cls</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="BaseVertex.listify"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.listify">[docs]</a>    <span class="k">def</span> <span class="nf">listify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">()</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">output</span>
+</div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="BaseVertex.vertex_representer"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.vertex_representer">[docs]</a>    <span class="k">def</span> <span class="nf">vertex_representer</span><span class="p">(</span><span class="n">dumper</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">dumper</span><span class="o">.</span><span class="n">represent_sequence</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">yaml_node_name_1</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">listify</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">output</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseVertex.vertex_constructor_0"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.vertex_constructor_0">[docs]</a>    <span class="k">def</span> <span class="nf">vertex_constructor_0</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">loader</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="n">list1</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">construct_sequence</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">delistify_0</span><span class="p">(</span><span class="o">*</span><span class="n">list1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="BaseVertex.vertex_constructor_1"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.BaseVertex.vertex_constructor_1">[docs]</a>    <span class="k">def</span> <span class="nf">vertex_constructor_1</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">loader</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="n">list1</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">construct_sequence</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">delistify_1</span><span class="p">(</span><span class="o">*</span><span class="n">list1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div></div>
+<div class="viewcode-block" id="ReferenceVertex"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.ReferenceVertex">[docs]</a><span class="k">class</span> <span class="nc">ReferenceVertex</span><span class="p">(</span><span class="n">BaseVertex</span><span class="p">):</span>
+<div class="viewcode-block" id="ReferenceVertex.gen_interactive"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.ReferenceVertex.gen_interactive">[docs]</a>    <span class="k">def</span> <span class="nf">gen_interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">popupcad.graphics2d.interactivevertex</span> <span class="kn">import</span> <span class="n">ReferenceInteractiveVertex</span>
+        <span class="n">iv</span> <span class="o">=</span> <span class="n">ReferenceInteractiveVertex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">iv</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">iv</span>
+</div></div>
+<div class="viewcode-block" id="ShapeVertex"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.ShapeVertex">[docs]</a><span class="k">class</span> <span class="nc">ShapeVertex</span><span class="p">(</span><span class="n">BaseVertex</span><span class="p">):</span>
+    <span class="n">yaml_node_name_0</span> <span class="o">=</span> <span class="s">u&#39;!ShapeVertex&#39;</span>
+    <span class="n">yaml_node_name_1</span> <span class="o">=</span> <span class="s">u&#39;!ShapeVertex_1&#39;</span>
+
+<div class="viewcode-block" id="ShapeVertex.gen_interactive"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.ShapeVertex.gen_interactive">[docs]</a>    <span class="k">def</span> <span class="nf">gen_interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">popupcad.graphics2d.interactivevertex</span> <span class="kn">import</span> <span class="n">InteractiveShapeVertex</span>
+        <span class="n">iv</span> <span class="o">=</span> <span class="n">InteractiveShapeVertex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">iv</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">iv</span>
+
+<span class="c">#TODO: does DrawnPoint really need to be a child class of ShapeVertex, or can it be a child of BaseVertex?</span></div></div>
+<div class="viewcode-block" id="DrawnPoint"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint">[docs]</a><span class="k">class</span> <span class="nc">DrawnPoint</span><span class="p">(</span><span class="n">BaseVertex</span><span class="p">):</span>
+    <span class="n">editable</span> <span class="o">=</span> <span class="n">ShapeVertex</span><span class="o">.</span><span class="n">editable</span> <span class="o">+</span> <span class="p">[</span><span class="s">&#39;construction&#39;</span><span class="p">]</span>
+    <span class="n">yaml_node_name_0</span> <span class="o">=</span> <span class="s">u&#39;!DrawnPoint&#39;</span>
+    <span class="n">yaml_node_name_1</span> <span class="o">=</span> <span class="s">u&#39;!DrawnPoint_1&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">position</span><span class="p">,</span><span class="n">scaling</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="n">construction</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DrawnPoint</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">position</span><span class="p">,</span><span class="n">scaling</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_construction</span><span class="p">(</span><span class="n">construction</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DrawnPoint.exteriorpoints"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.exteriorpoints">[docs]</a>    <span class="k">def</span> <span class="nf">exteriorpoints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">scaling</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span><span class="p">)]</span>
+</div>
+<div class="viewcode-block" id="DrawnPoint.interiorpoints"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.interiorpoints">[docs]</a>    <span class="k">def</span> <span class="nf">interiorpoints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+</div>
+<div class="viewcode-block" id="DrawnPoint.gen_interactive"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.gen_interactive">[docs]</a>    <span class="k">def</span> <span class="nf">gen_interactive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">popupcad.graphics2d.interactivevertex</span> <span class="kn">import</span> <span class="n">DrawingPoint</span>
+        <span class="n">iv</span> <span class="o">=</span> <span class="n">DrawingPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">iv</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">iv</span>
+</div>
+<div class="viewcode-block" id="DrawnPoint.points"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.points">[docs]</a>    <span class="k">def</span> <span class="nf">points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">()]</span>
+</div>
+<div class="viewcode-block" id="DrawnPoint.segments"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.segments">[docs]</a>    <span class="k">def</span> <span class="nf">segments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+</div>
+<div class="viewcode-block" id="DrawnPoint.segmentpoints"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.segmentpoints">[docs]</a>    <span class="k">def</span> <span class="nf">segmentpoints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+</div>
+<div class="viewcode-block" id="DrawnPoint.outputinteractive"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.outputinteractive">[docs]</a>    <span class="k">def</span> <span class="nf">outputinteractive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">popupcad.graphics2d.interactivevertex</span> <span class="kn">import</span> <span class="n">DrawingPoint</span>
+        <span class="n">iv</span> <span class="o">=</span> <span class="n">DrawingPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">iv</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">iv</span>
+</div>
+<div class="viewcode-block" id="DrawnPoint.outputstatic"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.outputstatic">[docs]</a>    <span class="k">def</span> <span class="nf">outputstatic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">popupcad.graphics2d.interactivevertex</span> <span class="kn">import</span> <span class="n">StaticDrawingPoint</span>
+        <span class="n">iv</span> <span class="o">=</span> <span class="n">StaticDrawingPoint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">iv</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">iv</span>
+</div>
+<div class="viewcode-block" id="DrawnPoint.to_shapely"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.to_shapely">[docs]</a>    <span class="k">def</span> <span class="nf">to_shapely</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">p</span>
+</div>
+<div class="viewcode-block" id="DrawnPoint.is_construction"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.is_construction">[docs]</a>    <span class="k">def</span> <span class="nf">is_construction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">construction</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">construction</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">construction</span>
+</div>
+<div class="viewcode-block" id="DrawnPoint.set_construction"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.set_construction">[docs]</a>    <span class="k">def</span> <span class="nf">set_construction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">construction</span> <span class="o">=</span> <span class="n">test</span>
+</div>
+<div class="viewcode-block" id="DrawnPoint.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">(),</span><span class="n">construction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_construction</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="DrawnPoint.output_dxf"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.output_dxf">[docs]</a>    <span class="k">def</span> <span class="nf">output_dxf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">model_space</span><span class="p">,</span><span class="n">layer</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="n">dxfattribs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">dxfattribs</span><span class="p">[</span><span class="s">&#39;layer&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">layer</span>
+        <span class="n">model_space</span><span class="o">.</span><span class="n">add_point</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">(),</span><span class="n">dxfattribs</span> <span class="o">=</span> <span class="n">dxfattribs</span><span class="p">)</span>    </div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DrawnPoint.delistify_0"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.delistify_0">[docs]</a>    <span class="k">def</span> <span class="nf">delistify_0</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">is_construction</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">cls</span><span class="p">((</span><span class="n">x</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">deprecated_internal_argument_scaling</span><span class="p">,</span> <span class="n">y</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">deprecated_internal_argument_scaling</span><span class="p">))</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">set_construction</span><span class="p">(</span><span class="n">is_construction</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DrawnPoint.delistify_1"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.delistify_1">[docs]</a>    <span class="k">def</span> <span class="nf">delistify_1</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">is_construction</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">cls</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">set_construction</span><span class="p">(</span><span class="n">is_construction</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="DrawnPoint.listify"><a class="viewcode-back" href="../../../popupcad/popupcad.geometry.html#popupcad.geometry.vertex.DrawnPoint.listify">[docs]</a>    <span class="k">def</span> <span class="nf">listify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getpos</span><span class="p">()</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_construction</span><span class="p">()]</span>
+        <span class="k">return</span> <span class="n">output</span>
+</div></div>
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+<span class="n">yaml</span><span class="o">.</span><span class="n">add_representer</span><span class="p">(</span><span class="n">ShapeVertex</span><span class="p">,</span> <span class="n">ShapeVertex</span><span class="o">.</span><span class="n">vertex_representer</span><span class="p">)</span>
+<span class="n">yaml</span><span class="o">.</span><span class="n">add_constructor</span><span class="p">(</span><span class="n">ShapeVertex</span><span class="o">.</span><span class="n">yaml_node_name_0</span><span class="p">,</span><span class="n">ShapeVertex</span><span class="o">.</span><span class="n">vertex_constructor_0</span><span class="p">)</span>
+<span class="n">yaml</span><span class="o">.</span><span class="n">add_constructor</span><span class="p">(</span><span class="n">ShapeVertex</span><span class="o">.</span><span class="n">yaml_node_name_1</span><span class="p">,</span><span class="n">ShapeVertex</span><span class="o">.</span><span class="n">vertex_constructor_1</span><span class="p">)</span>
+<span class="n">yaml</span><span class="o">.</span><span class="n">add_representer</span><span class="p">(</span><span class="n">DrawnPoint</span><span class="p">,</span> <span class="n">DrawnPoint</span><span class="o">.</span><span class="n">vertex_representer</span><span class="p">)</span>
+<span class="n">yaml</span><span class="o">.</span><span class="n">add_constructor</span><span class="p">(</span><span class="n">DrawnPoint</span><span class="o">.</span><span class="n">yaml_node_name_0</span><span class="p">,</span> <span class="n">DrawnPoint</span><span class="o">.</span><span class="n">vertex_constructor_0</span><span class="p">)</span>
+<span class="n">yaml</span><span class="o">.</span><span class="n">add_constructor</span><span class="p">(</span><span class="n">DrawnPoint</span><span class="o">.</span><span class="n">yaml_node_name_1</span><span class="p">,</span> <span class="n">DrawnPoint</span><span class="o">.</span><span class="n">vertex_constructor_1</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

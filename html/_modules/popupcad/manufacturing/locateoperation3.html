@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.manufacturing.locateoperation3 &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.manufacturing.locateoperation3</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.laminate</span> <span class="kn">import</span> <span class="n">Laminate</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.operation2</span> <span class="kn">import</span> <span class="n">Operation2</span>
+<span class="kn">from</span> <span class="nn">popupcad.widgets.listmanager</span> <span class="kn">import</span> <span class="n">SketchListManager</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+
+<div class="viewcode-block" id="Dialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.locateoperation3.Dialog">[docs]</a><span class="k">class</span> <span class="nc">Dialog</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QDialog</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cls</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">sketch</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Dialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">design</span> <span class="o">=</span> <span class="n">design</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cls</span> <span class="o">=</span> <span class="n">cls</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sketchwidget</span> <span class="o">=</span> <span class="n">SketchListManager</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sketchwidget</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sketchwidget</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">sketch</span><span class="p">:</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">setSelected</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="n">button1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+        <span class="n">buttonlayout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">buttonlayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button1</span><span class="p">)</span>
+        <span class="n">buttonlayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button2</span><span class="p">)</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sketchwidget</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">buttonlayout</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+        <span class="n">button1</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="n">button2</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Dialog.sketch"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.locateoperation3.Dialog.sketch">[docs]</a>    <span class="k">def</span> <span class="nf">sketch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sketchwidget</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="Dialog.acceptdata"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.locateoperation3.Dialog.acceptdata">[docs]</a>    <span class="k">def</span> <span class="nf">acceptdata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sketch_links</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;sketch&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sketch</span><span class="p">()</span><span class="o">.</span><span class="n">id</span><span class="p">]}</span>
+        <span class="k">return</span> <span class="n">sketch_links</span><span class="p">,</span>
+
+</div></div>
+<div class="viewcode-block" id="LocateOperation3"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.locateoperation3.LocateOperation3">[docs]</a><span class="k">class</span> <span class="nc">LocateOperation3</span><span class="p">(</span><span class="n">Operation2</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;LocateOp&#39;</span>
+
+<div class="viewcode-block" id="LocateOperation3.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.locateoperation3.LocateOperation3.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="p">)</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LocateOperation3</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editdata</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LocateOperation3.editdata"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.locateoperation3.LocateOperation3.editdata">[docs]</a>    <span class="k">def</span> <span class="nf">editdata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch_links</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LocateOperation3</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">editdata</span><span class="p">({},</span> <span class="n">sketch_links</span><span class="p">,</span> <span class="p">{})</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="LocateOperation3.buildnewdialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.locateoperation3.LocateOperation3.buildnewdialog">[docs]</a>    <span class="k">def</span> <span class="nf">buildnewdialog</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">currentop</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">Dialog</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">design</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dialog</span>
+</div>
+<div class="viewcode-block" id="LocateOperation3.buildeditdialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.locateoperation3.LocateOperation3.buildeditdialog">[docs]</a>    <span class="k">def</span> <span class="nf">buildeditdialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
+        <span class="n">sketchid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="p">[</span><span class="s">&#39;sketch&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sketch</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="n">sketchid</span><span class="p">]</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">Dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">sketch</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dialog</span>
+</div>
+<div class="viewcode-block" id="LocateOperation3.operate"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.locateoperation3.LocateOperation3.operate">[docs]</a>    <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
+        <span class="n">sketchid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="p">[</span><span class="s">&#39;sketch&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sketch</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="n">sketchid</span><span class="p">]</span>
+        <span class="n">operationgeom</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">unary_union_safe</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sketch</span><span class="o">.</span><span class="n">operationgeometry</span><span class="p">])</span>
+        <span class="n">lsout</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">()</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+            <span class="n">lsout</span><span class="o">.</span><span class="n">replacelayergeoms</span><span class="p">(</span>
+                <span class="n">layer</span><span class="p">,</span>
+                <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">condition_shapely_entities</span><span class="p">(</span><span class="n">operationgeom</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">lsout</span>
+</div>
+<div class="viewcode-block" id="LocateOperation3.locationgeometry"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.locateoperation3.LocateOperation3.locationgeometry">[docs]</a>    <span class="k">def</span> <span class="nf">locationgeometry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sketchid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="p">[</span><span class="s">&#39;sketch&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">sketchid</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

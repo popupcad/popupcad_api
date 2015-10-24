@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.filetypes.solidworksimport &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.filetypes.solidworksimport</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericPoly</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapebase</span> <span class="kn">import</span> <span class="n">NotSimple</span><span class="p">,</span> <span class="n">ShapeInvalid</span><span class="p">,</span> <span class="n">GenericShapeBase</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.popupcad_file</span> <span class="kn">import</span> <span class="n">popupCADFile</span>
+<span class="c">#import shapely.geometry as sg</span>
+<div class="viewcode-block" id="Loop"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Loop">[docs]</a><span class="k">class</span> <span class="nc">Loop</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loop</span><span class="p">,</span> <span class="n">geom</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loop</span> <span class="o">=</span> <span class="n">loop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geom</span> <span class="o">=</span> <span class="n">geom</span>
+
+</div>
+<div class="viewcode-block" id="Face"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Face">[docs]</a><span class="k">class</span> <span class="nc">Face</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="Component"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Component">[docs]</a><span class="k">class</span> <span class="nc">Component</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="Assembly"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Assembly">[docs]</a><span class="k">class</span> <span class="nc">Assembly</span><span class="p">(</span><span class="n">popupCADFile</span><span class="p">):</span>
+    <span class="n">filetypes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;yaml&#39;</span><span class="p">:</span> <span class="s">&#39;Yaml File&#39;</span><span class="p">}</span>
+    <span class="n">defaultfiletype</span> <span class="o">=</span> <span class="s">&#39;yaml&#39;</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Assembly.lastdir"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Assembly.lastdir">[docs]</a>    <span class="k">def</span> <span class="nf">lastdir</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">lastimportdir</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Assembly.setlastdir"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Assembly.setlastdir">[docs]</a>    <span class="k">def</span> <span class="nf">setlastdir</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">directory</span><span class="p">):</span>
+        <span class="n">popupcad</span><span class="o">.</span><span class="n">lastimportdir</span> <span class="o">=</span> <span class="n">directory</span>
+</div>
+<div class="viewcode-block" id="Assembly.convert"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Assembly.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+            <span class="n">scalefactor</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+            <span class="n">area_ratio</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+            <span class="n">colinear_tol</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">,</span>
+            <span class="n">bufferval</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+            <span class="n">cleanup</span><span class="o">=.</span><span class="mo">01</span><span class="p">):</span>
+        <span class="n">ok1</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">ok2</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">ok3</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">ok4</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">ok5</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">scalefactor</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">scalefactor</span><span class="p">,</span> <span class="n">ok1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getDouble</span><span class="p">(</span>
+                <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;Scale Factor&#39;</span><span class="p">,</span> <span class="s">&#39;Scale Factor&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">area_ratio</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">area_ratio</span><span class="p">,</span> <span class="n">ok2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getDouble</span><span class="p">(</span>
+                <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;Area Ratio&#39;</span><span class="p">,</span> <span class="s">&#39;Area Ratio&#39;</span><span class="p">,</span> <span class="o">.</span><span class="mo">001</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">colinear_tol</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">colinear_tol</span><span class="p">,</span> <span class="n">ok3</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getDouble</span><span class="p">(</span>
+                <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;Colinear Tolerance&#39;</span><span class="p">,</span> <span class="s">&#39;Colinear Tolerance&#39;</span><span class="p">,</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">bufferval</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">bufferval</span><span class="p">,</span> <span class="n">ok4</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getDouble</span><span class="p">(</span>
+                <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;Buffer&#39;</span><span class="p">,</span> <span class="s">&#39;Buffer&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_negative_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cleanup</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">cleanup</span><span class="p">,</span> <span class="n">ok5</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getDouble</span><span class="p">(</span>
+                <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;Simplify&#39;</span><span class="p">,</span> <span class="s">&#39;Simplify&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ok1</span> <span class="ow">and</span> <span class="n">ok2</span> <span class="ow">and</span> <span class="n">ok3</span> <span class="ow">and</span> <span class="n">ok4</span> <span class="ow">and</span> <span class="n">ok5</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span>
+                <span class="n">scalefactor</span><span class="p">,</span>
+                <span class="n">area_ratio</span><span class="p">,</span>
+                <span class="n">colinear_tol</span><span class="p">,</span>
+                <span class="n">bufferval</span><span class="p">,</span>
+                <span class="n">cleanup</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">scalefactor</span><span class="p">,</span>
+            <span class="n">area_ratio</span><span class="p">,</span>
+            <span class="n">colinear_tol</span><span class="p">,</span>
+            <span class="n">bufferval</span><span class="p">,</span>
+            <span class="n">cleanup</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geoms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">T1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
+        <span class="n">R1</span> <span class="o">=</span> <span class="n">T1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">b1</span> <span class="o">=</span> <span class="n">T1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">component</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">components</span><span class="p">):</span>
+            <span class="n">T2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
+            <span class="n">R2</span> <span class="o">=</span> <span class="n">T2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">b2</span> <span class="o">=</span> <span class="n">T2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">component</span><span class="o">.</span><span class="n">faces</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">jj</span><span class="p">,</span> <span class="n">face</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">component</span><span class="o">.</span><span class="n">faces</span><span class="p">):</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">loops</span> <span class="o">=</span> <span class="n">face</span><span class="o">.</span><span class="n">loops</span>
+
+                        <span class="n">ints_c</span> <span class="o">=</span> <span class="p">[</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">transform_loop</span><span class="p">(</span>
+                                <span class="n">interior</span><span class="p">,</span>
+                                <span class="n">R1</span><span class="p">,</span>
+                                <span class="n">b1</span><span class="p">,</span>
+                                <span class="n">R2</span><span class="p">,</span>
+                                <span class="n">b2</span><span class="p">,</span>
+                                <span class="n">scalefactor</span><span class="p">)</span> <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="n">loops</span><span class="p">]</span>
+
+                        <span class="n">a</span> <span class="o">=</span> <span class="p">[</span>
+                            <span class="n">GenericPoly</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span>
+                                <span class="n">loop</span><span class="p">,</span>
+                                <span class="p">[])</span> <span class="k">for</span> <span class="n">loop</span> <span class="ow">in</span> <span class="n">ints_c</span><span class="p">]</span>
+                        <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">cleanup</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">b</span> <span class="o">=</span> <span class="p">[</span>
+                                <span class="n">item</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span>
+                                    <span class="n">cleanup</span> <span class="o">*</span>
+                                    <span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">b</span><span class="p">]</span>
+                        <span class="n">c</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">b</span><span class="p">:</span>
+                            <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                        <span class="n">d</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">condition_shapely_entities</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+                        <span class="n">e</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">condition_shapely_entities</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">bufferval</span> <span class="o">*</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span><span class="p">,</span><span class="n">resolution</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">default_buffer_resolution</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">d</span><span class="p">])</span>
+                        <span class="n">f</span> <span class="o">=</span> <span class="p">[</span><span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">to_generic</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">e</span><span class="p">]</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">geoms</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="n">NotSimple</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                    <span class="k">except</span> <span class="n">ShapeInvalid</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                        <span class="k">print</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+<span class="c">#                        if ex.message!=&#39;A LinearRing must have at least 3 coordinate tuples&#39;:</span>
+<span class="c">#                            print(ex.message)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filter_small_areas</span><span class="p">(</span><span class="n">area_ratio</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Assembly.transform_loop"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Assembly.transform_loop">[docs]</a>    <span class="k">def</span> <span class="nf">transform_loop</span><span class="p">(</span><span class="n">loop</span><span class="p">,</span> <span class="n">R1</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">R2</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">scalefactor</span><span class="p">):</span>
+        <span class="n">looparray</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="n">v2</span> <span class="o">=</span> <span class="n">R1</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">R2</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">looparray</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span><span class="p">)</span>
+        <span class="n">v2</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">v2</span> <span class="o">=</span> <span class="n">v2</span> <span class="o">*</span> <span class="n">scalefactor</span> <span class="o">*</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">solidworks_mm_conversion</span>
+        <span class="k">return</span> <span class="n">v2</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Assembly.build_face_sketch"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Assembly.build_face_sketch">[docs]</a>    <span class="k">def</span> <span class="nf">build_face_sketch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">scalefactor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">bufferval</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cleanup</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+        <span class="n">sketch</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">sketch</span><span class="o">.</span><span class="n">Sketch</span><span class="p">()</span>
+        <span class="n">sketch</span><span class="o">.</span><span class="n">addoperationgeometries</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geoms</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sketch</span>
+</div>
+<div class="viewcode-block" id="Assembly.filter_small_areas"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Assembly.filter_small_areas">[docs]</a>    <span class="k">def</span> <span class="nf">filter_small_areas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">area_ratio</span><span class="p">):</span>
+        <span class="n">areas</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geoms</span><span class="p">:</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()</span>
+            <span class="n">areas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">shape</span><span class="o">.</span><span class="n">area</span><span class="p">))</span>
+        <span class="n">goodgeoms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">badgeoms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geoms</span><span class="p">:</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">shape</span><span class="o">.</span><span class="n">area</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">max</span><span class="p">(</span><span class="n">areas</span><span class="p">)</span> <span class="o">*</span> <span class="n">area_ratio</span><span class="p">:</span>
+                <span class="n">badgeoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">goodgeoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geoms</span> <span class="o">=</span> <span class="n">goodgeoms</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">badgeoms</span> <span class="o">=</span> <span class="n">badgeoms</span>
+</div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Assembly.buildloops"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Assembly.buildloops">[docs]</a>    <span class="k">def</span> <span class="nf">buildloops</span><span class="p">(</span><span class="n">geoms</span><span class="p">):</span>
+        <span class="n">loops</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">geoms</span><span class="p">:</span>
+            <span class="n">loops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">exteriorpoints</span><span class="p">())</span>
+            <span class="n">loops</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">interiorpoints</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">loops</span>
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">Assembly</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">scalefactor</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">bufferval</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

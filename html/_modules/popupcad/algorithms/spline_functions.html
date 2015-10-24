@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.algorithms.spline_functions &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.algorithms.spline_functions</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Sun Oct 11 15:24:36 2015</span>
+
+<span class="sd">@author: danaukes</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<div class="viewcode-block" id="N0"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.spline_functions.N0">[docs]</a><span class="k">def</span> <span class="nf">N0</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">knots</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">knots</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">q</span><span class="o">&gt;=</span><span class="n">knots</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">&lt;=</span><span class="n">knots</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">q</span><span class="o">&gt;=</span><span class="n">knots</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">&lt;</span><span class="n">knots</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">f</span>
+</div>
+<div class="viewcode-block" id="Nip"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.spline_functions.Nip">[docs]</a><span class="k">def</span> <span class="nf">Nip</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">knots</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">calculated</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+        <span class="n">calc</span> <span class="o">=</span> <span class="n">calculated</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">calc</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">r1</span> <span class="o">=</span> <span class="p">(</span><span class="n">knots</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">p</span><span class="p">]</span><span class="o">-</span><span class="n">knots</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">r2</span> <span class="o">=</span> <span class="p">(</span><span class="n">knots</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">knots</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">r1</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">c</span><span class="o">=</span><span class="n">q</span><span class="o">*</span><span class="mi">0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="n">knots</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="n">r1</span>
+    
+            <span class="k">if</span> <span class="n">r2</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">q</span><span class="o">*</span><span class="mi">0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="n">knots</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">q</span><span class="p">)</span><span class="o">/</span><span class="n">r2</span>
+    
+            <span class="n">A</span> <span class="o">=</span> <span class="n">c</span><span class="o">*</span><span class="n">N</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">](</span><span class="n">q</span><span class="p">)</span>
+            <span class="n">B</span> <span class="o">=</span> <span class="n">d</span><span class="o">*</span><span class="n">N</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">](</span><span class="n">q</span><span class="p">)</span>
+            
+            <span class="n">calculated</span><span class="p">[</span><span class="n">p</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="o">+</span><span class="n">B</span>
+    
+            <span class="k">return</span> <span class="n">A</span> <span class="o">+</span> <span class="n">B</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">calc</span>
+    <span class="k">return</span> <span class="n">f</span>
+</div>
+<div class="viewcode-block" id="calc_spline"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.spline_functions.calc_spline">[docs]</a><span class="k">def</span> <span class="nf">calc_spline</span><span class="p">(</span><span class="n">knots</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">domain</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">knots</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="n">m</span><span class="o">-</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span>
+    
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">!=</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        
+    <span class="n">N</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">calculated</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">N</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="n">ii</span><span class="p">))</span>
+        <span class="n">calculated</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="bp">None</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="n">ii</span><span class="p">))</span>
+        
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">ii</span><span class="p">]</span><span class="o">=</span><span class="n">N0</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span><span class="n">knots</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="n">jj</span><span class="p">):</span>
+            <span class="n">N</span><span class="p">[</span><span class="n">jj</span><span class="p">][</span><span class="n">ii</span><span class="p">]</span><span class="o">=</span><span class="n">Nip</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">,</span><span class="n">knots</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">calculated</span><span class="p">)</span>  
+    
+    <span class="n">calculated_spline</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">n</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span><span class="o">*</span><span class="n">weight</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">weight</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">N</span><span class="p">[</span><span class="n">p</span><span class="p">],</span><span class="n">w</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="n">calculated_spline</span>
+</div>
+<div class="viewcode-block" id="interpolated_points"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.spline_functions.interpolated_points">[docs]</a><span class="k">def</span> <span class="nf">interpolated_points</span><span class="p">(</span><span class="n">points</span><span class="p">,</span><span class="n">knots</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">domain</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">calc_spline</span><span class="p">(</span><span class="n">knots</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">domain</span><span class="p">)</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">interpolated_points</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="n">interpolated_points</span> <span class="o">=</span> <span class="p">(</span><span class="n">interpolated_points</span><span class="o">.</span><span class="n">T</span><span class="o">/</span><span class="n">weights</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="n">interpolated_points</span>
+    </div>
+<div class="viewcode-block" id="make_domain"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.spline_functions.make_domain">[docs]</a><span class="k">def</span> <span class="nf">make_domain</span><span class="p">(</span><span class="n">knots</span><span class="p">,</span><span class="n">num_segments</span><span class="p">):</span>
+    <span class="n">domain</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">knots</span><span class="p">):</span><span class="nb">max</span><span class="p">(</span><span class="n">knots</span><span class="p">):(</span><span class="n">num_segments</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">1j</span><span class="p">]</span>    
+    <span class="k">return</span> <span class="n">domain</span>
+</div>
+<div class="viewcode-block" id="plot_labeled_points"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.spline_functions.plot_labeled_points">[docs]</a><span class="k">def</span> <span class="nf">plot_labeled_points</span><span class="p">(</span><span class="n">cp</span><span class="p">):</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;cp{0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cp</span><span class="p">))]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">cp</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">marker</span> <span class="o">=</span> <span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">bbox1</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;boxstyle&#39;</span><span class="p">:</span><span class="s">&#39;round,pad=0.5&#39;</span><span class="p">,</span> <span class="s">&#39;fc&#39;</span><span class="p">:</span><span class="s">&#39;yellow&#39;</span><span class="p">,</span> <span class="s">&#39;alpha&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span><span class="n">cp</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">xy</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">xytext</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">textcoords</span> <span class="o">=</span> <span class="s">&#39;offset points&#39;</span><span class="p">,</span> <span class="n">ha</span> <span class="o">=</span> <span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span> <span class="o">=</span> <span class="s">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox1</span><span class="p">,</span> <span class="n">arrowprops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span> <span class="o">=</span> <span class="s">&#39;-&gt;&#39;</span><span class="p">,</span> <span class="n">connectionstyle</span> <span class="o">=</span> <span class="s">&#39;arc3,rad=0&#39;</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="control_from_fit_points"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.spline_functions.control_from_fit_points">[docs]</a><span class="k">def</span> <span class="nf">control_from_fit_points</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">plot</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">scipy.linalg</span>
+    
+    <span class="n">r</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">middle</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">r</span><span class="p">]</span>
+    <span class="n">knots</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">middle</span><span class="p">,[</span><span class="n">r</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">knots</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">m</span><span class="o">-</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">domain</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">calc_spline</span><span class="p">(</span><span class="n">knots</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">domain</span><span class="p">)</span>
+    <span class="n">yi</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+    
+    <span class="n">cp2</span> <span class="o">=</span> <span class="n">yi</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">cp2</span><span class="p">,</span><span class="n">knots</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">cp</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.3333333333333333</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.423076923076923</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4230769230769232</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5192307692307694</span><span class="p">,</span> <span class="mf">1.480769230769231</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.4999999999999999</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.480769230769231</span><span class="p">,</span> <span class="mf">2.519230769230769</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.576923076923078</span><span class="p">,</span> <span class="mf">1.423076923076924</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.666666666666667</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]]</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]]</span>
+    <span class="n">knots</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">cp</span><span class="p">)</span>
+<span class="c">#    w[4]=3</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">cp</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+    
+    <span class="n">domain</span> <span class="o">=</span> <span class="n">make_domain</span><span class="p">(</span><span class="n">knots</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">calc_spline</span><span class="p">(</span><span class="n">knots</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">domain</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plot_labeled_points</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cp</span><span class="p">))</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">interpolated_points</span><span class="p">(</span><span class="n">points</span><span class="p">,</span><span class="n">knots</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">domain</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">points</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

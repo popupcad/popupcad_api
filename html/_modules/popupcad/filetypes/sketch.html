@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.filetypes.sketch &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.filetypes.sketch</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.constraints</span> <span class="kn">import</span> <span class="n">ConstraintSystem</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.popupcad_file</span> <span class="kn">import</span> <span class="n">popupCADFile</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericPolyline</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericPoly</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericLine</span>
+
+<div class="viewcode-block" id="Sketch"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch">[docs]</a><span class="k">class</span> <span class="nc">Sketch</span><span class="p">(</span><span class="n">popupCADFile</span><span class="p">):</span>
+    <span class="n">filetypes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;sketch&#39;</span><span class="p">:</span> <span class="s">&#39;Sketch File&#39;</span><span class="p">,</span> <span class="s">&#39;dxf&#39;</span><span class="p">:</span> <span class="s">&#39;DXF&#39;</span><span class="p">}</span>
+    <span class="n">defaultfiletype</span> <span class="o">=</span> <span class="s">&#39;sketch&#39;</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Sketch.lastdir"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch.lastdir">[docs]</a>    <span class="k">def</span> <span class="nf">lastdir</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">lastsketchdir</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Sketch.setlastdir"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch.setlastdir">[docs]</a>    <span class="k">def</span> <span class="nf">setlastdir</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">directory</span><span class="p">):</span>
+        <span class="n">popupcad</span><span class="o">.</span><span class="n">lastsketchdir</span> <span class="o">=</span> <span class="n">directory</span>
+</div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Sketch</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operationgeometry</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constraintsystem</span> <span class="o">=</span> <span class="n">ConstraintSystem</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Sketch.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)()</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">operationgeometry</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">geom</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span>
+                <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">operationgeometry</span> <span class="k">if</span> <span class="n">geom</span><span class="o">.</span><span class="n">isValid</span><span class="p">()]</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">constraintsystem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraintsystem</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy_file_params</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">identical</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="Sketch.upgrade"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch.upgrade">[docs]</a>    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)()</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">operationgeometry</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">geom</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span>
+                <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">operationgeometry</span> <span class="k">if</span> <span class="n">geom</span><span class="o">.</span><span class="n">isValid</span><span class="p">()]</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">constraintsystem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraintsystem</span><span class="o">.</span><span class="n">upgrade</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy_file_params</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">identical</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="Sketch.addoperationgeometries"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch.addoperationgeometries">[docs]</a>    <span class="k">def</span> <span class="nf">addoperationgeometries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">polygons</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operationgeometry</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">polygons</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Sketch.cleargeometries"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch.cleargeometries">[docs]</a>    <span class="k">def</span> <span class="nf">cleargeometries</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operationgeometry</span> <span class="o">=</span> <span class="p">[]</span>
+</div>
+<div class="viewcode-block" id="Sketch.edit"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch.edit">[docs]</a>    <span class="k">def</span> <span class="nf">edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">design</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">popupcad.guis.sketcher</span> <span class="kn">import</span> <span class="n">Sketcher</span>
+        <span class="n">sketcher</span> <span class="o">=</span> <span class="n">Sketcher</span><span class="p">(</span>
+            <span class="n">parent</span><span class="p">,</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">design</span><span class="p">,</span>
+            <span class="n">accept_method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">edit_result</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">sketcher</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">sketcher</span><span class="o">.</span><span class="n">graphicsview</span><span class="o">.</span><span class="n">zoomToFit</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Sketch.edit_result"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch.edit_result">[docs]</a>    <span class="k">def</span> <span class="nf">edit_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operationgeometry</span> <span class="o">=</span> <span class="n">sketch</span><span class="o">.</span><span class="n">operationgeometry</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constraintsystem</span> <span class="o">=</span> <span class="n">sketch</span><span class="o">.</span><span class="n">constraintsystem</span>
+</div>
+<div class="viewcode-block" id="Sketch.output_csg"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch.output_csg">[docs]</a>    <span class="k">def</span> <span class="nf">output_csg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">shapelygeoms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">operationgeometry</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">is_construction</span><span class="p">():</span>
+                    <span class="n">shapelyitem</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()</span>
+                    <span class="n">shapelygeoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shapelyitem</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                <span class="n">shapelyitem</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()</span>
+                <span class="n">shapelygeoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shapelyitem</span><span class="p">)</span>
+        <span class="n">shapelygeoms</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">unary_union_safe</span><span class="p">(</span><span class="n">shapelygeoms</span><span class="p">)</span>
+        <span class="n">shapelygeoms</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">condition_shapely_entities</span><span class="p">(</span><span class="n">shapelygeoms</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">shapelygeoms</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Sketch.load_dxf"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch.load_dxf">[docs]</a>    <span class="k">def</span> <span class="nf">load_dxf</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">ezdxf</span>
+        <span class="n">ezdxf</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">template_dir</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">supportfiledir</span>        
+        
+        <span class="kn">import</span> <span class="nn">ezdxf.modern</span>
+        <span class="n">dxf</span> <span class="o">=</span> <span class="n">ezdxf</span><span class="o">.</span><span class="n">readfile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">layer_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">dxf</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">dxf</span><span class="o">.</span><span class="n">layers</span><span class="p">]</span>
+        
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QDialog</span><span class="p">()</span>
+        <span class="n">lw</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QListWidget</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">layer_names</span><span class="p">:</span>
+            <span class="n">lw</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QListWidgetItem</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+        <span class="n">lw</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">lw</span><span class="o">.</span><span class="n">SelectionMode</span><span class="o">.</span><span class="n">ExtendedSelection</span><span class="p">)</span>
+        <span class="n">button_ok</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button_cancel</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+        <span class="n">button_ok</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dialog</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="n">button_cancel</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dialog</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout_buttons</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout_buttons</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_ok</span><span class="p">)</span>
+        <span class="n">layout_buttons</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_cancel</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">lw</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout_buttons</span><span class="p">)</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+            <span class="n">selected_layers</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span>
+                    <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lw</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()]</span>
+            <span class="n">entities</span> <span class="o">=</span> <span class="n">dxf</span><span class="o">.</span><span class="n">entities</span>
+            <span class="n">generics</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">dxf</span><span class="o">.</span><span class="n">layer</span> <span class="ow">in</span> <span class="n">selected_layers</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">ezdxf</span><span class="o">.</span><span class="n">modern</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">Line</span><span class="p">):</span>
+                        <span class="kn">import</span> <span class="nn">numpy</span>
+                        <span class="n">points</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                            <span class="p">[</span><span class="n">entity</span><span class="o">.</span><span class="n">dxf</span><span class="o">.</span><span class="n">start</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">entity</span><span class="o">.</span><span class="n">dxf</span><span class="o">.</span><span class="n">end</span><span class="p">[:</span><span class="mi">2</span><span class="p">]])</span>
+                        <span class="n">generics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">GenericLine</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span>
+                                <span class="n">points</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                                <span class="p">[]))</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">ezdxf</span><span class="o">.</span><span class="n">modern</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">LWPolyline</span><span class="p">):</span>
+                        <span class="kn">import</span> <span class="nn">numpy</span>
+                        <span class="n">points</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">get_points</span><span class="p">()])</span>
+                        <span class="n">points</span> <span class="o">=</span> <span class="n">points</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">closed</span><span class="p">:</span>
+                            <span class="n">generics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GenericPoly</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),[]))</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">generics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GenericPolyline</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),[]))</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">ezdxf</span><span class="o">.</span><span class="n">modern</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
+                        <span class="kn">from</span> <span class="nn">popupcad.geometry.vertex</span> <span class="kn">import</span> <span class="n">DrawnPoint</span>
+                        <span class="n">point</span> <span class="o">=</span> <span class="n">DrawnPoint</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">get_dxf_attrib</span><span class="p">(</span><span class="s">&#39;location&#39;</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]))</span>
+                        <span class="n">generics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">ezdxf</span><span class="o">.</span><span class="n">modern</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">Spline</span><span class="p">):</span>
+                        <span class="n">knots</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get_knot_values</span><span class="p">()</span>
+                        <span class="n">control_points</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get_control_points</span><span class="p">()</span>
+                        <span class="n">weights</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span>
+                        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">control_points</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+                        <span class="n">domain</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">spline_functions</span><span class="o">.</span><span class="n">make_domain</span><span class="p">(</span><span class="n">knots</span><span class="p">,</span><span class="n">n</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
+                        <span class="n">points</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">spline_functions</span><span class="o">.</span><span class="n">interpolated_points</span><span class="p">(</span><span class="n">control_points</span><span class="p">,</span><span class="n">knots</span><span class="p">,</span><span class="n">weights</span><span class="p">,</span><span class="n">domain</span><span class="p">)</span>
+                        <span class="n">points</span> <span class="o">=</span> <span class="n">points</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">closed</span><span class="p">:</span>
+                            <span class="n">generics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GenericPoly</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),[]))</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">generics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GenericPolyline</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),[]))</span>
+
+<span class="c">#                        print(points)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">cls</span><span class="p">()</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">addoperationgeometries</span><span class="p">(</span><span class="n">generics</span><span class="p">)</span>
+            <span class="n">newfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s">&#39;.sketch&#39;</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">updatefilename</span><span class="p">(</span><span class="n">newfile</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">filename</span><span class="p">,</span> <span class="n">new</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Sketch.open_filename"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch.open_filename">[docs]</a>    <span class="k">def</span> <span class="nf">open_filename</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">filterstring</span><span class="p">,</span> <span class="n">selectedfilter</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">buildfilters</span><span class="p">()</span>
+        <span class="n">filename</span><span class="p">,</span> <span class="n">selectedfilter</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
+            <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;Open&#39;</span><span class="p">,</span> <span class="n">cls</span><span class="o">.</span><span class="n">lastdir</span><span class="p">(),</span> <span class="nb">filter</span><span class="o">=</span><span class="n">filterstring</span><span class="p">,</span> <span class="n">selectedFilter</span><span class="o">=</span><span class="n">selectedfilter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s">&#39;sketch&#39;</span> <span class="ow">in</span> <span class="n">selectedfilter</span><span class="p">:</span>
+                <span class="n">object1</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">filename</span><span class="p">,</span> <span class="n">object1</span>
+            <span class="k">elif</span> <span class="s">&#39;dxf&#39;</span> <span class="ow">in</span> <span class="n">selectedfilter</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">load_dxf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="Sketch.saveAs"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch.saveAs">[docs]</a>    <span class="k">def</span> <span class="nf">saveAs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">os</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tempfilename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dirname</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">get_basename</span><span class="p">()))</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">basename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_basename</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="n">basename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">genbasename</span><span class="p">()</span>
+
+            <span class="n">tempfilename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lastdir</span><span class="p">(),</span>
+                    <span class="n">basename</span><span class="p">))</span>
+
+        <span class="n">filterstring</span><span class="p">,</span> <span class="n">selectedfilter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buildfilters</span><span class="p">()</span>
+        <span class="n">filename</span><span class="p">,</span> <span class="n">selectedfilter</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
+            <span class="n">parent</span><span class="p">,</span> <span class="s">&quot;Save As&quot;</span><span class="p">,</span> <span class="n">tempfilename</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">filterstring</span><span class="p">,</span> <span class="n">selectedFilter</span><span class="o">=</span><span class="n">selectedfilter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s">&#39;sketch&#39;</span> <span class="ow">in</span> <span class="n">selectedfilter</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_yaml</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">identical</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s">&#39;dxf&#39;</span> <span class="ow">in</span> <span class="n">selectedfilter</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_dxf</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Sketch.save_dxf"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.sketch.Sketch.save_dxf">[docs]</a>    <span class="k">def</span> <span class="nf">save_dxf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">filename</span><span class="p">,</span><span class="n">update_filename</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">ezdxf</span>
+        <span class="n">ezdxf</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">template_dir</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">supportfiledir</span>        
+        
+        <span class="n">dwg</span> <span class="o">=</span> <span class="n">ezdxf</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;AC1015&#39;</span><span class="p">)</span>
+        <span class="n">msp</span> <span class="o">=</span> <span class="n">dwg</span><span class="o">.</span><span class="n">modelspace</span><span class="p">()</span>
+        
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">operationgeometry</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">is_construction</span><span class="p">():</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">output_dxf</span><span class="p">(</span><span class="n">msp</span><span class="p">)</span>
+        
+        <span class="n">dwg</span><span class="o">.</span><span class="n">saveas</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>        
+        <span class="n">newfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s">&#39;.sketch&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatefilename</span><span class="p">(</span><span class="n">newfile</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

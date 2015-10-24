@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.algorithms.triangulate &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.algorithms.triangulate</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericShapeBase</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericPoly</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">Delaunay</span>
+
+
+<div class="viewcode-block" id="convex_hull"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.triangulate.convex_hull">[docs]</a><span class="k">def</span> <span class="nf">convex_hull</span><span class="p">(</span><span class="n">vertices</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Create a convex polygon from given points&#39;&#39;&#39;</span>
+    <span class="n">delaunay</span> <span class="o">=</span> <span class="n">Delaunay</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span>
+
+    <span class="n">cvx</span> <span class="o">=</span> <span class="n">delaunay</span><span class="o">.</span><span class="n">convex_hull</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">lastrow</span> <span class="o">=</span> <span class="n">cvx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">iis</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cvx</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">iis</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">lastindex</span> <span class="o">=</span> <span class="n">lastrow</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">findop</span> <span class="o">=</span> <span class="p">(</span><span class="n">cvx</span><span class="p">[</span><span class="n">ii</span><span class="p">:]</span> <span class="o">==</span> <span class="n">lastindex</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()</span>
+
+        <span class="n">jj</span> <span class="o">=</span> <span class="n">findop</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">ii</span>
+
+        <span class="n">cvx</span><span class="p">[(</span><span class="n">ii</span><span class="p">,</span> <span class="n">jj</span><span class="p">),</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">cvx</span><span class="p">[(</span><span class="n">jj</span><span class="p">,</span> <span class="n">ii</span><span class="p">),</span> <span class="p">:]</span>
+        <span class="k">if</span> <span class="n">findop</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">cvx</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="n">cvx</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+
+        <span class="n">lastrow</span> <span class="o">=</span> <span class="n">cvx</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+
+    <span class="n">lastindex</span> <span class="o">=</span> <span class="n">lastrow</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">findop</span> <span class="o">=</span> <span class="p">(</span><span class="n">cvx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">lastindex</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">findop</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cvx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="n">cvx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+
+    <span class="n">polyindeces</span> <span class="o">=</span> <span class="n">cvx</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">polypoints</span> <span class="o">=</span> <span class="n">delaunay</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">polyindeces</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">poly</span> <span class="o">=</span> <span class="n">GenericPoly</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">polypoints</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="k">return</span> <span class="n">poly</span>
+
+</div>
+<div class="viewcode-block" id="triangulate"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.triangulate.triangulate">[docs]</a><span class="k">def</span> <span class="nf">triangulate</span><span class="p">(</span><span class="n">vertices</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Create the triangulation of a set of points, and output the resulting triangles&#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">Delaunay</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">Delaunay</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span>
+    <span class="n">polys</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">points</span><span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">vertices</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">genericpolys</span> <span class="o">=</span> <span class="p">[</span><span class="n">GenericPoly</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">poly</span><span class="p">,[])</span> <span class="k">for</span> <span class="n">poly</span> <span class="ow">in</span> <span class="n">polys</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">genericpolys</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

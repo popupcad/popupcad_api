@@ -1,0 +1,214 @@
+popupcad.manufacturing package
+==============================
+
+Submodules
+----------
+
+popupcad.manufacturing.bufferop3 module
+---------------------------------------
+
+.. automodule:: popupcad.manufacturing.bufferop3
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.cleanup2 module
+--------------------------------------
+
+.. automodule:: popupcad.manufacturing.cleanup2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.cleanup3 module
+--------------------------------------
+
+.. automodule:: popupcad.manufacturing.cleanup3
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.code_exec_op module
+------------------------------------------
+
+.. automodule:: popupcad.manufacturing.code_exec_op
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.cross_section module
+-------------------------------------------
+
+.. automodule:: popupcad.manufacturing.cross_section
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.dummy_operation1 module
+----------------------------------------------
+
+.. automodule:: popupcad.manufacturing.dummy_operation1
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.freeze module
+------------------------------------
+
+.. automodule:: popupcad.manufacturing.freeze
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.hole_operation module
+--------------------------------------------
+
+.. automodule:: popupcad.manufacturing.hole_operation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.joint_operation2 module
+----------------------------------------------
+
+.. automodule:: popupcad.manufacturing.joint_operation2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.joint_operation3 module
+----------------------------------------------
+
+.. automodule:: popupcad.manufacturing.joint_operation3
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.laminateoperation2 module
+------------------------------------------------
+
+.. automodule:: popupcad.manufacturing.laminateoperation2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.layerop2 module
+--------------------------------------
+
+.. automodule:: popupcad.manufacturing.layerop2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.locateoperation3 module
+----------------------------------------------
+
+.. automodule:: popupcad.manufacturing.locateoperation3
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.multivalueoperation3 module
+--------------------------------------------------
+
+.. automodule:: popupcad.manufacturing.multivalueoperation3
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.nulloperation module
+-------------------------------------------
+
+.. automodule:: popupcad.manufacturing.nulloperation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.placeop8 module
+--------------------------------------
+
+.. automodule:: popupcad.manufacturing.placeop8
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.shiftflip3 module
+----------------------------------------
+
+.. automodule:: popupcad.manufacturing.shiftflip3
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.shiftflip4 module
+----------------------------------------
+
+.. automodule:: popupcad.manufacturing.shiftflip4
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.simplesketchoperation module
+---------------------------------------------------
+
+.. automodule:: popupcad.manufacturing.simplesketchoperation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.simplify2 module
+---------------------------------------
+
+.. automodule:: popupcad.manufacturing.simplify2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.sub_operation module
+-------------------------------------------
+
+.. automodule:: popupcad.manufacturing.sub_operation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.sub_operation2 module
+--------------------------------------------
+
+.. automodule:: popupcad.manufacturing.sub_operation2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.transform module
+---------------------------------------
+
+.. automodule:: popupcad.manufacturing.transform
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.transform_external module
+------------------------------------------------
+
+.. automodule:: popupcad.manufacturing.transform_external
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.transform_internal module
+------------------------------------------------
+
+.. automodule:: popupcad.manufacturing.transform_internal
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: popupcad.manufacturing
+    :members:
+    :undoc-members:
+    :show-inheritance:

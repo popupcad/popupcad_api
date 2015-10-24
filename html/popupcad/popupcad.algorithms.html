@@ -1,0 +1,793 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.algorithms package &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="popupcad-algorithms-package">
+<h1>popupcad.algorithms package<a class="headerlink" href="#popupcad-algorithms-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-popupcad.algorithms.body_detection">
+<span id="popupcad-algorithms-body-detection-module"></span><h2>popupcad.algorithms.body_detection module<a class="headerlink" href="#module-popupcad.algorithms.body_detection" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.body_detection.find">
+<code class="descclassname">popupcad.algorithms.body_detection.</code><code class="descname">find</code><span class="sig-paren">(</span><em>generic_laminate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/body_detection.html#find"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.body_detection.find" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.body_detection.find_minimum_xy">
+<code class="descclassname">popupcad.algorithms.body_detection.</code><code class="descname">find_minimum_xy</code><span class="sig-paren">(</span><em>geom</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/body_detection.html#find_minimum_xy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.body_detection.find_minimum_xy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.body_detection.findallconnectedneighborgeoms">
+<code class="descclassname">popupcad.algorithms.body_detection.</code><code class="descname">findallconnectedneighborgeoms</code><span class="sig-paren">(</span><em>geomid</em>, <em>generic_laminate</em>, <em>geom_dict</em>, <em>layerdef</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/body_detection.html#findallconnectedneighborgeoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.body_detection.findallconnectedneighborgeoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>find all the connected shapes</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.body_detection.findconnectedneighborgeoms">
+<code class="descclassname">popupcad.algorithms.body_detection.</code><code class="descname">findconnectedneighborgeoms</code><span class="sig-paren">(</span><em>geomid</em>, <em>generic_laminate</em>, <em>geom_dict</em>, <em>layerdef</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/body_detection.html#findconnectedneighborgeoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.body_detection.findconnectedneighborgeoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>find geoms in neighboring layers which are overlapping</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.body_detection.findgeomlayerinstep">
+<code class="descclassname">popupcad.algorithms.body_detection.</code><code class="descname">findgeomlayerinstep</code><span class="sig-paren">(</span><em>geomid</em>, <em>generic_laminate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/body_detection.html#findgeomlayerinstep"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.body_detection.findgeomlayerinstep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the layer of a laminate a given shape is in</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.body_detection.sort_lams">
+<code class="descclassname">popupcad.algorithms.body_detection.</code><code class="descname">sort_lams</code><span class="sig-paren">(</span><em>lams</em>, <em>values</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/body_detection.html#sort_lams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.body_detection.sort_lams" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.csg_shapely">
+<span id="popupcad-algorithms-csg-shapely-module"></span><h2>popupcad.algorithms.csg_shapely module<a class="headerlink" href="#module-popupcad.algorithms.csg_shapely" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="exception">
+<dt id="popupcad.algorithms.csg_shapely.GeometryNotHandled">
+<em class="property">exception </em><code class="descclassname">popupcad.algorithms.csg_shapely.</code><code class="descname">GeometryNotHandled</code><a class="reference internal" href="../_modules/popupcad/algorithms/csg_shapely.html#GeometryNotHandled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.csg_shapely.GeometryNotHandled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.csg_shapely.condition_shapely_entities">
+<code class="descclassname">popupcad.algorithms.csg_shapely.</code><code class="descname">condition_shapely_entities</code><span class="sig-paren">(</span><em>*entities</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/csg_shapely.html#condition_shapely_entities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.csg_shapely.condition_shapely_entities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.csg_shapely.entity_is_handled">
+<code class="descclassname">popupcad.algorithms.csg_shapely.</code><code class="descname">entity_is_handled</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/csg_shapely.html#entity_is_handled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.csg_shapely.entity_is_handled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.csg_shapely.extract_individual_entities">
+<code class="descclassname">popupcad.algorithms.csg_shapely.</code><code class="descname">extract_individual_entities</code><span class="sig-paren">(</span><em>entities</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/csg_shapely.html#extract_individual_entities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.csg_shapely.extract_individual_entities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.csg_shapely.extract_individual_entities_recursive">
+<code class="descclassname">popupcad.algorithms.csg_shapely.</code><code class="descname">extract_individual_entities_recursive</code><span class="sig-paren">(</span><em>list_in</em>, <em>entity_in</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/csg_shapely.html#extract_individual_entities_recursive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.csg_shapely.extract_individual_entities_recursive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.csg_shapely.get_shapely_vertices">
+<code class="descclassname">popupcad.algorithms.csg_shapely.</code><code class="descname">get_shapely_vertices</code><span class="sig-paren">(</span><em>entity</em>, <em>scaling=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/csg_shapely.html#get_shapely_vertices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.csg_shapely.get_shapely_vertices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.csg_shapely.iscollection">
+<code class="descclassname">popupcad.algorithms.csg_shapely.</code><code class="descname">iscollection</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/csg_shapely.html#iscollection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.csg_shapely.iscollection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.csg_shapely.to_generic">
+<code class="descclassname">popupcad.algorithms.csg_shapely.</code><code class="descname">to_generic</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/csg_shapely.html#to_generic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.csg_shapely.to_generic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.csg_shapely.unary_union_safe">
+<code class="descclassname">popupcad.algorithms.csg_shapely.</code><code class="descname">unary_union_safe</code><span class="sig-paren">(</span><em>listin</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/csg_shapely.html#unary_union_safe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.csg_shapely.unary_union_safe" title="Permalink to this definition">¶</a></dt>
+<dd><p>try to perform a unary union.  if that fails, fall back to iterative union</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.design_documentation">
+<span id="popupcad-algorithms-design-documentation-module"></span><h2>popupcad.algorithms.design_documentation module<a class="headerlink" href="#module-popupcad.algorithms.design_documentation" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.design_documentation.format_template">
+<code class="descclassname">popupcad.algorithms.design_documentation.</code><code class="descname">format_template</code><span class="sig-paren">(</span><em>design_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/design_documentation.html#format_template"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.design_documentation.format_template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.design_documentation.process_design">
+<code class="descclassname">popupcad.algorithms.design_documentation.</code><code class="descname">process_design</code><span class="sig-paren">(</span><em>design</em>, <em>subdir</em>, <em>slugified_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/design_documentation.html#process_design"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.design_documentation.process_design" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.design_documentation.process_operation">
+<code class="descclassname">popupcad.algorithms.design_documentation.</code><code class="descname">process_operation</code><span class="sig-paren">(</span><em>operation</em>, <em>ii</em>, <em>destination</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/design_documentation.html#process_operation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.design_documentation.process_operation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.design_documentation.process_output">
+<code class="descclassname">popupcad.algorithms.design_documentation.</code><code class="descname">process_output</code><span class="sig-paren">(</span><em>output</em>, <em>filename_in</em>, <em>destination</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/design_documentation.html#process_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.design_documentation.process_output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.getjoints">
+<span id="popupcad-algorithms-getjoints-module"></span><h2>popupcad.algorithms.getjoints module<a class="headerlink" href="#module-popupcad.algorithms.getjoints" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.getjoints.getjoints">
+<code class="descclassname">popupcad.algorithms.getjoints.</code><code class="descname">getjoints</code><span class="sig-paren">(</span><em>geoms</em>, <em>roundvalue</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/getjoints.html#getjoints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.getjoints.getjoints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.keepout">
+<span id="popupcad-algorithms-keepout-module"></span><h2>popupcad.algorithms.keepout module<a class="headerlink" href="#module-popupcad.algorithms.keepout" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.keepout.laserkeepout">
+<code class="descclassname">popupcad.algorithms.keepout.</code><code class="descname">laserkeepout</code><span class="sig-paren">(</span><em>laminatein</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/keepout.html#laserkeepout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.keepout.laserkeepout" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate the keepout for an input laminate assuming laser cutting</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.keepout.millflipkeepout">
+<code class="descclassname">popupcad.algorithms.keepout.</code><code class="descname">millflipkeepout</code><span class="sig-paren">(</span><em>laminatein</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/keepout.html#millflipkeepout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.keepout.millflipkeepout" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate the keepout for an input laminate assuming milling &amp; part flipping</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.keepout.millkeepout">
+<code class="descclassname">popupcad.algorithms.keepout.</code><code class="descname">millkeepout</code><span class="sig-paren">(</span><em>laminatein</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/keepout.html#millkeepout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.keepout.millkeepout" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate the keepout for an input laminate assuming milling</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.manufacturing_functions">
+<span id="popupcad-algorithms-manufacturing-functions-module"></span><h2>popupcad.algorithms.manufacturing_functions module<a class="headerlink" href="#module-popupcad.algorithms.manufacturing_functions" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.manufacturing_functions.cleanup3">
+<code class="descclassname">popupcad.algorithms.manufacturing_functions.</code><code class="descname">cleanup3</code><span class="sig-paren">(</span><em>ls1</em>, <em>value</em>, <em>res</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/manufacturing_functions.html#cleanup3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.manufacturing_functions.cleanup3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.manufacturing_functions.cross_section">
+<code class="descclassname">popupcad.algorithms.manufacturing_functions.</code><code class="descname">cross_section</code><span class="sig-paren">(</span><em>layerdef</em>, <em>sketch</em>, <em>parent</em>, <em>scale_value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/manufacturing_functions.html#cross_section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.manufacturing_functions.cross_section" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.manufacturing_functions.find_rigid">
+<code class="descclassname">popupcad.algorithms.manufacturing_functions.</code><code class="descname">find_rigid</code><span class="sig-paren">(</span><em>generic</em>, <em>layerdef</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/manufacturing_functions.html#find_rigid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.manufacturing_functions.find_rigid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.manufacturing_functions.shift_flip_rotate">
+<code class="descclassname">popupcad.algorithms.manufacturing_functions.</code><code class="descname">shift_flip_rotate</code><span class="sig-paren">(</span><em>ls1</em>, <em>shift</em>, <em>flip</em>, <em>rotate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/manufacturing_functions.html#shift_flip_rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.manufacturing_functions.shift_flip_rotate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.manufacturing_functions.sketch_operation">
+<code class="descclassname">popupcad.algorithms.manufacturing_functions.</code><code class="descname">sketch_operation</code><span class="sig-paren">(</span><em>sketch</em>, <em>layerdef</em>, <em>layers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/manufacturing_functions.html#sketch_operation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.manufacturing_functions.sketch_operation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.manufacturing_functions.transform_csg">
+<code class="descclassname">popupcad.algorithms.manufacturing_functions.</code><code class="descname">transform_csg</code><span class="sig-paren">(</span><em>layerdef_from</em>, <em>layerdef_to</em>, <em>inshift</em>, <em>outshift</em>, <em>step</em>, <em>geom_from</em>, <em>geoms_to</em>, <em>csg_laminate</em>, <em>scale_x</em>, <em>scale_y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/manufacturing_functions.html#transform_csg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.manufacturing_functions.transform_csg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.minimal_enclosing_circle">
+<span id="popupcad-algorithms-minimal-enclosing-circle-module"></span><h2>popupcad.algorithms.minimal_enclosing_circle module<a class="headerlink" href="#module-popupcad.algorithms.minimal_enclosing_circle" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.minimal_enclosing_circle.make_circle">
+<code class="descclassname">popupcad.algorithms.minimal_enclosing_circle.</code><code class="descname">make_circle</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/minimal_enclosing_circle.html#make_circle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.minimal_enclosing_circle.make_circle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.minimal_enclosing_circle.numerical_stable_circle">
+<code class="descclassname">popupcad.algorithms.minimal_enclosing_circle.</code><code class="descname">numerical_stable_circle</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/minimal_enclosing_circle.html#numerical_stable_circle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.minimal_enclosing_circle.numerical_stable_circle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.modify_device">
+<span id="popupcad-algorithms-modify-device-module"></span><h2>popupcad.algorithms.modify_device module<a class="headerlink" href="#module-popupcad.algorithms.modify_device" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.modify_device.modify_device">
+<code class="descclassname">popupcad.algorithms.modify_device.</code><code class="descname">modify_device</code><span class="sig-paren">(</span><em>device</em>, <em>support_sketch</em>, <em>support_width</em>, <em>support_out</em>, <em>holes_radius</em>, <em>cut_width</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/modify_device.html#modify_device"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.modify_device.modify_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>from a user-input support sketch, modify a device to be compatible with the given support design.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.morphology">
+<span id="popupcad-algorithms-morphology-module"></span><h2>popupcad.algorithms.morphology module<a class="headerlink" href="#module-popupcad.algorithms.morphology" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.morphology.cleanup">
+<code class="descclassname">popupcad.algorithms.morphology.</code><code class="descname">cleanup</code><span class="sig-paren">(</span><em>ls1</em>, <em>value</em>, <em>resolution</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/morphology.html#cleanup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.morphology.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.morphology.simplify">
+<code class="descclassname">popupcad.algorithms.morphology.</code><code class="descname">simplify</code><span class="sig-paren">(</span><em>ls1</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/morphology.html#simplify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.morphology.simplify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.painterpath">
+<span id="popupcad-algorithms-painterpath-module"></span><h2>popupcad.algorithms.painterpath module<a class="headerlink" href="#module-popupcad.algorithms.painterpath" title="Permalink to this headline">¶</a></h2>
+<p>Created on Sun Sep 27 12:29:46 2015</p>
+<p>&#64;author: danaukes</p>
+<dl class="function">
+<dt id="popupcad.algorithms.painterpath.cubic">
+<code class="descclassname">popupcad.algorithms.painterpath.</code><code class="descname">cubic</code><span class="sig-paren">(</span><em>t</em>, <em>p0</em>, <em>p1</em>, <em>p2</em>, <em>p3</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/painterpath.html#cubic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.painterpath.cubic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.painterpath.interp_2d">
+<code class="descclassname">popupcad.algorithms.painterpath.</code><code class="descname">interp_2d</code><span class="sig-paren">(</span><em>function</em>, <em>points</em>, <em>SUBDIVISION</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/painterpath.html#interp_2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.painterpath.interp_2d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.painterpath.painterpath_to_generics">
+<code class="descclassname">popupcad.algorithms.painterpath.</code><code class="descname">painterpath_to_generics</code><span class="sig-paren">(</span><em>p</em>, <em>subdivision</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/painterpath.html#painterpath_to_generics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.painterpath.painterpath_to_generics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.painterpath.quadratic">
+<code class="descclassname">popupcad.algorithms.painterpath.</code><code class="descname">quadratic</code><span class="sig-paren">(</span><em>t</em>, <em>p0</em>, <em>p1</em>, <em>p2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/painterpath.html#quadratic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.painterpath.quadratic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.points">
+<span id="popupcad-algorithms-points-module"></span><h2>popupcad.algorithms.points module<a class="headerlink" href="#module-popupcad.algorithms.points" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.points.angle_between_lines">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">angle_between_lines</code><span class="sig-paren">(</span><em>pointset1</em>, <em>pointset2</em>, <em>scale_x=None</em>, <em>scale_y=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#angle_between_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.angle_between_lines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.calctransformfrom2lines">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">calctransformfrom2lines</code><span class="sig-paren">(</span><em>pointset1</em>, <em>pointset2</em>, <em>scale_x=None</em>, <em>scale_y=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#calctransformfrom2lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.calctransformfrom2lines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.colinear">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">colinear</code><span class="sig-paren">(</span><em>line1</em>, <em>line2</em>, <em>tolerance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#colinear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.colinear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.convert_to_3d">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">convert_to_3d</code><span class="sig-paren">(</span><em>listin</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#convert_to_3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.convert_to_3d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.distance_of_lines">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">distance_of_lines</code><span class="sig-paren">(</span><em>lines, point=[0, 0]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#distance_of_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.distance_of_lines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.identical">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">identical</code><span class="sig-paren">(</span><em>pt1</em>, <em>pt2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#identical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.identical" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.inner_segment">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">inner_segment</code><span class="sig-paren">(</span><em>line1</em>, <em>line2</em>, <em>tolerance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#inner_segment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.inner_segment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.order_vertices">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">order_vertices</code><span class="sig-paren">(</span><em>vertices</em>, <em>segment_seed</em>, <em>tolerance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#order_vertices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.order_vertices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.point_on_line">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">point_on_line</code><span class="sig-paren">(</span><em>point</em>, <em>line</em>, <em>tolerance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#point_on_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.point_on_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.point_within_line">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">point_within_line</code><span class="sig-paren">(</span><em>point</em>, <em>line</em>, <em>tolerance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#point_within_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.point_within_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.pointinpoints">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">pointinpoints</code><span class="sig-paren">(</span><em>pt1</em>, <em>pts</em>, <em>tolerance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#pointinpoints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.pointinpoints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.rounded_equal">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">rounded_equal</code><span class="sig-paren">(</span><em>pt1</em>, <em>pt2</em>, <em>decimal_places</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#rounded_equal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.rounded_equal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.segment_midpoints">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">segment_midpoints</code><span class="sig-paren">(</span><em>segments</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#segment_midpoints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.segment_midpoints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.shared_edge">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">shared_edge</code><span class="sig-paren">(</span><em>line1</em>, <em>line2</em>, <em>tolerance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#shared_edge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.shared_edge" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.points.twopointsthesame">
+<code class="descclassname">popupcad.algorithms.points.</code><code class="descname">twopointsthesame</code><span class="sig-paren">(</span><em>pt1</em>, <em>pt2</em>, <em>tolerance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/points.html#twopointsthesame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.points.twopointsthesame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.python_syntax_formatter">
+<span id="popupcad-algorithms-python-syntax-formatter-module"></span><h2>popupcad.algorithms.python_syntax_formatter module<a class="headerlink" href="#module-popupcad.algorithms.python_syntax_formatter" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.algorithms.python_syntax_formatter.PythonHighlighter">
+<em class="property">class </em><code class="descclassname">popupcad.algorithms.python_syntax_formatter.</code><code class="descname">PythonHighlighter</code><span class="sig-paren">(</span><em>document</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/python_syntax_formatter.html#PythonHighlighter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.python_syntax_formatter.PythonHighlighter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QSyntaxHighlighter</span></code></p>
+<p>Syntax highlighter for the Python language.</p>
+<dl class="attribute">
+<dt id="popupcad.algorithms.python_syntax_formatter.PythonHighlighter.braces">
+<code class="descname">braces</code><em class="property"> = ['\\{', '\\}', '\\(', '\\)', '\\[', '\\]']</em><a class="headerlink" href="#popupcad.algorithms.python_syntax_formatter.PythonHighlighter.braces" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.python_syntax_formatter.PythonHighlighter.highlightBlock">
+<code class="descname">highlightBlock</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/python_syntax_formatter.html#PythonHighlighter.highlightBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.python_syntax_formatter.PythonHighlighter.highlightBlock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply syntax highlighting to the given block of text.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.algorithms.python_syntax_formatter.PythonHighlighter.keywords">
+<code class="descname">keywords</code><em class="property"> = ['and', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'exec', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'not', 'or', 'pass', 'print', 'raise', 'return', 'try', 'while', 'yield', 'None', 'True', 'False']</em><a class="headerlink" href="#popupcad.algorithms.python_syntax_formatter.PythonHighlighter.keywords" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.python_syntax_formatter.PythonHighlighter.match_multiline">
+<code class="descname">match_multiline</code><span class="sig-paren">(</span><em>text</em>, <em>delimiter</em>, <em>in_state</em>, <em>style</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/python_syntax_formatter.html#PythonHighlighter.match_multiline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.python_syntax_formatter.PythonHighlighter.match_multiline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do highlighting of multi-line strings. <code class="docutils literal"><span class="pre">delimiter</span></code> should be a
+<code class="docutils literal"><span class="pre">QRegExp</span></code> for triple-single-quotes or triple-double-quotes, and
+<code class="docutils literal"><span class="pre">in_state</span></code> should be a unique integer to represent the corresponding
+state changes when inside those strings. Returns True if we&#8217;re still
+inside a multi-line string when this function is finished.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.algorithms.python_syntax_formatter.PythonHighlighter.operators">
+<code class="descname">operators</code><em class="property"> = ['=', '==', '!=', '&lt;', '&lt;=', '&gt;', '&gt;=', '\\+', '-', '\\*', '/', '//', '\\%', '\\*\\*', '\\+=', '-=', '\\*=', '/=', '\\%=', '\\^', '\\|', '\\&amp;', '\\~', '&gt;&gt;', '&lt;&lt;']</em><a class="headerlink" href="#popupcad.algorithms.python_syntax_formatter.PythonHighlighter.operators" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.algorithms.python_syntax_formatter.PythonHighlighter.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000077398C8&gt;</em><a class="headerlink" href="#popupcad.algorithms.python_syntax_formatter.PythonHighlighter.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.python_syntax_formatter.syntax_format">
+<code class="descclassname">popupcad.algorithms.python_syntax_formatter.</code><code class="descname">syntax_format</code><span class="sig-paren">(</span><em>color</em>, <em>style=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/python_syntax_formatter.html#syntax_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.python_syntax_formatter.syntax_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a QTextCharFormat with the given attributes.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.removability">
+<span id="popupcad-algorithms-removability-module"></span><h2>popupcad.algorithms.removability module<a class="headerlink" href="#module-popupcad.algorithms.removability" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.removability.generate_removable_scrap">
+<code class="descclassname">popupcad.algorithms.removability.</code><code class="descname">generate_removable_scrap</code><span class="sig-paren">(</span><em>device</em>, <em>sheet</em>, <em>tol=1e-05</em>, <em>device_buffer=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/removability.html#generate_removable_scrap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.removability.generate_removable_scrap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.removability.modify_up">
+<code class="descclassname">popupcad.algorithms.removability.</code><code class="descname">modify_up</code><span class="sig-paren">(</span><em>removabilityin</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/removability.html#modify_up"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.removability.modify_up" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.removability.more_removable_mod">
+<code class="descclassname">popupcad.algorithms.removability.</code><code class="descname">more_removable_mod</code><span class="sig-paren">(</span><em>bleed</em>, <em>device</em>, <em>sheet</em>, <em>tol=1e-05</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/removability.html#more_removable_mod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.removability.more_removable_mod" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.removability.one_way_down">
+<code class="descclassname">popupcad.algorithms.removability.</code><code class="descname">one_way_down</code><span class="sig-paren">(</span><em>laminatein</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/removability.html#one_way_down"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.removability.one_way_down" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.removability.one_way_up">
+<code class="descclassname">popupcad.algorithms.removability.</code><code class="descname">one_way_up</code><span class="sig-paren">(</span><em>laminatein</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/removability.html#one_way_up"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.removability.one_way_up" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.removability.two_way">
+<code class="descclassname">popupcad.algorithms.removability.</code><code class="descname">two_way</code><span class="sig-paren">(</span><em>laminatein</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/removability.html#two_way"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.removability.two_way" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.spline_functions">
+<span id="popupcad-algorithms-spline-functions-module"></span><h2>popupcad.algorithms.spline_functions module<a class="headerlink" href="#module-popupcad.algorithms.spline_functions" title="Permalink to this headline">¶</a></h2>
+<p>Created on Sun Oct 11 15:24:36 2015</p>
+<p>&#64;author: danaukes</p>
+<dl class="function">
+<dt id="popupcad.algorithms.spline_functions.N0">
+<code class="descclassname">popupcad.algorithms.spline_functions.</code><code class="descname">N0</code><span class="sig-paren">(</span><em>i</em>, <em>knots</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/spline_functions.html#N0"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.spline_functions.N0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.spline_functions.Nip">
+<code class="descclassname">popupcad.algorithms.spline_functions.</code><code class="descname">Nip</code><span class="sig-paren">(</span><em>i</em>, <em>p</em>, <em>knots</em>, <em>N</em>, <em>calculated</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/spline_functions.html#Nip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.spline_functions.Nip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.spline_functions.calc_spline">
+<code class="descclassname">popupcad.algorithms.spline_functions.</code><code class="descname">calc_spline</code><span class="sig-paren">(</span><em>knots</em>, <em>n</em>, <em>w</em>, <em>domain</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/spline_functions.html#calc_spline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.spline_functions.calc_spline" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.spline_functions.control_from_fit_points">
+<code class="descclassname">popupcad.algorithms.spline_functions.</code><code class="descname">control_from_fit_points</code><span class="sig-paren">(</span><em>fp</em>, <em>p</em>, <em>plot=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/spline_functions.html#control_from_fit_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.spline_functions.control_from_fit_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.spline_functions.interpolated_points">
+<code class="descclassname">popupcad.algorithms.spline_functions.</code><code class="descname">interpolated_points</code><span class="sig-paren">(</span><em>points</em>, <em>knots</em>, <em>w</em>, <em>domain</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/spline_functions.html#interpolated_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.spline_functions.interpolated_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.spline_functions.make_domain">
+<code class="descclassname">popupcad.algorithms.spline_functions.</code><code class="descname">make_domain</code><span class="sig-paren">(</span><em>knots</em>, <em>num_segments</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/spline_functions.html#make_domain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.spline_functions.make_domain" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.spline_functions.plot_labeled_points">
+<code class="descclassname">popupcad.algorithms.spline_functions.</code><code class="descname">plot_labeled_points</code><span class="sig-paren">(</span><em>cp</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/spline_functions.html#plot_labeled_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.spline_functions.plot_labeled_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.tetrahedron">
+<span id="popupcad-algorithms-tetrahedron-module"></span><h2>popupcad.algorithms.tetrahedron module<a class="headerlink" href="#module-popupcad.algorithms.tetrahedron" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.tetrahedron.I_xx_unscaled">
+<code class="descclassname">popupcad.algorithms.tetrahedron.</code><code class="descname">I_xx_unscaled</code><span class="sig-paren">(</span><em>density</em>, <em>x_0</em>, <em>x_1</em>, <em>x_2</em>, <em>x_3</em>, <em>xc</em>, <em>y_0</em>, <em>y_1</em>, <em>y_2</em>, <em>y_3</em>, <em>yc</em>, <em>z_0</em>, <em>z_1</em>, <em>z_2</em>, <em>z_3</em>, <em>zc</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#I_xx_unscaled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.I_xx_unscaled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.tetrahedron.I_xy_unscaled">
+<code class="descclassname">popupcad.algorithms.tetrahedron.</code><code class="descname">I_xy_unscaled</code><span class="sig-paren">(</span><em>density</em>, <em>x_0</em>, <em>x_1</em>, <em>x_2</em>, <em>x_3</em>, <em>xc</em>, <em>y_0</em>, <em>y_1</em>, <em>y_2</em>, <em>y_3</em>, <em>yc</em>, <em>z_0</em>, <em>z_1</em>, <em>z_2</em>, <em>z_3</em>, <em>zc</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#I_xy_unscaled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.I_xy_unscaled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.tetrahedron.I_yy_unscaled">
+<code class="descclassname">popupcad.algorithms.tetrahedron.</code><code class="descname">I_yy_unscaled</code><span class="sig-paren">(</span><em>density</em>, <em>x_0</em>, <em>x_1</em>, <em>x_2</em>, <em>x_3</em>, <em>xc</em>, <em>y_0</em>, <em>y_1</em>, <em>y_2</em>, <em>y_3</em>, <em>yc</em>, <em>z_0</em>, <em>z_1</em>, <em>z_2</em>, <em>z_3</em>, <em>zc</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#I_yy_unscaled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.I_yy_unscaled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.tetrahedron.I_yz_unscaled">
+<code class="descclassname">popupcad.algorithms.tetrahedron.</code><code class="descname">I_yz_unscaled</code><span class="sig-paren">(</span><em>density</em>, <em>x_0</em>, <em>x_1</em>, <em>x_2</em>, <em>x_3</em>, <em>xc</em>, <em>y_0</em>, <em>y_1</em>, <em>y_2</em>, <em>y_3</em>, <em>yc</em>, <em>z_0</em>, <em>z_1</em>, <em>z_2</em>, <em>z_3</em>, <em>zc</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#I_yz_unscaled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.I_yz_unscaled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.tetrahedron.I_zx_unscaled">
+<code class="descclassname">popupcad.algorithms.tetrahedron.</code><code class="descname">I_zx_unscaled</code><span class="sig-paren">(</span><em>density</em>, <em>x_0</em>, <em>x_1</em>, <em>x_2</em>, <em>x_3</em>, <em>xc</em>, <em>y_0</em>, <em>y_1</em>, <em>y_2</em>, <em>y_3</em>, <em>yc</em>, <em>z_0</em>, <em>z_1</em>, <em>z_2</em>, <em>z_3</em>, <em>zc</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#I_zx_unscaled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.I_zx_unscaled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.tetrahedron.I_zz_unscaled">
+<code class="descclassname">popupcad.algorithms.tetrahedron.</code><code class="descname">I_zz_unscaled</code><span class="sig-paren">(</span><em>density</em>, <em>x_0</em>, <em>x_1</em>, <em>x_2</em>, <em>x_3</em>, <em>xc</em>, <em>y_0</em>, <em>y_1</em>, <em>y_2</em>, <em>y_3</em>, <em>yc</em>, <em>z_0</em>, <em>z_1</em>, <em>z_2</em>, <em>z_3</em>, <em>zc</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#I_zz_unscaled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.I_zz_unscaled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="popupcad.algorithms.tetrahedron.Tetrahedron">
+<em class="property">class </em><code class="descclassname">popupcad.algorithms.tetrahedron.</code><code class="descname">Tetrahedron</code><span class="sig-paren">(</span><em>*points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#Tetrahedron"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.Tetrahedron" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.algorithms.tetrahedron.Tetrahedron.I">
+<code class="descname">I</code><span class="sig-paren">(</span><em>density</em>, <em>point=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#Tetrahedron.I"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.Tetrahedron.I" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.tetrahedron.Tetrahedron.I_xx">
+<code class="descname">I_xx</code><span class="sig-paren">(</span><em>density</em>, <em>point=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#Tetrahedron.I_xx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.Tetrahedron.I_xx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.tetrahedron.Tetrahedron.I_xy">
+<code class="descname">I_xy</code><span class="sig-paren">(</span><em>density</em>, <em>point=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#Tetrahedron.I_xy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.Tetrahedron.I_xy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.tetrahedron.Tetrahedron.I_yy">
+<code class="descname">I_yy</code><span class="sig-paren">(</span><em>density</em>, <em>point=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#Tetrahedron.I_yy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.Tetrahedron.I_yy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.tetrahedron.Tetrahedron.I_yz">
+<code class="descname">I_yz</code><span class="sig-paren">(</span><em>density</em>, <em>point=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#Tetrahedron.I_yz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.Tetrahedron.I_yz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.tetrahedron.Tetrahedron.I_zx">
+<code class="descname">I_zx</code><span class="sig-paren">(</span><em>density</em>, <em>point=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#Tetrahedron.I_zx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.Tetrahedron.I_zx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.tetrahedron.Tetrahedron.I_zz">
+<code class="descname">I_zz</code><span class="sig-paren">(</span><em>density</em>, <em>point=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#Tetrahedron.I_zz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.Tetrahedron.I_zz" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.tetrahedron.Tetrahedron.J">
+<code class="descname">J</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#Tetrahedron.J"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.Tetrahedron.J" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.tetrahedron.Tetrahedron.centroid">
+<code class="descname">centroid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#Tetrahedron.centroid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.Tetrahedron.centroid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.tetrahedron.Tetrahedron.mass">
+<code class="descname">mass</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#Tetrahedron.mass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.Tetrahedron.mass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.tetrahedron.Tetrahedron.variable_list">
+<code class="descname">variable_list</code><span class="sig-paren">(</span><em>density</em>, <em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#Tetrahedron.variable_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.Tetrahedron.variable_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.tetrahedron.Tetrahedron.volume">
+<code class="descname">volume</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/tetrahedron.html#Tetrahedron.volume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.tetrahedron.Tetrahedron.volume" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.toolclearance">
+<span id="popupcad-algorithms-toolclearance-module"></span><h2>popupcad.algorithms.toolclearance module<a class="headerlink" href="#module-popupcad.algorithms.toolclearance" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.toolclearance.laserclearance">
+<code class="descclassname">popupcad.algorithms.toolclearance.</code><code class="descname">laserclearance</code><span class="sig-paren">(</span><em>laminatein</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/toolclearance.html#laserclearance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.toolclearance.laserclearance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.toolclearance.millclearance">
+<code class="descclassname">popupcad.algorithms.toolclearance.</code><code class="descname">millclearance</code><span class="sig-paren">(</span><em>laminatein</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/toolclearance.html#millclearance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.toolclearance.millclearance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.toolclearance.millflipclearance">
+<code class="descclassname">popupcad.algorithms.toolclearance.</code><code class="descname">millflipclearance</code><span class="sig-paren">(</span><em>laminatein</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/toolclearance.html#millflipclearance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.toolclearance.millflipclearance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.triangle">
+<span id="popupcad-algorithms-triangle-module"></span><h2>popupcad.algorithms.triangle module<a class="headerlink" href="#module-popupcad.algorithms.triangle" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.algorithms.triangle.Triangle">
+<em class="property">class </em><code class="descclassname">popupcad.algorithms.triangle.</code><code class="descname">Triangle</code><span class="sig-paren">(</span><em>*points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/triangle.html#Triangle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.triangle.Triangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.algorithms.triangle.Triangle.J">
+<code class="descname">J</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/triangle.html#Triangle.J"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.triangle.Triangle.J" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.triangle.Triangle.area">
+<code class="descname">area</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/triangle.html#Triangle.area"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.triangle.Triangle.area" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.triangle.Triangle.centroid">
+<code class="descname">centroid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/triangle.html#Triangle.centroid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.triangle.Triangle.centroid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.algorithms.triangle.Triangle.extrude">
+<code class="descname">extrude</code><span class="sig-paren">(</span><em>z_lower</em>, <em>z_upper</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/triangle.html#Triangle.extrude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.triangle.Triangle.extrude" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.triangulate">
+<span id="popupcad-algorithms-triangulate-module"></span><h2>popupcad.algorithms.triangulate module<a class="headerlink" href="#module-popupcad.algorithms.triangulate" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.triangulate.convex_hull">
+<code class="descclassname">popupcad.algorithms.triangulate.</code><code class="descname">convex_hull</code><span class="sig-paren">(</span><em>vertices</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/triangulate.html#convex_hull"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.triangulate.convex_hull" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a convex polygon from given points</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.triangulate.triangulate">
+<code class="descclassname">popupcad.algorithms.triangulate.</code><code class="descname">triangulate</code><span class="sig-paren">(</span><em>vertices</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/triangulate.html#triangulate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.triangulate.triangulate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the triangulation of a set of points, and output the resulting triangles</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms.web">
+<span id="popupcad-algorithms-web-module"></span><h2>popupcad.algorithms.web module<a class="headerlink" href="#module-popupcad.algorithms.web" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="popupcad.algorithms.web.autosupport">
+<code class="descclassname">popupcad.algorithms.web.</code><code class="descname">autosupport</code><span class="sig-paren">(</span><em>robot</em>, <em>keepout</em>, <em>layerdef</em>, <em>value_inner</em>, <em>value_gap</em>, <em>cut_out</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/web.html#autosupport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.web.autosupport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.web.find_outer">
+<code class="descclassname">popupcad.algorithms.web.</code><code class="descname">find_outer</code><span class="sig-paren">(</span><em>ls</em>, <em>minpoint</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/web.html#find_outer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.web.find_outer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.web.firstpass">
+<code class="descclassname">popupcad.algorithms.web.</code><code class="descname">firstpass</code><span class="sig-paren">(</span><em>robot</em>, <em>keepout</em>, <em>layerdef</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/web.html#firstpass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.web.firstpass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.web.generate_web">
+<code class="descclassname">popupcad.algorithms.web.</code><code class="descname">generate_web</code><span class="sig-paren">(</span><em>robot</em>, <em>keepout</em>, <em>layerdef</em>, <em>value_outer</em>, <em>value_inner</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/web.html#generate_web"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.web.generate_web" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.algorithms.web.supportsheet">
+<code class="descclassname">popupcad.algorithms.web.</code><code class="descname">supportsheet</code><span class="sig-paren">(</span><em>layerdef</em>, <em>lsin</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/algorithms/web.html#supportsheet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.algorithms.web.supportsheet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.algorithms">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-popupcad.algorithms" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">popupcad.algorithms package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.body_detection">popupcad.algorithms.body_detection module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.csg_shapely">popupcad.algorithms.csg_shapely module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.design_documentation">popupcad.algorithms.design_documentation module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.getjoints">popupcad.algorithms.getjoints module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.keepout">popupcad.algorithms.keepout module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.manufacturing_functions">popupcad.algorithms.manufacturing_functions module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.minimal_enclosing_circle">popupcad.algorithms.minimal_enclosing_circle module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.modify_device">popupcad.algorithms.modify_device module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.morphology">popupcad.algorithms.morphology module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.painterpath">popupcad.algorithms.painterpath module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.points">popupcad.algorithms.points module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.python_syntax_formatter">popupcad.algorithms.python_syntax_formatter module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.removability">popupcad.algorithms.removability module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.spline_functions">popupcad.algorithms.spline_functions module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.tetrahedron">popupcad.algorithms.tetrahedron module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.toolclearance">popupcad.algorithms.toolclearance module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.triangle">popupcad.algorithms.triangle module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.triangulate">popupcad.algorithms.triangulate module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms.web">popupcad.algorithms.web module</a></li>
+<li><a class="reference internal" href="#module-popupcad.algorithms">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<form class="search" action="../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

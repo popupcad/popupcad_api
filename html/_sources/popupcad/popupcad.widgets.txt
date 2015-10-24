@@ -1,0 +1,142 @@
+popupcad.widgets package
+========================
+
+Submodules
+----------
+
+popupcad.widgets.dragndroplist module
+-------------------------------------
+
+.. automodule:: popupcad.widgets.dragndroplist
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.dragndroptree module
+-------------------------------------
+
+.. automodule:: popupcad.widgets.dragndroptree
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.errorlog module
+--------------------------------
+
+.. automodule:: popupcad.widgets.errorlog
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.listeditor module
+----------------------------------
+
+.. automodule:: popupcad.widgets.listeditor
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.listmanager module
+-----------------------------------
+
+.. automodule:: popupcad.widgets.listmanager
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.materialselection module
+-----------------------------------------
+
+.. automodule:: popupcad.widgets.materialselection
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.materialselection2 module
+------------------------------------------
+
+.. automodule:: popupcad.widgets.materialselection2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.operationlist module
+-------------------------------------
+
+.. automodule:: popupcad.widgets.operationlist
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.operationnetwork module
+----------------------------------------
+
+.. automodule:: popupcad.widgets.operationnetwork
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.render_widget module
+-------------------------------------
+
+.. automodule:: popupcad.widgets.render_widget
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.table_common module
+------------------------------------
+
+.. automodule:: popupcad.widgets.table_common
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.table_editor_delegate module
+---------------------------------------------
+
+.. automodule:: popupcad.widgets.table_editor_delegate
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.table_editor_popup module
+------------------------------------------
+
+.. automodule:: popupcad.widgets.table_editor_popup
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.tablewidget module
+-----------------------------------
+
+.. automodule:: popupcad.widgets.tablewidget
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.userinput module
+---------------------------------
+
+.. automodule:: popupcad.widgets.userinput
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.widgets.widgetcommon module
+------------------------------------
+
+.. automodule:: popupcad.widgets.widgetcommon
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: popupcad.widgets
+    :members:
+    :undoc-members:
+    :show-inheritance:

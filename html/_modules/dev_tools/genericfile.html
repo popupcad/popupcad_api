@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dev_tools.genericfile &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for dev_tools.genericfile</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+
+<div class="viewcode-block" id="FileMissing"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.FileMissing">[docs]</a><span class="k">class</span> <span class="nc">FileMissing</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span>
+            <span class="n">FileMissing</span><span class="p">,</span>
+            <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="s">&#39;Child File Missing:{filename}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="GenericFile"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile">[docs]</a><span class="k">class</span> <span class="nc">GenericFile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">filetypes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;file&#39;</span><span class="p">:</span> <span class="s">&#39;Generic File&#39;</span><span class="p">}</span>
+    <span class="n">defaultfiletype</span> <span class="o">=</span> <span class="s">&#39;file&#39;</span>
+    <span class="n">_lastdir</span> <span class="o">=</span> <span class="s">&#39;.&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">genbasename</span><span class="p">())</span>
+
+<div class="viewcode-block" id="GenericFile.get_basename"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.get_basename">[docs]</a>    <span class="k">def</span> <span class="nf">get_basename</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_basename</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_basename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">genbasename</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_basename</span>
+</div>
+<div class="viewcode-block" id="GenericFile.copy"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy_file_params</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">identical</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="GenericFile.upgrade"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.upgrade">[docs]</a>    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="GenericFile.lastdir"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.lastdir">[docs]</a>    <span class="k">def</span> <span class="nf">lastdir</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_lastdir</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="GenericFile.setlastdir"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.setlastdir">[docs]</a>    <span class="k">def</span> <span class="nf">setlastdir</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">directory</span><span class="p">):</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_lastdir</span> <span class="o">=</span> <span class="n">directory</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="GenericFile.get_parent_program_name"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.get_parent_program_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_parent_program_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="GenericFile.get_parent_program_version"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.get_parent_program_version">[docs]</a>    <span class="k">def</span> <span class="nf">get_parent_program_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="GenericFile.copy_file_params"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.copy_file_params">[docs]</a>    <span class="k">def</span> <span class="nf">copy_file_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new</span><span class="p">,</span> <span class="n">identical</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">dirname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirname</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
+                <span class="n">new</span><span class="o">.</span><span class="n">set_basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_basename</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new</span><span class="o">.</span><span class="n">set_basename</span><span class="p">(</span><span class="n">new</span><span class="o">.</span><span class="n">genbasename</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">parent_program_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_program_name</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">parent_program_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_program_version</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="GenericFile.genbasename"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.genbasename">[docs]</a>    <span class="k">def</span> <span class="nf">genbasename</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">basename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaultfiletype</span>
+        <span class="k">return</span> <span class="n">basename</span>
+</div>
+<div class="viewcode-block" id="GenericFile.set_basename"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.set_basename">[docs]</a>    <span class="k">def</span> <span class="nf">set_basename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">basename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_basename</span> <span class="o">=</span> <span class="n">basename</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="GenericFile.buildfilters"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.buildfilters">[docs]</a>    <span class="k">def</span> <span class="nf">buildfilters</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">filetype</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">filters</span><span class="p">[</span><span class="n">filetype</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;{0}(*.{1})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">filetype</span><span class="p">)</span>
+        <span class="n">filterstring</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">item</span> <span class="o">+</span> <span class="s">&#39;;;&#39;</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">filters</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="n">selectedfilter</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">defaultfiletype</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">filterstring</span><span class="p">,</span> <span class="n">selectedfilter</span>
+</div>
+<div class="viewcode-block" id="GenericFile.updatefilename"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.updatefilename">[docs]</a>    <span class="k">def</span> <span class="nf">updatefilename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">os</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dirname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_basename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setlastdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirname</span><span class="p">)</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="GenericFile.load_yaml"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.load_yaml">[docs]</a>    <span class="k">def</span> <span class="nf">load_yaml</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">yaml</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">obj1</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">obj1</span><span class="o">.</span><span class="n">updatefilename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj1</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="GenericFile.open_filename"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.open_filename">[docs]</a>    <span class="k">def</span> <span class="nf">open_filename</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">openmethod</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">openmethodkwargs</span><span class="p">):</span>
+        <span class="n">filterstring</span><span class="p">,</span> <span class="n">selectedfilter</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">buildfilters</span><span class="p">()</span>
+        <span class="n">filename</span><span class="p">,</span> <span class="n">selectedfilter</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
+            <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;Open&#39;</span><span class="p">,</span> <span class="n">cls</span><span class="o">.</span><span class="n">lastdir</span><span class="p">(),</span> <span class="nb">filter</span><span class="o">=</span><span class="n">filterstring</span><span class="p">,</span> <span class="n">selectedFilter</span><span class="o">=</span><span class="n">selectedfilter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">openmethod</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">object1</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">object1</span> <span class="o">=</span> <span class="n">openmethod</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">openmethodkwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">filename</span><span class="p">,</span> <span class="n">object1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="GenericFile.open"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.open">[docs]</a>    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">filename</span><span class="p">,</span> <span class="n">object1</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">open_filename</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">object1</span>
+</div>
+<div class="viewcode-block" id="GenericFile.save"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">savemethod</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">savemethodkwargs</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">savemethod</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_yaml</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">savemethod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">(),</span> <span class="o">**</span><span class="n">savemethodkwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">saveAs</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="GenericFile.regen_id"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.regen_id">[docs]</a>    <span class="k">def</span> <span class="nf">regen_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">random</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9999999999</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="GenericFile.saveAs"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.saveAs">[docs]</a>    <span class="k">def</span> <span class="nf">saveAs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">savemethod</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">savemethodkwargs</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">os</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tempfilename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dirname</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">get_basename</span><span class="p">()))</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">basename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_basename</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="n">basename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">genbasename</span><span class="p">()</span>
+
+            <span class="n">tempfilename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">lastdir</span><span class="p">(),</span>
+                    <span class="n">basename</span><span class="p">))</span>
+
+        <span class="n">filterstring</span><span class="p">,</span> <span class="n">selectedfilter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buildfilters</span><span class="p">()</span>
+        <span class="n">filename</span><span class="p">,</span> <span class="n">selectedfilter</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
+            <span class="n">parent</span><span class="p">,</span> <span class="s">&quot;Save As&quot;</span><span class="p">,</span> <span class="n">tempfilename</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">filterstring</span><span class="p">,</span> <span class="n">selectedFilter</span><span class="o">=</span><span class="n">selectedfilter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">regen_id</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">savemethod</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_yaml</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">identical</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">savemethod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">(),</span> <span class="o">**</span><span class="n">savemethodkwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="GenericFile.filename"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.filename">[docs]</a>    <span class="k">def</span> <span class="nf">filename</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">os</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dirname</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_basename</span><span class="p">()))</span>
+</div>
+<div class="viewcode-block" id="GenericFile.save_yaml"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.save_yaml">[docs]</a>    <span class="k">def</span> <span class="nf">save_yaml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">update_filename</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">yaml</span>
+        <span class="k">if</span> <span class="n">update_filename</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">updatefilename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_program_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parent_program_name</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_program_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parent_program_version</span><span class="p">()</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</div>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_basename</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GenericFile.copy_yaml"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.copy_yaml">[docs]</a>    <span class="k">def</span> <span class="nf">copy_yaml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">yaml</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="GenericFile.backup"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.backup">[docs]</a>    <span class="k">def</span> <span class="nf">backup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">folder</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span><span class="n">backupstring</span> <span class="o">=</span> <span class="s">&#39;_backup_&#39;</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">os</span>
+        <span class="kn">import</span> <span class="nn">glob</span>
+        <span class="kn">import</span> <span class="nn">popupcad</span>
+        
+        <span class="k">if</span> <span class="n">folder</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">folder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirname</span>
+        <span class="n">basename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_basename</span><span class="p">()</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span><span class="n">basename</span><span class="p">))</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">searchstring</span> <span class="o">=</span> <span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="n">backupstring</span><span class="o">+</span><span class="s">&#39;*.&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">defaultfiletype</span><span class="p">)</span>
+        <span class="n">existingfiles</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">searchstring</span><span class="p">)</span>
+        <span class="n">existingfiles</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">existingfiles</span><span class="p">[</span><span class="n">popupcad</span><span class="o">.</span><span class="n">backup_limit</span><span class="o">-</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        
+        <span class="n">time</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">basic_functions</span><span class="o">.</span><span class="n">return_formatted_time</span><span class="p">(</span><span class="n">specificity</span> <span class="o">=</span> <span class="s">&#39;minute&#39;</span><span class="p">)</span>
+        
+        <span class="n">backupfilename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">+</span><span class="n">backupstring</span><span class="o">+</span><span class="n">time</span><span class="o">+</span><span class="s">&#39;.&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">defaultfiletype</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_yaml</span><span class="p">(</span><span class="n">backupfilename</span><span class="p">,</span> <span class="n">update_filename</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="GenericFile.slugify"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.genericfile.GenericFile.slugify">[docs]</a>    <span class="k">def</span> <span class="nf">slugify</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;_&#39;</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">)</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">,</span><span class="s">&#39;-&#39;</span><span class="p">)</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">string</span>        </div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

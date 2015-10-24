@@ -1,0 +1,7 @@
+api_examples
+============
+
+.. toctree::
+   :maxdepth: 4
+
+   api_examples

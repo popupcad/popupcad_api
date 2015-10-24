@@ -1,0 +1,110 @@
+popupcad.graphics2d package
+===========================
+
+Submodules
+----------
+
+popupcad.graphics2d.graphicsitems module
+----------------------------------------
+
+.. automodule:: popupcad.graphics2d.graphicsitems
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.graphics2d.graphicsscene module
+----------------------------------------
+
+.. automodule:: popupcad.graphics2d.graphicsscene
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.graphics2d.graphicsview module
+---------------------------------------
+
+.. automodule:: popupcad.graphics2d.graphicsview
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.graphics2d.interactive module
+--------------------------------------
+
+.. automodule:: popupcad.graphics2d.interactive
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.graphics2d.interactiveedge module
+------------------------------------------
+
+.. automodule:: popupcad.graphics2d.interactiveedge
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.graphics2d.interactivevertex module
+--------------------------------------------
+
+.. automodule:: popupcad.graphics2d.interactivevertex
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.graphics2d.interactivevertexbase module
+------------------------------------------------
+
+.. automodule:: popupcad.graphics2d.interactivevertexbase
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.graphics2d.modes module
+--------------------------------
+
+.. automodule:: popupcad.graphics2d.modes
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.graphics2d.proto module
+--------------------------------
+
+.. automodule:: popupcad.graphics2d.proto
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.graphics2d.static module
+---------------------------------
+
+.. automodule:: popupcad.graphics2d.static
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.graphics2d.svg_support module
+--------------------------------------
+
+.. automodule:: popupcad.graphics2d.svg_support
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.graphics2d.text module
+-------------------------------
+
+.. automodule:: popupcad.graphics2d.text
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: popupcad.graphics2d
+    :members:
+    :undoc-members:
+    :show-inheritance:

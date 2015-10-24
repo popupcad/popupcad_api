@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.algorithms.csg_shapely &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.algorithms.csg_shapely</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="kn">as</span> <span class="nn">sg</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+
+<span class="n">filter_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">sg</span><span class="o">.</span><span class="n">Polygon</span><span class="p">,</span><span class="n">sg</span><span class="o">.</span><span class="n">LineString</span><span class="p">,</span><span class="n">sg</span><span class="o">.</span><span class="n">Point</span><span class="p">]</span>
+
+<div class="viewcode-block" id="GeometryNotHandled"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.csg_shapely.GeometryNotHandled">[docs]</a><span class="k">class</span> <span class="nc">GeometryNotHandled</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="entity_is_handled"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.csg_shapely.entity_is_handled">[docs]</a><span class="k">def</span> <span class="nf">entity_is_handled</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">any</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">filter_list</span><span class="p">])</span>
+    </div>
+<div class="viewcode-block" id="iscollection"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.csg_shapely.iscollection">[docs]</a><span class="k">def</span> <span class="nf">iscollection</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+    <span class="n">collections</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">sg</span><span class="o">.</span><span class="n">MultiPolygon</span><span class="p">,</span>
+        <span class="n">sg</span><span class="o">.</span><span class="n">GeometryCollection</span><span class="p">,</span>
+        <span class="n">sg</span><span class="o">.</span><span class="n">MultiLineString</span><span class="p">,</span>
+        <span class="n">sg</span><span class="o">.</span><span class="n">multilinestring</span><span class="o">.</span><span class="n">MultiLineString</span><span class="p">,</span>
+        <span class="n">sg</span><span class="o">.</span><span class="n">MultiPoint</span><span class="p">]</span>
+    <span class="n">iscollection</span> <span class="o">=</span> <span class="p">[</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span> <span class="k">for</span> <span class="n">cls</span> <span class="ow">in</span> <span class="n">collections</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">iscollection</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="extract_individual_entities_recursive"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.csg_shapely.extract_individual_entities_recursive">[docs]</a><span class="k">def</span> <span class="nf">extract_individual_entities_recursive</span><span class="p">(</span><span class="n">list_in</span><span class="p">,</span><span class="n">entity_in</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">iscollection</span><span class="p">(</span><span class="n">entity_in</span><span class="p">):</span>
+        <span class="p">[</span><span class="n">extract_individual_entities_recursive</span><span class="p">(</span><span class="n">list_in</span><span class="p">,</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">entity_in</span><span class="o">.</span><span class="n">geoms</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">list_in</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entity_in</span><span class="p">)</span>
+            </div>
+<div class="viewcode-block" id="extract_individual_entities"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.csg_shapely.extract_individual_entities">[docs]</a><span class="k">def</span> <span class="nf">extract_individual_entities</span><span class="p">(</span><span class="n">entities</span><span class="p">):</span>
+    <span class="n">entities_out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="p">[</span><span class="n">extract_individual_entities_recursive</span><span class="p">(</span><span class="n">entities_out</span><span class="p">,</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">entities_out</span>
+</div>
+<div class="viewcode-block" id="condition_shapely_entities"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.csg_shapely.condition_shapely_entities">[docs]</a><span class="k">def</span> <span class="nf">condition_shapely_entities</span><span class="p">(</span><span class="o">*</span><span class="n">entities</span><span class="p">):</span>
+    <span class="n">entities</span> <span class="o">=</span> <span class="n">extract_individual_entities</span><span class="p">(</span><span class="n">entities</span><span class="p">)</span>
+    <span class="n">entities</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">entities</span> <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="n">classitem</span><span class="p">)</span> <span class="k">for</span> <span class="n">classitem</span> <span class="ow">in</span> <span class="n">filter_list</span><span class="p">])]</span>
+    <span class="n">entities</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">entities</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">is_empty</span><span class="p">]</span>
+<span class="c">#    entities = [item for item in entities if not item.is_valid]</span>
+    <span class="k">return</span> <span class="n">entities</span>
+</div>
+<div class="viewcode-block" id="get_shapely_vertices"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.csg_shapely.get_shapely_vertices">[docs]</a><span class="k">def</span> <span class="nf">get_shapely_vertices</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span><span class="n">scaling</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="kn">as</span> <span class="nn">sg</span>
+    <span class="kn">import</span> <span class="nn">numpy</span>
+    
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span><span class="n">sg</span><span class="o">.</span><span class="n">Polygon</span><span class="p">):</span>
+        <span class="n">exterior</span> <span class="o">=</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coord</span> <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">coords</span><span class="p">])</span><span class="o">*</span><span class="n">scaling</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">interiors</span> <span class="o">=</span> <span class="p">[(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coord</span> <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">interior</span><span class="o">.</span><span class="n">coords</span><span class="p">])</span><span class="o">*</span><span class="n">scaling</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                     <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">interiors</span><span class="p">]</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span><span class="n">sg</span><span class="o">.</span><span class="n">LineString</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span><span class="n">sg</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
+        <span class="n">exterior</span> <span class="o">=</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coord</span> <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">coords</span><span class="p">])</span><span class="o">*</span><span class="n">scaling</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">interiors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GeometryNotHandled</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">exterior</span><span class="p">,</span> <span class="n">interiors</span>
+</div>
+<div class="viewcode-block" id="to_generic"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.csg_shapely.to_generic">[docs]</a><span class="k">def</span> <span class="nf">to_generic</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="kn">as</span> <span class="nn">sg</span>
+    <span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericPoly</span><span class="p">,</span> <span class="n">GenericPolyline</span>
+    <span class="kn">from</span> <span class="nn">popupcad.geometry.vertex</span> <span class="kn">import</span> <span class="n">DrawnPoint</span>
+    <span class="kn">from</span> <span class="nn">popupcad.geometry.vertex</span> <span class="kn">import</span> <span class="n">ShapeVertex</span>
+
+    <span class="n">exterior_p</span><span class="p">,</span> <span class="n">interiors_p</span> <span class="o">=</span> <span class="n">get_shapely_vertices</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span><span class="p">)</span>
+    <span class="n">exterior</span> <span class="o">=</span> <span class="p">[</span><span class="n">ShapeVertex</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">exterior_p</span><span class="p">]</span>
+    <span class="n">interiors</span><span class="o">=</span> <span class="p">[[</span><span class="n">ShapeVertex</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">interior</span><span class="p">]</span> <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="n">interiors_p</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">sg</span><span class="o">.</span><span class="n">Polygon</span><span class="p">):</span>
+        <span class="n">subclass</span> <span class="o">=</span> <span class="n">GenericPoly</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">sg</span><span class="o">.</span><span class="n">LineString</span><span class="p">):</span>
+        <span class="n">subclass</span> <span class="o">=</span> <span class="n">GenericPolyline</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">sg</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">DrawnPoint</span><span class="p">(</span><span class="n">exterior_p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">s</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GeometryNotHandled</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">subclass</span><span class="p">(</span><span class="n">exterior</span><span class="p">,</span> <span class="n">interiors</span><span class="p">)</span>
+        </div>
+<div class="viewcode-block" id="unary_union_safe"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.csg_shapely.unary_union_safe">[docs]</a><span class="k">def</span> <span class="nf">unary_union_safe</span><span class="p">(</span><span class="n">listin</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;try to perform a unary union.  if that fails, fall back to iterative union&#39;&#39;&#39;</span>
+    <span class="kn">import</span> <span class="nn">shapely</span>
+    <span class="kn">import</span> <span class="nn">shapely.ops</span> <span class="kn">as</span> <span class="nn">so</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">so</span><span class="o">.</span><span class="n">unary_union</span><span class="p">(</span><span class="n">listin</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">shapely</span><span class="o">.</span><span class="n">geos</span><span class="o">.</span><span class="n">TopologicalError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Unary Union Failed.  Falling Back...&#39;</span><span class="p">)</span>
+        <span class="n">workinglist</span> <span class="o">=</span> <span class="n">listin</span><span class="p">[:]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">workinglist</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">workinglist</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">newresult</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">newresult</span>
+                <span class="k">except</span> <span class="p">(</span><span class="n">shapely</span><span class="o">.</span><span class="n">geos</span><span class="o">.</span><span class="n">TopologicalError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+                    <span class="k">raise</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="c">#            return sg.GeometryCollection()</span>
+            <span class="k">raise</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

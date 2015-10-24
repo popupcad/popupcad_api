@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.algorithms.python_syntax_formatter &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.algorithms.python_syntax_formatter</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c"># syntax.py</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">PySide.QtCore</span> <span class="kn">import</span> <span class="n">QRegExp</span>
+<span class="kn">from</span> <span class="nn">PySide.QtGui</span> <span class="kn">import</span> <span class="n">QColor</span><span class="p">,</span> <span class="n">QTextCharFormat</span><span class="p">,</span> <span class="n">QFont</span><span class="p">,</span> <span class="n">QSyntaxHighlighter</span>
+
+<div class="viewcode-block" id="syntax_format"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.python_syntax_formatter.syntax_format">[docs]</a><span class="k">def</span> <span class="nf">syntax_format</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a QTextCharFormat with the given attributes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">()</span>
+    <span class="n">_color</span><span class="o">.</span><span class="n">setNamedColor</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+
+    <span class="n">_format</span> <span class="o">=</span> <span class="n">QTextCharFormat</span><span class="p">()</span>
+    <span class="n">_format</span><span class="o">.</span><span class="n">setForeground</span><span class="p">(</span><span class="n">_color</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s">&#39;bold&#39;</span> <span class="ow">in</span> <span class="n">style</span><span class="p">:</span>
+        <span class="n">_format</span><span class="o">.</span><span class="n">setFontWeight</span><span class="p">(</span><span class="n">QFont</span><span class="o">.</span><span class="n">Bold</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s">&#39;italic&#39;</span> <span class="ow">in</span> <span class="n">style</span><span class="p">:</span>
+        <span class="n">_format</span><span class="o">.</span><span class="n">setFontItalic</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_format</span>
+
+
+<span class="c"># Syntax styles that can be shared by all languages</span></div>
+<span class="n">STYLES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;keyword&#39;</span><span class="p">:</span> <span class="n">syntax_format</span><span class="p">(</span><span class="s">&#39;blue&#39;</span><span class="p">),</span>
+    <span class="s">&#39;operator&#39;</span><span class="p">:</span> <span class="n">syntax_format</span><span class="p">(</span><span class="s">&#39;red&#39;</span><span class="p">),</span>
+    <span class="s">&#39;brace&#39;</span><span class="p">:</span> <span class="n">syntax_format</span><span class="p">(</span><span class="s">&#39;darkGray&#39;</span><span class="p">),</span>
+    <span class="s">&#39;defclass&#39;</span><span class="p">:</span> <span class="n">syntax_format</span><span class="p">(</span><span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="s">&#39;bold&#39;</span><span class="p">),</span>
+    <span class="s">&#39;string&#39;</span><span class="p">:</span> <span class="n">syntax_format</span><span class="p">(</span><span class="s">&#39;magenta&#39;</span><span class="p">),</span>
+    <span class="s">&#39;string2&#39;</span><span class="p">:</span> <span class="n">syntax_format</span><span class="p">(</span><span class="s">&#39;darkMagenta&#39;</span><span class="p">),</span>
+    <span class="s">&#39;comment&#39;</span><span class="p">:</span> <span class="n">syntax_format</span><span class="p">(</span><span class="s">&#39;darkGreen&#39;</span><span class="p">,</span> <span class="s">&#39;italic&#39;</span><span class="p">),</span>
+    <span class="s">&#39;self&#39;</span><span class="p">:</span> <span class="n">syntax_format</span><span class="p">(</span><span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="s">&#39;italic&#39;</span><span class="p">),</span>
+    <span class="s">&#39;numbers&#39;</span><span class="p">:</span> <span class="n">syntax_format</span><span class="p">(</span><span class="s">&#39;brown&#39;</span><span class="p">),</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="PythonHighlighter"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.python_syntax_formatter.PythonHighlighter">[docs]</a><span class="k">class</span> <span class="nc">PythonHighlighter</span> <span class="p">(</span><span class="n">QSyntaxHighlighter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Syntax highlighter for the Python language.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># Python keywords</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s">&#39;and&#39;</span><span class="p">,</span> <span class="s">&#39;assert&#39;</span><span class="p">,</span> <span class="s">&#39;break&#39;</span><span class="p">,</span> <span class="s">&#39;class&#39;</span><span class="p">,</span> <span class="s">&#39;continue&#39;</span><span class="p">,</span> <span class="s">&#39;def&#39;</span><span class="p">,</span>
+        <span class="s">&#39;del&#39;</span><span class="p">,</span> <span class="s">&#39;elif&#39;</span><span class="p">,</span> <span class="s">&#39;else&#39;</span><span class="p">,</span> <span class="s">&#39;except&#39;</span><span class="p">,</span> <span class="s">&#39;exec&#39;</span><span class="p">,</span> <span class="s">&#39;finally&#39;</span><span class="p">,</span>
+        <span class="s">&#39;for&#39;</span><span class="p">,</span> <span class="s">&#39;from&#39;</span><span class="p">,</span> <span class="s">&#39;global&#39;</span><span class="p">,</span> <span class="s">&#39;if&#39;</span><span class="p">,</span> <span class="s">&#39;import&#39;</span><span class="p">,</span> <span class="s">&#39;in&#39;</span><span class="p">,</span>
+        <span class="s">&#39;is&#39;</span><span class="p">,</span> <span class="s">&#39;lambda&#39;</span><span class="p">,</span> <span class="s">&#39;not&#39;</span><span class="p">,</span> <span class="s">&#39;or&#39;</span><span class="p">,</span> <span class="s">&#39;pass&#39;</span><span class="p">,</span> <span class="s">&#39;print&#39;</span><span class="p">,</span>
+        <span class="s">&#39;raise&#39;</span><span class="p">,</span> <span class="s">&#39;return&#39;</span><span class="p">,</span> <span class="s">&#39;try&#39;</span><span class="p">,</span> <span class="s">&#39;while&#39;</span><span class="p">,</span> <span class="s">&#39;yield&#39;</span><span class="p">,</span>
+        <span class="s">&#39;None&#39;</span><span class="p">,</span> <span class="s">&#39;True&#39;</span><span class="p">,</span> <span class="s">&#39;False&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="c"># Python operators</span>
+    <span class="n">operators</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s">&#39;=&#39;</span><span class="p">,</span>
+        <span class="c"># Comparison</span>
+        <span class="s">&#39;==&#39;</span><span class="p">,</span> <span class="s">&#39;!=&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;=&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;=&#39;</span><span class="p">,</span>
+        <span class="c"># Arithmetic</span>
+        <span class="s">&#39;\+&#39;</span><span class="p">,</span> <span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="s">&#39;\*&#39;</span><span class="p">,</span> <span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="s">&#39;//&#39;</span><span class="p">,</span> <span class="s">&#39;\%&#39;</span><span class="p">,</span> <span class="s">&#39;\*\*&#39;</span><span class="p">,</span>
+        <span class="c"># In-place</span>
+        <span class="s">&#39;\+=&#39;</span><span class="p">,</span> <span class="s">&#39;-=&#39;</span><span class="p">,</span> <span class="s">&#39;\*=&#39;</span><span class="p">,</span> <span class="s">&#39;/=&#39;</span><span class="p">,</span> <span class="s">&#39;\%=&#39;</span><span class="p">,</span>
+        <span class="c"># Bitwise</span>
+        <span class="s">&#39;\^&#39;</span><span class="p">,</span> <span class="s">&#39;\|&#39;</span><span class="p">,</span> <span class="s">&#39;\&amp;&#39;</span><span class="p">,</span> <span class="s">&#39;\~&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;&lt;&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="c"># Python braces</span>
+    <span class="n">braces</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s">&#39;\{&#39;</span><span class="p">,</span> <span class="s">&#39;\}&#39;</span><span class="p">,</span> <span class="s">&#39;\(&#39;</span><span class="p">,</span> <span class="s">&#39;\)&#39;</span><span class="p">,</span> <span class="s">&#39;\[&#39;</span><span class="p">,</span> <span class="s">&#39;\]&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">):</span>
+        <span class="n">QSyntaxHighlighter</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">)</span>
+
+        <span class="c"># Multi-line strings (expression, flag, style)</span>
+        <span class="c"># FIXME: The triple-quotes in these two lines will mess up the</span>
+        <span class="c"># syntax highlighting from this point onward</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tri_single</span> <span class="o">=</span> <span class="p">(</span><span class="n">QRegExp</span><span class="p">(</span><span class="s">&quot;&#39;&#39;&#39;&quot;</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;string2&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tri_double</span> <span class="o">=</span> <span class="p">(</span><span class="n">QRegExp</span><span class="p">(</span><span class="s">&#39;&quot;&quot;&quot;&#39;</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;string2&#39;</span><span class="p">])</span>
+
+        <span class="n">rules</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c"># Keyword, operator, and brace rules</span>
+        <span class="n">rules</span> <span class="o">+=</span> <span class="p">[(</span><span class="s">r&#39;\b</span><span class="si">%s</span><span class="s">\b&#39;</span> <span class="o">%</span> <span class="n">w</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;keyword&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">PythonHighlighter</span><span class="o">.</span><span class="n">keywords</span><span class="p">]</span>
+        <span class="n">rules</span> <span class="o">+=</span> <span class="p">[(</span><span class="s">r&#39;</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">o</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;operator&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">PythonHighlighter</span><span class="o">.</span><span class="n">operators</span><span class="p">]</span>
+        <span class="n">rules</span> <span class="o">+=</span> <span class="p">[(</span><span class="s">r&#39;</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;brace&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">PythonHighlighter</span><span class="o">.</span><span class="n">braces</span><span class="p">]</span>
+
+        <span class="c"># All other rules</span>
+        <span class="n">rules</span> <span class="o">+=</span> <span class="p">[</span>
+            <span class="c"># &#39;self&#39;</span>
+            <span class="p">(</span><span class="s">r&#39;\bself\b&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;self&#39;</span><span class="p">]),</span>
+
+            <span class="c"># Double-quoted string, possibly containing escape sequences</span>
+            <span class="p">(</span><span class="s">r&#39;&quot;[^&quot;</span><span class="se">\\</span><span class="s">]*(</span><span class="se">\\</span><span class="s">.[^&quot;</span><span class="se">\\</span><span class="s">]*)*&quot;&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;string&#39;</span><span class="p">]),</span>
+            <span class="c"># Single-quoted string, possibly containing escape sequences</span>
+            <span class="p">(</span><span class="s">r&quot;&#39;[^&#39;</span><span class="se">\\</span><span class="s">]*(</span><span class="se">\\</span><span class="s">.[^&#39;</span><span class="se">\\</span><span class="s">]*)*&#39;&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;string&#39;</span><span class="p">]),</span>
+
+            <span class="c"># &#39;def&#39; followed by an identifier</span>
+            <span class="p">(</span><span class="s">r&#39;\bdef\b\s*(\w+)&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;defclass&#39;</span><span class="p">]),</span>
+            <span class="c"># &#39;class&#39; followed by an identifier</span>
+            <span class="p">(</span><span class="s">r&#39;\bclass\b\s*(\w+)&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;defclass&#39;</span><span class="p">]),</span>
+
+            <span class="c"># From &#39;#&#39; until a newline</span>
+            <span class="p">(</span><span class="s">r&#39;#[^\n]*&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;comment&#39;</span><span class="p">]),</span>
+
+            <span class="c"># Numeric literals</span>
+            <span class="p">(</span><span class="s">r&#39;\b[+-]?[0-9]+[lL]?\b&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;numbers&#39;</span><span class="p">]),</span>
+            <span class="p">(</span><span class="s">r&#39;\b[+-]?0[xX][0-9A-Fa-f]+[lL]?\b&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;numbers&#39;</span><span class="p">]),</span>
+            <span class="p">(</span><span class="s">r&#39;\b[+-]?[0-9]+(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\b&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;numbers&#39;</span><span class="p">]),</span>
+        <span class="p">]</span>
+
+        <span class="c"># Build a QRegExp for each pattern</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rules</span> <span class="o">=</span> <span class="p">[(</span><span class="n">QRegExp</span><span class="p">(</span><span class="n">pat</span><span class="p">),</span> <span class="n">index</span><span class="p">,</span> <span class="n">fmt</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">fmt</span><span class="p">)</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="PythonHighlighter.highlightBlock"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.python_syntax_formatter.PythonHighlighter.highlightBlock">[docs]</a>    <span class="k">def</span> <span class="nf">highlightBlock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Apply syntax highlighting to the given block of text.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># Do other syntax formatting</span>
+        <span class="k">for</span> <span class="n">expression</span><span class="p">,</span> <span class="n">nth</span><span class="p">,</span> <span class="n">my_format</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rules</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">expression</span><span class="o">.</span><span class="n">indexIn</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+            <span class="k">while</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c"># We actually want the index of the nth match</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">expression</span><span class="o">.</span><span class="n">pos</span><span class="p">(</span><span class="n">nth</span><span class="p">)</span>
+                <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">expression</span><span class="o">.</span><span class="n">cap</span><span class="p">(</span><span class="n">nth</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setFormat</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">my_format</span><span class="p">)</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">expression</span><span class="o">.</span><span class="n">indexIn</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">index</span> <span class="o">+</span> <span class="n">length</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCurrentBlockState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c"># Do multi-line strings</span>
+        <span class="n">in_multiline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">match_multiline</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">tri_single</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">in_multiline</span><span class="p">:</span>
+            <span class="n">in_multiline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">match_multiline</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">tri_double</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="PythonHighlighter.match_multiline"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.python_syntax_formatter.PythonHighlighter.match_multiline">[docs]</a>    <span class="k">def</span> <span class="nf">match_multiline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="n">in_state</span><span class="p">,</span> <span class="n">style</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Do highlighting of multi-line strings. ``delimiter`` should be a</span>
+<span class="sd">        ``QRegExp`` for triple-single-quotes or triple-double-quotes, and</span>
+<span class="sd">        ``in_state`` should be a unique integer to represent the corresponding</span>
+<span class="sd">        state changes when inside those strings. Returns True if we&#39;re still</span>
+<span class="sd">        inside a multi-line string when this function is finished.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># If inside triple-single quotes, start at 0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">previousBlockState</span><span class="p">()</span> <span class="o">==</span> <span class="n">in_state</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">add</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c"># Otherwise, look for the delimiter on this line</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">indexIn</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="c"># Move past this match</span>
+            <span class="n">add</span> <span class="o">=</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">matchedLength</span><span class="p">()</span>
+
+        <span class="c"># As long as there&#39;s a delimiter match on this line...</span>
+        <span class="k">while</span> <span class="n">start</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c"># Look for the ending delimiter</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">indexIn</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">add</span><span class="p">)</span>
+            <span class="c"># Ending delimiter on this line?</span>
+            <span class="k">if</span> <span class="n">end</span> <span class="o">&gt;=</span> <span class="n">add</span><span class="p">:</span>
+                <span class="n">length</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">+</span> <span class="n">add</span> <span class="o">+</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">matchedLength</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setCurrentBlockState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="c"># No; multi-line string</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setCurrentBlockState</span><span class="p">(</span><span class="n">in_state</span><span class="p">)</span>
+                <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">-</span> <span class="n">start</span> <span class="o">+</span> <span class="n">add</span>
+            <span class="c"># Apply formatting</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setFormat</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">style</span><span class="p">)</span>
+            <span class="c"># Look for the next match</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">indexIn</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">length</span><span class="p">)</span>
+
+        <span class="c"># Return True if still inside a multi-line string, False otherwise</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentBlockState</span><span class="p">()</span> <span class="o">==</span> <span class="n">in_state</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+            </div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PySide</span> <span class="kn">import</span> <span class="n">QtGui</span>
+    <span class="kn">import</span> <span class="nn">syntax</span>
+    
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QApplication</span><span class="p">([])</span>
+    <span class="n">editor</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPlainTextEdit</span><span class="p">()</span>
+    <span class="n">syntax</span><span class="o">.</span><span class="n">PythonHighlighter</span><span class="p">(</span><span class="n">editor</span><span class="o">.</span><span class="n">document</span><span class="p">())</span>
+    <span class="n">editor</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+    <span class="c"># Load syntax.py into the editor for demo purposes</span>
+    <span class="n">infile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;syntax.py&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">editor</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="n">infile</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    
+    <span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

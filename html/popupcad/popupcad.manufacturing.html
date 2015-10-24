@@ -1,0 +1,1905 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.manufacturing package &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="popupcad-manufacturing-package">
+<h1>popupcad.manufacturing package<a class="headerlink" href="#popupcad-manufacturing-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-popupcad.manufacturing.bufferop3">
+<span id="popupcad-manufacturing-bufferop3-module"></span><h2>popupcad.manufacturing.bufferop3 module<a class="headerlink" href="#module-popupcad.manufacturing.bufferop3" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.bufferop3.BufferOperation3">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.bufferop3.</code><code class="descname">BufferOperation3</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/bufferop3.html#BufferOperation3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.bufferop3.BufferOperation3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3" title="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3"><code class="xref py py-class docutils literal"><span class="pre">popupcad.manufacturing.multivalueoperation3.MultiValueOperation3</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.manufacturing.bufferop3.BufferOperation3.defaults">
+<code class="descname">defaults</code><em class="property"> = [0.0, 4]</em><a class="headerlink" href="#popupcad.manufacturing.bufferop3.BufferOperation3.defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.bufferop3.BufferOperation3.name">
+<code class="descname">name</code><em class="property"> = 'Dilate-Erode'</em><a class="headerlink" href="#popupcad.manufacturing.bufferop3.BufferOperation3.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.bufferop3.BufferOperation3.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/bufferop3.html#BufferOperation3.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.bufferop3.BufferOperation3.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.bufferop3.BufferOperation3.show">
+<code class="descname">show</code><em class="property"> = []</em><a class="headerlink" href="#popupcad.manufacturing.bufferop3.BufferOperation3.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.bufferop3.BufferOperation3.valuenames">
+<code class="descname">valuenames</code><em class="property"> = ['Buffer', 'Resolution']</em><a class="headerlink" href="#popupcad.manufacturing.bufferop3.BufferOperation3.valuenames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.cleanup2">
+<span id="popupcad-manufacturing-cleanup2-module"></span><h2>popupcad.manufacturing.cleanup2 module<a class="headerlink" href="#module-popupcad.manufacturing.cleanup2" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.cleanup2.Cleanup2">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.cleanup2.</code><code class="descname">Cleanup2</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/cleanup2.html#Cleanup2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.cleanup2.Cleanup2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3" title="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3"><code class="xref py py-class docutils literal"><span class="pre">popupcad.manufacturing.multivalueoperation3.MultiValueOperation3</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.manufacturing.cleanup2.Cleanup2.defaults">
+<code class="descname">defaults</code><em class="property"> = [0.0001, 1]</em><a class="headerlink" href="#popupcad.manufacturing.cleanup2.Cleanup2.defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.cleanup2.Cleanup2.name">
+<code class="descname">name</code><em class="property"> = 'Cleanup'</em><a class="headerlink" href="#popupcad.manufacturing.cleanup2.Cleanup2.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.cleanup2.Cleanup2.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/cleanup2.html#Cleanup2.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.cleanup2.Cleanup2.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.cleanup2.Cleanup2.show">
+<code class="descname">show</code><em class="property"> = []</em><a class="headerlink" href="#popupcad.manufacturing.cleanup2.Cleanup2.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.cleanup2.Cleanup2.valuenames">
+<code class="descname">valuenames</code><em class="property"> = ['Buffer', 'Resolution']</em><a class="headerlink" href="#popupcad.manufacturing.cleanup2.Cleanup2.valuenames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.cleanup3">
+<span id="popupcad-manufacturing-cleanup3-module"></span><h2>popupcad.manufacturing.cleanup3 module<a class="headerlink" href="#module-popupcad.manufacturing.cleanup3" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.cleanup3.Cleanup3">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.cleanup3.</code><code class="descname">Cleanup3</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/cleanup3.html#Cleanup3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.cleanup3.Cleanup3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3" title="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3"><code class="xref py py-class docutils literal"><span class="pre">popupcad.manufacturing.multivalueoperation3.MultiValueOperation3</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.manufacturing.cleanup3.Cleanup3.defaults">
+<code class="descname">defaults</code><em class="property"> = [0.0001, 1]</em><a class="headerlink" href="#popupcad.manufacturing.cleanup3.Cleanup3.defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.cleanup3.Cleanup3.name">
+<code class="descname">name</code><em class="property"> = 'New Cleanup'</em><a class="headerlink" href="#popupcad.manufacturing.cleanup3.Cleanup3.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.cleanup3.Cleanup3.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/cleanup3.html#Cleanup3.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.cleanup3.Cleanup3.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.cleanup3.Cleanup3.show">
+<code class="descname">show</code><em class="property"> = []</em><a class="headerlink" href="#popupcad.manufacturing.cleanup3.Cleanup3.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.cleanup3.Cleanup3.valuenames">
+<code class="descname">valuenames</code><em class="property"> = ['Buffer', 'Resolution']</em><a class="headerlink" href="#popupcad.manufacturing.cleanup3.Cleanup3.valuenames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.code_exec_op">
+<span id="popupcad-manufacturing-code-exec-op-module"></span><h2>popupcad.manufacturing.code_exec_op module<a class="headerlink" href="#module-popupcad.manufacturing.code_exec_op" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.code_exec_op.CodeExecOperation">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.code_exec_op.</code><code class="descname">CodeExecOperation</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/code_exec_op.html#CodeExecOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.code_exec_op.CodeExecOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.code_exec_op.CodeExecOperation.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/code_exec_op.html#CodeExecOperation.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.code_exec_op.CodeExecOperation.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.code_exec_op.CodeExecOperation.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/code_exec_op.html#CodeExecOperation.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.code_exec_op.CodeExecOperation.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.code_exec_op.CodeExecOperation.code">
+<code class="descname">code</code><em class="property"> = ''</em><a class="headerlink" href="#popupcad.manufacturing.code_exec_op.CodeExecOperation.code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.code_exec_op.CodeExecOperation.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/code_exec_op.html#CodeExecOperation.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.code_exec_op.CodeExecOperation.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.code_exec_op.CodeExecOperation.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>code</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/code_exec_op.html#CodeExecOperation.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.code_exec_op.CodeExecOperation.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.code_exec_op.CodeExecOperation.name">
+<code class="descname">name</code><em class="property"> = 'Code Execution Operation'</em><a class="headerlink" href="#popupcad.manufacturing.code_exec_op.CodeExecOperation.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.code_exec_op.CodeExecOperation.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/code_exec_op.html#CodeExecOperation.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.code_exec_op.CodeExecOperation.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.cross_section">
+<span id="popupcad-manufacturing-cross-section-module"></span><h2>popupcad.manufacturing.cross_section module<a class="headerlink" href="#module-popupcad.manufacturing.cross_section" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.cross_section.CrossSection">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.cross_section.</code><code class="descname">CrossSection</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/cross_section.html#CrossSection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.cross_section.CrossSection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.cross_section.CrossSection.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/cross_section.html#CrossSection.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.cross_section.CrossSection.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.cross_section.CrossSection.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/cross_section.html#CrossSection.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.cross_section.CrossSection.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.cross_section.CrossSection.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/cross_section.html#CrossSection.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.cross_section.CrossSection.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.cross_section.CrossSection.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>operation_links</em>, <em>sketch_links</em>, <em>scale_value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/cross_section.html#CrossSection.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.cross_section.CrossSection.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.cross_section.CrossSection.name">
+<code class="descname">name</code><em class="property"> = 'Cross-Section'</em><a class="headerlink" href="#popupcad.manufacturing.cross_section.CrossSection.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.cross_section.CrossSection.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/cross_section.html#CrossSection.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.cross_section.CrossSection.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.cross_section.Dialog">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.cross_section.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>design</em>, <em>operations</em>, <em>operation_index</em>, <em>sketch=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/cross_section.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.cross_section.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.cross_section.Dialog.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/cross_section.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.cross_section.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.cross_section.Dialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000009497A88&gt;</em><a class="headerlink" href="#popupcad.manufacturing.cross_section.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.dummy_operation1">
+<span id="popupcad-manufacturing-dummy-operation1-module"></span><h2>popupcad.manufacturing.dummy_operation1 module<a class="headerlink" href="#module-popupcad.manufacturing.dummy_operation1" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.dummy_operation1.DummyOp1">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.dummy_operation1.</code><code class="descname">DummyOp1</code><span class="sig-paren">(</span><em>laminate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/dummy_operation1.html#DummyOp1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.dummy_operation1.DummyOp1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.dummy_operation1.DummyOp1.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/dummy_operation1.html#DummyOp1.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.dummy_operation1.DummyOp1.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.dummy_operation1.DummyOp1.name">
+<code class="descname">name</code><em class="property"> = 'None'</em><a class="headerlink" href="#popupcad.manufacturing.dummy_operation1.DummyOp1.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.dummy_operation1.DummyOp1.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/dummy_operation1.html#DummyOp1.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.dummy_operation1.DummyOp1.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.freeze">
+<span id="popupcad-manufacturing-freeze-module"></span><h2>popupcad.manufacturing.freeze module<a class="headerlink" href="#module-popupcad.manufacturing.freeze" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.freeze.Dialog">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.freeze.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>design</em>, <em>operations</em>, <em>selectedop=None</em>, <em>outputref=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/freeze.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.freeze.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.freeze.Dialog.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/freeze.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.freeze.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.freeze.Dialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094A0288&gt;</em><a class="headerlink" href="#popupcad.manufacturing.freeze.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.freeze.Freeze">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.freeze.</code><code class="descname">Freeze</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/freeze.html#Freeze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.freeze.Freeze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.freeze.Freeze.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/freeze.html#Freeze.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.freeze.Freeze.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.freeze.Freeze.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/freeze.html#Freeze.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.freeze.Freeze.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.freeze.Freeze.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/freeze.html#Freeze.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.freeze.Freeze.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.freeze.Freeze.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>operation_link1</em>, <em>outputref</em>, <em>generic</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/freeze.html#Freeze.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.freeze.Freeze.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.freeze.Freeze.name">
+<code class="descname">name</code><em class="property"> = 'Freeze'</em><a class="headerlink" href="#popupcad.manufacturing.freeze.Freeze.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.freeze.Freeze.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/freeze.html#Freeze.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.freeze.Freeze.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.hole_operation">
+<span id="popupcad-manufacturing-hole-operation-module"></span><h2>popupcad.manufacturing.hole_operation module<a class="headerlink" href="#module-popupcad.manufacturing.hole_operation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="popupcad.manufacturing.hole_operation.HoleOperation">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.hole_operation.</code><code class="descname">HoleOperation</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#HoleOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.HoleOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a>, <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.LayerBasedOperation" title="popupcad.filetypes.operation2.LayerBasedOperation"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.LayerBasedOperation</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.hole_operation.HoleOperation.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#HoleOperation.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.HoleOperation.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.hole_operation.HoleOperation.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#HoleOperation.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.HoleOperation.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.hole_operation.HoleOperation.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#HoleOperation.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.HoleOperation.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.hole_operation.HoleOperation.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>operation_links</em>, <em>sketch_links</em>, <em>joint_defs</em>, <em>buffer_val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#HoleOperation.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.HoleOperation.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.hole_operation.HoleOperation.gen_geoms">
+<code class="descname">gen_geoms</code><span class="sig-paren">(</span><em>joint_def</em>, <em>layerdef</em>, <em>design</em>, <em>split_buffer</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#HoleOperation.gen_geoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.HoleOperation.gen_geoms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.hole_operation.HoleOperation.name">
+<code class="descname">name</code><em class="property"> = 'HoleOp'</em><a class="headerlink" href="#popupcad.manufacturing.hole_operation.HoleOperation.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.hole_operation.HoleOperation.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#HoleOperation.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.HoleOperation.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.hole_operation.HoleOperation.resolution">
+<code class="descname">resolution</code><em class="property"> = 2</em><a class="headerlink" href="#popupcad.manufacturing.hole_operation.HoleOperation.resolution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.hole_operation.HoleOperation.sketchrefs">
+<code class="descname">sketchrefs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#HoleOperation.sketchrefs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.HoleOperation.sketchrefs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.hole_operation.HoleOperation.switch_layer_defs">
+<code class="descname">switch_layer_defs</code><span class="sig-paren">(</span><em>layerdef_old</em>, <em>layerdef_new</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#HoleOperation.switch_layer_defs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.HoleOperation.switch_layer_defs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.hole_operation.JointDef">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.hole_operation.</code><code class="descname">JointDef</code><span class="sig-paren">(</span><em>sketch</em>, <em>joint_layer</em>, <em>sublaminate_layers</em>, <em>width</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#JointDef"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.JointDef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.hole_operation.JointDef.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#JointDef.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.JointDef.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.hole_operation.JointRow">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.hole_operation.</code><code class="descname">JointRow</code><span class="sig-paren">(</span><em>get_sketches</em>, <em>get_layers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#JointRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.JointRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.widgets.html#popupcad.widgets.table_editor_popup.Row" title="popupcad.widgets.table_editor_popup.Row"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.Row</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.hole_operation.MainWidget">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.hole_operation.</code><code class="descname">MainWidget</code><span class="sig-paren">(</span><em>design</em>, <em>sketches</em>, <em>layers</em>, <em>operations</em>, <em>jointop=None</em>, <em>buffer=0.01</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#MainWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.MainWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.hole_operation.MainWidget.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#MainWidget.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.MainWidget.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.hole_operation.MainWidget.contact_sketch">
+<code class="descname">contact_sketch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#MainWidget.contact_sketch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.MainWidget.contact_sketch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.hole_operation.MainWidget.get_layers">
+<code class="descname">get_layers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#MainWidget.get_layers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.MainWidget.get_layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.hole_operation.MainWidget.get_sketches">
+<code class="descname">get_sketches</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/hole_operation.html#MainWidget.get_sketches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.hole_operation.MainWidget.get_sketches" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.hole_operation.MainWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094AF648&gt;</em><a class="headerlink" href="#popupcad.manufacturing.hole_operation.MainWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.joint_operation2">
+<span id="popupcad-manufacturing-joint-operation2-module"></span><h2>popupcad.manufacturing.joint_operation2 module<a class="headerlink" href="#module-popupcad.manufacturing.joint_operation2" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="popupcad.manufacturing.joint_operation2.JointDef">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.joint_operation2.</code><code class="descname">JointDef</code><span class="sig-paren">(</span><em>sketch</em>, <em>joint_layer</em>, <em>sublaminate_layers</em>, <em>width</em>, <em>stiffness</em>, <em>damping</em>, <em>preload_angle</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointDef"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointDef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation2.JointDef.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointDef.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointDef.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.joint_operation2.JointOperation2">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.joint_operation2.</code><code class="descname">JointOperation2</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointOperation2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointOperation2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a>, <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.LayerBasedOperation" title="popupcad.filetypes.operation2.LayerBasedOperation"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.LayerBasedOperation</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation2.JointOperation2.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointOperation2.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointOperation2.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.joint_operation2.JointOperation2.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointOperation2.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointOperation2.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation2.JointOperation2.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointOperation2.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointOperation2.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation2.JointOperation2.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>operation_links</em>, <em>joint_defs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointOperation2.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointOperation2.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation2.JointOperation2.gen_geoms">
+<code class="descname">gen_geoms</code><span class="sig-paren">(</span><em>joint_def</em>, <em>layerdef</em>, <em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointOperation2.gen_geoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointOperation2.gen_geoms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation2.JointOperation2.generate">
+<code class="descname">generate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointOperation2.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointOperation2.generate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation2.JointOperation2.get_laminate_generations">
+<code class="descname">get_laminate_generations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointOperation2.get_laminate_generations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointOperation2.get_laminate_generations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.joint_operation2.JointOperation2.name">
+<code class="descname">name</code><em class="property"> = 'JointOp'</em><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointOperation2.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.joint_operation2.JointOperation2.resolution">
+<code class="descname">resolution</code><em class="property"> = 2</em><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointOperation2.resolution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation2.JointOperation2.sketchrefs">
+<code class="descname">sketchrefs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointOperation2.sketchrefs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointOperation2.sketchrefs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation2.JointOperation2.subdesignrefs">
+<code class="descname">subdesignrefs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointOperation2.subdesignrefs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointOperation2.subdesignrefs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation2.JointOperation2.switch_layer_defs">
+<code class="descname">switch_layer_defs</code><span class="sig-paren">(</span><em>layerdef_old</em>, <em>layerdef_new</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointOperation2.switch_layer_defs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointOperation2.switch_layer_defs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.joint_operation2.JointRow">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.joint_operation2.</code><code class="descname">JointRow</code><span class="sig-paren">(</span><em>get_sketches</em>, <em>get_layers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#JointRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.JointRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.widgets.html#popupcad.widgets.table_editor_popup.Row" title="popupcad.widgets.table_editor_popup.Row"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.Row</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.joint_operation2.MainWidget">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.joint_operation2.</code><code class="descname">MainWidget</code><span class="sig-paren">(</span><em>design</em>, <em>sketches</em>, <em>layers</em>, <em>operations</em>, <em>jointop=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#MainWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.MainWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation2.MainWidget.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#MainWidget.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.MainWidget.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation2.MainWidget.get_layers">
+<code class="descname">get_layers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#MainWidget.get_layers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.MainWidget.get_layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation2.MainWidget.get_sketches">
+<code class="descname">get_sketches</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation2.html#MainWidget.get_sketches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.MainWidget.get_sketches" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.joint_operation2.MainWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094C1088&gt;</em><a class="headerlink" href="#popupcad.manufacturing.joint_operation2.MainWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.joint_operation3">
+<span id="popupcad-manufacturing-joint-operation3-module"></span><h2>popupcad.manufacturing.joint_operation3 module<a class="headerlink" href="#module-popupcad.manufacturing.joint_operation3" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="popupcad.manufacturing.joint_operation3.JointDef">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.joint_operation3.</code><code class="descname">JointDef</code><span class="sig-paren">(</span><em>sketch</em>, <em>joint_layer</em>, <em>sublaminate_layers</em>, <em>width</em>, <em>stiffness</em>, <em>damping</em>, <em>preload_angle</em>, <em>limit_negative</em>, <em>limit_positive</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#JointDef"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointDef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation3.JointDef.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#JointDef.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointDef.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.joint_operation3.JointOperation3">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.joint_operation3.</code><code class="descname">JointOperation3</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#JointOperation3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointOperation3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a>, <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.LayerBasedOperation" title="popupcad.filetypes.operation2.LayerBasedOperation"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.LayerBasedOperation</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation3.JointOperation3.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#JointOperation3.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointOperation3.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.joint_operation3.JointOperation3.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#JointOperation3.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointOperation3.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation3.JointOperation3.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#JointOperation3.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointOperation3.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation3.JointOperation3.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>operation_links</em>, <em>sketch_links</em>, <em>joint_defs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#JointOperation3.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointOperation3.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation3.JointOperation3.gen_geoms">
+<code class="descname">gen_geoms</code><span class="sig-paren">(</span><em>joint_def</em>, <em>layerdef</em>, <em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#JointOperation3.gen_geoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointOperation3.gen_geoms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation3.JointOperation3.generate">
+<code class="descname">generate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#JointOperation3.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointOperation3.generate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation3.JointOperation3.get_laminate_generations">
+<code class="descname">get_laminate_generations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#JointOperation3.get_laminate_generations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointOperation3.get_laminate_generations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.joint_operation3.JointOperation3.name">
+<code class="descname">name</code><em class="property"> = 'JointOp'</em><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointOperation3.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.joint_operation3.JointOperation3.resolution">
+<code class="descname">resolution</code><em class="property"> = 2</em><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointOperation3.resolution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation3.JointOperation3.sketchrefs">
+<code class="descname">sketchrefs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#JointOperation3.sketchrefs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointOperation3.sketchrefs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation3.JointOperation3.switch_layer_defs">
+<code class="descname">switch_layer_defs</code><span class="sig-paren">(</span><em>layerdef_old</em>, <em>layerdef_new</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#JointOperation3.switch_layer_defs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointOperation3.switch_layer_defs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.joint_operation3.JointRow">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.joint_operation3.</code><code class="descname">JointRow</code><span class="sig-paren">(</span><em>get_sketches</em>, <em>get_layers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#JointRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.JointRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.widgets.html#popupcad.widgets.table_editor_popup.Row" title="popupcad.widgets.table_editor_popup.Row"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.Row</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.joint_operation3.MainWidget">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.joint_operation3.</code><code class="descname">MainWidget</code><span class="sig-paren">(</span><em>design</em>, <em>sketches</em>, <em>layers</em>, <em>operations</em>, <em>jointop=None</em>, <em>sketch=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#MainWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.MainWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation3.MainWidget.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#MainWidget.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.MainWidget.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation3.MainWidget.contact_sketch">
+<code class="descname">contact_sketch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#MainWidget.contact_sketch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.MainWidget.contact_sketch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation3.MainWidget.get_layers">
+<code class="descname">get_layers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#MainWidget.get_layers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.MainWidget.get_layers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.joint_operation3.MainWidget.get_sketches">
+<code class="descname">get_sketches</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/joint_operation3.html#MainWidget.get_sketches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.MainWidget.get_sketches" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.joint_operation3.MainWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094C1F08&gt;</em><a class="headerlink" href="#popupcad.manufacturing.joint_operation3.MainWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.laminateoperation2">
+<span id="popupcad-manufacturing-laminateoperation2-module"></span><h2>popupcad.manufacturing.laminateoperation2 module<a class="headerlink" href="#module-popupcad.manufacturing.laminateoperation2" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.laminateoperation2.Dialog">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.laminateoperation2.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>operationlist</em>, <em>index0</em>, <em>operationindeces1=None</em>, <em>operationindeces2=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/laminateoperation2.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.laminateoperation2.Dialog.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/laminateoperation2.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.laminateoperation2.Dialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094C6708&gt;</em><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.laminateoperation2.LaminateOperation2">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.laminateoperation2.</code><code class="descname">LaminateOperation2</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/laminateoperation2.html#LaminateOperation2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.LaminateOperation2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.laminateoperation2.LaminateOperation2.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/laminateoperation2.html#LaminateOperation2.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.LaminateOperation2.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.laminateoperation2.LaminateOperation2.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/laminateoperation2.html#LaminateOperation2.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.LaminateOperation2.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.laminateoperation2.LaminateOperation2.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/laminateoperation2.html#LaminateOperation2.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.LaminateOperation2.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.laminateoperation2.LaminateOperation2.displayorder">
+<code class="descname">displayorder</code><em class="property"> = ['union', 'intersection', 'difference', 'symmetric_difference']</em><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.LaminateOperation2.displayorder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.laminateoperation2.LaminateOperation2.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>operation_links</em>, <em>function</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/laminateoperation2.html#LaminateOperation2.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.LaminateOperation2.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.laminateoperation2.LaminateOperation2.name">
+<code class="descname">name</code><em class="property"> = 'LaminateOp'</em><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.LaminateOperation2.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.laminateoperation2.LaminateOperation2.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/laminateoperation2.html#LaminateOperation2.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.LaminateOperation2.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.laminateoperation2.LaminateOperation2.pairoperationtypes">
+<code class="descname">pairoperationtypes</code><em class="property"> = ['difference', 'symmetric_difference']</em><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.LaminateOperation2.pairoperationtypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.laminateoperation2.LaminateOperation2.parentrefs">
+<code class="descname">parentrefs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/laminateoperation2.html#LaminateOperation2.parentrefs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.LaminateOperation2.parentrefs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.laminateoperation2.LaminateOperation2.unaryoperationtypes">
+<code class="descname">unaryoperationtypes</code><em class="property"> = ['union', 'intersection']</em><a class="headerlink" href="#popupcad.manufacturing.laminateoperation2.LaminateOperation2.unaryoperationtypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.layerop2">
+<span id="popupcad-manufacturing-layerop2-module"></span><h2>popupcad.manufacturing.layerop2 module<a class="headerlink" href="#module-popupcad.manufacturing.layerop2" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.layerop2.Dialog">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.layerop2.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>operations</em>, <em>layerlist</em>, <em>index0=0</em>, <em>selectedop=None</em>, <em>selectedunary=None</em>, <em>selectedpair=None</em>, <em>selectedoutput=None</em>, <em>outputref=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/layerop2.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.layerop2.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.layerop2.Dialog.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/layerop2.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.layerop2.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.layerop2.Dialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094CD648&gt;</em><a class="headerlink" href="#popupcad.manufacturing.layerop2.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.layerop2.LayerOp2">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.layerop2.</code><code class="descname">LayerOp2</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/layerop2.html#LayerOp2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.layerop2.LayerOp2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a>, <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.LayerBasedOperation" title="popupcad.filetypes.operation2.LayerBasedOperation"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.LayerBasedOperation</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.layerop2.LayerOp2.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/layerop2.html#LayerOp2.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.layerop2.LayerOp2.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.layerop2.LayerOp2.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/layerop2.html#LayerOp2.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.layerop2.LayerOp2.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.layerop2.LayerOp2.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/layerop2.html#LayerOp2.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.layerop2.LayerOp2.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.layerop2.LayerOp2.displayorder">
+<code class="descname">displayorder</code><em class="property"> = ['union', 'intersection', 'difference', 'symmetric_difference']</em><a class="headerlink" href="#popupcad.manufacturing.layerop2.LayerOp2.displayorder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.layerop2.LayerOp2.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>operation_links</em>, <em>function</em>, <em>unary_layer_links</em>, <em>pair_layer_links</em>, <em>output_layer_links</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/layerop2.html#LayerOp2.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.layerop2.LayerOp2.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.layerop2.LayerOp2.function">
+<code class="descname">function</code><em class="property"> = None</em><a class="headerlink" href="#popupcad.manufacturing.layerop2.LayerOp2.function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.layerop2.LayerOp2.name">
+<code class="descname">name</code><em class="property"> = 'LayerOp'</em><a class="headerlink" href="#popupcad.manufacturing.layerop2.LayerOp2.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.layerop2.LayerOp2.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/layerop2.html#LayerOp2.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.layerop2.LayerOp2.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.layerop2.LayerOp2.pairoperationtypes">
+<code class="descname">pairoperationtypes</code><em class="property"> = ['difference', 'symmetric_difference']</em><a class="headerlink" href="#popupcad.manufacturing.layerop2.LayerOp2.pairoperationtypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.layerop2.LayerOp2.switch_layer_defs">
+<code class="descname">switch_layer_defs</code><span class="sig-paren">(</span><em>layerdef_old</em>, <em>layerdef_new</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/layerop2.html#LayerOp2.switch_layer_defs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.layerop2.LayerOp2.switch_layer_defs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.layerop2.LayerOp2.unaryoperationtypes">
+<code class="descname">unaryoperationtypes</code><em class="property"> = ['union', 'intersection']</em><a class="headerlink" href="#popupcad.manufacturing.layerop2.LayerOp2.unaryoperationtypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.locateoperation3">
+<span id="popupcad-manufacturing-locateoperation3-module"></span><h2>popupcad.manufacturing.locateoperation3 module<a class="headerlink" href="#module-popupcad.manufacturing.locateoperation3" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.locateoperation3.Dialog">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.locateoperation3.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>cls</em>, <em>design</em>, <em>sketch=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/locateoperation3.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.locateoperation3.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.locateoperation3.Dialog.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/locateoperation3.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.locateoperation3.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.locateoperation3.Dialog.sketch">
+<code class="descname">sketch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/locateoperation3.html#Dialog.sketch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.locateoperation3.Dialog.sketch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.locateoperation3.Dialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094CDB88&gt;</em><a class="headerlink" href="#popupcad.manufacturing.locateoperation3.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.locateoperation3.LocateOperation3">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.locateoperation3.</code><code class="descname">LocateOperation3</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/locateoperation3.html#LocateOperation3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.locateoperation3.LocateOperation3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.locateoperation3.LocateOperation3.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/locateoperation3.html#LocateOperation3.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.locateoperation3.LocateOperation3.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.locateoperation3.LocateOperation3.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/locateoperation3.html#LocateOperation3.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.locateoperation3.LocateOperation3.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.locateoperation3.LocateOperation3.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/locateoperation3.html#LocateOperation3.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.locateoperation3.LocateOperation3.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.locateoperation3.LocateOperation3.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>sketch_links</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/locateoperation3.html#LocateOperation3.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.locateoperation3.LocateOperation3.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.locateoperation3.LocateOperation3.locationgeometry">
+<code class="descname">locationgeometry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/locateoperation3.html#LocateOperation3.locationgeometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.locateoperation3.LocateOperation3.locationgeometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.locateoperation3.LocateOperation3.name">
+<code class="descname">name</code><em class="property"> = 'LocateOp'</em><a class="headerlink" href="#popupcad.manufacturing.locateoperation3.LocateOperation3.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.locateoperation3.LocateOperation3.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/locateoperation3.html#LocateOperation3.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.locateoperation3.LocateOperation3.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.multivalueoperation3">
+<span id="popupcad-manufacturing-multivalueoperation3-module"></span><h2>popupcad.manufacturing.multivalueoperation3 module<a class="headerlink" href="#module-popupcad.manufacturing.multivalueoperation3" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.multivalueoperation3.Dialog">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.multivalueoperation3.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>keepouttypes</em>, <em>valuenames</em>, <em>defaults</em>, <em>operations</em>, <em>selectedop</em>, <em>show</em>, <em>values=None</em>, <em>keepouttype=None</em>, <em>outputref=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/multivalueoperation3.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.multivalueoperation3.Dialog.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/multivalueoperation3.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.multivalueoperation3.Dialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000009494E48&gt;</em><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.multivalueoperation3.</code><code class="descname">MultiValueOperation3</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/multivalueoperation3.html#MultiValueOperation3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/multivalueoperation3.html#MultiValueOperation3.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/multivalueoperation3.html#MultiValueOperation3.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/multivalueoperation3.html#MultiValueOperation3.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.defaults">
+<code class="descname">defaults</code><em class="property"> = [0.0]</em><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>operation_links</em>, <em>values</em>, <em>keepout_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/multivalueoperation3.html#MultiValueOperation3.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.keepout_type_default">
+<code class="descname">keepout_type_default</code><em class="property"> = 301</em><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.keepout_type_default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.keepout_types">
+<code class="descname">keepout_types</code><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.keepout_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Enum</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.name">
+<code class="descname">name</code><em class="property"> = 'Multi-Value Operation'</em><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.show">
+<code class="descname">show</code><em class="property"> = ['keepout']</em><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.valuenames">
+<code class="descname">valuenames</code><em class="property"> = ['value']</em><a class="headerlink" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.valuenames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.nulloperation">
+<span id="popupcad-manufacturing-nulloperation-module"></span><h2>popupcad.manufacturing.nulloperation module<a class="headerlink" href="#module-popupcad.manufacturing.nulloperation" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.nulloperation.NullOp">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.nulloperation.</code><code class="descname">NullOp</code><a class="reference internal" href="../_modules/popupcad/manufacturing/nulloperation.html#NullOp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.nulloperation.NullOp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.nulloperation.NullOp.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/nulloperation.html#NullOp.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.nulloperation.NullOp.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.nulloperation.NullOp.edit">
+<code class="descname">edit</code><span class="sig-paren">(</span><em>parent</em>, <em>design</em>, <em>editedsignal</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/nulloperation.html#NullOp.edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.nulloperation.NullOp.edit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.nulloperation.NullOp.name">
+<code class="descname">name</code><em class="property"> = 'None'</em><a class="headerlink" href="#popupcad.manufacturing.nulloperation.NullOp.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.nulloperation.NullOp.new">
+<em class="property">classmethod </em><code class="descname">new</code><span class="sig-paren">(</span><em>parent</em>, <em>design</em>, <em>currentop</em>, <em>newsignal</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/nulloperation.html#NullOp.new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.nulloperation.NullOp.new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.nulloperation.NullOp.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/nulloperation.html#NullOp.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.nulloperation.NullOp.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.placeop8">
+<span id="popupcad-manufacturing-placeop8-module"></span><h2>popupcad.manufacturing.placeop8 module<a class="headerlink" href="#module-popupcad.manufacturing.placeop8" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.placeop8.Dialog">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.placeop8.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>design</em>, <em>prioroperations</em>, <em>sketch=None</em>, <em>subdesign=None</em>, <em>subopref=None</em>, <em>transformtype_x=None</em>, <em>transformtype_y=None</em>, <em>shift=0</em>, <em>flip=False</em>, <em>scalex=1.0</em>, <em>scaley=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.placeop8.Dialog.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.placeop8.Dialog.loadoperations">
+<code class="descname">loadoperations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#Dialog.loadoperations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.Dialog.loadoperations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.placeop8.Dialog.sketch">
+<code class="descname">sketch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#Dialog.sketch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.Dialog.sketch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.placeop8.Dialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094D5948&gt;</em><a class="headerlink" href="#popupcad.manufacturing.placeop8.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.placeop8.Dialog.subdesign">
+<code class="descname">subdesign</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#Dialog.subdesign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.Dialog.subdesign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.placeop8.PlaceOperation8">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.placeop8.</code><code class="descname">PlaceOperation8</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#PlaceOperation8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.PlaceOperation8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.placeop8.PlaceOperation8.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#PlaceOperation8.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.PlaceOperation8.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.placeop8.PlaceOperation8.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#PlaceOperation8.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.PlaceOperation8.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.placeop8.PlaceOperation8.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#PlaceOperation8.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.PlaceOperation8.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.placeop8.PlaceOperation8.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>sketch_links</em>, <em>design_links</em>, <em>subopref</em>, <em>transformtype_x</em>, <em>transformtype_y</em>, <em>shift</em>, <em>flip</em>, <em>scalex</em>, <em>scaley</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#PlaceOperation8.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.PlaceOperation8.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.placeop8.PlaceOperation8.fromQTransform">
+<code class="descname">fromQTransform</code><span class="sig-paren">(</span><em>tin</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#PlaceOperation8.fromQTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.PlaceOperation8.fromQTransform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.placeop8.PlaceOperation8.name">
+<code class="descname">name</code><em class="property"> = 'PlaceOp'</em><a class="headerlink" href="#popupcad.manufacturing.placeop8.PlaceOperation8.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.placeop8.PlaceOperation8.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#PlaceOperation8.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.PlaceOperation8.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.placeop8.PlaceOperation8.toQTransform">
+<code class="descname">toQTransform</code><span class="sig-paren">(</span><em>tin</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#PlaceOperation8.toQTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.PlaceOperation8.toQTransform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.placeop8.PlaceOperation8.transformtypes">
+<code class="descname">transformtypes</code><a class="headerlink" href="#popupcad.manufacturing.placeop8.PlaceOperation8.transformtypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Enum</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.placeop8.PlaceOperation8.upgrade_special">
+<code class="descname">upgrade_special</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/placeop8.html#PlaceOperation8.upgrade_special"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.placeop8.PlaceOperation8.upgrade_special" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.shiftflip3">
+<span id="popupcad-manufacturing-shiftflip3-module"></span><h2>popupcad.manufacturing.shiftflip3 module<a class="headerlink" href="#module-popupcad.manufacturing.shiftflip3" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.shiftflip3.Dialog">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.shiftflip3.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>operations</em>, <em>index</em>, <em>shift=0</em>, <em>flip=False</em>, <em>rotate=False</em>, <em>outputref=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip3.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip3.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.shiftflip3.Dialog.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip3.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip3.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.shiftflip3.Dialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094D5E08&gt;</em><a class="headerlink" href="#popupcad.manufacturing.shiftflip3.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.shiftflip3.ShiftFlip3">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.shiftflip3.</code><code class="descname">ShiftFlip3</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip3.html#ShiftFlip3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip3.ShiftFlip3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.shiftflip3.ShiftFlip3.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip3.html#ShiftFlip3.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip3.ShiftFlip3.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.shiftflip3.ShiftFlip3.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip3.html#ShiftFlip3.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip3.ShiftFlip3.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.shiftflip3.ShiftFlip3.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip3.html#ShiftFlip3.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip3.ShiftFlip3.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.shiftflip3.ShiftFlip3.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>operation_links</em>, <em>shift</em>, <em>flip</em>, <em>rotate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip3.html#ShiftFlip3.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip3.ShiftFlip3.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.shiftflip3.ShiftFlip3.f_rotate">
+<code class="descname">f_rotate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip3.html#ShiftFlip3.f_rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip3.ShiftFlip3.f_rotate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.shiftflip3.ShiftFlip3.name">
+<code class="descname">name</code><em class="property"> = 'Shift-Flip'</em><a class="headerlink" href="#popupcad.manufacturing.shiftflip3.ShiftFlip3.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.shiftflip3.ShiftFlip3.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip3.html#ShiftFlip3.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip3.ShiftFlip3.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.shiftflip4">
+<span id="popupcad-manufacturing-shiftflip4-module"></span><h2>popupcad.manufacturing.shiftflip4 module<a class="headerlink" href="#module-popupcad.manufacturing.shiftflip4" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.shiftflip4.Dialog">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.shiftflip4.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>design</em>, <em>operations</em>, <em>index</em>, <em>shift=0</em>, <em>flip=False</em>, <em>rotate=False</em>, <em>outputref=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip4.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip4.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.shiftflip4.Dialog.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip4.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip4.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.shiftflip4.Dialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094DC348&gt;</em><a class="headerlink" href="#popupcad.manufacturing.shiftflip4.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.shiftflip4.ShiftFlip4">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.shiftflip4.</code><code class="descname">ShiftFlip4</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip4.html#ShiftFlip4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip4.ShiftFlip4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a>, <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.LayerBasedOperation" title="popupcad.filetypes.operation2.LayerBasedOperation"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.LayerBasedOperation</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.shiftflip4.ShiftFlip4.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip4.html#ShiftFlip4.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip4.ShiftFlip4.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.shiftflip4.ShiftFlip4.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip4.html#ShiftFlip4.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip4.ShiftFlip4.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.shiftflip4.ShiftFlip4.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip4.html#ShiftFlip4.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip4.ShiftFlip4.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.shiftflip4.ShiftFlip4.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>operation_links</em>, <em>shift</em>, <em>flip</em>, <em>rotate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip4.html#ShiftFlip4.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip4.ShiftFlip4.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.shiftflip4.ShiftFlip4.f_rotate">
+<code class="descname">f_rotate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip4.html#ShiftFlip4.f_rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip4.ShiftFlip4.f_rotate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.shiftflip4.ShiftFlip4.name">
+<code class="descname">name</code><em class="property"> = 'Shift-Flip'</em><a class="headerlink" href="#popupcad.manufacturing.shiftflip4.ShiftFlip4.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.shiftflip4.ShiftFlip4.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/shiftflip4.html#ShiftFlip4.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.shiftflip4.ShiftFlip4.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.simplesketchoperation">
+<span id="popupcad-manufacturing-simplesketchoperation-module"></span><h2>popupcad.manufacturing.simplesketchoperation module<a class="headerlink" href="#module-popupcad.manufacturing.simplesketchoperation" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.simplesketchoperation.Dialog">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.simplesketchoperation.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>cls</em>, <em>design</em>, <em>operations</em>, <em>selectedoutput=None</em>, <em>sketch=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/simplesketchoperation.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.simplesketchoperation.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.simplesketchoperation.Dialog.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/simplesketchoperation.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.simplesketchoperation.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.simplesketchoperation.Dialog.sketch">
+<code class="descname">sketch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/simplesketchoperation.html#Dialog.sketch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.simplesketchoperation.Dialog.sketch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.simplesketchoperation.Dialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094DCA08&gt;</em><a class="headerlink" href="#popupcad.manufacturing.simplesketchoperation.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.simplesketchoperation.SimpleSketchOp">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.simplesketchoperation.</code><code class="descname">SimpleSketchOp</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/simplesketchoperation.html#SimpleSketchOp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.simplesketchoperation.SimpleSketchOp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a>, <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.LayerBasedOperation" title="popupcad.filetypes.operation2.LayerBasedOperation"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.LayerBasedOperation</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/simplesketchoperation.html#SimpleSketchOp.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/simplesketchoperation.html#SimpleSketchOp.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/simplesketchoperation.html#SimpleSketchOp.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>sketch_links</em>, <em>layer_links</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/simplesketchoperation.html#SimpleSketchOp.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.name">
+<code class="descname">name</code><em class="property"> = 'SketchOp'</em><a class="headerlink" href="#popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/simplesketchoperation.html#SimpleSketchOp.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.switch_layer_defs">
+<code class="descname">switch_layer_defs</code><span class="sig-paren">(</span><em>layerdef_old</em>, <em>layerdef_new</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/simplesketchoperation.html#SimpleSketchOp.switch_layer_defs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.switch_layer_defs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.simplify2">
+<span id="popupcad-manufacturing-simplify2-module"></span><h2>popupcad.manufacturing.simplify2 module<a class="headerlink" href="#module-popupcad.manufacturing.simplify2" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.simplify2.Simplify2">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.simplify2.</code><code class="descname">Simplify2</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/simplify2.html#Simplify2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.simplify2.Simplify2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3" title="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3"><code class="xref py py-class docutils literal"><span class="pre">popupcad.manufacturing.multivalueoperation3.MultiValueOperation3</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.manufacturing.simplify2.Simplify2.defaults">
+<code class="descname">defaults</code><em class="property"> = [0.01, 1]</em><a class="headerlink" href="#popupcad.manufacturing.simplify2.Simplify2.defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.simplify2.Simplify2.name">
+<code class="descname">name</code><em class="property"> = 'Simplify'</em><a class="headerlink" href="#popupcad.manufacturing.simplify2.Simplify2.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.simplify2.Simplify2.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/simplify2.html#Simplify2.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.simplify2.Simplify2.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.simplify2.Simplify2.show">
+<code class="descname">show</code><em class="property"> = []</em><a class="headerlink" href="#popupcad.manufacturing.simplify2.Simplify2.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.simplify2.Simplify2.valuenames">
+<code class="descname">valuenames</code><em class="property"> = ['Tolerance']</em><a class="headerlink" href="#popupcad.manufacturing.simplify2.Simplify2.valuenames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.sub_operation">
+<span id="popupcad-manufacturing-sub-operation-module"></span><h2>popupcad.manufacturing.sub_operation module<a class="headerlink" href="#module-popupcad.manufacturing.sub_operation" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation.InputData">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation.</code><code class="descname">InputData</code><span class="sig-paren">(</span><em>ref1</em>, <em>ref2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#InputData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.InputData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation.InputRow">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation.</code><code class="descname">InputRow</code><span class="sig-paren">(</span><em>get_sketches</em>, <em>get_layers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#InputRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.InputRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.widgets.html#popupcad.widgets.table_editor_popup.Row" title="popupcad.widgets.table_editor_popup.Row"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.Row</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation.MainWidget">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation.</code><code class="descname">MainWidget</code><span class="sig-paren">(</span><em>design</em>, <em>sketches</em>, <em>layers</em>, <em>operations</em>, <em>jointop=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#MainWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.MainWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation.MainWidget.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#MainWidget.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.MainWidget.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation.MainWidget.get_operations">
+<code class="descname">get_operations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#MainWidget.get_operations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.MainWidget.get_operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation.MainWidget.get_sketches">
+<code class="descname">get_sketches</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#MainWidget.get_sketches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.MainWidget.get_sketches" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation.MainWidget.get_subdesign_operations">
+<code class="descname">get_subdesign_operations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#MainWidget.get_subdesign_operations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.MainWidget.get_subdesign_operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation.MainWidget.get_subdesign_sketches">
+<code class="descname">get_subdesign_sketches</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#MainWidget.get_subdesign_sketches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.MainWidget.get_subdesign_sketches" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.sub_operation.MainWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094E4C48&gt;</em><a class="headerlink" href="#popupcad.manufacturing.sub_operation.MainWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation.MainWidget.subdesign">
+<code class="descname">subdesign</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#MainWidget.subdesign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.MainWidget.subdesign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation.OutputData">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation.</code><code class="descname">OutputData</code><span class="sig-paren">(</span><em>ref1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#OutputData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.OutputData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation.OutputRow">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation.</code><code class="descname">OutputRow</code><span class="sig-paren">(</span><em>get_sketches</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#OutputRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.OutputRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.widgets.html#popupcad.widgets.table_editor_popup.Row" title="popupcad.widgets.table_editor_popup.Row"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.Row</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation.SketchData">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation.</code><code class="descname">SketchData</code><span class="sig-paren">(</span><em>ref1</em>, <em>ref2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#SketchData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.SketchData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation.SketchRow">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation.</code><code class="descname">SketchRow</code><span class="sig-paren">(</span><em>get_sketches</em>, <em>get_layers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#SketchRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.SketchRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.widgets.html#popupcad.widgets.table_editor_popup.Row" title="popupcad.widgets.table_editor_popup.Row"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.Row</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation.SubOperation">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation.</code><code class="descname">SubOperation</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#SubOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.SubOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation.SubOperation.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#SubOperation.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.SubOperation.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.sub_operation.SubOperation.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#SubOperation.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.SubOperation.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation.SubOperation.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#SubOperation.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.SubOperation.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation.SubOperation.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>design_links</em>, <em>sketch_list</em>, <em>input_list</em>, <em>output_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#SubOperation.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.SubOperation.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation.SubOperation.generate">
+<code class="descname">generate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#SubOperation.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.SubOperation.generate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.sub_operation.SubOperation.name">
+<code class="descname">name</code><em class="property"> = 'SubOp'</em><a class="headerlink" href="#popupcad.manufacturing.sub_operation.SubOperation.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation.SubOperation.parentrefs">
+<code class="descname">parentrefs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#SubOperation.parentrefs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.SubOperation.parentrefs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation.SubOperation.replace_op_refs">
+<code class="descname">replace_op_refs</code><span class="sig-paren">(</span><em>refold</em>, <em>refnew</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#SubOperation.replace_op_refs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.SubOperation.replace_op_refs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation.SubOperation.replace_op_refs2">
+<code class="descname">replace_op_refs2</code><span class="sig-paren">(</span><em>refold</em>, <em>refnew</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation.html#SubOperation.replace_op_refs2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation.SubOperation.replace_op_refs2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.sub_operation2">
+<span id="popupcad-manufacturing-sub-operation2-module"></span><h2>popupcad.manufacturing.sub_operation2 module<a class="headerlink" href="#module-popupcad.manufacturing.sub_operation2" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation2.InputData">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation2.</code><code class="descname">InputData</code><span class="sig-paren">(</span><em>ref1</em>, <em>ref2</em>, <em>shift</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#InputData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.InputData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation2.InputRow">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation2.</code><code class="descname">InputRow</code><span class="sig-paren">(</span><em>get_sketches</em>, <em>get_layers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#InputRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.InputRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.widgets.html#popupcad.widgets.table_editor_popup.Row" title="popupcad.widgets.table_editor_popup.Row"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.Row</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation2.MainWidget">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation2.</code><code class="descname">MainWidget</code><span class="sig-paren">(</span><em>design</em>, <em>sketches</em>, <em>layers</em>, <em>operations</em>, <em>jointop=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#MainWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.MainWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.MainWidget.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#MainWidget.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.MainWidget.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.MainWidget.get_operations">
+<code class="descname">get_operations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#MainWidget.get_operations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.MainWidget.get_operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.MainWidget.get_sketches">
+<code class="descname">get_sketches</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#MainWidget.get_sketches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.MainWidget.get_sketches" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.MainWidget.get_subdesign_operations">
+<code class="descname">get_subdesign_operations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#MainWidget.get_subdesign_operations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.MainWidget.get_subdesign_operations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.MainWidget.get_subdesign_sketches">
+<code class="descname">get_subdesign_sketches</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#MainWidget.get_subdesign_sketches"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.MainWidget.get_subdesign_sketches" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.sub_operation2.MainWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094F0588&gt;</em><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.MainWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.MainWidget.subdesign">
+<code class="descname">subdesign</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#MainWidget.subdesign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.MainWidget.subdesign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation2.OutputData">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation2.</code><code class="descname">OutputData</code><span class="sig-paren">(</span><em>ref1</em>, <em>shift</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#OutputData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.OutputData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation2.OutputRow">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation2.</code><code class="descname">OutputRow</code><span class="sig-paren">(</span><em>get_sketches</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#OutputRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.OutputRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.widgets.html#popupcad.widgets.table_editor_popup.Row" title="popupcad.widgets.table_editor_popup.Row"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.Row</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation2.SketchData">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation2.</code><code class="descname">SketchData</code><span class="sig-paren">(</span><em>ref1</em>, <em>ref2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SketchData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SketchData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation2.SketchRow">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation2.</code><code class="descname">SketchRow</code><span class="sig-paren">(</span><em>get_sketches</em>, <em>get_layers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SketchRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SketchRow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.widgets.html#popupcad.widgets.table_editor_popup.Row" title="popupcad.widgets.table_editor_popup.Row"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.Row</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.sub_operation2.SubOperation2">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.sub_operation2.</code><code class="descname">SubOperation2</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SubOperation2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SubOperation2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.SubOperation2.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SubOperation2.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SubOperation2.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.sub_operation2.SubOperation2.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SubOperation2.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SubOperation2.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.SubOperation2.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SubOperation2.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SubOperation2.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.SubOperation2.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>design_links</em>, <em>sketch_list</em>, <em>input_list</em>, <em>output_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SubOperation2.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SubOperation2.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.SubOperation2.generate">
+<code class="descname">generate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SubOperation2.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SubOperation2.generate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.sub_operation2.SubOperation2.name">
+<code class="descname">name</code><em class="property"> = 'SubOp'</em><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SubOperation2.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.SubOperation2.parentrefs">
+<code class="descname">parentrefs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SubOperation2.parentrefs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SubOperation2.parentrefs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.SubOperation2.replace_op_refs">
+<code class="descname">replace_op_refs</code><span class="sig-paren">(</span><em>refold</em>, <em>refnew</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SubOperation2.replace_op_refs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SubOperation2.replace_op_refs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.SubOperation2.replace_op_refs2">
+<code class="descname">replace_op_refs2</code><span class="sig-paren">(</span><em>refold</em>, <em>refnew</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SubOperation2.replace_op_refs2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SubOperation2.replace_op_refs2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.SubOperation2.replace_sketch_refs">
+<code class="descname">replace_sketch_refs</code><span class="sig-paren">(</span><em>refold</em>, <em>refnew</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SubOperation2.replace_sketch_refs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SubOperation2.replace_sketch_refs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.SubOperation2.sketchrefs">
+<code class="descname">sketchrefs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SubOperation2.sketchrefs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SubOperation2.sketchrefs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.sub_operation2.SubOperation2.upgrade">
+<code class="descname">upgrade</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/sub_operation2.html#SubOperation2.upgrade"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.sub_operation2.SubOperation2.upgrade" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.transform">
+<span id="popupcad-manufacturing-transform-module"></span><h2>popupcad.manufacturing.transform module<a class="headerlink" href="#module-popupcad.manufacturing.transform" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.transform.TransformOperation">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.transform.</code><code class="descname">TransformOperation</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform.html#TransformOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform.TransformOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3" title="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3"><code class="xref py py-class docutils literal"><span class="pre">popupcad.manufacturing.multivalueoperation3.MultiValueOperation3</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.manufacturing.transform.TransformOperation.defaults">
+<code class="descname">defaults</code><em class="property"> = [0, 0, 0]</em><a class="headerlink" href="#popupcad.manufacturing.transform.TransformOperation.defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.transform.TransformOperation.name">
+<code class="descname">name</code><em class="property"> = 'Transform'</em><a class="headerlink" href="#popupcad.manufacturing.transform.TransformOperation.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.transform.TransformOperation.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform.html#TransformOperation.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform.TransformOperation.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.transform.TransformOperation.show">
+<code class="descname">show</code><em class="property"> = []</em><a class="headerlink" href="#popupcad.manufacturing.transform.TransformOperation.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.transform.TransformOperation.valuenames">
+<code class="descname">valuenames</code><em class="property"> = ['Rotate', 'X Shift', 'Y Shift']</em><a class="headerlink" href="#popupcad.manufacturing.transform.TransformOperation.valuenames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.transform_external">
+<span id="popupcad-manufacturing-transform-external-module"></span><h2>popupcad.manufacturing.transform_external module<a class="headerlink" href="#module-popupcad.manufacturing.transform_external" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.transform_external.Dialog">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.transform_external.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>design</em>, <em>prioroperations</em>, <em>placeop=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_external.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_external.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_external.Dialog.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_external.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_external.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_external.Dialog.build_sketch_links">
+<code class="descname">build_sketch_links</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_external.html#Dialog.build_sketch_links"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_external.Dialog.build_sketch_links" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_external.Dialog.loadoperations">
+<code class="descname">loadoperations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_external.html#Dialog.loadoperations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_external.Dialog.loadoperations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_external.Dialog.sketch">
+<code class="descname">sketch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_external.html#Dialog.sketch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_external.Dialog.sketch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.transform_external.Dialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094F81C8&gt;</em><a class="headerlink" href="#popupcad.manufacturing.transform_external.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_external.Dialog.subdesign">
+<code class="descname">subdesign</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_external.html#Dialog.subdesign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_external.Dialog.subdesign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.transform_external.TransformExternal">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.transform_external.</code><code class="descname">TransformExternal</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_external.html#TransformExternal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_external.TransformExternal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_external.TransformExternal.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_external.html#TransformExternal.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_external.TransformExternal.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.transform_external.TransformExternal.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_external.html#TransformExternal.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_external.TransformExternal.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_external.TransformExternal.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_external.html#TransformExternal.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_external.TransformExternal.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_external.TransformExternal.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>sketch_links</em>, <em>design_links</em>, <em>subopref</em>, <em>sub_sketch_id</em>, <em>transformtype_x</em>, <em>transformtype_y</em>, <em>shift</em>, <em>flip</em>, <em>scalex</em>, <em>scaley</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_external.html#TransformExternal.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_external.TransformExternal.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.transform_external.TransformExternal.name">
+<code class="descname">name</code><em class="property"> = 'External Transform'</em><a class="headerlink" href="#popupcad.manufacturing.transform_external.TransformExternal.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_external.TransformExternal.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_external.html#TransformExternal.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_external.TransformExternal.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_external.TransformExternal.to_internal_transform">
+<code class="descname">to_internal_transform</code><span class="sig-paren">(</span><em>sketch_mapping_dict</em>, <em>op_mapping_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_external.html#TransformExternal.to_internal_transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_external.TransformExternal.to_internal_transform" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.transform_external.TransformExternal.transformtypes">
+<code class="descname">transformtypes</code><a class="headerlink" href="#popupcad.manufacturing.transform_external.TransformExternal.transformtypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Enum</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing.transform_internal">
+<span id="popupcad-manufacturing-transform-internal-module"></span><h2>popupcad.manufacturing.transform_internal module<a class="headerlink" href="#module-popupcad.manufacturing.transform_internal" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.manufacturing.transform_internal.Dialog">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.transform_internal.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>design</em>, <em>prioroperations</em>, <em>placeop=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_internal.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_internal.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_internal.Dialog.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_internal.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_internal.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_internal.Dialog.build_sketch_links">
+<code class="descname">build_sketch_links</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_internal.html#Dialog.build_sketch_links"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_internal.Dialog.build_sketch_links" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.transform_internal.Dialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094F0A48&gt;</em><a class="headerlink" href="#popupcad.manufacturing.transform_internal.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.manufacturing.transform_internal.TransformInternal">
+<em class="property">class </em><code class="descclassname">popupcad.manufacturing.transform_internal.</code><code class="descname">TransformInternal</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_internal.html#TransformInternal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_internal.TransformInternal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_internal.TransformInternal.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_internal.html#TransformInternal.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_internal.TransformInternal.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.manufacturing.transform_internal.TransformInternal.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_internal.html#TransformInternal.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_internal.TransformInternal.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_internal.TransformInternal.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_internal.html#TransformInternal.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_internal.TransformInternal.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_internal.TransformInternal.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>sketch_links</em>, <em>operation_links</em>, <em>transformtype_x</em>, <em>transformtype_y</em>, <em>shift</em>, <em>flip</em>, <em>scalex</em>, <em>scaley</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_internal.html#TransformInternal.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_internal.TransformInternal.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.transform_internal.TransformInternal.name">
+<code class="descname">name</code><em class="property"> = 'Internal Transform'</em><a class="headerlink" href="#popupcad.manufacturing.transform_internal.TransformInternal.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.manufacturing.transform_internal.TransformInternal.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/manufacturing/transform_internal.html#TransformInternal.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.manufacturing.transform_internal.TransformInternal.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.manufacturing.transform_internal.TransformInternal.transformtypes">
+<code class="descname">transformtypes</code><a class="headerlink" href="#popupcad.manufacturing.transform_internal.TransformInternal.transformtypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Enum</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.manufacturing">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-popupcad.manufacturing" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">popupcad.manufacturing package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.bufferop3">popupcad.manufacturing.bufferop3 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.cleanup2">popupcad.manufacturing.cleanup2 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.cleanup3">popupcad.manufacturing.cleanup3 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.code_exec_op">popupcad.manufacturing.code_exec_op module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.cross_section">popupcad.manufacturing.cross_section module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.dummy_operation1">popupcad.manufacturing.dummy_operation1 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.freeze">popupcad.manufacturing.freeze module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.hole_operation">popupcad.manufacturing.hole_operation module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.joint_operation2">popupcad.manufacturing.joint_operation2 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.joint_operation3">popupcad.manufacturing.joint_operation3 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.laminateoperation2">popupcad.manufacturing.laminateoperation2 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.layerop2">popupcad.manufacturing.layerop2 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.locateoperation3">popupcad.manufacturing.locateoperation3 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.multivalueoperation3">popupcad.manufacturing.multivalueoperation3 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.nulloperation">popupcad.manufacturing.nulloperation module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.placeop8">popupcad.manufacturing.placeop8 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.shiftflip3">popupcad.manufacturing.shiftflip3 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.shiftflip4">popupcad.manufacturing.shiftflip4 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.simplesketchoperation">popupcad.manufacturing.simplesketchoperation module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.simplify2">popupcad.manufacturing.simplify2 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.sub_operation">popupcad.manufacturing.sub_operation module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.sub_operation2">popupcad.manufacturing.sub_operation2 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.transform">popupcad.manufacturing.transform module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.transform_external">popupcad.manufacturing.transform_external module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing.transform_internal">popupcad.manufacturing.transform_internal module</a></li>
+<li><a class="reference internal" href="#module-popupcad.manufacturing">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<form class="search" action="../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

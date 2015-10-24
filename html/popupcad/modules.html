@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="popupcad">
+<h1>popupcad<a class="headerlink" href="#popupcad" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="popupcad.html">popupcad package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="popupcad.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="popupcad.algorithms.html">popupcad.algorithms package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.body_detection">popupcad.algorithms.body_detection module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.csg_shapely">popupcad.algorithms.csg_shapely module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.design_documentation">popupcad.algorithms.design_documentation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.getjoints">popupcad.algorithms.getjoints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.keepout">popupcad.algorithms.keepout module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.manufacturing_functions">popupcad.algorithms.manufacturing_functions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.minimal_enclosing_circle">popupcad.algorithms.minimal_enclosing_circle module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.modify_device">popupcad.algorithms.modify_device module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.morphology">popupcad.algorithms.morphology module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.painterpath">popupcad.algorithms.painterpath module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.points">popupcad.algorithms.points module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.python_syntax_formatter">popupcad.algorithms.python_syntax_formatter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.removability">popupcad.algorithms.removability module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.spline_functions">popupcad.algorithms.spline_functions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.tetrahedron">popupcad.algorithms.tetrahedron module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.toolclearance">popupcad.algorithms.toolclearance module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.triangle">popupcad.algorithms.triangle module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.triangulate">popupcad.algorithms.triangulate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms.web">popupcad.algorithms.web module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.algorithms.html#module-popupcad.algorithms">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="popupcad.filetypes.html">popupcad.filetypes package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.classtools">popupcad.filetypes.classtools module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.constraints">popupcad.filetypes.constraints module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.design">popupcad.filetypes.design module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.genericlaminate">popupcad.filetypes.genericlaminate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.genericshapebase">popupcad.filetypes.genericshapebase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.genericshapes">popupcad.filetypes.genericshapes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.laminate">popupcad.filetypes.laminate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.layer">popupcad.filetypes.layer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.layerdef">popupcad.filetypes.layerdef module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.listwidgetitem">popupcad.filetypes.listwidgetitem module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.material2">popupcad.filetypes.material2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.operation">popupcad.filetypes.operation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.operation2">popupcad.filetypes.operation2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.operationoutput">popupcad.filetypes.operationoutput module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.popupcad_file">popupcad.filetypes.popupcad_file module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.program">popupcad.filetypes.program module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.sketch">popupcad.filetypes.sketch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.solidworksimport">popupcad.filetypes.solidworksimport module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.undoredo">popupcad.filetypes.undoredo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.userdata">popupcad.filetypes.userdata module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes.validators">popupcad.filetypes.validators module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.filetypes.html#module-popupcad.filetypes">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="popupcad.geometry.html">popupcad.geometry package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.geometry.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.geometry.html#module-popupcad.geometry.line">popupcad.geometry.line module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.geometry.html#module-popupcad.geometry.vertex">popupcad.geometry.vertex module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.geometry.html#module-popupcad.geometry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="popupcad.graphics2d.html">popupcad.graphics2d package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#module-popupcad.graphics2d.graphicsitems">popupcad.graphics2d.graphicsitems module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#module-popupcad.graphics2d.graphicsscene">popupcad.graphics2d.graphicsscene module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#module-popupcad.graphics2d.graphicsview">popupcad.graphics2d.graphicsview module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#module-popupcad.graphics2d.interactive">popupcad.graphics2d.interactive module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#module-popupcad.graphics2d.interactiveedge">popupcad.graphics2d.interactiveedge module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#module-popupcad.graphics2d.interactivevertex">popupcad.graphics2d.interactivevertex module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#module-popupcad.graphics2d.interactivevertexbase">popupcad.graphics2d.interactivevertexbase module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#module-popupcad.graphics2d.modes">popupcad.graphics2d.modes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#module-popupcad.graphics2d.proto">popupcad.graphics2d.proto module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#module-popupcad.graphics2d.static">popupcad.graphics2d.static module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#module-popupcad.graphics2d.svg_support">popupcad.graphics2d.svg_support module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#module-popupcad.graphics2d.text">popupcad.graphics2d.text module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics2d.html#module-popupcad.graphics2d">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="popupcad.graphics3d.html">popupcad.graphics3d package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics3d.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics3d.html#module-popupcad.graphics3d.gl_viewer">popupcad.graphics3d.gl_viewer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.graphics3d.html#module-popupcad.graphics3d">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="popupcad.guis.html">popupcad.guis package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.guis.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.guis.html#module-popupcad.guis.actions">popupcad.guis.actions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.guis.html#module-popupcad.guis.editor">popupcad.guis.editor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.guis.html#module-popupcad.guis.icons">popupcad.guis.icons module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.guis.html#module-popupcad.guis.sketcher">popupcad.guis.sketcher module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.guis.html#module-popupcad.guis">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="popupcad.manufacturing.html">popupcad.manufacturing package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.bufferop3">popupcad.manufacturing.bufferop3 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.cleanup2">popupcad.manufacturing.cleanup2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.cleanup3">popupcad.manufacturing.cleanup3 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.code_exec_op">popupcad.manufacturing.code_exec_op module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.cross_section">popupcad.manufacturing.cross_section module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.dummy_operation1">popupcad.manufacturing.dummy_operation1 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.freeze">popupcad.manufacturing.freeze module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.hole_operation">popupcad.manufacturing.hole_operation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.joint_operation2">popupcad.manufacturing.joint_operation2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.joint_operation3">popupcad.manufacturing.joint_operation3 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.laminateoperation2">popupcad.manufacturing.laminateoperation2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.layerop2">popupcad.manufacturing.layerop2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.locateoperation3">popupcad.manufacturing.locateoperation3 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.multivalueoperation3">popupcad.manufacturing.multivalueoperation3 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.nulloperation">popupcad.manufacturing.nulloperation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.placeop8">popupcad.manufacturing.placeop8 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.shiftflip3">popupcad.manufacturing.shiftflip3 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.shiftflip4">popupcad.manufacturing.shiftflip4 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.simplesketchoperation">popupcad.manufacturing.simplesketchoperation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.simplify2">popupcad.manufacturing.simplify2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.sub_operation">popupcad.manufacturing.sub_operation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.sub_operation2">popupcad.manufacturing.sub_operation2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.transform">popupcad.manufacturing.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.transform_external">popupcad.manufacturing.transform_external module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing.transform_internal">popupcad.manufacturing.transform_internal module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.manufacturing.html#module-popupcad.manufacturing">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="popupcad.materials.html">popupcad.materials package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.materials.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.materials.html#module-popupcad.materials.materials">popupcad.materials.materials module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.materials.html#module-popupcad.materials">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="popupcad.widgets.html">popupcad.widgets package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.dragndroplist">popupcad.widgets.dragndroplist module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.dragndroptree">popupcad.widgets.dragndroptree module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.errorlog">popupcad.widgets.errorlog module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.listeditor">popupcad.widgets.listeditor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.listmanager">popupcad.widgets.listmanager module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.materialselection">popupcad.widgets.materialselection module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.materialselection2">popupcad.widgets.materialselection2 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.operationlist">popupcad.widgets.operationlist module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.operationnetwork">popupcad.widgets.operationnetwork module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.render_widget">popupcad.widgets.render_widget module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.table_common">popupcad.widgets.table_common module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.table_editor_delegate">popupcad.widgets.table_editor_delegate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.table_editor_popup">popupcad.widgets.table_editor_popup module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.tablewidget">popupcad.widgets.tablewidget module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.userinput">popupcad.widgets.userinput module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets.widgetcommon">popupcad.widgets.widgetcommon module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="popupcad.widgets.html#module-popupcad.widgets">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="popupcad.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="popupcad.html#module-popupcad.basic_functions">popupcad.basic_functions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="popupcad.html#module-popupcad.global_settings">popupcad.global_settings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="popupcad.html#module-popupcad">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

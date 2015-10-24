@@ -1,0 +1,22 @@
+popupcad.materials package
+==========================
+
+Submodules
+----------
+
+popupcad.materials.materials module
+-----------------------------------
+
+.. automodule:: popupcad.materials.materials
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: popupcad.materials
+    :members:
+    :undoc-members:
+    :show-inheritance:

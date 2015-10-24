@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.filetypes.laminate &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.filetypes.laminate</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.layer</span> <span class="kn">import</span> <span class="n">Layer</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+
+
+<div class="viewcode-block" id="IterableLaminate"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.IterableLaminate">[docs]</a><span class="k">class</span> <span class="nc">IterableLaminate</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Layer</span><span class="p">):</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">geoms</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Layer</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">value</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">index</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Layer</span><span class="p">):</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">geoms</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span> <span class="o">=</span> <span class="n">Layer</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
+
+<div class="viewcode-block" id="IterableLaminate.flip"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.IterableLaminate.flip">[docs]</a>    <span class="k">def</span> <span class="nf">flip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;flip a laminate&#39;&#39;&#39;</span>
+        <span class="n">laminateout</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="p">)</span>
+        <span class="n">laminateout</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">laminateout</span>
+
+</div></div>
+<div class="viewcode-block" id="Laminate"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate">[docs]</a><span class="k">class</span> <span class="nc">Laminate</span><span class="p">(</span><span class="n">IterableLaminate</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layerdef</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span> <span class="o">=</span> <span class="n">layerdef</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">replacelayergeoms</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="p">[])</span>
+
+<div class="viewcode-block" id="Laminate.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="p">)</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">layer_sequence</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Laminate.upgrade"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.upgrade">[docs]</a>    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</div>
+<div class="viewcode-block" id="Laminate.layers"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.layers">[docs]</a>    <span class="k">def</span> <span class="nf">layers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span>
+</div>
+<div class="viewcode-block" id="Laminate.isEmpty"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.isEmpty">[docs]</a>    <span class="k">def</span> <span class="nf">isEmpty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">all</span><span class="p">([</span><span class="n">layer</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">()</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+</div>
+<div class="viewcode-block" id="Laminate.replacelayergeoms"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.replacelayergeoms">[docs]</a>    <span class="k">def</span> <span class="nf">replacelayergeoms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">geoms</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span> <span class="o">=</span> <span class="n">Layer</span><span class="p">(</span><span class="n">geoms</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Laminate.insertlayergeoms"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.insertlayergeoms">[docs]</a>    <span class="k">def</span> <span class="nf">insertlayergeoms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">,</span> <span class="n">geoms</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span><span class="o">.</span><span class="n">add_geoms</span><span class="p">(</span><span class="n">geoms</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Laminate.getlayer"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.getlayer">[docs]</a>    <span class="k">def</span> <span class="nf">getlayer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">getlayer</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Laminate.union"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.union">[docs]</a>    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">ls2</span><span class="p">,</span> <span class="s">&#39;union&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Laminate.difference"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.difference">[docs]</a>    <span class="k">def</span> <span class="nf">difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">ls2</span><span class="p">,</span> <span class="s">&#39;difference&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Laminate.intersection"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.intersection">[docs]</a>    <span class="k">def</span> <span class="nf">intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">ls2</span><span class="p">,</span> <span class="s">&#39;intersection&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Laminate.symmetric_difference"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.symmetric_difference">[docs]</a>    <span class="k">def</span> <span class="nf">symmetric_difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls2</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">ls2</span><span class="p">,</span> <span class="s">&#39;symmetric_difference&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Laminate.buffer"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.buffer">[docs]</a>    <span class="k">def</span> <span class="nf">buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;resolution&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;resolution&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">default_buffer_resolution</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueoperation</span><span class="p">(</span><span class="s">&#39;buffer&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Laminate.cleanup"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.cleanup">[docs]</a>    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">morphology</span><span class="o">.</span><span class="n">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">,</span><span class="n">resolution</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Laminate.simplify"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.simplify">[docs]</a>    <span class="k">def</span> <span class="nf">simplify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueoperation</span><span class="p">(</span><span class="s">&#39;simplify&#39;</span><span class="p">,</span><span class="n">tolerance</span><span class="p">,</span><span class="n">preserve_topology</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Laminate.binaryoperation"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.binaryoperation">[docs]</a>    <span class="k">def</span> <span class="nf">binaryoperation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls2</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+        <span class="bp">self</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="n">lsout</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="p">)</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span> <span class="o">!=</span> <span class="n">ls2</span><span class="o">.</span><span class="n">layerdef</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
+            <span class="n">layer1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+            <span class="n">layer2</span> <span class="o">=</span> <span class="n">ls2</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+            <span class="n">layerout</span> <span class="o">=</span> <span class="n">layer1</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">layer2</span><span class="p">,</span> <span class="n">function</span><span class="p">)</span>
+            <span class="n">lsout</span><span class="o">.</span><span class="n">replacelayergeoms</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">layerout</span><span class="o">.</span><span class="n">geoms</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">lsout</span>
+</div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Laminate.unaryoperation"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.unaryoperation">[docs]</a>    <span class="k">def</span> <span class="nf">unaryoperation</span><span class="p">(</span><span class="n">laminates</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+        <span class="n">laminates</span> <span class="o">=</span> <span class="n">laminates</span><span class="p">[:]</span>
+        <span class="n">lsout</span> <span class="o">=</span> <span class="n">laminates</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="ow">not</span> <span class="n">laminates</span><span class="p">:</span>
+            <span class="n">lsout</span> <span class="o">=</span> <span class="n">lsout</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">laminates</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">function</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">lsout</span>
+</div>
+<div class="viewcode-block" id="Laminate.valueoperation"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.valueoperation">[docs]</a>    <span class="k">def</span> <span class="nf">valueoperation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">functionname</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">lsout</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="p">)</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
+            <span class="n">layer1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">layer1</span><span class="o">.</span><span class="n">valueoperation</span><span class="p">(</span><span class="n">functionname</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">lsout</span><span class="o">.</span><span class="n">replacelayergeoms</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">geoms</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">lsout</span>
+</div>
+<div class="viewcode-block" id="Laminate.unarylayeroperation"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.unarylayeroperation">[docs]</a>    <span class="k">def</span> <span class="nf">unarylayeroperation</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">functionname</span><span class="p">,</span>
+            <span class="n">selectedinputlayers</span><span class="p">,</span>
+            <span class="n">selectedoutputlayers</span><span class="p">):</span>
+        <span class="n">selectedinputlayers</span> <span class="o">=</span> <span class="n">selectedinputlayers</span><span class="p">[:]</span>
+        <span class="n">layer1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">selectedinputlayers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">selectedinputlayers</span><span class="p">:</span>
+            <span class="n">layer2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+            <span class="n">layer1</span> <span class="o">=</span> <span class="n">layer1</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">layer2</span><span class="p">,</span> <span class="n">functionname</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">unary_union_safe</span><span class="p">(</span><span class="n">layer1</span><span class="o">.</span><span class="n">geoms</span><span class="p">)</span>
+        <span class="n">geoms1</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">condition_shapely_entities</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="n">lsout</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">selectedoutputlayers</span><span class="p">:</span>
+            <span class="n">lsout</span><span class="o">.</span><span class="n">replacelayergeoms</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">geoms1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">lsout</span>
+</div>
+<div class="viewcode-block" id="Laminate.binarylayeroperation2"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.binarylayeroperation2">[docs]</a>    <span class="k">def</span> <span class="nf">binarylayeroperation2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">layers1</span><span class="p">,</span> <span class="n">layers2</span><span class="p">,</span> <span class="n">outputlayers</span><span class="p">):</span>
+        <span class="n">layer1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layers1</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers1</span><span class="p">:</span>
+            <span class="n">layer2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+            <span class="n">layer1</span> <span class="o">=</span> <span class="n">layer1</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">layer2</span><span class="p">)</span>
+        <span class="n">layer3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layers2</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>
+
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers2</span><span class="p">:</span>
+            <span class="n">layer2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+            <span class="n">layer3</span> <span class="o">=</span> <span class="n">layer3</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">layer2</span><span class="p">)</span>
+        <span class="n">layerout</span> <span class="o">=</span> <span class="n">layer1</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">layer3</span><span class="p">,</span> <span class="n">function</span><span class="p">)</span>
+
+        <span class="n">lsout</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">outputlayers</span><span class="p">:</span>
+            <span class="n">lsout</span><span class="o">.</span><span class="n">replacelayergeoms</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">layerout</span><span class="o">.</span><span class="n">geoms</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">lsout</span>
+</div>
+<div class="viewcode-block" id="Laminate.select"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="Laminate.to_generic_laminate"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.to_generic_laminate">[docs]</a>    <span class="k">def</span> <span class="nf">to_generic_laminate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">popupcad.filetypes.genericlaminate</span> <span class="kn">import</span> <span class="n">GenericLaminate</span>
+        <span class="n">genericgeometry</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+            <span class="n">geometry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span><span class="o">.</span><span class="n">geoms</span>
+            <span class="n">genericgeoms</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">geometry</span><span class="p">:</span>
+                <span class="n">genericgeoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">to_generic</span><span class="p">(</span><span class="n">geom</span><span class="p">))</span>
+            <span class="n">genericgeometry</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span> <span class="o">=</span> <span class="n">genericgeoms</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">GenericLaminate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="p">,</span> <span class="n">genericgeometry</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="Laminate.switch_layer_defs"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.switch_layer_defs">[docs]</a>    <span class="k">def</span> <span class="nf">switch_layer_defs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">layerdef_to</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="n">layerdef_to</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">layer_from</span><span class="p">,</span> <span class="n">layer_to</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span><span class="p">,</span><span class="n">layerdef_to</span><span class="o">.</span><span class="n">layers</span><span class="p">):</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer_to</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer_from</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">new</span>
+        </div>
+<div class="viewcode-block" id="Laminate.all_geoms"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.all_geoms">[docs]</a>    <span class="k">def</span> <span class="nf">all_geoms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">allgeoms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+            <span class="n">allgeoms</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">allgeoms</span>
+        </div>
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_geoms</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">&lt;</span><span class="n">other</span><span class="o">.</span><span class="n">all_geoms</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+        </div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

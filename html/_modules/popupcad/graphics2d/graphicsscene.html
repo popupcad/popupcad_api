@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.graphics2d.graphicsscene &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.graphics2d.graphicsscene</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">from</span> <span class="nn">popupcad.graphics2d.static</span> <span class="kn">import</span> <span class="n">Static</span>
+<span class="kn">from</span> <span class="nn">popupcad.graphics2d.svg_support</span> <span class="kn">import</span> <span class="n">SVGOutputSupport</span>
+<span class="kn">from</span> <span class="nn">popupcad.geometry.vertex</span> <span class="kn">import</span> <span class="n">DrawnPoint</span><span class="p">,</span> <span class="n">ShapeVertex</span>
+<span class="kn">from</span> <span class="nn">popupcad.graphics2d.interactivevertex</span> <span class="kn">import</span> <span class="n">DrawingPoint</span><span class="p">,</span> <span class="n">StaticDrawingPoint</span>
+<span class="kn">from</span> <span class="nn">popupcad.graphics2d.text</span> <span class="kn">import</span> <span class="n">TextParent</span><span class="p">,</span> <span class="n">GenericText</span>
+
+<span class="kn">from</span> <span class="nn">popupcad.graphics2d.interactivevertex</span> <span class="kn">import</span> <span class="n">ReferenceInteractiveVertex</span>
+<span class="kn">from</span> <span class="nn">popupcad.graphics2d.interactiveedge</span> <span class="kn">import</span> <span class="n">ReferenceInteractiveEdge</span>
+
+
+<div class="viewcode-block" id="popupCADObjectSupport"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.popupCADObjectSupport">[docs]</a><span class="k">class</span> <span class="nc">popupCADObjectSupport</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="popupCADObjectSupport.removeItem"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.popupCADObjectSupport.removeItem">[docs]</a>    <span class="k">def</span> <span class="nf">removeItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsScene</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="popupCADObjectSupport.addItem"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.popupCADObjectSupport.addItem">[docs]</a>    <span class="k">def</span> <span class="nf">addItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsScene</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">updatescale</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="popupCADObjectSupport.deleteall"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.popupCADObjectSupport.deleteall">[docs]</a>    <span class="k">def</span> <span class="nf">deleteall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">harddelete</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="popupCADObjectSupport.updateshape"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.popupCADObjectSupport.updateshape">[docs]</a>    <span class="k">def</span> <span class="nf">updateshape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+</div></div>
+<div class="viewcode-block" id="SketcherSupport"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport">[docs]</a><span class="k">class</span> <span class="nc">SketcherSupport</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">newpolygon</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">()</span>
+    <span class="n">itemclicked</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">enteringeditmode</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">()</span>
+    <span class="n">leavingeditmode</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">()</span>
+    <span class="n">savesnapshot</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">()</span>
+    <span class="n">itemdeleted</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">()</span>
+    <span class="n">refresh_request</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">()</span>
+    <span class="n">constraint_update_request</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setItemIndexMethod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">NoIndex</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constraints_on</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setSceneRect</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">QRectF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setBackgroundBrush</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="o">*</span><span class="n">popupcad</span><span class="o">.</span><span class="n">graphics_scene_background_color</span><span class="p">),</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidPattern</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temp</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extraobjects</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nextgeometry</span> <span class="o">=</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="SketcherSupport.get_sketch"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.get_sketch">[docs]</a>    <span class="k">def</span> <span class="nf">get_sketch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sketch</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.set_sketch"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.set_sketch">[docs]</a>    <span class="k">def</span> <span class="nf">set_sketch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sketch</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sketch</span> <span class="o">=</span> <span class="n">sketch</span>
+</div>
+    <span class="n">sketch</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_sketch</span><span class="p">,</span> <span class="n">set_sketch</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SketcherSupport.setIsEnabled"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.setIsEnabled">[docs]</a>    <span class="k">def</span> <span class="nf">setIsEnabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Static</span><span class="p">):</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.addpolygon"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.addpolygon">[docs]</a>    <span class="k">def</span> <span class="nf">addpolygon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">polygonclass</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nextgeometry</span> <span class="o">=</span> <span class="n">polygonclass</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.keyPressEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.keyPressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsScene</span><span class="o">.</span><span class="n">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Delete</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">savesnapshot</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delete_selected_items</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">itemdeleted</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.cut_to_clipboard"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.cut_to_clipboard">[docs]</a>    <span class="k">def</span> <span class="nf">cut_to_clipboard</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy_to_clipboard</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete_selected_items</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.copy_to_clipboard"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.copy_to_clipboard">[docs]</a>    <span class="k">def</span> <span class="nf">copy_to_clipboard</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clipboard</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span>
+                <span class="n">item</span><span class="p">,</span>
+                <span class="s">&#39;copy&#39;</span><span class="p">)]</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.delete_selected_items"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.delete_selected_items">[docs]</a>    <span class="k">def</span> <span class="nf">delete_selected_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">softdelete</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()]</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.paste_from_clipboard"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.paste_from_clipboard">[docs]</a>    <span class="k">def</span> <span class="nf">paste_from_clipboard</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">clipboard</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.deselectall"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.deselectall">[docs]</a>    <span class="k">def</span> <span class="nf">deselectall</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">setSelected</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()]</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.mousePressEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.mousePressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mousePressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">scenePos</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">temp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">temp</span><span class="o">.</span><span class="n">mousepress</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">nextgeometry</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">temp</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nextgeometry</span> <span class="o">==</span> <span class="n">TextParent</span><span class="p">:</span>
+                        <span class="n">textpos</span> <span class="o">=</span> <span class="n">ShapeVertex</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">toTuple</span><span class="p">(),</span><span class="n">scaling</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+                        <span class="n">text</span> <span class="o">=</span> <span class="n">GenericText</span><span class="p">(</span>
+                            <span class="s">&#39;&#39;</span><span class="p">,</span>
+                            <span class="n">textpos</span><span class="p">,</span>
+                            <span class="n">font</span><span class="o">=</span><span class="s">&#39;Courier&#39;</span><span class="p">,</span>
+                            <span class="n">fontsize</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                        <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nextgeometry</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+                        <span class="n">temp</span><span class="o">.</span><span class="n">editmode</span><span class="p">()</span>
+
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">nextgeometry</span> <span class="o">==</span> <span class="n">DrawingPoint</span><span class="p">:</span>
+                        <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nextgeometry</span><span class="p">(</span><span class="n">DrawnPoint</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">toTuple</span><span class="p">(),</span><span class="n">scaling</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">setFocusItem</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+                        <span class="n">temp</span><span class="o">.</span><span class="n">updatescale</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">childfinished</span><span class="p">()</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nextgeometry</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">temp</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">setFocusItem</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">temp</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">temp</span><span class="o">.</span><span class="n">mousepress</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsScene</span><span class="o">.</span><span class="n">mousePressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">leavingeditmode</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.mouseMoveEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.mouseMoveEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseMoveEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">scenePos</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">temp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">temp</span><span class="o">.</span><span class="n">mousemove</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsScene</span><span class="o">.</span><span class="n">mouseMoveEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.mouseReleaseEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.mouseReleaseEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseReleaseEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">scenePos</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">temp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">temp</span><span class="o">.</span><span class="n">mouserelease</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsScene</span><span class="o">.</span><span class="n">mouseReleaseEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.mouseDoubleClickEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.mouseDoubleClickEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseDoubleClickEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">temp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">temp</span><span class="o">.</span><span class="n">mousedoubleclick</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints_on</span><span class="p">:</span>
+                <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsScene</span><span class="o">.</span><span class="n">mouseDoubleClickEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.childfinished"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.childfinished">[docs]</a>    <span class="k">def</span> <span class="nf">childfinished</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">newpolygon</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatevertices</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temp</span> <span class="o">=</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.cancelcreate"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.cancelcreate">[docs]</a>    <span class="k">def</span> <span class="nf">cancelcreate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nextgeometry</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">temp</span><span class="o">.</span><span class="n">harddelete</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temp</span> <span class="o">=</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.showvertices"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.showvertices">[docs]</a>    <span class="k">def</span> <span class="nf">showvertices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">constraints_on</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constraints_on</span> <span class="o">=</span> <span class="n">constraints_on</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.update_extra_objects"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.update_extra_objects">[docs]</a>    <span class="k">def</span> <span class="nf">update_extra_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extraobjects</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extraobjects</span> <span class="o">=</span> <span class="n">extraobjects</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.updatevertices"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.updatevertices">[docs]</a>    <span class="k">def</span> <span class="nf">updatevertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">removecontrolpoints</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints_on</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">item</span><span class="o">.</span><span class="n">updatemode</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_defined</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
+                        <span class="k">if</span> <span class="n">child</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">extraobjects</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
+                        <span class="n">child</span><span class="o">.</span><span class="n">removefromscene</span><span class="p">()</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">views</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">updatescaleables</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.removerefgeoms"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.removerefgeoms">[docs]</a>    <span class="k">def</span> <span class="nf">removerefgeoms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Static</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">StaticDrawingPoint</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">ReferenceInteractiveVertex</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">ReferenceInteractiveEdge</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SketcherSupport.removecontrolpoints"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SketcherSupport.removecontrolpoints">[docs]</a>    <span class="k">def</span> <span class="nf">removecontrolpoints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">ReferenceInteractiveVertex</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">ReferenceInteractiveEdge</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="GraphicsScene"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.GraphicsScene">[docs]</a><span class="k">class</span> <span class="nc">GraphicsScene</span><span class="p">(</span>
+        <span class="n">popupCADObjectSupport</span><span class="p">,</span>
+        <span class="n">SVGOutputSupport</span><span class="p">,</span>
+        <span class="n">SketcherSupport</span><span class="p">,</span>
+        <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsScene</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsScene</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">popupCADObjectSupport</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">SketcherSupport</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="c">#        self.update()</span>
+
+</div>
+<div class="viewcode-block" id="SimpleGraphicsScene"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsscene.SimpleGraphicsScene">[docs]</a><span class="k">class</span> <span class="nc">SimpleGraphicsScene</span><span class="p">(</span><span class="n">popupCADObjectSupport</span><span class="p">,</span> <span class="n">SVGOutputSupport</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsScene</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsScene</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">popupCADObjectSupport</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

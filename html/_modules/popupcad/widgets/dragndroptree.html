@@ -1,0 +1,583 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.widgets.dragndroptree &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.widgets.dragndroptree</h1><div class="highlight"><pre>
+<span class="c">#-*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.userdata</span> <span class="kn">import</span> <span class="n">UserData</span>
+<span class="kn">from</span> <span class="nn">dev_tools.acyclicdirectedgraph</span> <span class="kn">import</span> <span class="n">AcyclicDirectedGraph</span><span class="p">,</span> <span class="n">Node</span>
+
+
+<div class="viewcode-block" id="debugprint"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.debugprint">[docs]</a><span class="k">def</span> <span class="nf">debugprint</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="NotValid"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.NotValid">[docs]</a><span class="k">class</span> <span class="nc">NotValid</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="TreeItem"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.TreeItem">[docs]</a><span class="k">class</span> <span class="nc">TreeItem</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QTreeWidgetItem</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TreeItem.data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.TreeItem.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userdata</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">userdata</span><span class="o">.</span><span class="n">getcustomname</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">userdata</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span>
+</div>
+<div class="viewcode-block" id="TreeItem.setData"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.TreeItem.setData">[docs]</a>    <span class="k">def</span> <span class="nf">setData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">role</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">userdata</span><span class="o">.</span><span class="n">setcustomname</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">userdata</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+</div></div>
+<div class="viewcode-block" id="ParentItem"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.ParentItem">[docs]</a><span class="k">class</span> <span class="nc">ParentItem</span><span class="p">(</span><span class="n">TreeItem</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">userdata</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ParentItem</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">)])</span>
+
+        <span class="n">flags</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">NoItemFlags</span>
+        <span class="n">flags</span> <span class="o">|=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsEnabled</span>
+        <span class="n">flags</span> <span class="o">|=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsDragEnabled</span>
+        <span class="n">flags</span> <span class="o">|=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsSelectable</span>
+        <span class="n">flags</span> <span class="o">|=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsEditable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">flags</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">userdata</span><span class="o">.</span><span class="n">output</span><span class="p">[:]</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">outputs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+            <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">ChildItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">))</span>
+
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="ChildItem"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.ChildItem">[docs]</a><span class="k">class</span> <span class="nc">ChildItem</span><span class="p">(</span><span class="n">TreeItem</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">userdata</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ChildItem</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">)])</span>
+
+        <span class="n">flags</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">NoItemFlags</span>
+        <span class="n">flags</span> <span class="o">|=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsEnabled</span>
+        <span class="n">flags</span> <span class="o">|=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsSelectable</span>
+        <span class="n">flags</span> <span class="o">|=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsEditable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">flags</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget">[docs]</a><span class="k">class</span> <span class="nc">DraggableTreeWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QTreeWidget</span><span class="p">):</span>
+    <span class="n">signal_edit</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">currentRowChanged</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DraggableTreeWidget.parent_index"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.parent_index">[docs]</a>    <span class="k">def</span> <span class="nf">parent_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">index</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">index</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.delete_index"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.delete_index">[docs]</a>    <span class="k">def</span> <span class="nf">delete_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">()</span><span class="o">.</span><span class="n">removeRow</span><span class="p">(</span><span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refreshmaster</span><span class="p">()</span>
+</div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;innit&#39;</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">DraggableTreeWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setHeaderHidden</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setExpandsOnDoubleClick</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">currentItemChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">myItemChanged</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doubleClicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itemDoubleClicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span>
+
+        <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">rowsInserted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">myRowsInserted</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emit_item_change</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">master_refreshing</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refreshing</span> <span class="o">=</span> <span class="bp">False</span>
+
+<div class="viewcode-block" id="DraggableTreeWidget.currentOperationOutputIndex"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.currentOperationOutputIndex">[docs]</a>    <span class="k">def</span> <span class="nf">currentOperationOutputIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;currentOperationOutputIndex&#39;</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentValidIndex</span><span class="p">(</span><span class="n">ii</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">index</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.currentValidIndex"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.currentValidIndex">[docs]</a>    <span class="k">def</span> <span class="nf">currentValidIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ii</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;currentValidIndex&#39;</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">index</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">jj</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">jj</span> <span class="o">=</span> <span class="n">ii</span> <span class="o">%</span> <span class="n">n</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">createIndex</span><span class="p">(</span><span class="n">jj</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">index</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.currentIndeces"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.currentIndeces">[docs]</a>    <span class="k">def</span> <span class="nf">currentIndeces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ii</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;currentIndeces&#39;</span><span class="p">)</span>
+        <span class="n">ii</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentRow</span><span class="p">(</span><span class="n">ii</span><span class="o">=</span><span class="n">ii</span><span class="p">)</span>
+        <span class="n">jj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentOperationOutputIndex</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">ii</span><span class="p">,</span> <span class="n">jj</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.myItemChanged"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.myItemChanged">[docs]</a>    <span class="k">def</span> <span class="nf">myItemChanged</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current</span><span class="p">,</span> <span class="n">previous</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refreshing</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">master_refreshing</span><span class="p">):</span>
+            <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;myItemChanged&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">currentRowChanged</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">currentIndeces</span><span class="p">())</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.currentRow"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.currentRow">[docs]</a>    <span class="k">def</span> <span class="nf">currentRow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ii</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;currentRow&#39;</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentValidIndex</span><span class="p">(</span><span class="n">ii</span><span class="o">=</span><span class="n">ii</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_index</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.linklist"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.linklist">[docs]</a>    <span class="k">def</span> <span class="nf">linklist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">masterlist</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;linklist&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span> <span class="o">=</span> <span class="n">masterlist</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.refresh"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;refresh&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refreshing</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c">#        index = self.currentValidIndex(-1)</span>
+        <span class="n">selected_items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+        <span class="n">selected_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">selected_items</span><span class="p">:</span>
+            <span class="n">ii</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexFromItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">ChildItem</span><span class="p">):</span>
+                <span class="n">selected_ids</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">item</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span><span class="o">.</span><span class="n">userdata</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">ii</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">selected_ids</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">item</span><span class="o">.</span><span class="n">userdata</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="c">#        for item in</span>
+<span class="c">#        selected_id = self.model().data(index,qc.Qt.ItemDataRole.UserRole).id</span>
+        <span class="n">new_indeces</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">new_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">selected_ids</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">new_indeces</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">new_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">b</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">emit_item_change</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emit_item_change</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="n">ParentItem</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addTopLevelItems</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collapseAll</span><span class="p">()</span>
+
+<span class="c">#        self.selectIndeces(new_indeces)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">refreshing</span> <span class="o">=</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.allData"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.allData">[docs]</a>    <span class="k">def</span> <span class="nf">allData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;allData&#39;</span><span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
+        <span class="n">num_rows</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span>
+
+        <span class="n">role</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span>
+
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_rows</span><span class="p">):</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">QModelIndex</span><span class="p">())</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">role</span><span class="p">)</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">items</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.refreshmaster"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.refreshmaster">[docs]</a>    <span class="k">def</span> <span class="nf">refreshmaster</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;refreshmaster&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">master_refreshing</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">newmasterlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allData</span><span class="p">()]</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;new master list&#39;</span><span class="p">)</span>
+
+<span class="c">#        self.clear()</span>
+<span class="c">#        debugprint(&#39;cleared&#39;)</span>
+
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;clearing old master list&#39;</span><span class="p">)</span>
+
+        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">newmasterlist</span><span class="p">]</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;added new items&#39;</span><span class="p">)</span>
+
+<span class="c">#        items = [ParentItem(None,item) for item in self.masterlist]</span>
+<span class="c">#        debugprint(&#39;new parent items&#39;)</span>
+<span class="c">#        self.addTopLevelItems(items)</span>
+<span class="c">#        debugprint(&#39;new top level items&#39;)</span>
+<span class="c">#        self.expandAll()</span>
+<span class="c">#        debugprint(&#39;expanded all&#39;)</span>
+
+<span class="c">#        return self.masterlist</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">master_refreshing</span> <span class="o">=</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.keyPressEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.keyPressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;keyPressEvent&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refreshing</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">master_refreshing</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Delete</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">deleteCurrent</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Enter</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">(</span>
+            <span class="p">)</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Return</span><span class="p">:</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentValidIndex</span><span class="p">(</span><span class="n">ii</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">userdata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">(</span>
+                    <span class="n">index</span><span class="p">,</span>
+                    <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">itemFromIndex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">ParentItem</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">signal_edit</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">userdata</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">super</span><span class="p">(</span><span class="n">DraggableTreeWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">keyPressEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.deleteCurrent"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.deleteCurrent">[docs]</a>    <span class="k">def</span> <span class="nf">deleteCurrent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;deleteCurrent&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refreshing</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">master_refreshing</span><span class="p">):</span>
+                <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">currentRow</span><span class="p">(</span><span class="n">ii</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">()</span><span class="o">.</span><span class="n">removeRow</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">QModelIndex</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">refreshmaster</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.itemDoubleClicked"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.itemDoubleClicked">[docs]</a>    <span class="k">def</span> <span class="nf">itemDoubleClicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;itemDoubleClicked&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refreshing</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">master_refreshing</span><span class="p">):</span>
+            <span class="n">userdata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">itemFromIndex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">ParentItem</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">signal_edit</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">userdata</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.disable"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.disable">[docs]</a>    <span class="k">def</span> <span class="nf">disable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;disable&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDragEnabled</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDropIndicatorShown</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDragDropMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DragDropMode</span><span class="o">.</span><span class="n">NoDragDrop</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setEditTriggers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">EditTrigger</span><span class="o">.</span><span class="n">NoEditTriggers</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.enable"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.enable">[docs]</a>    <span class="k">def</span> <span class="nf">enable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;enable&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDragEnabled</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDropIndicatorShown</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDragDropMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DragDropMode</span><span class="o">.</span><span class="n">InternalMove</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setEditTriggers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">EditTrigger</span><span class="o">.</span><span class="n">EditKeyPressed</span><span class="p">)</span>
+
+<span class="c">#    def set_tree_generator(self,generator):</span>
+<span class="c">#        debugprint(&#39;set_tree_generator&#39;)</span>
+<span class="c">#        pass</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.myRowsInserted"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.myRowsInserted">[docs]</a>    <span class="k">def</span> <span class="nf">myRowsInserted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;myRowsInserted&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refreshing</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">master_refreshing</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refreshmaster</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.currentIndeces2"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.currentIndeces2">[docs]</a>    <span class="k">def</span> <span class="nf">currentIndeces2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;currentIndeces2&#39;</span><span class="p">)</span>
+        <span class="n">indeces</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">():</span>
+            <span class="n">ii</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexFromItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">ChildItem</span><span class="p">):</span>
+                <span class="n">indeces</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ii</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span><span class="o">.</span><span class="n">row</span><span class="p">(),</span> <span class="n">ii</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">indeces</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ii</span><span class="o">.</span><span class="n">row</span><span class="p">(),</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">indeces</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.selectIndeces"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.selectIndeces">[docs]</a>    <span class="k">def</span> <span class="nf">selectIndeces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indeces</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;selectIndeces&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">clear</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">clearSelection</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">jj</span> <span class="ow">in</span> <span class="n">indeces</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ii</span> <span class="o">=</span> <span class="n">ii</span> <span class="o">%</span> <span class="n">n</span>
+
+                <span class="k">if</span> <span class="n">jj</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">topLevelItem</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">topLevelItem</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="n">jj</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setItemSelected</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeWidget.currentRefs"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DraggableTreeWidget.currentRefs">[docs]</a>    <span class="k">def</span> <span class="nf">currentRefs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;currentrefs&#39;</span><span class="p">)</span>
+        <span class="sd">&#39;&#39;&#39;This only works with OperationList, but I haven&#39;t made a new subclass&#39;&#39;&#39;</span>
+        <span class="n">indeces</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">():</span>
+            <span class="n">ii</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexFromItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">ChildItem</span><span class="p">):</span>
+                <span class="n">indeces</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">item</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span><span class="o">.</span><span class="n">userdata</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">ii</span><span class="o">.</span><span class="n">row</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">indeces</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">item</span><span class="o">.</span><span class="n">userdata</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">indeces</span>
+
+</div></div>
+<div class="viewcode-block" id="DirectedDraggableTreeWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget">[docs]</a><span class="k">class</span> <span class="nc">DirectedDraggableTreeWidget</span><span class="p">(</span><span class="n">DraggableTreeWidget</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DirectedDraggableTreeWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setContextMenuPolicy</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">CustomContextMenu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">customContextMenuRequested</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onCustomContextMenu</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DirectedDraggableTreeWidget.onCustomContextMenu"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.onCustomContextMenu">[docs]</a>    <span class="k">def</span> <span class="nf">onCustomContextMenu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexAt</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">itemAt</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">ParentItem</span><span class="p">):</span>
+            <span class="c">#            if index.isValid():</span>
+            <span class="n">menu</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QMenu</span><span class="p">()</span>
+            <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span>
+                <span class="n">qg</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span>
+                    <span class="s">&#39;edit...&#39;</span><span class="p">,</span>
+                    <span class="n">menu</span><span class="p">,</span>
+                    <span class="n">triggered</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">signal_edit</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span>
+                        <span class="n">item</span><span class="o">.</span><span class="n">userdata</span><span class="p">)))</span>
+            <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span>
+                <span class="n">qg</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span>
+                    <span class="s">&#39;rename...&#39;</span><span class="p">,</span>
+                    <span class="n">menu</span><span class="p">,</span>
+                    <span class="n">triggered</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edit</span><span class="p">(</span><span class="n">index</span><span class="p">)))</span>
+            <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span>
+                <span class="n">qg</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span>
+                    <span class="s">&#39;delete&#39;</span><span class="p">,</span>
+                    <span class="n">menu</span><span class="p">,</span>
+                    <span class="n">triggered</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete_indeces</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">index</span><span class="p">])))</span>
+            <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span>
+                <span class="n">qg</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span>
+                    <span class="s">&#39;parents&#39;</span><span class="p">,</span>
+                    <span class="n">menu</span><span class="p">,</span>
+                    <span class="n">triggered</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_parents</span><span class="p">(</span><span class="n">item</span><span class="p">)))</span>
+            <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span>
+                <span class="n">qg</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span>
+                    <span class="s">&#39;children&#39;</span><span class="p">,</span>
+                    <span class="n">menu</span><span class="p">,</span>
+                    <span class="n">triggered</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_children</span><span class="p">(</span><span class="n">item</span><span class="p">)))</span>
+            <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span>
+                <span class="n">qg</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span>
+                    <span class="s">&#39;edit description...&#39;</span><span class="p">,</span>
+                    <span class="n">menu</span><span class="p">,</span>
+                    <span class="n">triggered</span><span class="o">=</span><span class="n">item</span><span class="o">.</span><span class="n">userdata</span><span class="o">.</span><span class="n">edit_description</span><span class="p">))</span>
+            <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span>
+                <span class="n">qg</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span>
+                    <span class="s">&#39;set main image&#39;</span><span class="p">,</span>
+                    <span class="n">menu</span><span class="p">,</span>
+                    <span class="n">triggered</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_main_image</span><span class="p">(</span><span class="n">item</span><span class="p">)))</span>
+            <span class="n">menu</span><span class="o">.</span><span class="n">exec_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mapToGlobal</span><span class="p">(</span><span class="n">point</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="DirectedDraggableTreeWidget.set_main_image"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.set_main_image">[docs]</a>    <span class="k">def</span> <span class="nf">set_main_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+<span class="c">#        self.design = self.get_design()</span>
+<span class="c">#        if isinstance(item, ParentItem):</span>
+<span class="c">#            self.design.set_main_operation(self.currentRefs()[0])</span>
+        <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="DirectedDraggableTreeWidget.show_parents"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.show_parents">[docs]</a>    <span class="k">def</span> <span class="nf">show_parents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree_generator</span><span class="p">()</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">userdata</span><span class="o">.</span><span class="n">ancestors</span><span class="p">()))</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="DirectedDraggableTreeWidget.show_children"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.show_children">[docs]</a>    <span class="k">def</span> <span class="nf">show_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree_generator</span><span class="p">()</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">userdata</span><span class="o">.</span><span class="n">decendents</span><span class="p">()))</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="DirectedDraggableTreeWidget.set_tree_generator"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.set_tree_generator">[docs]</a>    <span class="k">def</span> <span class="nf">set_tree_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generator</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;set_tree_generator_p&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree_generator</span> <span class="o">=</span> <span class="n">generator</span>
+</div>
+<div class="viewcode-block" id="DirectedDraggableTreeWidget.set_get_design"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.set_get_design">[docs]</a>    <span class="k">def</span> <span class="nf">set_get_design</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_design</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_design</span> <span class="o">=</span> <span class="n">get_design</span>
+</div>
+<div class="viewcode-block" id="DirectedDraggableTreeWidget.myRowsInserted"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.myRowsInserted">[docs]</a>    <span class="k">def</span> <span class="nf">myRowsInserted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refreshing</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">master_refreshing</span><span class="p">):</span>
+            <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;myrowsinserted_p&#39;</span><span class="p">)</span>
+            <span class="n">tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_generator</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">tree</span><span class="o">.</span><span class="n">sequence_complete_valid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allData</span><span class="p">()):</span>
+<span class="c">#                self.refresh()</span>
+                <span class="k">raise</span> <span class="n">NotValid</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">refreshmaster</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="DirectedDraggableTreeWidget.linklist"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.linklist">[docs]</a>    <span class="k">def</span> <span class="nf">linklist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">masterlist</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;linklist_p&#39;</span><span class="p">)</span>
+<span class="c">#        tree = self.tree_generator()</span>
+<span class="c">#        if tree.sequence_complete_valid(masterlist):</span>
+<span class="c">#            super(DirectedDraggableTreeWidget,self).linklist(masterlist)</span>
+<span class="c">#        else:</span>
+<span class="c">#            raise(Exception(&#39;invalid sequence of operations&#39;))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DirectedDraggableTreeWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">linklist</span><span class="p">(</span><span class="n">masterlist</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DirectedDraggableTreeWidget.deleteCurrent"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.deleteCurrent">[docs]</a>    <span class="k">def</span> <span class="nf">deleteCurrent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete_indeces</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectedIndexes</span><span class="p">())</span>
+</div>
+<div class="viewcode-block" id="DirectedDraggableTreeWidget.delete_indeces"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.delete_indeces">[docs]</a>    <span class="k">def</span> <span class="nf">delete_indeces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indeces</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">indeces</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">ii</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span><span class="o">.</span><span class="n">isValid</span><span class="p">():</span>
+                    <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ii</span><span class="o">.</span><span class="n">row</span><span class="p">())</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">tree_generator</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+                <span class="n">children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">decendents</span><span class="p">()</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">children</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">m</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">m</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                    <span class="n">m</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span> <span class="o">+</span> <span class="s">&#39; cannot be deleted.&#39;</span><span class="p">)</span>
+                    <span class="n">m</span><span class="o">.</span><span class="n">setInformativeText</span><span class="p">(</span><span class="s">&#39;Delete all dependent operations?&#39;</span><span class="p">)</span>
+                    <span class="n">s</span> <span class="o">=</span> <span class="s">&#39;This is due to the following dependent operations:</span><span class="se">\n</span><span class="s">&#39;</span>
+                    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                        <span class="n">s</span> <span class="o">+=</span> <span class="s">&#39;{0},</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">child</span><span class="p">))</span>
+                    <span class="n">s</span> <span class="o">+=</span> <span class="s">&#39;{0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">children</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+                    <span class="n">m</span><span class="o">.</span><span class="n">setDetailedText</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+                    <span class="n">m</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">YesToAll</span><span class="p">)</span>
+                    <span class="n">m</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">Cancel</span><span class="p">)</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="n">m</span><span class="o">.</span><span class="n">YesToAll</span><span class="p">:</span>
+                        <span class="n">alltodelete</span> <span class="o">=</span> <span class="p">[</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">children</span><span class="p">]</span>
+                        <span class="n">alltodelete</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+                        <span class="n">alltodelete</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">alltodelete</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">jj</span><span class="p">)</span> <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="n">alltodelete</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">pass</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="DirectedDraggableTreeWidget.disable"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.disable">[docs]</a>    <span class="k">def</span> <span class="nf">disable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;disable_p&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DirectedDraggableTreeWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DirectedDraggableTreeWidget.enable"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.enable">[docs]</a>    <span class="k">def</span> <span class="nf">enable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">debugprint</span><span class="p">(</span><span class="s">&#39;enable_p&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DirectedDraggableTreeWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">enable</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">edituserdata</span><span class="p">(</span><span class="n">userdata</span><span class="p">):</span>
+        <span class="n">userdata</span><span class="o">.</span><span class="n">edit</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">DummyClass</span><span class="p">(</span><span class="n">UserData</span><span class="p">,</span> <span class="n">Node</span><span class="p">):</span>
+        <span class="k">pass</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+
+    <span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="n">DummyClass</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ii</span><span class="p">))</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>
+
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list1</span><span class="p">:</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">UserData</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">ii</span><span class="p">))</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">outputs</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">tw</span> <span class="o">=</span> <span class="n">DirectedDraggableTreeWidget</span><span class="p">()</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">list1</span>
+    <span class="n">connections</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">nodes</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+    <span class="n">tree_generator</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">AcyclicDirectedGraph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">connections</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">tw</span><span class="o">.</span><span class="n">set_tree_generator</span><span class="p">(</span><span class="n">tree_generator</span><span class="p">)</span>
+    <span class="n">tw</span><span class="o">.</span><span class="n">linklist</span><span class="p">(</span><span class="n">list1</span><span class="p">)</span>
+    <span class="n">tw</span><span class="o">.</span><span class="n">signal_edit</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">edituserdata</span><span class="p">)</span>
+    <span class="n">tw</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">tw</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">tw</span><span class="o">.</span><span class="n">SelectionMode</span><span class="o">.</span><span class="n">ExtendedSelection</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.widgets.render_widget &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.widgets.render_widget</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">from</span> <span class="nn">popupcad.graphics2d.graphicsscene</span> <span class="kn">import</span> <span class="n">SimpleGraphicsScene</span>
+<span class="kn">from</span> <span class="nn">popupcad.graphics2d.graphicsview</span> <span class="kn">import</span> <span class="n">SimpleGraphicsView</span>
+
+
+<div class="viewcode-block" id="RenderWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.render_widget.RenderWidget">[docs]</a><span class="k">class</span> <span class="nc">RenderWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rect_size</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RenderWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+<span class="c">#        gs = popupcad.graphics2d.graphicsscene.GraphicsScene()</span>
+        <span class="n">gs</span> <span class="o">=</span> <span class="n">SimpleGraphicsScene</span><span class="p">()</span>
+<span class="c">#        gs = qg.QGraphicsScene()</span>
+        <span class="n">gs</span><span class="o">.</span><span class="n">setBackgroundBrush</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+<span class="c">#        self.gv = popupcad.graphics2d.graphicsview.GraphicsView(gs)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gv</span> <span class="o">=</span> <span class="n">SimpleGraphicsView</span><span class="p">(</span><span class="n">gs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gv</span><span class="o">.</span><span class="n">setRenderHint</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QPainter</span><span class="o">.</span><span class="n">RenderHint</span><span class="o">.</span><span class="n">Antialiasing</span><span class="p">)</span>
+<span class="c">#        self.gv.setRenderHint(qg.QPainter.RenderHint.HighQualityAntialiasing,True)</span>
+<span class="c">#        self.gv.setRenderHint(qg.QPainter.RenderHint.SmoothPixmapTransform,True)</span>
+<span class="c">#        self.gs.setBackgroundBrush(qg.QBrush(qg.QColor.fromRgbF(1,1,1,0.1)))</span>
+<span class="c">#        self.gs.setBackgroundBrush(qg.QBrush())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">directory_name</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">directory_button</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render_button</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;render&#39;</span><span class="p">)</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+<span class="c">#        layout.addWidget(self.gv)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory_name</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory_button</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">render_button</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gv</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="o">*</span><span class="n">rect_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gv</span><span class="o">.</span><span class="n">setMaximumSize</span><span class="p">(</span><span class="o">*</span><span class="n">rect_size</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">directory_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">select_directory</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RenderWidget.render"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.render_widget.RenderWidget.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory_name</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">design</span><span class="o">.</span><span class="n">Design</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">reprocessoperations</span><span class="p">()</span>
+        <span class="n">directory</span><span class="p">,</span> <span class="nb">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raster_design</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="RenderWidget.select_directory"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.render_widget.RenderWidget.select_directory">[docs]</a>    <span class="k">def</span> <span class="nf">select_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">path</span><span class="p">,</span> <span class="n">selected_filter</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">directory_name</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="nb">filter</span><span class="o">=</span><span class="s">&#39;*.cad&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="o">!=</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_directory</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="RenderWidget.load_directory"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.render_widget.RenderWidget.load_directory">[docs]</a>    <span class="k">def</span> <span class="nf">load_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">directory_name</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="RenderWidget.clear"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.render_widget.RenderWidget.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gv</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gv</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="RenderWidget.raster_design"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.render_widget.RenderWidget.raster_design">[docs]</a>    <span class="k">def</span> <span class="nf">raster_design</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">filetype</span><span class="o">=</span><span class="s">&#39;png&#39;</span><span class="p">):</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">raster</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span> <span class="n">filetype</span><span class="o">=</span><span class="n">filetype</span><span class="p">,</span> <span class="n">gv</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gv</span><span class="p">)</span>
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+
+    <span class="n">filter1</span> <span class="o">=</span> <span class="s">&#39;*.cad&#39;</span>
+<span class="c">#    source = &#39;C:/Users/danaukes/popupCAD_files/designs&#39;</span>
+<span class="c">#    source= os.path.normpath(&#39;C:/Users/danaukes/Desktop/source&#39;)</span>
+    <span class="n">destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="s">&#39;C:/Users/danaukes/Desktop&#39;</span><span class="p">)</span>
+    <span class="n">rect_size</span> <span class="o">=</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">300</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">widget</span> <span class="o">=</span> <span class="n">RenderWidget</span><span class="p">(</span><span class="n">rect_size</span><span class="p">)</span>
+    <span class="n">widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c">#    path = &#39;C:\\Users\\danaukes\\Desktop\\118391752.cad&#39;</span>
+<span class="c">#    d = popupcad.filetypes.design.Design.load_yaml(path)</span>
+<span class="c">#    d.reprocessoperations()</span>
+<span class="c">#    widget.raster_design(d,destination)</span>
+<span class="c">#    for dirname, dirnames, filenames in os.walk(source):</span>
+<span class="c">#        filenames2 = glob.glob(os.path.normpath(os.path.join(dirname,filter1)))</span>
+<span class="c">#        relpath = os.path.relpath(dirname,source)</span>
+<span class="c">#        local_dir = os.path.normpath(os.path.join(destination,relpath))</span>
+<span class="c">#        if not os.path.exists(local_dir):</span>
+<span class="c">#            os.mkdir(local_dir)</span>
+<span class="c">#        for filename in filenames2:</span>
+<span class="c">#            try:</span>
+<span class="c">#                full_path = os.path.normpath(os.path.join(dirname,filename))</span>
+<span class="c">#                d = popupcad.filetypes.design.Design.load_yaml(full_path)</span>
+<span class="c">#                d.reprocessoperations()</span>
+<span class="c">#                local_file = os.path.split(filename)[1]</span>
+<span class="c">#                local_file_root = os.path.splitext(local_file)[0]</span>
+<span class="c">#                local_file_dir = os.path.normpath(os.path.join(local_dir,local_file))</span>
+<span class="c">#                if not os.path.exists(local_file_dir):</span>
+<span class="c">#                    os.mkdir(local_file_dir)</span>
+<span class="c">#                widget.raster_design(d,local_file_dir)</span>
+<span class="c">#            except(Exception) as ex:</span>
+<span class="c">#                print(ex)</span>
+
+<span class="c">#    dirname = &#39;C:/Users/danaukes/popupCAD_files/designs&#39;</span>
+<span class="c">#    filenames2 = [&#39;asdfasdf.cad&#39;]</span>
+<span class="c"># for dirname, dirnames, filenames in os.walk(source):</span>
+<span class="c">##        filenames2 = glob.glob(os.path.normpath(os.path.join(dirname,filter1)))</span>
+<span class="c">#    relpath = os.path.relpath(dirname,source)</span>
+<span class="c">#    local_dir = os.path.normpath(os.path.join(destination,relpath))</span>
+<span class="c">#    if not os.path.exists(local_dir):</span>
+<span class="c">#        os.mkdir(local_dir)</span>
+<span class="c">#    for filename in filenames2:</span>
+<span class="c">#        try:</span>
+<span class="c">#            full_path = os.path.normpath(os.path.join(dirname,filename))</span>
+<span class="c">#            d = popupcad.filetypes.design.Design.load_yaml(full_path)</span>
+<span class="c">#            d.reprocessoperations()</span>
+<span class="c">#            local_file = os.path.split(filename)[1]</span>
+<span class="c">#            local_file_root = os.path.splitext(local_file)[0]</span>
+<span class="c">#            local_file_dir = os.path.normpath(os.path.join(local_dir,local_file))</span>
+<span class="c">#            if not os.path.exists(local_file_dir):</span>
+<span class="c">#                os.mkdir(local_file_dir)</span>
+<span class="c"># widget.raster_design(d,local_file_dir)</span>
+<span class="c">##            ii = 1</span>
+<span class="c">##            jj = 0</span>
+<span class="c">##            op = d.operations[ii]</span>
+<span class="c">##            out = op.output[jj]</span>
+<span class="c">#            for ii,op in enumerate(d.operations):</span>
+<span class="c">#                for jj,out in enumerate(op.output):</span>
+<span class="c">##                    widget = Widget(rect_size)</span>
+<span class="c"># widget.show()</span>
+<span class="c">#                    self= widget</span>
+<span class="c">#                    for item in self.gv.scene().items():</span>
+<span class="c">#                        self.gv.scene().removeItem(item)</span>
+<span class="c">#                    self.gv.scene().clear()</span>
+<span class="c">#                    self.gv.scene().update()</span>
+<span class="c">#                    self.gv.resetCachedContent()</span>
+<span class="c">#                    self.add_item_dict(out,d.return_layer_definition().layers)</span>
+<span class="c">#                    self.gv.zoomToFit(buffer = 0)</span>
+<span class="c">#                    self.raster(local_file_dir,ii,jj)</span>
+<span class="c">#        except(Exception) as ex:</span>
+<span class="c">#            print(ex)</span>
+
+<span class="c">#    sys.exit(app.exec_())</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

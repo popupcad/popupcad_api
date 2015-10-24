@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.filetypes.undoredo &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.filetypes.undoredo</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="UndoRedo"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.undoredo.UndoRedo">[docs]</a><span class="k">class</span> <span class="nc">UndoRedo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_current_method</span><span class="p">,</span> <span class="n">load_method</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_current_method</span> <span class="o">=</span> <span class="n">get_current_method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_method</span> <span class="o">=</span> <span class="n">load_method</span>
+<span class="c">#        self.restartundoqueue()</span>
+
+<div class="viewcode-block" id="UndoRedo.restartundoqueue"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.undoredo.UndoRedo.restartundoqueue">[docs]</a>    <span class="k">def</span> <span class="nf">restartundoqueue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">file1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_current_method</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">undoqueue</span> <span class="o">=</span> <span class="p">[</span><span class="n">file1</span><span class="o">.</span><span class="n">copy</span><span class="p">()]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+</div>
+<div class="viewcode-block" id="UndoRedo.savesnapshot"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.undoredo.UndoRedo.savesnapshot">[docs]</a>    <span class="k">def</span> <span class="nf">savesnapshot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">file1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_current_method</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">undoqueue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">undoqueue</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">undoqueue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file1</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">undoqueue</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+</div>
+<div class="viewcode-block" id="UndoRedo.loadindex"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.undoredo.UndoRedo.loadindex">[docs]</a>    <span class="k">def</span> <span class="nf">loadindex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ii</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">undoqueue</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">ii</span>
+</div>
+<div class="viewcode-block" id="UndoRedo.undo"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.undoredo.UndoRedo.undo">[docs]</a>    <span class="k">def</span> <span class="nf">undo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">undoqueue</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">])</span>
+</div>
+<div class="viewcode-block" id="UndoRedo.redo"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.undoredo.UndoRedo.redo">[docs]</a>    <span class="k">def</span> <span class="nf">redo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">undoqueue</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">m</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">undoqueue</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">])</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

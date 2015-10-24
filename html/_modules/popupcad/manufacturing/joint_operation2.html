@@ -1,0 +1,483 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.manufacturing.joint_operation2 &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.manufacturing.joint_operation2</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span> <span class="c">#Fixes crossplatform print issues</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">popupcad.widgets.dragndroptree</span> <span class="kn">import</span> <span class="n">DraggableTreeWidget</span>
+
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.operationoutput</span> <span class="kn">import</span> <span class="n">OperationOutput</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.operation2</span> <span class="kn">import</span> <span class="n">Operation2</span><span class="p">,</span> <span class="n">LayerBasedOperation</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.laminate</span> <span class="kn">import</span> <span class="n">Laminate</span>
+<span class="kn">from</span> <span class="nn">popupcad.widgets.table_editor_popup</span> <span class="kn">import</span> <span class="n">Table</span><span class="p">,</span> <span class="n">SingleItemListElement_old</span><span class="p">,</span> <span class="n">MultiItemListElement</span><span class="p">,</span> <span class="n">FloatElement</span><span class="p">,</span> <span class="n">Row</span><span class="p">,</span><span class="n">Delegate</span><span class="p">,</span><span class="n">TableControl</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">itertools.izip</span> <span class="kn">as</span> <span class="nn">zip</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<div class="viewcode-block" id="JointRow"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointRow">[docs]</a><span class="k">class</span> <span class="nc">JointRow</span><span class="p">(</span><span class="n">Row</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">):</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SingleItemListElement_old</span><span class="p">(</span><span class="s">&#39;joint sketch&#39;</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">))</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SingleItemListElement_old</span><span class="p">(</span><span class="s">&#39;joint layer&#39;</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">))</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MultiItemListElement</span><span class="p">(</span><span class="s">&#39;sublaminate layers&#39;</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">))</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FloatElement</span><span class="p">(</span><span class="s">&#39;hinge width&#39;</span><span class="p">))</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FloatElement</span><span class="p">(</span><span class="s">&#39;stiffness&#39;</span><span class="p">))</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FloatElement</span><span class="p">(</span><span class="s">&#39;damping&#39;</span><span class="p">))</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FloatElement</span><span class="p">(</span><span class="s">&#39;preload&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="n">elements</span>
+
+</div>
+<div class="viewcode-block" id="JointDef"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointDef">[docs]</a><span class="k">class</span> <span class="nc">JointDef</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">sketch</span><span class="p">,</span>
+            <span class="n">joint_layer</span><span class="p">,</span>
+            <span class="n">sublaminate_layers</span><span class="p">,</span>
+            <span class="n">width</span><span class="p">,</span>
+            <span class="n">stiffness</span><span class="p">,</span>
+            <span class="n">damping</span><span class="p">,</span>
+            <span class="n">preload_angle</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sketch</span> <span class="o">=</span> <span class="n">sketch</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">joint_layer</span> <span class="o">=</span> <span class="n">joint_layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sublaminate_layers</span> <span class="o">=</span> <span class="n">sublaminate_layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stiffness</span> <span class="o">=</span> <span class="n">stiffness</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">damping</span> <span class="o">=</span> <span class="n">damping</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preload_angle</span> <span class="o">=</span> <span class="n">preload_angle</span>
+
+<div class="viewcode-block" id="JointDef.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointDef.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sketch</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">joint_layer</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sublaminate_layers</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stiffness</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">damping</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">preload_angle</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+
+</div></div>
+<div class="viewcode-block" id="MainWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.MainWidget">[docs]</a><span class="k">class</span> <span class="nc">MainWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QDialog</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">sketches</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">operations</span><span class="p">,</span> <span class="n">jointop</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MainWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">design</span> <span class="o">=</span> <span class="n">design</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sketches</span> <span class="o">=</span> <span class="n">sketches</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operations</span> <span class="o">=</span> <span class="n">operations</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">operation_list</span> <span class="o">=</span> <span class="n">DraggableTreeWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operation_list</span><span class="o">.</span><span class="n">linklist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">operations</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fixed</span> <span class="o">=</span> <span class="n">DraggableTreeWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fixed</span><span class="o">.</span><span class="n">linklist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">operations</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">JointRow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_sketches</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layers</span><span class="p">),</span><span class="n">Delegate</span><span class="p">)</span>
+        <span class="n">table_control</span><span class="o">=</span> <span class="n">TableControl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+        <span class="n">button_ok</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button_cancel</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+
+        <span class="n">button_ok</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="n">button_cancel</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+                
+        <span class="n">sublayout1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">sublayout1_1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">sublayout1_2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+
+        <span class="n">sublayout1_1</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Device&#39;</span><span class="p">))</span>
+        <span class="n">sublayout1_1</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">operation_list</span><span class="p">)</span>
+        <span class="n">sublayout1_2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Fixed Region&#39;</span><span class="p">))</span>
+        <span class="n">sublayout1_2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fixed</span><span class="p">)</span>
+
+        <span class="n">sublayout1</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">sublayout1_1</span><span class="p">)</span>
+        <span class="n">sublayout1</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">sublayout1_2</span><span class="p">)</span>
+
+        <span class="n">sublayout2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">sublayout2</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+        <span class="n">sublayout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_ok</span><span class="p">)</span>
+        <span class="n">sublayout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_cancel</span><span class="p">)</span>
+        <span class="n">sublayout2</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">sublayout1</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">table_control</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">sublayout2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">jointop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">op_ref</span><span class="p">,</span> <span class="n">output_ii</span> <span class="o">=</span> <span class="n">jointop</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;parent&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">op_ii</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">operation_index</span><span class="p">(</span><span class="n">op_ref</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">operation_list</span><span class="o">.</span><span class="n">selectIndeces</span><span class="p">([(</span><span class="n">op_ii</span><span class="p">,</span> <span class="n">output_ii</span><span class="p">)])</span>
+            <span class="k">except</span><span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+                <span class="k">pass</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">fixed_ref</span><span class="p">,</span> <span class="n">fixed_output_ii</span> <span class="o">=</span> <span class="n">jointop</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span>
+                    <span class="s">&#39;fixed&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">fixed_ii</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">operation_index</span><span class="p">(</span><span class="n">fixed_ref</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fixed</span><span class="o">.</span><span class="n">selectIndeces</span><span class="p">([(</span><span class="n">fixed_ii</span><span class="p">,</span> <span class="n">fixed_output_ii</span><span class="p">)])</span>
+            <span class="k">except</span><span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+                <span class="k">pass</span>
+
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">jointop</span><span class="o">.</span><span class="n">joint_defs</span><span class="p">:</span>
+                <span class="n">sketch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">sketch</span><span class="p">]</span>
+                <span class="n">joint_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">()</span><span class="o">.</span><span class="n">getlayer</span><span class="p">(</span>
+                    <span class="n">item</span><span class="o">.</span><span class="n">joint_layer</span><span class="p">)</span>
+                <span class="n">sublaminate_layers</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">()</span><span class="o">.</span><span class="n">getlayer</span><span class="p">(</span>
+                    <span class="n">item2</span><span class="p">)</span> <span class="k">for</span> <span class="n">item2</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">sublaminate_layers</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">row_add</span><span class="p">(</span>
+                    <span class="n">sketch</span><span class="p">,</span>
+                    <span class="n">joint_layer</span><span class="p">,</span>
+                    <span class="n">sublaminate_layers</span><span class="p">,</span>
+                    <span class="n">item</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+                    <span class="n">item</span><span class="o">.</span><span class="n">stiffness</span><span class="p">,</span>
+                    <span class="n">item</span><span class="o">.</span><span class="n">damping</span><span class="p">,</span>
+                    <span class="n">item</span><span class="o">.</span><span class="n">preload_angle</span><span class="p">)</span>            
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">row_add_empty</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">resizeColumnsToContents</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">reset_min_width</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">setHorizontalScrollBarPolicy</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ScrollBarPolicy</span><span class="o">.</span><span class="n">ScrollBarAlwaysOff</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MainWidget.get_sketches"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.MainWidget.get_sketches">[docs]</a>    <span class="k">def</span> <span class="nf">get_sketches</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sketches</span>
+</div>
+<div class="viewcode-block" id="MainWidget.get_layers"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.MainWidget.get_layers">[docs]</a>    <span class="k">def</span> <span class="nf">get_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span>
+</div>
+<div class="viewcode-block" id="MainWidget.acceptdata"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.MainWidget.acceptdata">[docs]</a>    <span class="k">def</span> <span class="nf">acceptdata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">jointdefs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()):</span>
+            <span class="n">sketch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+            <span class="n">joint_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span>
+                <span class="n">ii</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">(</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+            <span class="n">sublaminate_layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span>
+                <span class="n">ii</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">(</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">))</span>
+            <span class="n">stiffness</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span>
+                    <span class="n">ii</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">(</span>
+                    <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">))</span>
+            <span class="n">damping</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span>
+                    <span class="n">ii</span><span class="p">,</span>
+                    <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">(</span>
+                    <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">))</span>
+            <span class="n">preload_angle</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">item</span><span class="p">(</span>
+                    <span class="n">ii</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">(</span>
+                    <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">))</span>
+            <span class="n">jointdefs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">JointDef</span><span class="p">(</span><span class="n">sketch</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                                      <span class="n">joint_layer</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                                      <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublaminate_layers</span><span class="p">],</span>
+                                      <span class="n">width</span><span class="p">,</span>
+                                      <span class="n">stiffness</span><span class="p">,</span>
+                                      <span class="n">damping</span><span class="p">,</span>
+                                      <span class="n">preload_angle</span><span class="p">))</span>
+        <span class="n">operation_links</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;parent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_list</span><span class="o">.</span><span class="n">currentRefs</span><span class="p">()</span>
+        <span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;fixed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fixed</span><span class="o">.</span><span class="n">currentRefs</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">operation_links</span><span class="p">,</span> <span class="n">jointdefs</span>
+
+</div></div>
+<div class="viewcode-block" id="JointOperation2"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointOperation2">[docs]</a><span class="k">class</span> <span class="nc">JointOperation2</span><span class="p">(</span><span class="n">Operation2</span><span class="p">,</span> <span class="n">LayerBasedOperation</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;JointOp&#39;</span>
+    <span class="n">resolution</span> <span class="o">=</span> <span class="mi">2</span>
+
+<div class="viewcode-block" id="JointOperation2.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointOperation2.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">,</span> <span class="p">[</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">joint_defs</span><span class="p">])</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">customname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">customname</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">JointOperation2</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editdata</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="JointOperation2.editdata"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointOperation2.editdata">[docs]</a>    <span class="k">def</span> <span class="nf">editdata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operation_links</span><span class="p">,</span> <span class="n">joint_defs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span> <span class="o">=</span> <span class="n">operation_links</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">joint_defs</span> <span class="o">=</span> <span class="n">joint_defs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="JointOperation2.buildnewdialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointOperation2.buildnewdialog">[docs]</a>    <span class="k">def</span> <span class="nf">buildnewdialog</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">currentop</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">MainWidget</span><span class="p">(</span>
+            <span class="n">design</span><span class="p">,</span>
+            <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
+            <span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">()</span><span class="o">.</span><span class="n">layers</span><span class="p">,</span>
+            <span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dialog</span>
+</div>
+<div class="viewcode-block" id="JointOperation2.buildeditdialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointOperation2.buildeditdialog">[docs]</a>    <span class="k">def</span> <span class="nf">buildeditdialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">MainWidget</span><span class="p">(</span>
+            <span class="n">design</span><span class="p">,</span>
+            <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
+            <span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">()</span><span class="o">.</span><span class="n">layers</span><span class="p">,</span>
+            <span class="n">design</span><span class="o">.</span><span class="n">prioroperations</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+            <span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dialog</span>
+</div>
+<div class="viewcode-block" id="JointOperation2.sketchrefs"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointOperation2.sketchrefs">[docs]</a>    <span class="k">def</span> <span class="nf">sketchrefs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">sketch</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">joint_defs</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="JointOperation2.subdesignrefs"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointOperation2.subdesignrefs">[docs]</a>    <span class="k">def</span> <span class="nf">subdesignrefs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+</div>
+<div class="viewcode-block" id="JointOperation2.gen_geoms"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointOperation2.gen_geoms">[docs]</a>    <span class="k">def</span> <span class="nf">gen_geoms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">joint_def</span><span class="p">,</span> <span class="n">layerdef</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
+        <span class="n">hinge_gap</span> <span class="o">=</span> <span class="n">joint_def</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span><span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span>
+        <span class="n">split_buffer</span> <span class="o">=</span> <span class="o">.</span><span class="mi">1</span> <span class="o">*</span> <span class="n">hinge_gap</span>
+
+        <span class="n">stiffness</span> <span class="o">=</span> <span class="n">joint_def</span><span class="o">.</span><span class="n">stiffness</span>
+        <span class="n">damping</span> <span class="o">=</span> <span class="n">joint_def</span><span class="o">.</span><span class="n">damping</span>
+        <span class="n">preload_angle</span> <span class="o">=</span> <span class="n">joint_def</span><span class="o">.</span><span class="n">preload_angle</span>
+
+        <span class="n">sublaminate_layers</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">layerdef</span><span class="o">.</span><span class="n">getlayer</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">joint_def</span><span class="o">.</span><span class="n">sublaminate_layers</span><span class="p">]</span>
+        <span class="n">hingelayer</span> <span class="o">=</span> <span class="n">layerdef</span><span class="o">.</span><span class="n">getlayer</span><span class="p">(</span><span class="n">joint_def</span><span class="o">.</span><span class="n">joint_layer</span><span class="p">)</span>
+
+        <span class="n">operationgeom</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="n">joint_def</span><span class="o">.</span><span class="n">sketch</span><span class="p">]</span><span class="o">.</span><span class="n">output_csg</span><span class="p">()</span>
+        <span class="n">sketch_result</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">())</span>
+        <span class="n">sketch_result</span><span class="o">.</span><span class="n">replacelayergeoms</span><span class="p">(</span><span class="n">hingelayer</span><span class="p">,</span> <span class="n">operationgeom</span><span class="p">)</span>
+        <span class="n">hingelines</span> <span class="o">=</span> <span class="n">sketch_result</span><span class="o">.</span><span class="n">to_generic_laminate</span><span class="p">()</span><span class="o">.</span><span class="n">geoms</span><span class="p">[</span><span class="n">hingelayer</span><span class="p">]</span>
+        <span class="n">hingelines</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">hingelines</span> <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">is_valid_bool</span><span class="p">()]</span>
+
+        <span class="n">buffered_split</span> <span class="o">=</span> <span class="n">sketch_result</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">split_buffer</span><span class="p">,</span><span class="n">resolution</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">resolution</span><span class="p">)</span>
+
+        <span class="n">allgeoms4</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">hingelines</span><span class="p">:</span>
+            <span class="n">geom</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()</span>
+            <span class="n">laminate</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="n">layerdef</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">sublaminate_layers</span><span class="p">:</span>
+                <span class="n">laminate</span><span class="o">.</span><span class="n">replacelayergeoms</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="p">[</span><span class="n">geom</span><span class="p">])</span>
+            <span class="n">allgeoms4</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">laminate</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">hinge_gap</span><span class="p">,</span><span class="n">resolution</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">resolution</span><span class="p">))</span>
+
+        <span class="n">joint_props</span> <span class="o">=</span> <span class="p">[(</span><span class="n">stiffness</span><span class="p">,</span> <span class="n">damping</span><span class="p">,</span> <span class="n">preload_angle</span><span class="p">)</span>
+                       <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">hingelines</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">allgeoms4</span><span class="p">,</span> <span class="n">buffered_split</span><span class="p">,</span> <span class="n">hingelines</span><span class="p">,</span> <span class="n">joint_props</span>
+</div>
+<div class="viewcode-block" id="JointOperation2.generate"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointOperation2.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
+        <span class="n">safe_buffer1</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span> <span class="o">*</span><span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span>
+        <span class="n">safe_buffer2</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span> <span class="o">*</span><span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span>
+        <span class="n">safe_buffer3</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span> <span class="o">*</span><span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span>
+
+        <span class="n">parent_id</span><span class="p">,</span> <span class="n">parent_output_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;parent&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">parent_index</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">operation_index</span><span class="p">(</span><span class="n">parent_id</span><span class="p">)</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">[</span><span class="n">parent_index</span><span class="p">]</span><span class="o">.</span><span class="n">output</span><span class="p">[</span>
+            <span class="n">parent_output_index</span><span class="p">]</span><span class="o">.</span><span class="n">csg</span>
+
+        <span class="n">fixed_id</span><span class="p">,</span> <span class="n">fixed_output_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;fixed&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">fixed_index</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">operation_index</span><span class="p">(</span><span class="n">fixed_id</span><span class="p">)</span>
+        <span class="n">fixed</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">[</span><span class="n">fixed_index</span><span class="p">]</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">fixed_output_index</span><span class="p">]</span><span class="o">.</span><span class="n">csg</span>
+
+        <span class="n">layerdef</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">()</span>
+
+        <span class="n">allgeoms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">allhingelines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">buffered_splits</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">all_joint_props</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">joint_def</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">joint_defs</span><span class="p">:</span>
+            <span class="n">allgeoms4</span><span class="p">,</span> <span class="n">buffered_split</span><span class="p">,</span> <span class="n">hingelines</span><span class="p">,</span> <span class="n">joint_props</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen_geoms</span><span class="p">(</span>
+                <span class="n">joint_def</span><span class="p">,</span> <span class="n">layerdef</span><span class="p">,</span> <span class="n">design</span><span class="p">)</span>
+            <span class="n">allgeoms</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">allgeoms4</span><span class="p">)</span>
+            <span class="n">allhingelines</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">hingelines</span><span class="p">)</span>
+            <span class="n">buffered_splits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">buffered_split</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">jointline</span><span class="p">,</span><span class="n">jointprop</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">hingelines</span><span class="p">,</span><span class="n">joint_props</span><span class="p">):</span>
+                <span class="n">all_joint_props</span><span class="p">[</span><span class="n">jointline</span><span class="p">]</span><span class="o">=</span><span class="n">jointprop</span>
+
+        <span class="c">#allhingelines.sort()</span>
+
+        <span class="n">safe_sections</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">allgeoms</span><span class="p">)):</span>
+            <span class="n">unsafe</span> <span class="o">=</span> <span class="n">Laminate</span><span class="o">.</span><span class="n">unaryoperation</span><span class="p">(</span>
+                <span class="n">allgeoms</span><span class="p">[</span>
+                    <span class="p">:</span><span class="n">ii</span><span class="p">]</span> <span class="o">+</span>
+                <span class="n">allgeoms</span><span class="p">[</span>
+                    <span class="n">ii</span> <span class="o">+</span>
+                    <span class="mi">1</span><span class="p">:],</span>
+                <span class="s">&#39;union&#39;</span><span class="p">)</span>
+            <span class="n">unsafe_buffer</span> <span class="o">=</span> <span class="n">unsafe</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">safe_buffer1</span><span class="p">,</span><span class="n">resolution</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">resolution</span><span class="p">)</span>
+            <span class="n">safe_sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">allgeoms</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">unsafe_buffer</span><span class="p">))</span>
+
+        <span class="n">safe</span> <span class="o">=</span> <span class="n">Laminate</span><span class="o">.</span><span class="n">unaryoperation</span><span class="p">(</span><span class="n">safe_sections</span><span class="p">,</span> <span class="s">&#39;union&#39;</span><span class="p">)</span>
+        <span class="n">buffered_splits2</span> <span class="o">=</span> <span class="n">Laminate</span><span class="o">.</span><span class="n">unaryoperation</span><span class="p">(</span><span class="n">buffered_splits</span><span class="p">,</span> <span class="s">&#39;union&#39;</span><span class="p">)</span>
+        <span class="n">safe_buffer</span> <span class="o">=</span> <span class="n">safe</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">safe_buffer2</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">resolution</span><span class="p">)</span>
+        <span class="n">unsafe</span> <span class="o">=</span> <span class="n">Laminate</span><span class="o">.</span><span class="n">unaryoperation</span><span class="p">(</span>
+            <span class="n">allgeoms</span><span class="p">,</span>
+            <span class="s">&#39;union&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">safe_buffer</span><span class="p">)</span>
+        <span class="n">unsafe2</span> <span class="o">=</span> <span class="n">unsafe</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">safe_buffer3</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">resolution</span><span class="p">)</span>
+
+        <span class="n">split1</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">unsafe2</span><span class="p">)</span>
+        <span class="n">split2</span> <span class="o">=</span> <span class="n">split1</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">buffered_splits2</span><span class="p">)</span>
+        <span class="n">bodies</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">body_detection</span><span class="o">.</span><span class="n">find</span><span class="p">(</span>
+            <span class="n">split2</span><span class="o">.</span><span class="n">to_generic_laminate</span><span class="p">())</span>
+
+        <span class="n">bodies_generic</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">to_generic_laminate</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bodies</span><span class="p">]</span>
+
+        <span class="n">connections</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">connections2</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+        <span class="k">for</span> <span class="n">line</span><span class="p">,</span> <span class="n">geom</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">allhingelines</span><span class="p">,</span> <span class="n">safe_sections</span><span class="p">):</span>
+            <span class="n">connections</span><span class="p">[</span><span class="n">line</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">connections2</span><span class="p">[</span><span class="n">line</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">body</span><span class="p">,</span> <span class="n">body_generic</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bodies</span><span class="p">,</span> <span class="n">bodies_generic</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">geom</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
+                    <span class="n">connections</span><span class="p">[</span><span class="n">line</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">body_generic</span><span class="p">)</span>
+                    <span class="n">connections2</span><span class="p">[</span><span class="n">line</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span><span class="p">,</span> <span class="n">geoms</span> <span class="ow">in</span> <span class="n">connections2</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">connections2</span><span class="p">[</span><span class="n">line</span><span class="p">]</span> <span class="o">=</span> <span class="n">Laminate</span><span class="o">.</span><span class="n">unaryoperation</span><span class="p">(</span><span class="n">geoms</span><span class="p">,</span> <span class="s">&#39;union&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">fixed_bodies</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">fixed_csg</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">body</span><span class="p">,</span> <span class="n">body_generic</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bodies</span><span class="p">,</span> <span class="n">bodies_generic</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">fixed</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">isEmpty</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fixed_bodies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">body_generic</span><span class="p">)</span>
+                <span class="n">fixed_csg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">bodies_generic</span> <span class="o">=</span> <span class="n">bodies_generic</span>
+        <span class="n">allhingelines</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span> <span class="c">#Sort here to prevent interfering with geometry. We only care about order of the joint props        </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connections</span> <span class="o">=</span> <span class="p">[(</span><span class="n">key</span><span class="p">,</span> <span class="n">connections</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">allhingelines</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">connections</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_joint_props</span> <span class="o">=</span> <span class="p">[</span><span class="n">all_joint_props</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">allhingelines</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OperationOutput</span><span class="p">(</span><span class="n">safe</span><span class="p">,</span><span class="s">&#39;Safe&#39;</span><span class="p">,</span><span class="bp">self</span><span class="p">))</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OperationOutput</span><span class="p">(</span><span class="n">unsafe</span><span class="p">,</span><span class="s">&#39;Unsafe&#39;</span><span class="p">,</span><span class="bp">self</span><span class="p">))</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OperationOutput</span><span class="p">(</span><span class="n">split1</span><span class="p">,</span><span class="s">&#39;Split1&#39;</span><span class="p">,</span><span class="bp">self</span><span class="p">))</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OperationOutput</span><span class="p">(</span><span class="n">split2</span><span class="p">,</span><span class="s">&#39;Split2&#39;</span><span class="p">,</span><span class="bp">self</span><span class="p">))</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">OperationOutput</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="s">&#39;Fixed {0:d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ii</span><span class="p">),</span><span class="bp">self</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fixed_csg</span><span class="p">)])</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">OperationOutput</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="s">&#39;Body {0:d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ii</span><span class="p">),</span><span class="bp">self</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bodies</span><span class="p">)])</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">OperationOutput</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="s">&#39;Connection {0:d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ii</span><span class="p">),</span><span class="bp">self</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">connections2</span><span class="o">.</span><span class="n">values</span><span class="p">())])</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+</div>
+<div class="viewcode-block" id="JointOperation2.switch_layer_defs"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointOperation2.switch_layer_defs">[docs]</a>    <span class="k">def</span> <span class="nf">switch_layer_defs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layerdef_old</span><span class="p">,</span> <span class="n">layerdef_new</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">joint_def</span> <span class="ow">in</span> <span class="n">new</span><span class="o">.</span><span class="n">joint_defs</span><span class="p">:</span>
+            <span class="n">joint_def</span><span class="o">.</span><span class="n">joint_layer</span> <span class="o">=</span> <span class="n">new</span><span class="o">.</span><span class="n">convert_layer_links</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">joint_def</span><span class="o">.</span><span class="n">joint_layer</span><span class="p">],</span> <span class="n">layerdef_old</span><span class="p">,</span> <span class="n">layerdef_new</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">joint_def</span><span class="o">.</span><span class="n">sublaminate_layers</span> <span class="o">=</span> <span class="n">new</span><span class="o">.</span><span class="n">convert_layer_links</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">joint_def</span><span class="o">.</span><span class="n">sublaminate_layers</span><span class="p">],</span> <span class="n">layerdef_old</span><span class="p">,</span> <span class="n">layerdef_new</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">new</span>
+
+
+    <span class="c">#Returns a key of laminates to generations and assigns the value</span>
+    <span class="c">#The original fixed body is generation 0 and all others are children to it.</span></div>
+<div class="viewcode-block" id="JointOperation2.get_laminate_generations"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.joint_operation2.JointOperation2.get_laminate_generations">[docs]</a>    <span class="k">def</span> <span class="nf">get_laminate_generations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">current_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fixed_bodies</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c">#The root of the tree</span>
+        <span class="n">joint_pairs</span> <span class="o">=</span> <span class="p">[</span><span class="n">my_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">my_tuple</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connections</span><span class="p">]</span>
+        <span class="n">hierarchy_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">generation</span> <span class="o">=</span> <span class="mi">0</span> <span class="c">#The geneation of the current node</span>
+        <span class="n">hierarchy_map</span><span class="p">[</span><span class="n">current_node</span><span class="p">]</span> <span class="o">=</span> <span class="n">generation</span>
+        <span class="n">generation</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">child_queue</span> <span class="o">=</span> <span class="p">[</span><span class="n">current_node</span><span class="p">]</span>
+        <span class="n">visited_set</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">child_queue</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">current_node</span> <span class="o">=</span> <span class="n">child_queue</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>            
+            <span class="n">visited_set</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_node</span><span class="p">)</span>                            
+            <span class="n">children_tuples</span> <span class="o">=</span> <span class="p">[</span><span class="n">joint_pair</span> <span class="k">for</span> <span class="n">joint_pair</span> <span class="ow">in</span> <span class="n">joint_pairs</span> <span class="k">if</span> <span class="n">current_node</span> <span class="ow">in</span> <span class="n">joint_pair</span><span class="p">]</span>
+            <span class="n">children</span> <span class="o">=</span> <span class="p">[[</span><span class="n">joint</span> <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">joint_pair</span> <span class="k">if</span> <span class="n">joint</span> <span class="o">!=</span> <span class="n">current_node</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">joint_pair</span> <span class="ow">in</span> <span class="n">children_tuples</span><span class="p">]</span>
+            <span class="n">children</span> <span class="o">=</span> <span class="p">[</span><span class="n">child</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span> <span class="k">if</span> <span class="n">child</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited_set</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+                <span class="n">hierarchy_map</span><span class="p">[</span><span class="n">child</span><span class="p">]</span> <span class="o">=</span> <span class="n">generation</span>
+            <span class="n">generation</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="c">#Queues up the next batch of children</span>
+            <span class="n">child_queue</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">child</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span> <span class="k">if</span> <span class="n">child</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited_set</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">hierarchy_map</span>    </div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

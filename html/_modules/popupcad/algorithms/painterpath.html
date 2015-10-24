@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.algorithms.painterpath &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.algorithms.painterpath</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Sun Sep 27 12:29:46 2015</span>
+
+<span class="sd">@author: danaukes</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericPoly</span>
+
+<div class="viewcode-block" id="quadratic"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.painterpath.quadratic">[docs]</a><span class="k">def</span> <span class="nf">quadratic</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">p0</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">):</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">p0</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">t</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">p1</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">p2</span><span class="o">*</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">b</span>
+    </div>
+<div class="viewcode-block" id="cubic"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.painterpath.cubic">[docs]</a><span class="k">def</span> <span class="nf">cubic</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">p0</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">,</span><span class="n">p3</span><span class="p">):</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">p0</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">t</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">p1</span><span class="o">*</span><span class="n">t</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">t</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">p2</span><span class="o">*</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="n">p3</span><span class="o">*</span><span class="n">t</span><span class="o">**</span><span class="mi">3</span>
+    <span class="k">return</span> <span class="n">b</span>
+    </div>
+<div class="viewcode-block" id="interp_2d"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.painterpath.interp_2d">[docs]</a><span class="k">def</span> <span class="nf">interp_2d</span><span class="p">(</span><span class="n">function</span><span class="p">,</span><span class="n">points</span><span class="p">,</span><span class="n">SUBDIVISION</span><span class="p">):</span>
+    <span class="n">points_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">point</span><span class="o">.</span><span class="n">x</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
+    <span class="n">points_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">point</span><span class="o">.</span><span class="n">y</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">SUBDIVISION</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="n">SUBDIVISION</span><span class="o">*</span><span class="mi">1j</span><span class="p">]</span>
+    <span class="n">interp_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">function</span><span class="p">(</span><span class="n">t_i</span><span class="p">,</span><span class="o">*</span><span class="n">points_x</span><span class="p">)</span> <span class="k">for</span> <span class="n">t_i</span> <span class="ow">in</span> <span class="n">t</span><span class="p">]</span>
+    <span class="n">interp_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">function</span><span class="p">(</span><span class="n">t_i</span><span class="p">,</span><span class="o">*</span><span class="n">points_y</span><span class="p">)</span> <span class="k">for</span> <span class="n">t_i</span> <span class="ow">in</span> <span class="n">t</span><span class="p">]</span>
+    <span class="n">interp</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">interp_x</span><span class="p">,</span><span class="n">interp_y</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">interp</span>
+</div>
+<div class="viewcode-block" id="painterpath_to_generics"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.painterpath.painterpath_to_generics">[docs]</a><span class="k">def</span> <span class="nf">painterpath_to_generics</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">subdivision</span><span class="p">):</span>
+    
+    <span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">elementAt</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">elementCount</span><span class="p">())]</span>
+<span class="c">#    element_types = [str(item.type).split(&#39;.&#39;)[-1] for item in elements]</span>
+    
+    <span class="n">vertex_lists</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">vertex_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">lastelement</span> <span class="o">=</span> <span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">while</span> <span class="ow">not</span> <span class="ow">not</span> <span class="n">elements</span><span class="p">:</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">elements</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="o">.</span><span class="n">ElementType</span><span class="o">.</span><span class="n">MoveToElement</span><span class="p">:</span>
+<span class="c">#            print(&#39;moveto&#39;,element.x,element.y)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertex_list</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">vertex_lists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertex_list</span><span class="p">)</span>
+                <span class="n">vertex_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">element</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">element</span><span class="o">.</span><span class="n">y</span><span class="p">)]</span>
+            <span class="n">lastelement</span> <span class="o">=</span> <span class="n">element</span>
+                
+        <span class="k">elif</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="o">.</span><span class="n">ElementType</span><span class="o">.</span><span class="n">LineToElement</span><span class="p">:</span>
+<span class="c">#            print(&#39;lineto&#39;,element.x,element.y)</span>
+            <span class="n">vertex_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">element</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">element</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+            <span class="n">lastelement</span> <span class="o">=</span> <span class="n">element</span>
+        <span class="k">elif</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="o">.</span><span class="n">ElementType</span><span class="o">.</span><span class="n">CurveToElement</span><span class="p">:</span>
+<span class="c">#            print(&#39;curveto&#39;,element.x,element.y)</span>
+
+            <span class="n">subelements</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">next_is_data</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">while</span> <span class="n">next_is_data</span><span class="p">:</span>
+                <span class="n">subelements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elements</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+                    <span class="n">next_is_data</span> <span class="o">=</span> <span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="o">==</span><span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="o">.</span><span class="n">ElementType</span><span class="o">.</span><span class="n">CurveToDataElement</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">next_is_data</span> <span class="o">=</span> <span class="bp">False</span>
+    
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">subelements</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">lastelement</span><span class="p">,</span><span class="n">element</span><span class="p">,</span><span class="n">subelements</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+                <span class="n">vertex_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">interp_2d</span><span class="p">(</span><span class="n">quadratic</span><span class="p">,</span><span class="n">points</span><span class="p">,</span><span class="n">subdivision</span><span class="p">))</span>
+                <span class="n">lastelement</span> <span class="o">=</span> <span class="n">subelements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">subelements</span><span class="p">)</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">lastelement</span><span class="p">,</span><span class="n">element</span><span class="p">,</span><span class="n">subelements</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">subelements</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="n">vertex_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">interp_2d</span><span class="p">(</span><span class="n">cubic</span><span class="p">,</span><span class="n">points</span><span class="p">,</span><span class="n">subdivision</span><span class="p">))</span>
+                <span class="n">lastelement</span> <span class="o">=</span> <span class="n">subelements</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+           
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span><span class="p">(</span><span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Wrong number of subelements&#39;</span><span class="p">))</span>
+
+    <span class="n">vertex_lists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertex_list</span><span class="p">)</span>
+    <span class="n">polys</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">vertex_list</span> <span class="ow">in</span> <span class="n">vertex_lists</span><span class="p">:</span>
+        <span class="n">polys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GenericPoly</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">vertex_list</span><span class="p">,[]))</span>
+    
+    <span class="k">return</span> <span class="n">polys</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

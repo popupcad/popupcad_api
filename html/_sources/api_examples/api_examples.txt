@@ -1,0 +1,102 @@
+api_examples package
+====================
+
+Submodules
+----------
+
+api_examples.constraint_check module
+------------------------------------
+
+.. automodule:: api_examples.constraint_check
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+api_examples.design_advanced_functions module
+---------------------------------------------
+
+.. automodule:: api_examples.design_advanced_functions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+api_examples.design_file_connections module
+-------------------------------------------
+
+.. automodule:: api_examples.design_file_connections
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+api_examples.get_mass_properties module
+---------------------------------------
+
+.. automodule:: api_examples.get_mass_properties
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+api_examples.load_file2 module
+------------------------------
+
+.. automodule:: api_examples.load_file2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+api_examples.load_sketch module
+-------------------------------
+
+.. automodule:: api_examples.load_sketch
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+api_examples.merge_designs module
+---------------------------------
+
+.. automodule:: api_examples.merge_designs
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+api_examples.programmatic_generation module
+-------------------------------------------
+
+.. automodule:: api_examples.programmatic_generation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+api_examples.split_design module
+--------------------------------
+
+.. automodule:: api_examples.split_design
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+api_examples.switch_subdesign module
+------------------------------------
+
+.. automodule:: api_examples.switch_subdesign
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+api_examples.upgrade_script module
+----------------------------------
+
+.. automodule:: api_examples.upgrade_script
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: api_examples
+    :members:
+    :undoc-members:
+    :show-inheritance:

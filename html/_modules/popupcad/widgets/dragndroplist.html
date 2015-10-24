@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.widgets.dragndroplist &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.widgets.dragndroplist</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.userdata</span> <span class="kn">import</span> <span class="n">UserData</span>
+<span class="kn">from</span> <span class="nn">dev_tools.acyclicdirectedgraph</span> <span class="kn">import</span> <span class="n">AcyclicDirectedGraph</span><span class="p">,</span> <span class="n">Node</span>
+
+
+<div class="viewcode-block" id="DraggableItem"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableItem">[docs]</a><span class="k">class</span> <span class="nc">DraggableItem</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QListWidgetItem</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">DraggableItem</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">userdata</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">()</span> <span class="o">|</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsEditable</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DraggableItem.data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableItem.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">userdata</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">userdata</span><span class="o">.</span><span class="n">getcustomname</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">userdata</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span>
+</div>
+<div class="viewcode-block" id="DraggableItem.setData"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableItem.setData">[docs]</a>    <span class="k">def</span> <span class="nf">setData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">role</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">userdata</span><span class="o">.</span><span class="n">setcustomname</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">userdata</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="DraggableItem.clone"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableItem.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c">#        return type(self)(self.userdata)</span>
+        <span class="c">#        print(&#39;cloned&#39;)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">DraggableItem</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DraggableItem.write"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableItem.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c">#        return type(self)(self.userdata)</span>
+        <span class="c">#        print(&#39;written&#39;)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">DraggableItem</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="DraggableDirectedItem"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableDirectedItem">[docs]</a><span class="k">class</span> <span class="nc">DraggableDirectedItem</span><span class="p">(</span><span class="n">DraggableItem</span><span class="p">,</span> <span class="n">Node</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="DraggableListWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableListWidget">[docs]</a><span class="k">class</span> <span class="nc">DraggableListWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QListWidget</span><span class="p">):</span>
+    <span class="n">signal_edit</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DraggableListWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SelectionMode</span><span class="o">.</span><span class="n">SingleSelection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDragEnabled</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDropIndicatorShown</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDragDropMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DragDropMode</span><span class="o">.</span><span class="n">InternalMove</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setEditTriggers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">EditTrigger</span><span class="o">.</span><span class="n">EditKeyPressed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doubleClicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itemDoubleClicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+<div class="viewcode-block" id="DraggableListWidget.linklist"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableListWidget.linklist">[docs]</a>    <span class="k">def</span> <span class="nf">linklist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">masterlist</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span> <span class="o">=</span> <span class="n">masterlist</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="DraggableListWidget.addData"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableListWidget.addData">[docs]</a>    <span class="k">def</span> <span class="nf">addData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="c">#        self.masterlist.append(item)</span>
+        <span class="c">#        self.refresh()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DraggableListWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">DraggableDirectedItem</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refreshmaster</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="DraggableListWidget.allItems"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableListWidget.allItems">[docs]</a>    <span class="k">def</span> <span class="nf">allItems</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count</span><span class="p">())]</span>
+        <span class="k">return</span> <span class="n">items</span>
+</div>
+<div class="viewcode-block" id="DraggableListWidget.allData"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableListWidget.allData">[docs]</a>    <span class="k">def</span> <span class="nf">allData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">userdata</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allItems</span><span class="p">()]</span>
+</div>
+<div class="viewcode-block" id="DraggableListWidget.refreshmaster"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableListWidget.refreshmaster">[docs]</a>    <span class="k">def</span> <span class="nf">refreshmaster</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">userdata</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allItems</span><span class="p">()]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span>
+</div>
+<div class="viewcode-block" id="DraggableListWidget.refresh"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableListWidget.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="p">[</span><span class="n">DraggableDirectedItem</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">masterlist</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="DraggableListWidget.itemDoubleClicked"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableListWidget.itemDoubleClicked">[docs]</a>    <span class="k">def</span> <span class="nf">itemDoubleClicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="n">userdata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">signal_edit</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">userdata</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DraggableListWidget.keyPressEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DraggableListWidget.keyPressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Delete</span><span class="p">:</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedIndexes</span><span class="p">():</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ii</span><span class="o">.</span><span class="n">row</span><span class="p">())</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">()</span><span class="o">.</span><span class="n">removeRows</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">QModelIndex</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refreshmaster</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">DraggableListWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">keyPressEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="DirectedDraggableListWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DirectedDraggableListWidget">[docs]</a><span class="k">class</span> <span class="nc">DirectedDraggableListWidget</span><span class="p">(</span><span class="n">DraggableListWidget</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DirectedDraggableListWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">rowsMoved</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowsMovedCheck</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DirectedDraggableListWidget.set_tree_generator"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DirectedDraggableListWidget.set_tree_generator">[docs]</a>    <span class="k">def</span> <span class="nf">set_tree_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generator</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree_generator</span> <span class="o">=</span> <span class="n">generator</span>
+</div>
+<div class="viewcode-block" id="DirectedDraggableListWidget.rowsMovedCheck"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.DirectedDraggableListWidget.rowsMovedCheck">[docs]</a>    <span class="k">def</span> <span class="nf">rowsMovedCheck</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">sourceindex</span><span class="p">,</span>
+            <span class="n">rowstart</span><span class="p">,</span>
+            <span class="n">rowend</span><span class="p">,</span>
+            <span class="n">destindex</span><span class="p">,</span>
+            <span class="n">deststart</span><span class="p">):</span>
+        <span class="c">#        print(sourceindex, rowstart,rowend,destindex,deststart)</span>
+        <span class="c">#        items = [self.item(ii) for ii in range(self.model().rowCount())]</span>
+        <span class="c">#        print(self.tree.sequence_complete_valid(self.allItems()))</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tree_generator</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tree</span><span class="o">.</span><span class="n">sequence_complete_valid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allData</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">rowstart</span> <span class="o">&lt;</span> <span class="n">deststart</span><span class="p">:</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">takeItem</span><span class="p">(</span><span class="n">deststart</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">insertItem</span><span class="p">(</span><span class="n">rowstart</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">currentRowChanged</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">rowstart</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">rowstart</span> <span class="o">&gt;</span> <span class="n">deststart</span><span class="p">:</span>
+                <span class="k">pass</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">takeItem</span><span class="p">(</span><span class="n">deststart</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">insertItem</span><span class="p">(</span><span class="n">rowstart</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">currentRowChanged</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">rowstart</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refreshmaster</span><span class="p">()</span>
+
+</div></div>
+<div class="viewcode-block" id="edituserdata"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.edituserdata">[docs]</a><span class="k">def</span> <span class="nf">edituserdata</span><span class="p">(</span><span class="n">userdata</span><span class="p">):</span>
+    <span class="n">userdata</span><span class="o">.</span><span class="n">edit</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="rowchange"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.dragndroplist.rowchange">[docs]</a><span class="k">def</span> <span class="nf">rowchange</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+
+    <span class="n">list1</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="n">UserData</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">))</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list1</span><span class="p">]</span>
+
+    <span class="n">lw</span> <span class="o">=</span> <span class="n">DirectedDraggableListWidget</span><span class="p">()</span>
+    <span class="n">lw</span><span class="o">.</span><span class="n">linklist</span><span class="p">(</span><span class="n">list1</span><span class="p">)</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">lw</span><span class="o">.</span><span class="n">allItems</span><span class="p">()</span>
+    <span class="n">connections</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">nodes</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">AcyclicDirectedGraph</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">connections</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+    <span class="n">lw</span><span class="o">.</span><span class="n">set_tree_generator</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+    <span class="n">lw</span><span class="o">.</span><span class="n">signal_edit</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">edituserdata</span><span class="p">)</span>
+    <span class="n">lw</span><span class="o">.</span><span class="n">currentRowChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">rowchange</span><span class="p">)</span>
+<span class="c">#</span>
+    <span class="n">lw</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">lw</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

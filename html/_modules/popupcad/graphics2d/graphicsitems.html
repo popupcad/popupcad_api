@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.graphics2d.graphicsitems &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.graphics2d.graphicsitems</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="Common"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsitems.Common">[docs]</a><span class="k">class</span> <span class="nc">Common</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">z_value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">isDeletable</span> <span class="o">=</span> <span class="bp">False</span>
+
+<div class="viewcode-block" id="Common.allchildren"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsitems.Common.allchildren">[docs]</a>    <span class="k">def</span> <span class="nf">allchildren</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">childItems</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Common.softdelete"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsitems.Common.softdelete">[docs]</a>    <span class="k">def</span> <span class="nf">softdelete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isDeletable</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">harddelete</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Common.harddelete"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsitems.Common.harddelete">[docs]</a>    <span class="k">def</span> <span class="nf">harddelete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">allchildren</span><span class="p">():</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">setParentItem</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">harddelete</span><span class="p">()</span>
+            <span class="k">del</span> <span class="n">child</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setParentItem</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">removefromscene</span><span class="p">()</span>
+        <span class="k">del</span> <span class="bp">self</span>
+</div>
+<div class="viewcode-block" id="Common.removefromscene"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsitems.Common.removefromscene">[docs]</a>    <span class="k">def</span> <span class="nf">removefromscene</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="Common.constraintsystem"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsitems.Common.constraintsystem">[docs]</a>    <span class="k">def</span> <span class="nf">constraintsystem</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">sketch</span><span class="o">.</span><span class="n">constraintsystem</span>
+</div>
+<div class="viewcode-block" id="Common.sketch"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsitems.Common.sketch">[docs]</a>    <span class="k">def</span> <span class="nf">sketch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">sketch</span>
+
+</div></div>
+<div class="viewcode-block" id="CommonShape"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsitems.CommonShape">[docs]</a><span class="k">class</span> <span class="nc">CommonShape</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CommonShape.create_selectable_edge_loop"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsitems.CommonShape.create_selectable_edge_loop">[docs]</a>    <span class="k">def</span> <span class="nf">create_selectable_edge_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">popupcad.geometry.line</span> <span class="kn">import</span> <span class="n">ShapeLine</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selectableedges</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">exterior</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">handle1</span><span class="p">,</span> <span class="n">handle2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">exterior</span><span class="p">,</span> <span class="n">exterior</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">exterior</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">genericline</span> <span class="o">=</span> <span class="n">ShapeLine</span><span class="p">(</span><span class="n">handle1</span><span class="p">,</span> <span class="n">handle2</span><span class="p">)</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">genericline</span><span class="o">.</span><span class="n">gen_interactive</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selectableedges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="CommonShape.create_selectable_edge_path"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsitems.CommonShape.create_selectable_edge_path">[docs]</a>    <span class="k">def</span> <span class="nf">create_selectable_edge_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">popupcad.geometry.line</span> <span class="kn">import</span> <span class="n">ShapeLine</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selectableedges</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">exterior</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">handle1</span><span class="p">,</span> <span class="n">handle2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">exterior</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">exterior</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="n">genericline</span> <span class="o">=</span> <span class="n">ShapeLine</span><span class="p">(</span><span class="n">handle1</span><span class="p">,</span> <span class="n">handle2</span><span class="p">)</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">genericline</span><span class="o">.</span><span class="n">gen_interactive</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selectableedges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="CommonShape.create_selectable_edges"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsitems.CommonShape.create_selectable_edges">[docs]</a>    <span class="k">def</span> <span class="nf">create_selectable_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_selectable_edge_loop</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="CommonShape.updateshape"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsitems.CommonShape.updateshape">[docs]</a>    <span class="k">def</span> <span class="nf">updateshape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">painterpath</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setPath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

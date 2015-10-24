@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.widgets.table_editor_delegate &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.widgets.table_editor_delegate</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">from</span> <span class="nn">popupcad.widgets.dragndroptree</span> <span class="kn">import</span> <span class="n">DraggableTreeWidget</span>
+<span class="kn">from</span> <span class="nn">popupcad.widgets.table_common</span> <span class="kn">import</span> <span class="n">TableControl</span><span class="p">,</span><span class="n">Table</span><span class="p">,</span><span class="n">Delegate</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.validators</span> <span class="kn">import</span> <span class="n">StrictDoubleValidator</span>
+
+<div class="viewcode-block" id="ListWidgetItem"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.ListWidgetItem">[docs]</a><span class="k">class</span> <span class="nc">ListWidgetItem</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QListWidgetItem</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">customdata</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ListWidgetItem</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="SingleListWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.SingleListWidget">[docs]</a><span class="k">class</span> <span class="nc">SingleListWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QListWidget</span><span class="p">):</span>
+    <span class="n">editingFinished</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list1</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SingleListWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">ListWidgetItem</span><span class="p">(</span><span class="n">item</span><span class="p">))</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">itemClicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fire_signal</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SingleListWidget.fire_signal"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.SingleListWidget.fire_signal">[docs]</a>    <span class="k">def</span> <span class="nf">fire_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="SingleListWidget.setData"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.SingleListWidget.setData">[docs]</a>    <span class="k">def</span> <span class="nf">setData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clearSelection</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">()</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()):</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">customdata</span> <span class="o">==</span> <span class="n">data</span><span class="p">:</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">setSelected</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="MultiListWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.MultiListWidget">[docs]</a><span class="k">class</span> <span class="nc">MultiListWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QListWidget</span><span class="p">):</span>
+    <span class="n">editingFinished</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list1</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiListWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">ListWidgetItem</span><span class="p">(</span><span class="n">item</span><span class="p">))</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SelectionMode</span><span class="o">.</span><span class="n">MultiSelection</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MultiListWidget.setData"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.MultiListWidget.setData">[docs]</a>    <span class="k">def</span> <span class="nf">setData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clearSelection</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">()</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()):</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">customdata</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">setSelected</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="Row"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.Row">[docs]</a><span class="k">class</span> <span class="nc">Row</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">column_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Row.row_add"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.Row.row_add">[docs]</a>    <span class="k">def</span> <span class="nf">row_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">element</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">items</span>
+</div>
+<div class="viewcode-block" id="Row.row_add_empty"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.Row.row_add_empty">[docs]</a>    <span class="k">def</span> <span class="nf">row_add_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="bp">None</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">items</span>
+</div>
+<div class="viewcode-block" id="Row.create_editor"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.Row.create_editor">[docs]</a>    <span class="k">def</span> <span class="nf">create_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">delegate</span><span class="p">):</span>
+        <span class="n">ii</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">build_editor</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">delegate</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Row.update_editor_geometry"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.Row.update_editor_geometry">[docs]</a>    <span class="k">def</span> <span class="nf">update_editor_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editor</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="n">ii</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">set_editor_rect</span><span class="p">(</span><span class="n">editor</span><span class="p">,</span> <span class="n">option</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Row.set_editor_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.Row.set_editor_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_editor_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editor</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">delegate</span><span class="p">):</span>
+        <span class="n">ii</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">set_editor_data</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">editor</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Row.set_model_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.Row.set_model_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_model_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editor</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">delegate</span><span class="p">):</span>
+        <span class="n">ii</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">column</span><span class="p">()</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">set_model_data</span><span class="p">(</span><span class="n">editor</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">delegate</span><span class="p">)</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">header_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">element</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Row.cell_clicked"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.Row.cell_clicked">[docs]</a>    <span class="k">def</span> <span class="nf">cell_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+</div></div>
+<div class="viewcode-block" id="Element"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.Element">[docs]</a><span class="k">class</span> <span class="nc">Element</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expand_bottom</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expand_top</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expand_left</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expand_right</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="Element.set_editor_rect"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.Element.set_editor_rect">[docs]</a>    <span class="k">def</span> <span class="nf">set_editor_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editor</span><span class="p">,</span> <span class="n">option</span><span class="p">):</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">option</span><span class="o">.</span><span class="n">rect</span>
+        <span class="n">rect</span><span class="o">.</span><span class="n">setTop</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">expand_top</span><span class="p">)</span>
+        <span class="n">rect</span><span class="o">.</span><span class="n">setBottom</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">bottom</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">expand_bottom</span><span class="p">)</span>
+        <span class="n">rect</span><span class="o">.</span><span class="n">setLeft</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">expand_left</span><span class="p">)</span>
+        <span class="n">rect</span><span class="o">.</span><span class="n">setRight</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">right</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">expand_right</span><span class="p">)</span>
+        <span class="n">editor</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Element.set_model_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.Element.set_model_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_model_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editor</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">delegate</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Delegate</span><span class="p">,</span> <span class="n">delegate</span><span class="p">)</span><span class="o">.</span><span class="n">setModelData</span><span class="p">(</span><span class="n">editor</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Element.set_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.Element.set_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">):</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">variable</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">variable</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="p">)</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ini</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">item</span>
+
+</div></div>
+<div class="viewcode-block" id="SingleItemListElement"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.SingleItemListElement">[docs]</a><span class="k">class</span> <span class="nc">SingleItemListElement</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">get_list</span><span class="p">,</span> <span class="n">ini</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SingleItemListElement</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_list</span> <span class="o">=</span> <span class="n">get_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expand_bottom</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="n">ini</span>
+
+<div class="viewcode-block" id="SingleItemListElement.set_editor_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.SingleItemListElement.set_editor_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_editor_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">editor</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+        <span class="n">editor</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SingleItemListElement.set_model_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.SingleItemListElement.set_model_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_model_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editor</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">delegate</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">editor</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">customdata</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">)</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="SingleItemListElement.build_editor"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.SingleItemListElement.build_editor">[docs]</a>    <span class="k">def</span> <span class="nf">build_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">delegate</span><span class="p">):</span>
+        <span class="n">editor</span> <span class="o">=</span> <span class="n">SingleListWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_list</span><span class="p">(),</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">editor</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">delegate</span><span class="o">.</span><span class="n">commitAndCloseEditor</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">editor</span>
+
+</div></div>
+<div class="viewcode-block" id="MultiItemListElement"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.MultiItemListElement">[docs]</a><span class="k">class</span> <span class="nc">MultiItemListElement</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">get_list</span><span class="p">,</span> <span class="n">ini</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiItemListElement</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_list</span> <span class="o">=</span> <span class="n">get_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expand_bottom</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="k">if</span> <span class="n">ini</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="n">ini</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="MultiItemListElement.set_editor_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.MultiItemListElement.set_editor_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_editor_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">editor</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+        <span class="n">editor</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="MultiItemListElement.set_model_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.MultiItemListElement.set_model_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_model_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editor</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">delegate</span><span class="p">):</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">customdata</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">editor</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()]</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="MultiItemListElement.build_editor"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.MultiItemListElement.build_editor">[docs]</a>    <span class="k">def</span> <span class="nf">build_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">delegate</span><span class="p">):</span>
+        <span class="n">editor</span> <span class="o">=</span> <span class="n">MultiListWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_list</span><span class="p">(),</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="n">editor</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">delegate</span><span class="o">.</span><span class="n">commitAndCloseEditor</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">editor</span>
+
+</div></div>
+<div class="viewcode-block" id="DraggableTreeElement"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.DraggableTreeElement">[docs]</a><span class="k">class</span> <span class="nc">DraggableTreeElement</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">get_list</span><span class="p">,</span> <span class="n">ini</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DraggableTreeElement</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_list</span> <span class="o">=</span> <span class="n">get_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expand_bottom</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="k">if</span> <span class="n">ini</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="n">ini</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="DraggableTreeElement.set_editor_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.DraggableTreeElement.set_editor_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_editor_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">editor</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+        <span class="n">editor</span><span class="o">.</span><span class="n">selectIndeces</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeElement.set_model_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.DraggableTreeElement.set_model_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_model_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editor</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">delegate</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">editor</span><span class="o">.</span><span class="n">currentIndeces2</span><span class="p">()</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">)</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeElement.build_editor"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.DraggableTreeElement.build_editor">[docs]</a>    <span class="k">def</span> <span class="nf">build_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">delegate</span><span class="p">):</span>
+        <span class="n">editor</span> <span class="o">=</span> <span class="n">DraggableTreeWidget</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="n">editor</span><span class="o">.</span><span class="n">linklist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_list</span><span class="p">())</span>
+<span class="c">#            editor.editingFinished.connect(delegate.commitAndCloseEditor)</span>
+        <span class="k">return</span> <span class="n">editor</span>
+
+</div></div>
+<div class="viewcode-block" id="FloatElement"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.FloatElement">[docs]</a><span class="k">class</span> <span class="nc">FloatElement</span><span class="p">(</span><span class="n">Element</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ini</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_negative_infinity</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FloatElement</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="n">ini</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bottom</span> <span class="o">=</span> <span class="n">bottom</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">top</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decimals</span> <span class="o">=</span> <span class="n">decimals</span>
+
+<div class="viewcode-block" id="FloatElement.set_editor_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.FloatElement.set_editor_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_editor_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">editor</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+        <span class="n">editor</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="FloatElement.set_model_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.FloatElement.set_model_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_model_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editor</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">delegate</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">editor</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="FloatElement.build_editor"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_delegate.FloatElement.build_editor">[docs]</a>    <span class="k">def</span> <span class="nf">build_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">delegate</span><span class="p">):</span>
+        <span class="n">editor</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">StrictDoubleValidator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bottom</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">decimals</span><span class="p">,</span> <span class="n">editor</span><span class="p">)</span>
+        <span class="n">editor</span><span class="o">.</span><span class="n">setValidator</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">editor</span>
+
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span><span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="k">class</span> <span class="nc">JointRow</span><span class="p">(</span><span class="n">Row</span><span class="p">):</span>
+    
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">):</span>
+            <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SingleItemListElement</span><span class="p">(</span><span class="s">&#39;joint sketch&#39;</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">))</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SingleItemListElement</span><span class="p">(</span><span class="s">&#39;joint layer&#39;</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">))</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MultiItemListElement</span><span class="p">(</span><span class="s">&#39;sublaminate layers&#39;</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">))</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FloatElement</span><span class="p">(</span><span class="s">&#39;hinge width&#39;</span><span class="p">))</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FloatElement</span><span class="p">(</span><span class="s">&#39;stiffness&#39;</span><span class="p">))</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FloatElement</span><span class="p">(</span><span class="s">&#39;damping&#39;</span><span class="p">))</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FloatElement</span><span class="p">(</span><span class="s">&#39;preload&#39;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="n">elements</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">JointRow</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span><span class="k">lambda</span><span class="p">:</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)),</span><span class="n">Delegate</span><span class="p">)</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">TableControl</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

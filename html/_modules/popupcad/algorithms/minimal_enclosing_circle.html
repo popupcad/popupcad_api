@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.algorithms.minimal_enclosing_circle &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.algorithms.minimal_enclosing_circle</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c"># </span>
+<span class="c"># Smallest enclosing circle</span>
+<span class="c"># </span>
+<span class="c"># Copyright (c) 2014 Project Nayuki</span>
+<span class="c"># http://www.nayuki.io/page/smallest-enclosing-circle</span>
+<span class="c"># </span>
+<span class="c"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c"># it under the terms of the GNU General Public License as published by</span>
+<span class="c"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c"># (at your option) any later version.</span>
+<span class="c"># </span>
+<span class="c"># This program is distributed in the hope that it will be useful,</span>
+<span class="c"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c"># GNU General Public License for more details.</span>
+<span class="c"># </span>
+<span class="c"># You should have received a copy of the GNU General Public License</span>
+<span class="c"># along with this program (see COPYING.txt).</span>
+<span class="c"># If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c"># </span>
+
+<span class="kn">import</span> <span class="nn">math</span><span class="o">,</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+
+<span class="c"># Data conventions: A point is a pair of floats (x, y). A circle is a triple of floats (center x, center y, radius).</span>
+
+<span class="c"># </span>
+<span class="c"># Returns the smallest circle that encloses all the given points. Runs in expected O(n) time, randomized.</span>
+<span class="c"># Input: A sequence of pairs of floats or ints, e.g. [(0,5), (3.1,-2.7)].</span>
+<span class="c"># Output: A triple of floats representing a circle.</span>
+<span class="c"># Note: If 0 points are given, None is returned. If 1 point is given, a circle of radius 0 is returned.</span>
+<span class="c"># </span>
+<div class="viewcode-block" id="make_circle"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.minimal_enclosing_circle.make_circle">[docs]</a><span class="k">def</span> <span class="nf">make_circle</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+    <span class="c"># Convert to float and randomize order</span>
+    <span class="n">shuffled</span> <span class="o">=</span> <span class="p">[(</span><span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">shuffled</span><span class="p">)</span>
+
+    <span class="c"># Progressively add points to circle or recompute circle</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shuffled</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">_is_in_circle</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">_make_circle_one_point</span><span class="p">(</span><span class="n">shuffled</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">c</span>
+
+
+<span class="c"># One boundary point known</span></div>
+<span class="k">def</span> <span class="nf">_make_circle_one_point</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_in_circle</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="n">_make_diameter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="n">_make_circle_two_points</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">c</span>
+
+
+<span class="c"># Two boundary points known</span>
+<span class="k">def</span> <span class="nf">_make_circle_two_points</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+    <span class="n">diameter</span> <span class="o">=</span> <span class="n">_make_diameter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">_is_in_circle</span><span class="p">(</span><span class="n">diameter</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">points</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">diameter</span>
+
+    <span class="n">left</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+        <span class="n">cross</span> <span class="o">=</span> <span class="n">_cross_product</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">_make_circumcircle</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">elif</span> <span class="n">cross</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">left</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">_cross_product</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">_cross_product</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">left</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">left</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="k">elif</span> <span class="n">cross</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">right</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">_cross_product</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">_cross_product</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">right</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">right</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="n">c</span>
+    <span class="k">return</span> <span class="n">left</span> <span class="k">if</span> <span class="p">(</span><span class="n">right</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="p">(</span><span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">left</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span> <span class="k">else</span> <span class="n">right</span>
+
+
+<span class="k">def</span> <span class="nf">_make_circumcircle</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
+    <span class="c"># Mathematical algorithm from Wikipedia: Circumscribed circle</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">ay</span> <span class="o">=</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">bx</span> <span class="o">=</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">by</span> <span class="o">=</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">(</span><span class="n">ax</span> <span class="o">*</span> <span class="p">(</span><span class="n">by</span> <span class="o">-</span> <span class="n">cy</span><span class="p">)</span> <span class="o">+</span> <span class="n">bx</span> <span class="o">*</span> <span class="p">(</span><span class="n">cy</span> <span class="o">-</span> <span class="n">ay</span><span class="p">)</span> <span class="o">+</span> <span class="n">cx</span> <span class="o">*</span> <span class="p">(</span><span class="n">ay</span> <span class="o">-</span> <span class="n">by</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span>
+    <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">((</span><span class="n">ax</span> <span class="o">*</span> <span class="n">ax</span> <span class="o">+</span> <span class="n">ay</span> <span class="o">*</span> <span class="n">ay</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">by</span> <span class="o">-</span> <span class="n">cy</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">bx</span> <span class="o">*</span> <span class="n">bx</span> <span class="o">+</span> <span class="n">by</span> <span class="o">*</span> <span class="n">by</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">cy</span> <span class="o">-</span> <span class="n">ay</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">cx</span> <span class="o">*</span> <span class="n">cx</span> <span class="o">+</span> <span class="n">cy</span> <span class="o">*</span> <span class="n">cy</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">ay</span> <span class="o">-</span> <span class="n">by</span><span class="p">))</span> <span class="o">/</span> <span class="n">d</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">((</span><span class="n">ax</span> <span class="o">*</span> <span class="n">ax</span> <span class="o">+</span> <span class="n">ay</span> <span class="o">*</span> <span class="n">ay</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="n">bx</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">bx</span> <span class="o">*</span> <span class="n">bx</span> <span class="o">+</span> <span class="n">by</span> <span class="o">*</span> <span class="n">by</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">ax</span> <span class="o">-</span> <span class="n">cx</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">cx</span> <span class="o">*</span> <span class="n">cx</span> <span class="o">+</span> <span class="n">cy</span> <span class="o">*</span> <span class="n">cy</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">bx</span> <span class="o">-</span> <span class="n">ax</span><span class="p">))</span> <span class="o">/</span> <span class="n">d</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">ax</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">ay</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_make_diameter</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">((</span><span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="p">(</span><span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
+
+
+<span class="n">_EPSILON</span> <span class="o">=</span> <span class="mf">1e-12</span>
+
+<span class="k">def</span> <span class="nf">_is_in_circle</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">c</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">_EPSILON</span>
+
+
+<span class="c"># Returns twice the signed area of the triangle defined by (x0, y0), (x1, y1), (x2, y2)</span>
+<span class="k">def</span> <span class="nf">_cross_product</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x2</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span>
+    
+<span class="c">#Modification frm Stackoverflow</span>
+<div class="viewcode-block" id="numerical_stable_circle"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.minimal_enclosing_circle.numerical_stable_circle">[docs]</a><span class="k">def</span> <span class="nf">numerical_stable_circle</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="n">mean_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="c">#    print &#39;mean of points:&#39;, mean_pts</span>
+    <span class="n">pts</span> <span class="o">-=</span> <span class="n">mean_pts</span>  <span class="c"># translate towards origin</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">make_circle</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+  <span class="c">#  print &#39;result without mean:&#39;, result</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">mean_pts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">mean_pts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    
+<span class="c">#A unit test from Stackoverflw</span></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">points</span><span class="o">=</span> <span class="p">[(</span><span class="mf">421640.3639270504</span><span class="p">,</span> <span class="mf">4596366.353552659</span><span class="p">),</span> <span class="p">(</span><span class="mf">421635.79361391126</span><span class="p">,</span> <span class="mf">4596369.054192241</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421632.6774913164</span><span class="p">,</span> <span class="mf">4596371.131607305</span><span class="p">),</span> <span class="p">(</span><span class="mf">421629.14588570886</span><span class="p">,</span> <span class="mf">4596374.870954419</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421625.6142801013</span><span class="p">,</span> <span class="mf">4596377.779335507</span><span class="p">),</span> <span class="p">(</span><span class="mf">421624.99105558236</span><span class="p">,</span> <span class="mf">4596382.14190714</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421630.1845932406</span><span class="p">,</span> <span class="mf">4596388.062540068</span><span class="p">),</span> <span class="p">(</span><span class="mf">421633.3007158355</span><span class="p">,</span> <span class="mf">4596388.270281575</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421637.87102897465</span><span class="p">,</span> <span class="mf">4596391.8018871825</span><span class="p">),</span> <span class="p">(</span><span class="mf">421642.4413421138</span><span class="p">,</span> <span class="mf">4596394.918009778</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421646.5961722403</span><span class="p">,</span> <span class="mf">4596399.903805929</span><span class="p">),</span> <span class="p">(</span><span class="mf">421649.71229483513</span><span class="p">,</span> <span class="mf">4596403.850894549</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421653.8940752105</span><span class="p">,</span> <span class="mf">4596409.600842565</span><span class="p">),</span> <span class="p">(</span><span class="mf">421654.69809098693</span><span class="p">,</span> <span class="mf">4596410.706364258</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421657.60647207545</span><span class="p">,</span> <span class="mf">4596411.329588776</span><span class="p">),</span> <span class="p">(</span><span class="mf">421660.514853164</span><span class="p">,</span> <span class="mf">4596409.875398233</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421661.3458191893</span><span class="p">,</span> <span class="mf">4596406.136051118</span><span class="p">),</span> <span class="p">(</span><span class="mf">421661.5535606956</span><span class="p">,</span> <span class="mf">4596403.22767003</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421658.85292111343</span><span class="p">,</span> <span class="mf">4596400.94251346</span><span class="p">),</span> <span class="p">(</span><span class="mf">421656.5677645438</span><span class="p">,</span> <span class="mf">4596399.696064423</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421655.52905701223</span><span class="p">,</span> <span class="mf">4596396.164458815</span><span class="p">),</span> <span class="p">(</span><span class="mf">421652.82841743</span><span class="p">,</span> <span class="mf">4596394.502526765</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421648.46584579715</span><span class="p">,</span> <span class="mf">4596391.8018871825</span><span class="p">),</span> <span class="p">(</span><span class="mf">421646.38843073393</span><span class="p">,</span> <span class="mf">4596388.270281575</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421645.55746470863</span><span class="p">,</span> <span class="mf">4596386.400608018</span><span class="p">),</span> <span class="p">(</span><span class="mf">421647.21939675923</span><span class="p">,</span> <span class="mf">4596384.115451449</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421649.5045533288</span><span class="p">,</span> <span class="mf">4596382.661260904</span><span class="p">),</span> <span class="p">(</span><span class="mf">421650.7510023668</span><span class="p">,</span> <span class="mf">4596378.714172284</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421647.8426212782</span><span class="p">,</span> <span class="mf">4596375.8057911955</span><span class="p">),</span> <span class="p">(</span><span class="mf">421644.9342401897</span><span class="p">,</span> <span class="mf">4596372.897410107</span><span class="p">),</span> 
+            <span class="p">(</span><span class="mf">421643.6877911517</span><span class="p">,</span> <span class="mf">4596370.404512031</span><span class="p">),</span> <span class="p">(</span><span class="mf">421640.3639270504</span><span class="p">,</span> <span class="mf">4596366.353552659</span><span class="p">)]</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">numerical_stable_circle</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="mf">421646.74554089626</span><span class="p">,</span> <span class="mf">4596389.8247540779</span><span class="p">,</span> <span class="mf">24.323287017466253</span><span class="p">))</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

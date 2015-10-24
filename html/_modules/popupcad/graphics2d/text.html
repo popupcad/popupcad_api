@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.graphics2d.text &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.graphics2d.text</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">popupcad.graphics2d.graphicsitems</span> <span class="kn">import</span> <span class="n">Common</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="kn">as</span> <span class="nn">sg</span>
+<span class="kn">import</span> <span class="nn">popupcad.algorithms.painterpath</span> <span class="kn">as</span> <span class="nn">pp</span>
+
+<div class="viewcode-block" id="GenericText"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText">[docs]</a><span class="k">class</span> <span class="nc">GenericText</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">editable</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;*&#39;</span><span class="p">]</span>
+    <span class="n">deletable</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;*&#39;</span><span class="p">]</span>
+    <span class="n">hidden</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="s">&#39;Arial&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fontsize</span> <span class="o">=</span> <span class="n">fontsize</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exteriors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GenericText.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fontsize</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="GenericText.upgrade"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.upgrade">[docs]</a>    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</div>
+<div class="viewcode-block" id="GenericText.isValid"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.isValid">[docs]</a>    <span class="k">def</span> <span class="nf">isValid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</div>
+<div class="viewcode-block" id="GenericText.is_construction"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.is_construction">[docs]</a>    <span class="k">def</span> <span class="nf">is_construction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="GenericText.to_generic_polygons"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.to_generic_polygons">[docs]</a>    <span class="k">def</span> <span class="nf">to_generic_polygons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">if</span> <span class="n">text</span> <span class="o">!=</span><span class="s">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="p">()</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QFont</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span><span class="n">pointSize</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fontsize</span><span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">addText</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">QPointF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">fontsize</span><span class="p">),</span><span class="n">font</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
+            
+            <span class="n">generic_polygons</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">painterpath_to_generics</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">popupcad</span><span class="o">.</span><span class="n">text_approximation</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">generic_polygons</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">=-</span><span class="mi">1</span>
+        <span class="n">generic_polygons</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">generic_polygons</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">generic_polygons</span>
+        </div>
+<div class="viewcode-block" id="GenericText.generic_polys_to_shapely"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.generic_polys_to_shapely">[docs]</a>    <span class="k">def</span> <span class="nf">generic_polys_to_shapely</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">generic_polygons</span><span class="p">):</span>
+        <span class="n">shapelies</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">generic_polygons</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shapelies</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">obj1</span> <span class="o">=</span> <span class="n">shapelies</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">while</span> <span class="n">shapelies</span><span class="p">:</span>
+                <span class="n">obj1</span> <span class="o">=</span> <span class="n">obj1</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">shapelies</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">shapelies</span><span class="p">)</span> <span class="o">==</span><span class="mi">1</span> <span class="p">:</span>
+            <span class="n">obj1</span> <span class="o">=</span> <span class="n">shapelies</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">obj1</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">Polygon</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">obj1</span>
+</div>
+<div class="viewcode-block" id="GenericText.to_shapely"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.to_shapely">[docs]</a>    <span class="k">def</span> <span class="nf">to_shapely</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">generic_polygons</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_generic_polygons</span><span class="p">()</span>
+        <span class="n">shapely</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic_polys_to_shapely</span><span class="p">(</span><span class="n">generic_polygons</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">shapely</span>
+        </div>
+<div class="viewcode-block" id="GenericText.to_generics"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.to_generics">[docs]</a>    <span class="k">def</span> <span class="nf">to_generics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">shapely</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()</span>
+        <span class="n">shapelies</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">condition_shapely_entities</span><span class="p">(</span><span class="n">shapely</span><span class="p">)</span>
+        <span class="n">generics</span> <span class="o">=</span> <span class="p">[</span><span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">to_generic</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">shapelies</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">generics</span>
+</div>
+<div class="viewcode-block" id="GenericText.painterpath"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.painterpath">[docs]</a>    <span class="k">def</span> <span class="nf">painterpath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">generics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_generics</span><span class="p">()</span>
+        <span class="n">p2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="p">()</span>
+        <span class="p">[</span><span class="n">p2</span><span class="o">.</span><span class="n">addPath</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">painterpath</span><span class="p">())</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">generics</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">p2</span>
+</div>
+<div class="viewcode-block" id="GenericText.outputinteractive"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.outputinteractive">[docs]</a>    <span class="k">def</span> <span class="nf">outputinteractive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tp</span> <span class="o">=</span> <span class="n">TextParent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tp</span>
+</div>
+<div class="viewcode-block" id="GenericText.properties"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.properties">[docs]</a>    <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">dev_tools.propertyeditor</span> <span class="kn">import</span> <span class="n">PropertyEditor</span>
+        <span class="k">return</span> <span class="n">PropertyEditor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        </div>
+<div class="viewcode-block" id="GenericText.output_dxf"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.output_dxf">[docs]</a>    <span class="k">def</span> <span class="nf">output_dxf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">model_space</span><span class="p">,</span><span class="n">layer</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="n">generics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_generics</span><span class="p">()</span>
+        <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">output_dxf</span><span class="p">(</span><span class="n">model_space</span><span class="p">,</span><span class="n">layer</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">generics</span><span class="p">]</span>
+</div></div>
+<div class="viewcode-block" id="TextParent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent">[docs]</a><span class="k">class</span> <span class="nc">TextParent</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsPathItem</span><span class="p">,</span> <span class="n">Common</span><span class="p">):</span>
+    <span class="n">isDeletable</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generic</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TextParent</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generic</span> <span class="o">=</span> <span class="n">generic</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editchild</span> <span class="o">=</span> <span class="n">TextItem</span><span class="p">(</span><span class="n">generic</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsItem</span><span class="o">.</span><span class="n">ItemIsMovable</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsItem</span><span class="o">.</span><span class="n">ItemIsSelectable</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsItem</span><span class="o">.</span><span class="n">ItemIsFocusable</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
+            <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="mi">1</span><span class="p">),</span>
+            <span class="mi">1</span><span class="p">,</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidLine</span><span class="p">,</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundCap</span><span class="p">,</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundJoin</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pen</span><span class="o">.</span><span class="n">setCosmetic</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">brush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span>
+            <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
+                <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidPattern</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pen</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setBrush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">brush</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setPos</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ItemSendsGeometryChanges</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="c">#    def focusInEvent(self,*args,**kwargs):</span>
+<span class="c">#        self.editmode()</span>
+<div class="viewcode-block" id="TextParent.itemChange"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent.itemChange">[docs]</a>    <span class="k">def</span> <span class="nf">itemChange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">change</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">change</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">GraphicsItemChange</span><span class="o">.</span><span class="n">ItemPositionHasChanged</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">savesnapshot</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">setpos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span><span class="o">.</span><span class="n">toTuple</span><span class="p">())</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">TextParent</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">itemChange</span><span class="p">(</span><span class="n">change</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TextParent.editmode"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent.editmode">[docs]</a>    <span class="k">def</span> <span class="nf">editmode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setPath</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editchild</span><span class="o">.</span><span class="n">updatefont</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editchild</span><span class="o">.</span><span class="n">setParentItem</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editchild</span><span class="o">.</span><span class="n">resetTransform</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">flip_y</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">editchild</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editchild</span><span class="o">.</span><span class="n">setTextInteractionFlags</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">TextEditorInteraction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editchild</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="TextParent.finish_edit"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent.finish_edit">[docs]</a>    <span class="k">def</span> <span class="nf">finish_edit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editchild</span><span class="o">.</span><span class="n">setTextInteractionFlags</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoTextInteraction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">editchild</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editchild</span><span class="o">.</span><span class="n">removefromscene</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">text</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">harddelete</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refreshview</span><span class="p">()</span>
+<span class="c">#        self.scene().savesnapshot.emit()</span>
+</div>
+<div class="viewcode-block" id="TextParent.refreshview"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent.refreshview">[docs]</a>    <span class="k">def</span> <span class="nf">refreshview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">painterpath</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setPath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="c">#        path, dummy = self.generic.genpath(popupcad.view_scaling)</span>
+<span class="c">#        self.setPath(path)</span>
+</div>
+<div class="viewcode-block" id="TextParent.mouseDoubleClickEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent.mouseDoubleClickEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseDoubleClickEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editmode</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="TextParent.mousePressEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent.mousePressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mousePressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">itemclicked</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TextParent</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mousePressEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TextParent.mouseReleaseEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent.mouseReleaseEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseReleaseEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TextParent</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mouseReleaseEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TextParent.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">genericcopy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">genericcopy</span><span class="o">.</span><span class="n">outputinteractive</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="TextParent.output_dxf"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent.output_dxf">[docs]</a>    <span class="k">def</span> <span class="nf">output_dxf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">model_space</span><span class="p">,</span><span class="n">layer</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="k">pass</span>
+</div></div>
+<div class="viewcode-block" id="TextItem"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextItem">[docs]</a><span class="k">class</span> <span class="nc">TextItem</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsTextItem</span><span class="p">,</span> <span class="n">Common</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generic</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generic</span> <span class="o">=</span> <span class="n">generic</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TextItem</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setTextInteractionFlags</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">TextEditorInteraction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatefont</span><span class="p">()</span>
+
+<div class="viewcode-block" id="TextItem.focusOutEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextItem.focusOutEvent">[docs]</a>    <span class="k">def</span> <span class="nf">focusOutEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">finish_edit</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="TextItem.updatefont"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextItem.updatefont">[docs]</a>    <span class="k">def</span> <span class="nf">updatefont</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QFont</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">font</span><span class="p">,</span> <span class="n">pointSize</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">fontsize</span> <span class="o">*</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+        <span class="n">font</span><span class="o">.</span><span class="n">setStyleStrategy</span><span class="p">(</span><span class="n">font</span><span class="o">.</span><span class="n">ForceOutline</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

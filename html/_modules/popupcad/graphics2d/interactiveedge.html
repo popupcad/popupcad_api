@@ -1,0 +1,383 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.graphics2d.interactiveedge &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.graphics2d.interactiveedge</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">modes</span>
+<span class="kn">from</span> <span class="nn">popupcad.graphics2d.graphicsitems</span> <span class="kn">import</span> <span class="n">Common</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">atan2</span><span class="p">,</span> <span class="n">pi</span>
+
+
+<div class="viewcode-block" id="EdgeBase"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.EdgeBase">[docs]</a><span class="k">class</span> <span class="nc">EdgeBase</span><span class="p">(</span><span class="n">Common</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">modes</span><span class="o">.</span><span class="n">EdgeVertexStates</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modes</span> <span class="o">=</span> <span class="n">modes</span><span class="o">.</span><span class="n">EdgeVertexModes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">defaultpen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
+            <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">),</span>
+            <span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">PenStyle</span><span class="o">.</span><span class="n">NoPen</span><span class="p">)</span>
+
+<div class="viewcode-block" id="EdgeBase.updatemode"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.EdgeBase.updatemode">[docs]</a>    <span class="k">def</span> <span class="nf">updatemode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">querypen</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="EdgeBase.updatestate"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.EdgeBase.updatestate">[docs]</a>    <span class="k">def</span> <span class="nf">updatestate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">querypen</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="EdgeBase.setLine"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.EdgeBase.setLine">[docs]</a>    <span class="k">def</span> <span class="nf">setLine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="p">((</span><span class="n">dx</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">dy</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**.</span><span class="mi">5</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">atan2</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">dx</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">q</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">pi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resetTransform</span><span class="p">()</span>
+        <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsLineItem</span><span class="o">.</span><span class="n">setLine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="c">#        r = (x1**2+y1**2)**.5</span>
+        <span class="n">xy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapFromScene</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">xy</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">xy</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
+
+</div></div>
+<div class="viewcode-block" id="HighlightedEdge"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.HighlightedEdge">[docs]</a><span class="k">class</span> <span class="nc">HighlightedEdge</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsLineItem</span><span class="p">,</span> <span class="n">EdgeBase</span><span class="p">):</span>
+    <span class="n">isDeletable</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">z_below</span> <span class="o">=</span> <span class="mi">52</span>
+    <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidLine</span>
+    <span class="n">capstyle</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundCap</span>
+    <span class="n">joinstyle</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundJoin</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HighlightedEdge</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">EdgeBase</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_neutral</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatemode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_normal</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatestate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_neutral</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setAcceptHoverEvents</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setZValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z_below</span><span class="p">)</span>
+
+<div class="viewcode-block" id="HighlightedEdge.querypen"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.HighlightedEdge.querypen">[docs]</a>    <span class="k">def</span> <span class="nf">querypen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_render</span><span class="p">:</span>
+            <span class="n">pen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
+                <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
+                    <span class="mi">0</span><span class="p">,</span>
+                    <span class="mi">0</span><span class="p">,</span>
+                    <span class="mi">0</span><span class="p">,</span>
+                    <span class="mi">1</span><span class="p">),</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">PenStyle</span><span class="o">.</span><span class="n">NoPen</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_hover</span><span class="p">:</span>
+                <span class="n">pen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
+                    <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
+                        <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">linewidth</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">capstyle</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">joinstyle</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_pressed</span><span class="p">:</span>
+                <span class="n">pen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
+                    <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
+                        <span class="mi">1</span><span class="p">,</span>
+                        <span class="mi">0</span><span class="p">,</span>
+                        <span class="mi">0</span><span class="p">,</span>
+                        <span class="mi">1</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">linewidth</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">capstyle</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">joinstyle</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_neutral</span><span class="p">:</span>
+                <span class="n">pen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
+                    <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
+                        <span class="mi">0</span><span class="p">,</span>
+                        <span class="mi">0</span><span class="p">,</span>
+                        <span class="mi">0</span><span class="p">,</span>
+                        <span class="mi">1</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">linewidth</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">capstyle</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">joinstyle</span><span class="p">)</span>
+        <span class="n">pen</span><span class="o">.</span><span class="n">setCosmetic</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pen</span>
+</div>
+<div class="viewcode-block" id="HighlightedEdge.setLine"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.HighlightedEdge.setLine">[docs]</a>    <span class="k">def</span> <span class="nf">setLine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="p">((</span><span class="n">dx</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">dy</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**.</span><span class="mi">5</span>
+        <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsLineItem</span><span class="o">.</span><span class="n">setLine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="InteractiveEdge"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge">[docs]</a><span class="k">class</span> <span class="nc">InteractiveEdge</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsLineItem</span><span class="p">,</span> <span class="n">EdgeBase</span><span class="p">):</span>
+    <span class="n">isDeletable</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">neutral_buffer</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">hover_buffer</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="n">z_below</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="n">z_above</span> <span class="o">=</span> <span class="mi">51</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidLine</span>
+    <span class="n">capstyle</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundCap</span>
+    <span class="n">joinstyle</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundJoin</span>
+    <span class="n">defaultcolor</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">nopen</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoPen</span>
+    <span class="n">boundingrectbuffer</span> <span class="o">=</span> <span class="mi">2</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generic</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsLineItem</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">EdgeBase</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">generic</span> <span class="o">=</span> <span class="n">generic</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setAcceptHoverEvents</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ItemIsFocusable</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ItemIsSelectable</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlightededge</span> <span class="o">=</span> <span class="n">HighlightedEdge</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlightededge</span><span class="o">.</span><span class="n">setParentItem</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_neutral</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatemode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_normal</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatestate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_neutral</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setZValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z_below</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setAcceptHoverEvents</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ItemIsFocusable</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ItemIsSelectable</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ItemIsMovable</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="c">#    def shape(self, *args, **kwargs):</span>
+<span class="c">#        return super(InteractiveEdge, self).shape(*args, **kwargs)</span>
+
+<div class="viewcode-block" id="InteractiveEdge.querypen"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.querypen">[docs]</a>    <span class="k">def</span> <span class="nf">querypen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_render</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nopen</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">hoverpen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">defaultcolor</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hover_buffer</span> <span class="o">*</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">view_scale</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">capstyle</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">joinstyle</span><span class="p">)</span>
+            <span class="n">neutralpen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">defaultcolor</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">neutral_buffer</span> <span class="o">*</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">view_scale</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">capstyle</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">joinstyle</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_hover</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">hoverpen</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_pressed</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">hoverpen</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_neutral</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">neutralpen</span>
+
+        <span class="k">return</span> <span class="n">neutralpen</span>
+</div>
+<div class="viewcode-block" id="InteractiveEdge.set_view_scale"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.set_view_scale">[docs]</a>    <span class="k">def</span> <span class="nf">set_view_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view_scale</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_scale</span> <span class="o">=</span> <span class="n">view_scale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">querypen</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_bounding_rect</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="InteractiveEdge.get_view_scale"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.get_view_scale">[docs]</a>    <span class="k">def</span> <span class="nf">get_view_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_scale</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_scale</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_scale</span>
+</div>
+    <span class="n">view_scale</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_view_scale</span><span class="p">,</span><span class="n">set_view_scale</span><span class="p">)</span>
+
+<span class="c">#    def boundingRect(self):</span>
+<span class="c">#        rect = super(InteractiveEdge, self).boundingRect()</span>
+<span class="c">#        a = self.boundingrectbuffer * self.view_scale</span>
+<span class="c">#        rect.adjust(-a, -a, a, a)</span>
+<span class="c">#        return rect</span>
+
+<div class="viewcode-block" id="InteractiveEdge.boundingRect"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.boundingRect">[docs]</a>    <span class="k">def</span> <span class="nf">boundingRect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bounding_rect</span>
+        </div>
+<div class="viewcode-block" id="InteractiveEdge.updatescale"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.updatescale">[docs]</a>    <span class="k">def</span> <span class="nf">updatescale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_view_scale</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">views</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">zoom</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="InteractiveEdge.get_generic"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.get_generic">[docs]</a>    <span class="k">def</span> <span class="nf">get_generic</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span>
+</div>
+<div class="viewcode-block" id="InteractiveEdge.setconnection"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.setconnection">[docs]</a>    <span class="k">def</span> <span class="nf">setconnection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connectedinteractive</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span> <span class="o">=</span> <span class="n">connectedinteractive</span>
+</div>
+<div class="viewcode-block" id="InteractiveEdge.updatemode"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.updatemode">[docs]</a>    <span class="k">def</span> <span class="nf">updatemode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">InteractiveEdge</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">updatemode</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlightededge</span><span class="o">.</span><span class="n">updatemode</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="InteractiveEdge.updatestate"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.updatestate">[docs]</a>    <span class="k">def</span> <span class="nf">updatestate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">InteractiveEdge</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">updatestate</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlightededge</span><span class="o">.</span><span class="n">updatestate</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="InteractiveEdge.setLine"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.setLine">[docs]</a>    <span class="k">def</span> <span class="nf">setLine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">EdgeBase</span><span class="o">.</span><span class="n">setLine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlightededge</span><span class="o">.</span><span class="n">setLine</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="InteractiveEdge.updateshape"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.updateshape">[docs]</a>    <span class="k">def</span> <span class="nf">updateshape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">point1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">vertex1</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+        <span class="n">point2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">vertex2</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLine</span><span class="p">(</span><span class="n">point1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">point2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_bounding_rect</span><span class="p">()</span>
+        </div>
+<div class="viewcode-block" id="InteractiveEdge.update_bounding_rect"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.update_bounding_rect">[docs]</a>    <span class="k">def</span> <span class="nf">update_bounding_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="c">#        update bounding rect</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">InteractiveEdge</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">boundingRect</span><span class="p">()</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">boundingrectbuffer</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_scale</span>
+        <span class="n">rect</span><span class="o">.</span><span class="n">adjust</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">,</span> <span class="o">-</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bounding_rect</span> <span class="o">=</span> <span class="n">rect</span>
+</div>
+<div class="viewcode-block" id="InteractiveEdge.hoverEnterEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.hoverEnterEvent">[docs]</a>    <span class="k">def</span> <span class="nf">hoverEnterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">InteractiveEdge</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">hoverEnterEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="c">#            siblings = list(set(self.connectedinteractive.selectableedges)-set([self]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setZValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z_above</span><span class="p">)</span>
+<span class="c">#            for sibling in siblings:</span>
+<span class="c">#                sibling.setZValue(sibling.z_below)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatestate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_hover</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="InteractiveEdge.hoverLeaveEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.hoverLeaveEvent">[docs]</a>    <span class="k">def</span> <span class="nf">hoverLeaveEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">InteractiveEdge</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">hoverLeaveEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatestate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_neutral</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setZValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z_below</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="InteractiveEdge.mousePressEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.mousePressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mousePressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moved_trigger</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatestate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_pressed</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">==</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">()):</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">InteractiveEdge</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mousePressEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="InteractiveEdge.mouseMoveEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.mouseMoveEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseMoveEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">numpy</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span><span class="o">.</span><span class="n">mode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span><span class="o">.</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_edit</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">moved_trigger</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">savesnapshot</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+                <span class="n">dp</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">scenePos</span><span class="p">()</span> <span class="o">-</span> <span class="n">event</span><span class="o">.</span><span class="n">lastScenePos</span><span class="p">()</span>
+                <span class="n">dp</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dp</span><span class="o">.</span><span class="n">toTuple</span><span class="p">())</span> <span class="o">/</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">constrained_shift</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraintsystem</span><span class="p">())</span>
+<span class="c">#                self.updateshape()</span>
+<span class="c">#                try:</span>
+<span class="c">#                    self.connectedinteractive.updateshape()</span>
+<span class="c">#                except AttributeError:</span>
+<span class="c">#                    pass</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="InteractiveEdge.mouseReleaseEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.InteractiveEdge.mouseReleaseEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseReleaseEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatestate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_hover</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">==</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ItemIsSelectable</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">()):</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">InteractiveEdge</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mouseReleaseEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moved_trigger</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">constraint_update_request</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">vertices</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">moved_trigger</span> <span class="o">=</span> <span class="bp">False</span>
+
+
+<span class="c">#    def notify(self):</span>
+<span class="c">#        pass</span>
+
+</div></div>
+<div class="viewcode-block" id="ReferenceInteractiveEdge"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactiveedge.ReferenceInteractiveEdge">[docs]</a><span class="k">class</span> <span class="nc">ReferenceInteractiveEdge</span><span class="p">(</span><span class="n">InteractiveEdge</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

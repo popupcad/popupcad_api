@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.filetypes.operation2 &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.filetypes.operation2</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">dev_tools.acyclicdirectedgraph</span> <span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.userdata</span> <span class="kn">import</span> <span class="n">UserData</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.operationoutput</span> <span class="kn">import</span> <span class="n">OperationOutput</span>
+
+
+<div class="viewcode-block" id="Operation2"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2">[docs]</a><span class="k">class</span> <span class="nc">Operation2</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="n">UserData</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Operation&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Node</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">UserData</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Operation2.editdata"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.editdata">[docs]</a>    <span class="k">def</span> <span class="nf">editdata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operation_links</span><span class="p">,</span> <span class="n">sketch_links</span><span class="p">,</span> <span class="n">design_links</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span> <span class="o">=</span> <span class="n">operation_links</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span> <span class="o">=</span> <span class="n">sketch_links</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">design_links</span> <span class="o">=</span> <span class="n">design_links</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Operation2.clear_output"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.clear_output">[docs]</a>    <span class="k">def</span> <span class="nf">clear_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="Operation2.parentrefs"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.parentrefs">[docs]</a>    <span class="k">def</span> <span class="nf">parentrefs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="n">operation_ref</span> <span class="k">for</span> <span class="n">operation_ref</span><span class="p">,</span> <span class="n">output_index</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">a</span>
+</div>
+<div class="viewcode-block" id="Operation2.subdesignrefs"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.subdesignrefs">[docs]</a>    <span class="k">def</span> <span class="nf">subdesignrefs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">design_links</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">a</span>
+</div>
+<div class="viewcode-block" id="Operation2.sketchrefs"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.sketchrefs">[docs]</a>    <span class="k">def</span> <span class="nf">sketchrefs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">a</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">a</span>
+</div>
+<div class="viewcode-block" id="Operation2.replace_op_refs"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.replace_op_refs">[docs]</a>    <span class="k">def</span> <span class="nf">replace_op_refs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">refold</span><span class="p">,</span> <span class="n">refnew</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">list1</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">list1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">item</span><span class="o">==</span><span class="n">refold</span><span class="p">:</span>
+                    <span class="n">list1</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">refnew</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Operation2.replace_op_refs2"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.replace_op_refs2">[docs]</a>    <span class="k">def</span> <span class="nf">replace_op_refs2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">refold</span><span class="p">,</span> <span class="n">refnew</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">list1</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list1</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">list1</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">refold</span><span class="p">:</span>
+                    <span class="n">list1</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">refnew</span><span class="p">,</span><span class="n">list1</span><span class="p">[</span><span class="n">ii</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Operation2.replace_sketch_refs"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.replace_sketch_refs">[docs]</a>    <span class="k">def</span> <span class="nf">replace_sketch_refs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">refold</span><span class="p">,</span> <span class="n">refnew</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">list1</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">list1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">item</span><span class="o">==</span><span class="n">refold</span><span class="p">:</span>
+                    <span class="n">list1</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">refnew</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Operation2.replace_subdesign_refs"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.replace_subdesign_refs">[docs]</a>    <span class="k">def</span> <span class="nf">replace_subdesign_refs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">refold</span><span class="p">,</span> <span class="n">refnew</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">list1</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">design_links</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">list1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">item</span><span class="o">==</span><span class="n">refold</span><span class="p">:</span>
+                    <span class="n">list1</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">refnew</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_output</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="Operation2.upgrade"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.upgrade">[docs]</a>    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</div>
+<div class="viewcode-block" id="Operation2.getoutputref"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.getoutputref">[docs]</a>    <span class="k">def</span> <span class="nf">getoutputref</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputref</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_outputref</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputref</span>
+</div>
+<div class="viewcode-block" id="Operation2.generate"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operate</span><span class="p">(</span><span class="n">design</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">OperationOutput</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s">&#39;default&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="n">output</span><span class="p">]</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Operation2.new"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.new">[docs]</a>    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">currentop</span><span class="p">,</span> <span class="n">newsignal</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">buildnewdialog</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="n">currentop</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span> <span class="o">==</span> <span class="n">dialog</span><span class="o">.</span><span class="n">Accepted</span><span class="p">:</span>
+            <span class="n">operation</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="o">*</span><span class="n">dialog</span><span class="o">.</span><span class="n">acceptdata</span><span class="p">())</span>
+            <span class="n">newsignal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">operation</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Operation2.edit"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.edit">[docs]</a>    <span class="k">def</span> <span class="nf">edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">editedsignal</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">buildeditdialog</span><span class="p">(</span><span class="n">design</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span> <span class="o">==</span> <span class="n">dialog</span><span class="o">.</span><span class="n">Accepted</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">editdata</span><span class="p">(</span><span class="o">*</span><span class="n">dialog</span><span class="o">.</span><span class="n">acceptdata</span><span class="p">())</span>
+            <span class="n">editedsignal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Operation2.description_get"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.description_get">[docs]</a>    <span class="k">def</span> <span class="nf">description_get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span>
+</div>
+<div class="viewcode-block" id="Operation2.description_set"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.description_set">[docs]</a>    <span class="k">def</span> <span class="nf">description_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="n">description</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">description_get</span><span class="p">,</span> <span class="n">description_set</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Operation2.edit_description"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.edit_description">[docs]</a>    <span class="k">def</span> <span class="nf">edit_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+        <span class="n">result</span><span class="p">,</span> <span class="n">ok</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getText</span><span class="p">(</span>
+            <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;description&#39;</span><span class="p">,</span> <span class="s">&#39;label&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">result</span>
+</div>
+<div class="viewcode-block" id="Operation2.copy_internals"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.copy_internals">[docs]</a>    <span class="k">def</span> <span class="nf">copy_internals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">customname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">customname</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="Operation2.copy_wrapper"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.copy_wrapper">[docs]</a>    <span class="k">def</span> <span class="nf">copy_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy_internals</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="Operation2.upgrade_wrapper"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2.upgrade_wrapper">[docs]</a>    <span class="k">def</span> <span class="nf">upgrade_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">upgrade</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy_internals</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+
+</div></div>
+<div class="viewcode-block" id="LayerBasedOperation"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.LayerBasedOperation">[docs]</a><span class="k">class</span> <span class="nc">LayerBasedOperation</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="LayerBasedOperation.convert_layer_links"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.LayerBasedOperation.convert_layer_links">[docs]</a>    <span class="k">def</span> <span class="nf">convert_layer_links</span><span class="p">(</span><span class="n">layer_links</span><span class="p">,</span> <span class="n">layerdef_old</span><span class="p">,</span> <span class="n">layerdef_new</span><span class="p">):</span>
+        <span class="n">layer_links_new</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">layer2</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">layer1</span><span class="p">,</span>
+            <span class="n">layer2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                <span class="n">layerdef_old</span><span class="o">.</span><span class="n">layers</span><span class="p">,</span>
+                <span class="n">layerdef_new</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="k">if</span> <span class="n">layer1</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">layer_links</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">layer_links_new</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

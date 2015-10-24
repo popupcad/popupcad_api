@@ -1,0 +1,86 @@
+popupcad_manufacturing_plugins.manufacturing package
+====================================================
+
+Submodules
+----------
+
+popupcad_manufacturing_plugins.manufacturing.autoweb4 module
+------------------------------------------------------------
+
+.. automodule:: popupcad_manufacturing_plugins.manufacturing.autoweb4
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad_manufacturing_plugins.manufacturing.customsupport4 module
+------------------------------------------------------------------
+
+.. automodule:: popupcad_manufacturing_plugins.manufacturing.customsupport4
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad_manufacturing_plugins.manufacturing.identifybodies2 module
+-------------------------------------------------------------------
+
+.. automodule:: popupcad_manufacturing_plugins.manufacturing.identifybodies2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad_manufacturing_plugins.manufacturing.identifyrigidbodies2 module
+------------------------------------------------------------------------
+
+.. automodule:: popupcad_manufacturing_plugins.manufacturing.identifyrigidbodies2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad_manufacturing_plugins.manufacturing.keepout3 module
+------------------------------------------------------------
+
+.. automodule:: popupcad_manufacturing_plugins.manufacturing.keepout3
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad_manufacturing_plugins.manufacturing.outersheet3 module
+---------------------------------------------------------------
+
+.. automodule:: popupcad_manufacturing_plugins.manufacturing.outersheet3
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad_manufacturing_plugins.manufacturing.removability2 module
+-----------------------------------------------------------------
+
+.. automodule:: popupcad_manufacturing_plugins.manufacturing.removability2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad_manufacturing_plugins.manufacturing.scrapoperation2 module
+-------------------------------------------------------------------
+
+.. automodule:: popupcad_manufacturing_plugins.manufacturing.scrapoperation2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad_manufacturing_plugins.manufacturing.supportcandidate4 module
+---------------------------------------------------------------------
+
+.. automodule:: popupcad_manufacturing_plugins.manufacturing.supportcandidate4
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: popupcad_manufacturing_plugins.manufacturing
+    :members:
+    :undoc-members:
+    :show-inheritance:

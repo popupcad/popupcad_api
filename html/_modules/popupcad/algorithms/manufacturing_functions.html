@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.algorithms.manufacturing_functions &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.algorithms.manufacturing_functions</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="kn">as</span> <span class="nn">sg</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.laminate</span> <span class="kn">import</span> <span class="n">Laminate</span>
+
+
+<div class="viewcode-block" id="cleanup3"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.manufacturing_functions.cleanup3">[docs]</a><span class="k">def</span> <span class="nf">cleanup3</span><span class="p">(</span><span class="n">ls1</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+    <span class="n">ls2</span> <span class="o">=</span> <span class="n">ls1</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
+    <span class="n">ls3</span> <span class="o">=</span> <span class="n">ls2</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">value</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
+    <span class="n">ls4</span> <span class="o">=</span> <span class="n">ls1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">ls3</span><span class="p">)</span>
+
+    <span class="n">ls5</span> <span class="o">=</span> <span class="n">ls1</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">value</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
+    <span class="n">ls6</span> <span class="o">=</span> <span class="n">ls5</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">ls1</span><span class="p">)</span>
+    <span class="n">ls7</span> <span class="o">=</span> <span class="n">ls6</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
+    <span class="n">ls8</span> <span class="o">=</span> <span class="n">ls7</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">value</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
+    <span class="n">ls9</span> <span class="o">=</span> <span class="n">ls6</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">ls8</span><span class="p">)</span>
+    <span class="n">ls9_1</span> <span class="o">=</span> <span class="n">ls5</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">ls9</span><span class="p">)</span>
+    <span class="n">ls10</span> <span class="o">=</span> <span class="n">ls4</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">ls9_1</span><span class="p">)</span>
+    <span class="n">ls11</span> <span class="o">=</span> <span class="n">ls1</span><span class="o">.</span><span class="n">symmetric_difference</span><span class="p">(</span><span class="n">ls10</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ls11</span>
+
+</div>
+<div class="viewcode-block" id="cross_section"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.manufacturing_functions.cross_section">[docs]</a><span class="k">def</span> <span class="nf">cross_section</span><span class="p">(</span><span class="n">layerdef</span><span class="p">,</span> <span class="n">sketch</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">scale_value</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">popupcad.filetypes.laminate</span> <span class="kn">import</span> <span class="n">Laminate</span>
+    <span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericLine</span>
+    <span class="kn">import</span> <span class="nn">shapely.affinity</span> <span class="kn">as</span> <span class="nn">aff</span>
+    <span class="kn">import</span> <span class="nn">popupcad.algorithms.points</span> <span class="kn">as</span> <span class="nn">points</span>
+    <span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="kn">as</span> <span class="nn">sg</span>
+    <span class="kn">import</span> <span class="nn">numpy</span>
+
+    <span class="n">laminate</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="n">layerdef</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sketch</span><span class="o">.</span><span class="n">operationgeometry</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">GenericLine</span><span class="p">):</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">exteriorpoints</span><span class="p">(</span><span class="n">scaling</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">calctransformfrom2lines</span><span class="p">(</span>
+                <span class="n">line</span><span class="o">.</span><span class="n">exteriorpoints</span><span class="p">(</span><span class="n">scaling</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span><span class="p">),</span> <span class="p">[</span>
+                    <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">tolist</span><span class="p">()],</span> <span class="n">scale_x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">scale_y</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">sketch_csg</span> <span class="o">=</span> <span class="n">sketch</span><span class="o">.</span><span class="n">output_csg</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+                <span class="n">laminate</span><span class="o">.</span><span class="n">replacelayergeoms</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">sketch_csg</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">laminate</span><span class="p">)</span>
+            <span class="n">laminate2</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="n">layerdef</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">layerid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span><span class="p">):</span>
+                <span class="n">yshift</span> <span class="o">=</span> <span class="n">layerdef</span><span class="o">.</span><span class="n">zvalue</span><span class="p">[</span><span class="n">layerid</span><span class="p">]</span> <span class="o">*</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span> <span class="o">*</span> <span class="n">scale_value</span>
+                <span class="n">layer</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layerid</span><span class="p">]</span>
+                <span class="n">thickness</span> <span class="o">=</span> <span class="n">layerid</span><span class="o">.</span><span class="n">thickness</span> <span class="o">*</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span> <span class="o">*</span> <span class="n">scale_value</span>
+                <span class="n">newgeoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">geoms</span><span class="p">]</span>
+                <span class="n">newgeoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">aff</span><span class="o">.</span><span class="n">affine_transform</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">newgeoms</span><span class="p">]</span>
+                <span class="n">newgeoms2</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">newgeoms</span><span class="p">:</span>
+                    <span class="n">newgeom</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                     <span class="n">geom</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                     <span class="n">geom</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                     <span class="n">geom</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">thickness</span><span class="p">)</span>
+                    <span class="n">newgeoms2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newgeom</span><span class="p">)</span>
+                <span class="n">newgeoms</span> <span class="o">=</span> <span class="n">newgeoms2</span>
+                <span class="n">newgeoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">aff</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="n">yoff</span><span class="o">=</span><span class="n">yshift</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">newgeoms</span><span class="p">]</span>
+                <span class="n">newgeoms</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">condition_shapely_entities</span><span class="p">(</span><span class="o">*</span><span class="n">newgeoms</span><span class="p">)</span>
+                <span class="n">laminate2</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">newgeoms</span>
+            <span class="k">return</span> <span class="n">laminate2</span>
+
+    <span class="k">return</span> <span class="n">laminate</span>
+</div>
+<div class="viewcode-block" id="transform_csg"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.manufacturing_functions.transform_csg">[docs]</a><span class="k">def</span> <span class="nf">transform_csg</span><span class="p">(</span><span class="n">layerdef_from</span><span class="p">,</span><span class="n">layerdef_to</span><span class="p">,</span><span class="n">inshift</span><span class="p">,</span><span class="n">outshift</span><span class="p">,</span><span class="n">step</span><span class="p">,</span><span class="n">geom_from</span><span class="p">,</span><span class="n">geoms_to</span><span class="p">,</span><span class="n">csg_laminate</span><span class="p">,</span><span class="n">scale_x</span><span class="p">,</span><span class="n">scale_y</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">popupcad.filetypes.laminate</span> <span class="kn">import</span> <span class="n">Laminate</span>
+    <span class="kn">import</span> <span class="nn">shapely.affinity</span> <span class="kn">as</span> <span class="nn">aff</span>
+    <span class="kn">from</span> <span class="nn">popupcad.algorithms.points</span> <span class="kn">import</span> <span class="n">calctransformfrom2lines</span>
+
+    <span class="n">lsout</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="n">layerdef_to</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">layer_from</span><span class="p">,</span><span class="n">layer_to</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">layerdef_from</span><span class="o">.</span><span class="n">layers</span><span class="p">[::</span><span class="n">step</span><span class="p">][</span><span class="n">inshift</span><span class="p">:],</span> <span class="n">layerdef_to</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">outshift</span><span class="p">:]):</span>
+        <span class="n">newgeoms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">geoms_to</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">designgeom</span> <span class="ow">in</span> <span class="n">csg_laminate</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layer_from</span><span class="p">]</span><span class="o">.</span><span class="n">geoms</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">from_line</span> <span class="o">=</span> <span class="n">geom_from</span><span class="o">.</span><span class="n">exteriorpoints</span><span class="p">(</span><span class="n">scaling</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span><span class="p">)</span>
+                    <span class="n">to_line</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">exteriorpoints</span><span class="p">(</span><span class="n">scaling</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span><span class="p">)</span>
+                    <span class="n">transform</span> <span class="o">=</span> <span class="n">calctransformfrom2lines</span><span class="p">(</span><span class="n">from_line</span><span class="p">,</span><span class="n">to_line</span><span class="p">,</span><span class="n">scale_x</span><span class="o">=</span><span class="n">scale_x</span><span class="p">,</span><span class="n">scale_y</span><span class="o">=</span><span class="n">scale_y</span><span class="p">)</span>
+                    <span class="n">transformed_geom</span> <span class="o">=</span> <span class="n">aff</span><span class="o">.</span><span class="n">affine_transform</span><span class="p">(</span><span class="n">designgeom</span><span class="p">,</span><span class="n">transform</span><span class="p">)</span>
+                    <span class="n">newgeoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">transformed_geom</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+        <span class="n">result1</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">unary_union_safe</span><span class="p">(</span><span class="n">newgeoms</span><span class="p">)</span>
+        <span class="n">results2</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">condition_shapely_entities</span><span class="p">(</span><span class="n">result1</span><span class="p">)</span>
+        <span class="n">lsout</span><span class="o">.</span><span class="n">replacelayergeoms</span><span class="p">(</span><span class="n">layer_to</span><span class="p">,</span> <span class="n">results2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">lsout</span>
+</div>
+<div class="viewcode-block" id="shift_flip_rotate"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.manufacturing_functions.shift_flip_rotate">[docs]</a><span class="k">def</span> <span class="nf">shift_flip_rotate</span><span class="p">(</span><span class="n">ls1</span><span class="p">,</span> <span class="n">shift</span><span class="p">,</span> <span class="n">flip</span><span class="p">,</span> <span class="n">rotate</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">popupcad.filetypes.laminate</span> <span class="kn">import</span> <span class="n">Laminate</span>
+    <span class="n">lsout</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="n">ls1</span><span class="o">.</span><span class="n">layerdef</span><span class="p">)</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="n">ls1</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">flip</span><span class="p">:</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">rotate</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">layerout</span><span class="p">,</span> <span class="n">layerin</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                <span class="n">layers</span><span class="p">[</span><span class="n">shift</span><span class="p">:]</span> <span class="o">+</span> <span class="n">layers</span><span class="p">[:</span><span class="n">shift</span><span class="p">],</span> <span class="n">layers</span><span class="p">[::</span><span class="n">step</span><span class="p">]):</span>
+            <span class="n">lsout</span><span class="o">.</span><span class="n">replacelayergeoms</span><span class="p">(</span>
+                <span class="n">layerout</span><span class="p">,</span>
+                <span class="n">ls1</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layerin</span><span class="p">]</span><span class="o">.</span><span class="n">geoms</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">shift</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">outshift</span> <span class="o">=</span> <span class="n">shift</span>
+            <span class="n">inshift</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">shift</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">outshift</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">inshift</span> <span class="o">=</span> <span class="o">-</span><span class="n">shift</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">outshift</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">inshift</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">layerout</span><span class="p">,</span> <span class="n">layerin</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">layers</span><span class="p">[</span><span class="n">outshift</span><span class="p">:],</span> <span class="n">layers</span><span class="p">[::</span><span class="n">step</span><span class="p">][</span><span class="n">inshift</span><span class="p">:]):</span>
+            <span class="n">lsout</span><span class="o">.</span><span class="n">replacelayergeoms</span><span class="p">(</span><span class="n">layerout</span><span class="p">,</span><span class="n">ls1</span><span class="o">.</span><span class="n">layer_sequence</span><span class="p">[</span><span class="n">layerin</span><span class="p">]</span><span class="o">.</span><span class="n">geoms</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lsout</span>
+
+</div>
+<div class="viewcode-block" id="sketch_operation"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.manufacturing_functions.sketch_operation">[docs]</a><span class="k">def</span> <span class="nf">sketch_operation</span><span class="p">(</span><span class="n">sketch</span><span class="p">,</span> <span class="n">layerdef</span><span class="p">,</span> <span class="n">layers</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">popupcad.filetypes.laminate</span> <span class="kn">import</span> <span class="n">Laminate</span>
+    <span class="n">operationgeom</span> <span class="o">=</span> <span class="n">sketch</span><span class="o">.</span><span class="n">output_csg</span><span class="p">()</span>
+    <span class="n">laminate</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="n">layerdef</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
+        <span class="n">laminate</span><span class="o">.</span><span class="n">replacelayergeoms</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">operationgeom</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">laminate</span>
+
+
+</div>
+<div class="viewcode-block" id="find_rigid"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.manufacturing_functions.find_rigid">[docs]</a><span class="k">def</span> <span class="nf">find_rigid</span><span class="p">(</span><span class="n">generic</span><span class="p">,</span> <span class="n">layerdef</span><span class="p">):</span>
+    <span class="n">layer_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="p">[(</span><span class="n">geom</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span> <span class="k">for</span> <span class="n">layer</span><span class="p">,</span> <span class="n">geoms</span> <span class="ow">in</span> <span class="n">generic</span><span class="o">.</span><span class="n">geoms</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">geoms</span><span class="p">])</span>
+    <span class="n">rigid_geoms</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">connections</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">source_geoms</span> <span class="o">=</span> <span class="p">[{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;csg&#39;</span><span class="p">:</span> <span class="n">sg</span><span class="o">.</span><span class="n">Polygon</span><span class="p">()}]</span>
+    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">layer</span><span class="o">.</span><span class="n">is_rigid</span><span class="p">:</span>
+            <span class="n">rigid_geoms</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">generic</span><span class="o">.</span><span class="n">geoms</span><span class="p">[</span><span class="n">layer</span><span class="p">])</span>
+            <span class="k">while</span> <span class="ow">not</span> <span class="ow">not</span> <span class="n">source_geoms</span><span class="p">:</span>
+                <span class="n">source_geom</span> <span class="o">=</span> <span class="n">source_geoms</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="n">new_geoms</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span>
+                    <span class="p">[(</span><span class="s">&#39;csg&#39;</span><span class="p">,</span> <span class="n">geom</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()),</span> <span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">geom</span><span class="o">.</span><span class="n">id</span><span class="p">)])</span> <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">generic</span><span class="o">.</span><span class="n">geoms</span><span class="p">[</span><span class="n">layer</span><span class="p">]]</span>
+                <span class="k">for</span> <span class="n">new_geom</span> <span class="ow">in</span> <span class="n">new_geoms</span><span class="p">:</span>
+                    <span class="n">connection</span> <span class="o">=</span> <span class="n">source_geom</span><span class="p">[</span>
+                        <span class="s">&#39;csg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">new_geom</span><span class="p">[</span><span class="s">&#39;csg&#39;</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">connection</span><span class="o">.</span><span class="n">is_empty</span><span class="p">):</span>
+                        <span class="n">connections</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">source_geom</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="n">new_geom</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]))</span>
+            <span class="n">source_geoms</span> <span class="o">=</span> <span class="n">new_geoms</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_source_geoms</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">while</span> <span class="ow">not</span> <span class="ow">not</span> <span class="n">source_geoms</span><span class="p">:</span>
+                <span class="n">source_geom</span> <span class="o">=</span> <span class="n">source_geoms</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="n">layer_geoms</span> <span class="o">=</span> <span class="p">[</span><span class="n">geom</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()</span>
+                               <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">generic</span><span class="o">.</span><span class="n">geoms</span><span class="p">[</span><span class="n">layer</span><span class="p">]]</span>
+                <span class="k">for</span> <span class="n">layer_geom</span> <span class="ow">in</span> <span class="n">layer_geoms</span><span class="p">:</span>
+                    <span class="n">new_geom</span> <span class="o">=</span> <span class="n">source_geom</span><span class="p">[</span><span class="s">&#39;csg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">layer_geom</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">new_geom</span><span class="o">.</span><span class="n">is_empty</span><span class="p">):</span>
+                        <span class="n">new_source_geoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="p">{</span><span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">source_geom</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="s">&#39;csg&#39;</span><span class="p">:</span> <span class="n">new_geom</span><span class="p">})</span>
+            <span class="n">source_geoms</span> <span class="o">=</span> <span class="n">new_source_geoms</span>
+
+    <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">geom</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">rigid_geoms</span><span class="p">]</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">m</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">:</span>
+        <span class="n">ii</span> <span class="o">=</span> <span class="n">ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">id1</span><span class="p">)</span>
+        <span class="n">jj</span> <span class="o">=</span> <span class="n">ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">id2</span><span class="p">)</span>
+        <span class="n">C</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="n">jj</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">C</span><span class="p">[</span><span class="n">jj</span><span class="p">,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="n">done</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">D_last</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">done</span><span class="p">:</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="n">D_last</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="o">+</span> <span class="n">C</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="p">(</span><span class="n">D</span> <span class="o">==</span> <span class="n">D_last</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="n">D_last</span> <span class="o">=</span> <span class="n">D</span>
+
+    <span class="n">rigid_bodies</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rigid_geoms_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">rigid_geoms</span><span class="p">[:])</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="ow">not</span> <span class="n">rigid_geoms_set</span><span class="p">:</span>
+        <span class="n">geom</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rigid_geoms_set</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ii</span> <span class="o">=</span> <span class="n">ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">((</span><span class="n">D</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="p">:]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">ii</span><span class="p">]))</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rigid_geoms</span><span class="p">)[</span><span class="n">a</span><span class="p">])</span>
+        <span class="n">rigid_geoms_set</span> <span class="o">-=</span> <span class="n">b</span>
+        <span class="n">rigid_bodies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+
+    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">((</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">body_detection</span><span class="o">.</span><span class="n">find_minimum_xy</span><span class="p">(</span>
+        <span class="n">geom</span><span class="p">)</span> <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">body</span><span class="p">]))</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="k">for</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">rigid_bodies</span><span class="p">]</span>
+    <span class="n">rigid_bodies</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">body_detection</span><span class="o">.</span><span class="n">sort_lams</span><span class="p">(</span>
+        <span class="n">rigid_bodies</span><span class="p">,</span>
+        <span class="n">values</span><span class="p">)</span>
+
+    <span class="n">new_csgs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">rigid_body</span> <span class="ow">in</span> <span class="n">rigid_bodies</span><span class="p">:</span>
+        <span class="n">new_csg</span> <span class="o">=</span> <span class="n">Laminate</span><span class="p">(</span><span class="n">layerdef</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">rigid_body</span><span class="p">:</span>
+            <span class="n">new_csg</span><span class="o">.</span><span class="n">insertlayergeoms</span><span class="p">(</span>
+                <span class="n">layer_dict</span><span class="p">[</span>
+                    <span class="n">geom</span><span class="o">.</span><span class="n">id</span><span class="p">],</span> <span class="p">[</span>
+                    <span class="n">geom</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()])</span>
+        <span class="n">new_csgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_csg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_csgs</span>
+    </div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

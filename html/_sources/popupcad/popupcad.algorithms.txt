@@ -1,0 +1,166 @@
+popupcad.algorithms package
+===========================
+
+Submodules
+----------
+
+popupcad.algorithms.body_detection module
+-----------------------------------------
+
+.. automodule:: popupcad.algorithms.body_detection
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.csg_shapely module
+--------------------------------------
+
+.. automodule:: popupcad.algorithms.csg_shapely
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.design_documentation module
+-----------------------------------------------
+
+.. automodule:: popupcad.algorithms.design_documentation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.getjoints module
+------------------------------------
+
+.. automodule:: popupcad.algorithms.getjoints
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.keepout module
+----------------------------------
+
+.. automodule:: popupcad.algorithms.keepout
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.manufacturing_functions module
+--------------------------------------------------
+
+.. automodule:: popupcad.algorithms.manufacturing_functions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.minimal_enclosing_circle module
+---------------------------------------------------
+
+.. automodule:: popupcad.algorithms.minimal_enclosing_circle
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.modify_device module
+----------------------------------------
+
+.. automodule:: popupcad.algorithms.modify_device
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.morphology module
+-------------------------------------
+
+.. automodule:: popupcad.algorithms.morphology
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.painterpath module
+--------------------------------------
+
+.. automodule:: popupcad.algorithms.painterpath
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.points module
+---------------------------------
+
+.. automodule:: popupcad.algorithms.points
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.python_syntax_formatter module
+--------------------------------------------------
+
+.. automodule:: popupcad.algorithms.python_syntax_formatter
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.removability module
+---------------------------------------
+
+.. automodule:: popupcad.algorithms.removability
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.spline_functions module
+-------------------------------------------
+
+.. automodule:: popupcad.algorithms.spline_functions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.tetrahedron module
+--------------------------------------
+
+.. automodule:: popupcad.algorithms.tetrahedron
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.toolclearance module
+----------------------------------------
+
+.. automodule:: popupcad.algorithms.toolclearance
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.triangle module
+-----------------------------------
+
+.. automodule:: popupcad.algorithms.triangle
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.triangulate module
+--------------------------------------
+
+.. automodule:: popupcad.algorithms.triangulate
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.algorithms.web module
+------------------------------
+
+.. automodule:: popupcad.algorithms.web
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: popupcad.algorithms
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.manufacturing.shiftflip4 &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.manufacturing.shiftflip4</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.operation2</span> <span class="kn">import</span> <span class="n">Operation2</span><span class="p">,</span><span class="n">LayerBasedOperation</span>
+<span class="kn">from</span> <span class="nn">popupcad.widgets.dragndroptree</span> <span class="kn">import</span> <span class="n">DraggableTreeWidget</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+
+<div class="viewcode-block" id="Dialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.shiftflip4.Dialog">[docs]</a><span class="k">class</span> <span class="nc">Dialog</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QDialog</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span><span class="n">design</span><span class="p">,</span>
+            <span class="n">operations</span><span class="p">,</span>
+            <span class="n">index</span><span class="p">,</span>
+            <span class="n">shift</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">flip</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+            <span class="n">rotate</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+            <span class="n">outputref</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Dialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">design</span> <span class="o">=</span> <span class="n">design</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operations</span> <span class="o">=</span> <span class="n">operations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">le1</span> <span class="o">=</span> <span class="n">DraggableTreeWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">le1</span><span class="o">.</span><span class="n">linklist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">operations</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">le1</span><span class="o">.</span><span class="n">selectIndeces</span><span class="p">([(</span><span class="n">index</span><span class="p">,</span> <span class="n">outputref</span><span class="p">)])</span>
+<span class="c">#        self.le1.addItems([str(op) for op in operations])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_widget</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">widgets</span><span class="o">.</span><span class="n">listeditor</span><span class="o">.</span><span class="n">ListSelector</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_widget</span><span class="o">.</span><span class="n">linklist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">()</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
+        
+        <span class="n">layout5</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout5</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Flip Layers&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flip</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QCheckBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">flip</span><span class="p">)</span>
+        <span class="n">layout5</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">)</span>
+
+        <span class="n">layout6</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout6</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Rotate Layers&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QCheckBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">rotate</span><span class="p">)</span>
+        <span class="n">layout6</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">)</span>
+
+        <span class="n">layout4</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout4</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Shift Layers&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sb</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sb</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_negative_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sb</span><span class="o">.</span><span class="n">setSingleStep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sb</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">shift</span><span class="p">)</span>
+        <span class="n">layout4</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sb</span><span class="p">)</span>
+
+        <span class="n">button1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+
+        <span class="n">layout2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button1</span><span class="p">)</span>
+        <span class="n">layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button2</span><span class="p">)</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Filter&#39;</span><span class="p">))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_widget</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Parent Operation&#39;</span><span class="p">))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">le1</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout5</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout6</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout4</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+        <span class="n">button1</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="n">button2</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+
+<span class="c">#        self.le1.setCurrentIndex(index)</span>
+
+<div class="viewcode-block" id="Dialog.acceptdata"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.shiftflip4.Dialog.acceptdata">[docs]</a>    <span class="k">def</span> <span class="nf">acceptdata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">operation_links</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;parent&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">le1</span><span class="o">.</span><span class="n">currentRefs</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]}</span>
+        <span class="k">return</span> <span class="n">operation_links</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sb</span><span class="o">.</span><span class="n">value</span><span class="p">(</span>
+        <span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="o">.</span><span class="n">isChecked</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+
+</div></div>
+<div class="viewcode-block" id="ShiftFlip4"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.shiftflip4.ShiftFlip4">[docs]</a><span class="k">class</span> <span class="nc">ShiftFlip4</span><span class="p">(</span><span class="n">Operation2</span><span class="p">,</span><span class="n">LayerBasedOperation</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Shift-Flip&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ShiftFlip4</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editdata</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ShiftFlip4.editdata"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.shiftflip4.ShiftFlip4.editdata">[docs]</a>    <span class="k">def</span> <span class="nf">editdata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operation_links</span><span class="p">,</span> <span class="n">shift</span><span class="p">,</span> <span class="n">flip</span><span class="p">,</span> <span class="n">rotate</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ShiftFlip4</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">editdata</span><span class="p">(</span><span class="n">operation_links</span><span class="p">,</span> <span class="p">{},</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">=</span> <span class="n">shift</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flip</span> <span class="o">=</span> <span class="n">flip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span> <span class="o">=</span> <span class="n">rotate</span>
+</div>
+<div class="viewcode-block" id="ShiftFlip4.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.shiftflip4.ShiftFlip4.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">)</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">customname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">customname</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="ShiftFlip4.f_rotate"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.shiftflip4.ShiftFlip4.f_rotate">[docs]</a>    <span class="k">def</span> <span class="nf">f_rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ShiftFlip4.buildnewdialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.shiftflip4.ShiftFlip4.buildnewdialog">[docs]</a>    <span class="k">def</span> <span class="nf">buildnewdialog</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">currentop</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Dialog</span><span class="p">(</span><span class="n">design</span><span class="p">,</span><span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">,</span> <span class="n">currentop</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ShiftFlip4.buildeditdialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.shiftflip4.ShiftFlip4.buildeditdialog">[docs]</a>    <span class="k">def</span> <span class="nf">buildeditdialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
+        <span class="n">operation_link1</span><span class="p">,</span> <span class="n">outputref</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;parent&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">selectedindex</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">operation_index</span><span class="p">(</span><span class="n">operation_link1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Dialog</span><span class="p">(</span><span class="n">design</span><span class="p">,</span>
+            <span class="n">design</span><span class="o">.</span><span class="n">prioroperations</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+            <span class="n">selectedindex</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">f_rotate</span><span class="p">(),</span>
+            <span class="n">outputref</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ShiftFlip4.operate"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.shiftflip4.ShiftFlip4.operate">[docs]</a>    <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
+        <span class="n">operation_link1</span><span class="p">,</span> <span class="n">outputref</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;parent&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ls1</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">op_from_ref</span><span class="p">(</span><span class="n">operation_link1</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">outputref</span><span class="p">]</span><span class="o">.</span><span class="n">csg</span>
+        <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">manufacturing_functions</span><span class="o">.</span><span class="n">shift_flip_rotate</span><span class="p">(</span>
+            <span class="n">ls1</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

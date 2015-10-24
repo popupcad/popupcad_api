@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dev_tools package &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dev-tools-package">
+<h1>dev_tools package<a class="headerlink" href="#dev-tools-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-dev_tools.acyclicdirectedgraph">
+<span id="dev-tools-acyclicdirectedgraph-module"></span><h2>dev_tools.acyclicdirectedgraph module<a class="headerlink" href="#module-dev_tools.acyclicdirectedgraph" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph">
+<em class="property">class </em><code class="descclassname">dev_tools.acyclicdirectedgraph.</code><code class="descname">AcyclicDirectedGraph</code><span class="sig-paren">(</span><em>nodes=None</em>, <em>connections=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#AcyclicDirectedGraph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Graph which holds the methods for an acyclic directed graph</p>
+<dl class="method">
+<dt id="dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.addconnections">
+<code class="descname">addconnections</code><span class="sig-paren">(</span><em>connections</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#AcyclicDirectedGraph.addconnections"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.addconnections" title="Permalink to this definition">¶</a></dt>
+<dd><p>add a list of connections to the network and recalculate internal stuff</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.addnodes">
+<code class="descname">addnodes</code><span class="sig-paren">(</span><em>nodes</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#AcyclicDirectedGraph.addnodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.addnodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>add a list of nodes to the network</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.buildAB">
+<em class="property">static </em><code class="descname">buildAB</code><span class="sig-paren">(</span><em>nodes</em>, <em>connections</em>, <em>forwardindex</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#AcyclicDirectedGraph.buildAB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.buildAB" title="Permalink to this definition">¶</a></dt>
+<dd><p>build internal representation of directed connections</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.build_indeces">
+<em class="property">static </em><code class="descname">build_indeces</code><span class="sig-paren">(</span><em>nodes</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#AcyclicDirectedGraph.build_indeces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.build_indeces" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.itemchildren">
+<code class="descname">itemchildren</code><span class="sig-paren">(</span><em>C</em>, <em>parent</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#AcyclicDirectedGraph.itemchildren"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.itemchildren" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the children of a particular node.  The input connection matrix C determines what type of relationship</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.itemparents">
+<code class="descname">itemparents</code><span class="sig-paren">(</span><em>C</em>, <em>child</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#AcyclicDirectedGraph.itemparents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.itemparents" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the parents of a particular node.  The input connection matrix C determines what type of relationship</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.process">
+<code class="descname">process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#AcyclicDirectedGraph.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.sequence_complete_valid">
+<code class="descname">sequence_complete_valid</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#AcyclicDirectedGraph.sequence_complete_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.AcyclicDirectedGraph.sequence_complete_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>checks whether a given sequence&#8217;s nodes have all their parents in the subsequence as well</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dev_tools.acyclicdirectedgraph.Node">
+<em class="property">class </em><code class="descclassname">dev_tools.acyclicdirectedgraph.</code><code class="descname">Node</code><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#Node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.Node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>class containing all the functionality for the node of an acyclic directed graph</p>
+<dl class="method">
+<dt id="dev_tools.acyclicdirectedgraph.Node.ancestors">
+<code class="descname">ancestors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#Node.ancestors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.Node.ancestors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.acyclicdirectedgraph.Node.children">
+<code class="descname">children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#Node.children"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.Node.children" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.acyclicdirectedgraph.Node.decendents">
+<code class="descname">decendents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#Node.decendents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.Node.decendents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.acyclicdirectedgraph.Node.parents">
+<code class="descname">parents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#Node.parents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.Node.parents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.acyclicdirectedgraph.Node.setnetwork">
+<code class="descname">setnetwork</code><span class="sig-paren">(</span><em>network</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/acyclicdirectedgraph.html#Node.setnetwork"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.acyclicdirectedgraph.Node.setnetwork" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dev_tools.enum">
+<span id="dev-tools-enum-module"></span><h2>dev_tools.enum module<a class="headerlink" href="#module-dev_tools.enum" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="function">
+<dt id="dev_tools.enum.enum">
+<code class="descclassname">dev_tools.enum.</code><code class="descname">enum</code><span class="sig-paren">(</span><em>**enums</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/enum.html#enum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.enum.enum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-dev_tools.genericfile">
+<span id="dev-tools-genericfile-module"></span><h2>dev_tools.genericfile module<a class="headerlink" href="#module-dev_tools.genericfile" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="exception">
+<dt id="dev_tools.genericfile.FileMissing">
+<em class="property">exception </em><code class="descclassname">dev_tools.genericfile.</code><code class="descname">FileMissing</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#FileMissing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.FileMissing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="dev_tools.genericfile.GenericFile">
+<em class="property">class </em><code class="descclassname">dev_tools.genericfile.</code><code class="descname">GenericFile</code><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.backup">
+<code class="descname">backup</code><span class="sig-paren">(</span><em>folder=None</em>, <em>backupstring='_backup_'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.backup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.backup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="dev_tools.genericfile.GenericFile.buildfilters">
+<em class="property">classmethod </em><code class="descname">buildfilters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.buildfilters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.buildfilters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><em>identical=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.copy_file_params">
+<code class="descname">copy_file_params</code><span class="sig-paren">(</span><em>new</em>, <em>identical</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.copy_file_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.copy_file_params" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.copy_yaml">
+<code class="descname">copy_yaml</code><span class="sig-paren">(</span><em>identical=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.copy_yaml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.copy_yaml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dev_tools.genericfile.GenericFile.defaultfiletype">
+<code class="descname">defaultfiletype</code><em class="property"> = 'file'</em><a class="headerlink" href="#dev_tools.genericfile.GenericFile.defaultfiletype" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.filename">
+<code class="descname">filename</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dev_tools.genericfile.GenericFile.filetypes">
+<code class="descname">filetypes</code><em class="property"> = {'file': 'Generic File'}</em><a class="headerlink" href="#dev_tools.genericfile.GenericFile.filetypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.genbasename">
+<code class="descname">genbasename</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.genbasename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.genbasename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.get_basename">
+<code class="descname">get_basename</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.get_basename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.get_basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="dev_tools.genericfile.GenericFile.get_parent_program_name">
+<em class="property">classmethod </em><code class="descname">get_parent_program_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.get_parent_program_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.get_parent_program_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="dev_tools.genericfile.GenericFile.get_parent_program_version">
+<em class="property">classmethod </em><code class="descname">get_parent_program_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.get_parent_program_version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.get_parent_program_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="dev_tools.genericfile.GenericFile.lastdir">
+<em class="property">classmethod </em><code class="descname">lastdir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.lastdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.lastdir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="dev_tools.genericfile.GenericFile.load_yaml">
+<em class="property">classmethod </em><code class="descname">load_yaml</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.load_yaml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.load_yaml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="dev_tools.genericfile.GenericFile.open">
+<em class="property">classmethod </em><code class="descname">open</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="dev_tools.genericfile.GenericFile.open_filename">
+<em class="property">classmethod </em><code class="descname">open_filename</code><span class="sig-paren">(</span><em>parent=None</em>, <em>openmethod=None</em>, <em>**openmethodkwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.open_filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.open_filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.regen_id">
+<code class="descname">regen_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.regen_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.regen_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>parent=None</em>, <em>savemethod=None</em>, <em>**savemethodkwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.saveAs">
+<code class="descname">saveAs</code><span class="sig-paren">(</span><em>parent=None</em>, <em>savemethod=None</em>, <em>**savemethodkwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.saveAs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.saveAs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.save_yaml">
+<code class="descname">save_yaml</code><span class="sig-paren">(</span><em>filename</em>, <em>identical=True</em>, <em>update_filename=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.save_yaml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.save_yaml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.set_basename">
+<code class="descname">set_basename</code><span class="sig-paren">(</span><em>basename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.set_basename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.set_basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="dev_tools.genericfile.GenericFile.setlastdir">
+<em class="property">classmethod </em><code class="descname">setlastdir</code><span class="sig-paren">(</span><em>directory</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.setlastdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.setlastdir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="dev_tools.genericfile.GenericFile.slugify">
+<em class="property">static </em><code class="descname">slugify</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.slugify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.slugify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.updatefilename">
+<code class="descname">updatefilename</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.updatefilename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.updatefilename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.genericfile.GenericFile.upgrade">
+<code class="descname">upgrade</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/genericfile.html#GenericFile.upgrade"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.genericfile.GenericFile.upgrade" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dev_tools.propertyeditor">
+<span id="dev-tools-propertyeditor-module"></span><h2>dev_tools.propertyeditor module<a class="headerlink" href="#module-dev_tools.propertyeditor" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="dev_tools.propertyeditor.Child">
+<em class="property">class </em><code class="descclassname">dev_tools.propertyeditor.</code><code class="descname">Child</code><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#Child"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.Child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="dev_tools.propertyeditor.Child.attr_names_editable">
+<code class="descname">attr_names_editable</code><em class="property"> = True</em><a class="headerlink" href="#dev_tools.propertyeditor.Child.attr_names_editable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dev_tools.propertyeditor.Child.deletable">
+<code class="descname">deletable</code><em class="property"> = ['*']</em><a class="headerlink" href="#dev_tools.propertyeditor.Child.deletable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dev_tools.propertyeditor.Child.editable">
+<code class="descname">editable</code><em class="property"> = ['a', 'b', 'c']</em><a class="headerlink" href="#dev_tools.propertyeditor.Child.editable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dev_tools.propertyeditor.Child.new_attr">
+<code class="descname">new_attr</code><em class="property"> = {'&lt;new_string&gt;': '', '&lt;new_float&gt;': 0.0}</em><a class="headerlink" href="#dev_tools.propertyeditor.Child.new_attr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dev_tools.propertyeditor.Depth">
+<em class="property">class </em><code class="descclassname">dev_tools.propertyeditor.</code><code class="descname">Depth</code><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#Depth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.Depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="dev_tools.propertyeditor.Depth.depth">
+<code class="descname">depth</code><em class="property"> = -1</em><a class="headerlink" href="#dev_tools.propertyeditor.Depth.depth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dev_tools.propertyeditor.InsertNewWidgetItem">
+<em class="property">class </em><code class="descclassname">dev_tools.propertyeditor.</code><code class="descname">InsertNewWidgetItem</code><span class="sig-paren">(</span><em>parent</em>, <em>dataparent</em>, <em>level</em>, <em>key='&lt;new string&gt;'</em>, <em>value=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#InsertNewWidgetItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.InsertNewWidgetItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dev_tools.propertyeditor.TreeWidgetItem" title="dev_tools.propertyeditor.TreeWidgetItem"><code class="xref py py-class docutils literal"><span class="pre">dev_tools.propertyeditor.TreeWidgetItem</span></code></a></p>
+<dl class="method">
+<dt id="dev_tools.propertyeditor.InsertNewWidgetItem.setData">
+<code class="descname">setData</code><span class="sig-paren">(</span><em>column</em>, <em>role</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#InsertNewWidgetItem.setData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.InsertNewWidgetItem.setData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dev_tools.propertyeditor.Parent">
+<em class="property">class </em><code class="descclassname">dev_tools.propertyeditor.</code><code class="descname">Parent</code><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#Parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.Parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="dev_tools.propertyeditor.Parent.attr_names_editable">
+<code class="descname">attr_names_editable</code><em class="property"> = True</em><a class="headerlink" href="#dev_tools.propertyeditor.Parent.attr_names_editable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dev_tools.propertyeditor.Parent.deletable">
+<code class="descname">deletable</code><em class="property"> = ['*']</em><a class="headerlink" href="#dev_tools.propertyeditor.Parent.deletable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dev_tools.propertyeditor.Parent.editable">
+<code class="descname">editable</code><em class="property"> = ['child', 'tuple1', 'list1', 'x', 'a', 'dict1']</em><a class="headerlink" href="#dev_tools.propertyeditor.Parent.editable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dev_tools.propertyeditor.ParentItem">
+<em class="property">class </em><code class="descclassname">dev_tools.propertyeditor.</code><code class="descname">ParentItem</code><span class="sig-paren">(</span><em>value</em>, <em>treewidgetparent</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#ParentItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.ParentItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="dev_tools.propertyeditor.ParentItem.addChild">
+<code class="descname">addChild</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#ParentItem.addChild"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.ParentItem.addChild" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.ParentItem.generatechildren">
+<code class="descname">generatechildren</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#ParentItem.generatechildren"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.ParentItem.generatechildren" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dev_tools.propertyeditor.ParentItem.listkeys">
+<code class="descname">listkeys</code><em class="property"> = [&lt;class 'tuple'&gt;, &lt;class 'list'&gt;]</em><a class="headerlink" href="#dev_tools.propertyeditor.ParentItem.listkeys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.ParentItem.parent">
+<code class="descname">parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#ParentItem.parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.ParentItem.parent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.ParentItem.refresh">
+<code class="descname">refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#ParentItem.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.ParentItem.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.ParentItem.removeAllChildren">
+<code class="descname">removeAllChildren</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#ParentItem.removeAllChildren"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.ParentItem.removeAllChildren" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.ParentItem.removeattr">
+<code class="descname">removeattr</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#ParentItem.removeattr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.ParentItem.removeattr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.ParentItem.setchild">
+<code class="descname">setchild</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#ParentItem.setchild"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.ParentItem.setchild" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.ParentItem.sortChildren">
+<code class="descname">sortChildren</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#ParentItem.sortChildren"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.ParentItem.sortChildren" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.ParentItem.updateparent">
+<code class="descname">updateparent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#ParentItem.updateparent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.ParentItem.updateparent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dev_tools.propertyeditor.ParentItem.valuekeys">
+<code class="descname">valuekeys</code><em class="property"> = [&lt;class 'int'&gt;, &lt;class 'float'&gt;, &lt;class 'bool'&gt;, &lt;class 'str'&gt;]</em><a class="headerlink" href="#dev_tools.propertyeditor.ParentItem.valuekeys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dev_tools.propertyeditor.PropertyEditor">
+<em class="property">class </em><code class="descclassname">dev_tools.propertyeditor.</code><code class="descname">PropertyEditor</code><span class="sig-paren">(</span><em>data</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#PropertyEditor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.PropertyEditor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QTreeWidget</span></code></p>
+<dl class="method">
+<dt id="dev_tools.propertyeditor.PropertyEditor.keyPressEvent">
+<code class="descname">keyPressEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#PropertyEditor.keyPressEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.PropertyEditor.keyPressEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dev_tools.propertyeditor.PropertyEditor.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x000000000AB77888&gt;</em><a class="headerlink" href="#dev_tools.propertyeditor.PropertyEditor.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dev_tools.propertyeditor.TreeWidgetItem">
+<em class="property">class </em><code class="descclassname">dev_tools.propertyeditor.</code><code class="descname">TreeWidgetItem</code><span class="sig-paren">(</span><em>parent</em>, <em>dataparent</em>, <em>key</em>, <em>value</em>, <em>level</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#TreeWidgetItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.TreeWidgetItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QTreeWidgetItem</span></code>, <a class="reference internal" href="#dev_tools.propertyeditor.ParentItem" title="dev_tools.propertyeditor.ParentItem"><code class="xref py py-class docutils literal"><span class="pre">dev_tools.propertyeditor.ParentItem</span></code></a></p>
+<dl class="method">
+<dt id="dev_tools.propertyeditor.TreeWidgetItem.data">
+<code class="descname">data</code><span class="sig-paren">(</span><em>column</em>, <em>role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#TreeWidgetItem.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.TreeWidgetItem.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dev_tools.propertyeditor.TreeWidgetItem.depthlimit">
+<code class="descname">depthlimit</code><em class="property"> = 5</em><a class="headerlink" href="#dev_tools.propertyeditor.TreeWidgetItem.depthlimit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.TreeWidgetItem.is_deletable">
+<code class="descname">is_deletable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#TreeWidgetItem.is_deletable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.TreeWidgetItem.is_deletable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.TreeWidgetItem.is_editable">
+<code class="descname">is_editable</code><span class="sig-paren">(</span><em>column</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#TreeWidgetItem.is_editable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.TreeWidgetItem.is_editable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.TreeWidgetItem.parent">
+<code class="descname">parent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#TreeWidgetItem.parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.TreeWidgetItem.parent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.TreeWidgetItem.removeAllChildren">
+<code class="descname">removeAllChildren</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#TreeWidgetItem.removeAllChildren"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.TreeWidgetItem.removeAllChildren" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.TreeWidgetItem.setData">
+<code class="descname">setData</code><span class="sig-paren">(</span><em>column</em>, <em>role</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#TreeWidgetItem.setData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.TreeWidgetItem.setData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dev_tools.propertyeditor.TreeWidgetItem.updateparent">
+<code class="descname">updateparent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dev_tools/propertyeditor.html#TreeWidgetItem.updateparent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dev_tools.propertyeditor.TreeWidgetItem.updateparent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dev_tools">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dev_tools" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dev_tools package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-dev_tools.acyclicdirectedgraph">dev_tools.acyclicdirectedgraph module</a></li>
+<li><a class="reference internal" href="#module-dev_tools.enum">dev_tools.enum module</a></li>
+<li><a class="reference internal" href="#module-dev_tools.genericfile">dev_tools.genericfile module</a></li>
+<li><a class="reference internal" href="#module-dev_tools.propertyeditor">dev_tools.propertyeditor module</a></li>
+<li><a class="reference internal" href="#module-dev_tools">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<form class="search" action="../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

@@ -1,0 +1,17 @@
+popupcad_manufacturing_plugins package
+======================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    popupcad_manufacturing_plugins.manufacturing
+
+Module contents
+---------------
+
+.. automodule:: popupcad_manufacturing_plugins
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,521 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.filetypes.genericshapebase &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.filetypes.genericshapebase</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">popupcad.geometry.vertex</span> <span class="kn">import</span> <span class="n">ShapeVertex</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">from</span> <span class="nn">dev_tools.enum</span> <span class="kn">import</span> <span class="n">enum</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.popupcad_file</span> <span class="kn">import</span> <span class="n">popupCADFile</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+
+
+<span class="k">class</span> <span class="nc">ShapeInvalid</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="ShapeInvalid"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.ShapeInvalid">[docs]</a>    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">NotSimple</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span></div>
+<div class="viewcode-block" id="NotSimple"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.NotSimple">[docs]</a>    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">GenericShapeBase</span><span class="p">(</span><span class="n">popupCADFile</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase">[docs]</a>    <span class="n">filetypes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;shape&#39;</span><span class="p">:</span> <span class="s">&#39;Shape File&#39;</span><span class="p">}</span>
+    <span class="n">defaultfiletype</span> <span class="o">=</span> <span class="s">&#39;shape&#39;</span>
+
+    <span class="n">display</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;construction&#39;</span><span class="p">,</span> <span class="s">&#39;exterior&#39;</span><span class="p">,</span> <span class="s">&#39;interiors&#39;</span><span class="p">]</span>
+    <span class="n">editable</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;construction&#39;</span><span class="p">]</span>
+    <span class="n">shapetypes</span> <span class="o">=</span> <span class="n">enum</span><span class="p">(</span>
+        <span class="n">line</span><span class="o">=</span><span class="s">&#39;line&#39;</span><span class="p">,</span>
+        <span class="n">polyline</span><span class="o">=</span><span class="s">&#39;polyline&#39;</span><span class="p">,</span>
+        <span class="n">polygon</span><span class="o">=</span><span class="s">&#39;polygon&#39;</span><span class="p">,</span>
+        <span class="n">circle</span><span class="o">=</span><span class="s">&#39;circle&#39;</span><span class="p">,</span>
+        <span class="n">rect2point</span><span class="o">=</span><span class="s">&#39;rect2point&#39;</span><span class="p">)</span>
+    <span class="n">deletable</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">exterior</span><span class="p">,</span>
+            <span class="n">interiors</span><span class="p">,</span>
+            <span class="n">construction</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+            <span class="n">test_shapely</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GenericShapeBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exterior</span> <span class="o">=</span> <span class="n">exterior</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interiors</span> <span class="o">=</span> <span class="n">interiors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">construction</span> <span class="o">=</span> <span class="n">construction</span>
+
+<span class="c">#        self.exterior = self.condition_loop(self.exterior)</span>
+<span class="c">#        self.interiors = [self.condition_loop(interior) for interior in self.interiors]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">exterior</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_redundant_points</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exterior</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interiors</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">remove_redundant_points</span><span class="p">(</span><span class="n">interior</span><span class="p">)</span> <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interiors</span><span class="p">]</span>
+
+
+    <span class="k">def</span> <span class="nf">is_valid_bool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GenericShapeBase.is_valid_bool"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.is_valid_bool">[docs]</a>        <span class="k">try</span><span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+            
+    <span class="k">def</span> <span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.is_valid"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.is_valid">[docs]</a>        <span class="n">shapely</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">shapely</span><span class="o">.</span><span class="n">is_simple</span><span class="p">:</span>
+            <span class="k">raise</span><span class="p">(</span><span class="n">NotSimple</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">shapely</span><span class="o">.</span><span class="n">is_valid</span><span class="p">:</span>
+            <span class="k">raise</span><span class="p">(</span><span class="n">ShapeInvalid</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span></div>
+    <span class="k">def</span> <span class="nf">lastdir</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="GenericShapeBase.lastdir"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.lastdir">[docs]</a>        <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">lastshapedir</span>
+
+    <span class="nd">@classmethod</span></div>
+    <span class="k">def</span> <span class="nf">setlastdir</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">directory</span><span class="p">):</span>
+<div class="viewcode-block" id="GenericShapeBase.setlastdir"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.setlastdir">[docs]</a>        <span class="n">popupcad</span><span class="o">.</span><span class="n">lastshapedir</span> <span class="o">=</span> <span class="n">directory</span>
+
+    <span class="k">def</span> <span class="nf">isValid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.isValid"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.isValid">[docs]</a>        <span class="n">notempty</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">notempty</span>
+
+    <span class="k">def</span> <span class="nf">copy_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_type</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.copy_data"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.copy_data">[docs]</a>        <span class="n">exterior</span> <span class="o">=</span> <span class="p">[</span><span class="n">vertex</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span><span class="p">)</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()]</span>
+        <span class="n">interiors</span> <span class="o">=</span> <span class="p">[[</span><span class="n">vertex</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span><span class="p">)</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">interior</span><span class="p">]</span>
+                     <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">()]</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">new_type</span><span class="p">(</span><span class="n">exterior</span><span class="p">,</span> <span class="n">interiors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_construction</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy_file_params</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">identical</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+
+    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.copy">[docs]</a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy_data</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">identical</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.upgrade"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.upgrade">[docs]</a>        <span class="n">exterior</span> <span class="o">=</span> <span class="p">[</span><span class="n">vertex</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span><span class="n">identical</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()]</span>
+        <span class="n">interiors</span> <span class="o">=</span> <span class="p">[[</span><span class="n">vertex</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span>
+            <span class="n">identical</span><span class="p">)</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">interior</span><span class="p">]</span> <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">()]</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="n">exterior</span><span class="p">,</span> <span class="n">interiors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_construction</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy_file_params</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">identical</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+
+    <span class="k">def</span> <span class="nf">get_exterior</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.get_exterior"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.get_exterior">[docs]</a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exterior</span>
+
+    <span class="k">def</span> <span class="nf">get_interiors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.get_interiors"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.get_interiors">[docs]</a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">interiors</span>
+
+    <span class="k">def</span> <span class="nf">is_construction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.is_construction"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.is_construction">[docs]</a>        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">construction</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">construction</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">construction</span>
+
+    <span class="k">def</span> <span class="nf">set_construction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.set_construction"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.set_construction">[docs]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">construction</span> <span class="o">=</span> <span class="n">test</span>
+
+    <span class="k">def</span> <span class="nf">exteriorpoints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.exteriorpoints"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.exteriorpoints">[docs]</a>        <span class="k">return</span> <span class="p">[</span><span class="n">vertex</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span><span class="p">)</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()]</span>
+
+    <span class="k">def</span> <span class="nf">interiorpoints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.interiorpoints"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.interiorpoints">[docs]</a>        <span class="k">return</span> <span class="p">[[</span><span class="n">vertex</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span><span class="p">)</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">interior</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">()]</span>
+
+    <span class="k">def</span> <span class="nf">exteriorpoints_3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.exteriorpoints_3d"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.exteriorpoints_3d">[docs]</a>        <span class="n">points</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">vertex</span><span class="o">.</span><span class="n">getpos</span><span class="p">()</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()])</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="n">points2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>        
+        <span class="n">points2</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span>
+        <span class="n">points2</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span>
+        <span class="k">return</span> <span class="n">points2</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        
+    <span class="k">def</span> <span class="nf">interiorpoints_3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.interiorpoints_3d"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.interiorpoints_3d">[docs]</a>        <span class="n">interiors2</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">():</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">vertex</span><span class="o">.</span><span class="n">getpos</span><span class="p">()</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">interior</span><span class="p">])</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="n">points2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>        
+            <span class="n">points2</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span>
+            <span class="n">points2</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span>
+            <span class="n">interiors2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">points2</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>            
+        <span class="k">return</span> <span class="n">interiors2</span>
+
+    <span class="k">def</span> <span class="nf">vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.vertices"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.vertices">[docs]</a>        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()[:]</span>
+        <span class="p">[</span><span class="n">vertices</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">interior</span><span class="p">)</span> <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">()]</span>
+        <span class="k">return</span> <span class="n">vertices</span>
+
+    <span class="k">def</span> <span class="nf">points</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.points"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.points">[docs]</a>        <span class="k">return</span> <span class="p">[</span><span class="n">vertex</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span><span class="p">)</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">()]</span>
+
+    <span class="k">def</span> <span class="nf">segments_closed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.segments_closed"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.segments_closed">[docs]</a>        <span class="n">points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">points</span><span class="p">[:</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">points</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">():</span>
+            <span class="n">segments</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">points</span><span class="p">[:</span><span class="mi">1</span><span class="p">])))</span>
+        <span class="k">return</span> <span class="n">segments</span>
+
+    <span class="k">def</span> <span class="nf">segments_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.segments_open"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.segments_open">[docs]</a>        <span class="n">points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">points</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+        <span class="k">for</span> <span class="n">points</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">():</span>
+            <span class="n">segments</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">points</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">:])))</span>
+        <span class="k">return</span> <span class="n">segments</span>
+
+    <span class="k">def</span> <span class="nf">segmentpoints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.segmentpoints"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.segmentpoints">[docs]</a>        <span class="n">segments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="p">()</span>
+        <span class="n">segmentpoints</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">point1</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span><span class="p">),</span>
+             <span class="n">point2</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span><span class="p">))</span> <span class="k">for</span> <span class="n">point1</span><span class="p">,</span>
+            <span class="n">point2</span> <span class="ow">in</span> <span class="n">segments</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">segmentpoints</span>
+
+    <span class="k">def</span> <span class="nf">painterpath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.painterpath"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.painterpath">[docs]</a>        <span class="n">exterior</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exteriorpoints</span><span class="p">(</span><span class="n">scaling</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+        <span class="n">interiors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interiorpoints</span><span class="p">(</span><span class="n">scaling</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen_painterpath</span><span class="p">(</span><span class="n">exterior</span><span class="p">,</span> <span class="n">interiors</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">gen_painterpath</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exterior</span><span class="p">,</span> <span class="n">interiors</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.gen_painterpath"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.gen_painterpath">[docs]</a>        <span class="n">path</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">path</span>
+
+    <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.properties"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.properties">[docs]</a>        <span class="kn">from</span> <span class="nn">dev_tools.propertyeditor</span> <span class="kn">import</span> <span class="n">PropertyEditor</span>
+        <span class="k">return</span> <span class="n">PropertyEditor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">addvertex_exterior</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertex</span><span class="p">,</span> <span class="n">special</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.addvertex_exterior"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.addvertex_exterior">[docs]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertex</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_handles</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">addvertex_exterior_special</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertex</span><span class="p">,</span> <span class="n">special</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.addvertex_exterior_special"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.addvertex_exterior_special">[docs]</a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">special</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">getpos</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()]</span>
+                <span class="n">b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[:</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vertex</span><span class="o">.</span><span class="n">getpos</span><span class="p">())</span>
+                <span class="n">e</span> <span class="o">=</span> <span class="n">c</span> <span class="o">-</span> <span class="n">d</span>
+                <span class="n">f</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+                <span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">insert_exterior_vertex</span><span class="p">(</span><span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vertex</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update_handles</span><span class="p">()</span>
+                <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">append_exterior_vertex</span><span class="p">(</span><span class="n">vertex</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_handles</span><span class="p">()</span>
+
+
+    <span class="k">def</span> <span class="nf">removevertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertex</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.removevertex"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.removevertex">[docs]</a>        <span class="k">if</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">exterior</span><span class="p">:</span>
+            <span class="n">ii</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">vertex</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interiors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interior</span><span class="p">:</span>
+                <span class="n">ii</span> <span class="o">=</span> <span class="n">interior</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">vertex</span><span class="p">)</span>
+                <span class="n">interior</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_handles</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">checkedge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.checkedge"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.checkedge">[docs]</a>        <span class="kn">import</span> <span class="nn">popupcad.algorithms.points</span> <span class="kn">as</span> <span class="nn">points</span>
+        <span class="k">for</span> <span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">edge</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="k">if</span> <span class="n">points</span><span class="o">.</span><span class="n">twopointsthesame</span><span class="p">(</span><span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">distinguishable_number_difference</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">Exception</span>
+
+    <span class="nd">@staticmethod</span></div>
+    <span class="k">def</span> <span class="nf">_condition_loop</span><span class="p">(</span><span class="n">loop</span><span class="p">,</span><span class="n">round_vertices</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">test_rounded_vertices</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">remove_forward_redundancy</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">remove_loop_reduncancy</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">terminate_with_start</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span><span class="n">decimal_places</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">remove_forward_redundancy</span><span class="p">:</span>
+                <span class="n">new_loop</span> <span class="o">=</span> <span class="p">[</span><span class="n">loop</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>
+                <span class="k">while</span> <span class="ow">not</span> <span class="ow">not</span> <span class="n">loop</span><span class="p">:</span>
+                    <span class="n">v1</span> <span class="o">=</span> <span class="n">new_loop</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">v2</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    
+                    <span class="k">if</span> <span class="n">test_rounded_vertices</span><span class="p">:</span>
+                        <span class="n">equal</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">rounded_is_equal</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span><span class="n">decimal_places</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">equal</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">identical</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span>
+                    
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">equal</span><span class="p">:</span>
+                        <span class="n">new_loop</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_loop</span> <span class="o">=</span> <span class="n">loop</span><span class="p">[:]</span>
+            
+            <span class="n">v1</span> <span class="o">=</span> <span class="n">new_loop</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">v2</span> <span class="o">=</span> <span class="n">new_loop</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            
+            <span class="k">if</span> <span class="n">test_rounded_vertices</span><span class="p">:</span>
+                <span class="n">equal</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">rounded_is_equal</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span><span class="n">decimal_places</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">equal</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">identical</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">terminate_with_start</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">equal</span><span class="p">:</span>
+                    <span class="n">new_loop</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v1</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span><span class="o">=</span><span class="bp">False</span><span class="p">))</span>       
+    
+            <span class="k">if</span> <span class="n">remove_loop_reduncancy</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">equal</span><span class="p">:</span>
+                    <span class="n">new_loop</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">round_vertices</span><span class="p">:</span>
+                <span class="n">new_loop</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">decimal_places</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">new_loop</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">new_loop</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">loop</span>
+
+    <span class="k">def</span> <span class="nf">_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">round_vertices</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">test_rounded_vertices</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">remove_forward_redundancy</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">remove_loop_reduncancy</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">terminate_with_start</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span><span class="n">decimal_places</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exterior</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_condition_loop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exterior</span><span class="p">,</span><span class="n">round_vertices</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">test_rounded_vertices</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">remove_forward_redundancy</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">remove_loop_reduncancy</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">terminate_with_start</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span><span class="n">decimal_places</span> <span class="o">=</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interiors</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_condition_loop</span><span class="p">(</span><span class="n">interior</span><span class="p">,</span><span class="n">round_vertices</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">test_rounded_vertices</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">remove_forward_redundancy</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">remove_loop_reduncancy</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">terminate_with_start</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span><span class="n">decimal_places</span> <span class="o">=</span> <span class="bp">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interiors</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>    
+    <span class="k">def</span> <span class="nf">condition_loop</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="n">loop</span><span class="p">):</span>
+<div class="viewcode-block" id="GenericShapeBase.condition_loop"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.condition_loop">[docs]</a>        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_condition_loop</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span>
+
+<span class="c">#    def condition(self):</span>
+<span class="c">#        self.exterior = self.condition_loop(self.exterior)</span>
+<span class="c">#        self.interiors = [self.condition_loop(interior) for interior in self.interiors]</span>
+                
+    <span class="nd">@classmethod</span></div>
+    <span class="k">def</span> <span class="nf">gen_from_point_lists</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">exterior_p</span><span class="p">,</span> <span class="n">interiors_p</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="GenericShapeBase.gen_from_point_lists"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.gen_from_point_lists">[docs]</a>
+        <span class="n">exterior</span> <span class="o">=</span> <span class="p">[</span><span class="n">ShapeVertex</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">exterior_p</span><span class="p">]</span>
+        <span class="n">interiors</span><span class="o">=</span> <span class="p">[[</span><span class="n">ShapeVertex</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">interior</span><span class="p">]</span> <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="n">interiors_p</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="n">exterior</span><span class="p">,</span> <span class="n">interiors</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">genInteractiveVertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.genInteractiveVertices"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.genInteractiveVertices">[docs]</a>        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exteriorhandles</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interiorhandles</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_handles</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exteriorhandles</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interiorhandles</span>
+
+    <span class="k">def</span> <span class="nf">update_handles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.update_handles"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.update_handles">[docs]</a>        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">handle</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handles</span><span class="p">:</span>
+                <span class="n">handle</span><span class="o">.</span><span class="n">harddelete</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="n">exterior</span> <span class="o">=</span> <span class="p">[</span><span class="n">vertex</span><span class="o">.</span><span class="n">gen_interactive</span><span class="p">()</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()]</span>
+        <span class="n">interiors</span> <span class="o">=</span> <span class="p">[[</span><span class="n">vertex</span><span class="o">.</span><span class="n">gen_interactive</span><span class="p">()</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">interior</span><span class="p">]</span> <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">()]</span>
+
+        <span class="n">handles</span> <span class="o">=</span> <span class="n">exterior</span><span class="p">[:]</span>
+        <span class="p">[</span><span class="n">handles</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">interior</span><span class="p">)</span> <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="n">interiors</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_exteriorhandles</span> <span class="o">=</span> <span class="n">exterior</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_interiorhandles</span> <span class="o">=</span> <span class="n">interiors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_handles</span> <span class="o">=</span> <span class="n">handles</span>
+
+    <span class="k">def</span> <span class="nf">len_exterior</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.len_exterior"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.len_exterior">[docs]</a>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">get_handles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.get_handles"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.get_handles">[docs]</a>        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handles</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_handles</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handles</span>
+
+    <span class="k">def</span> <span class="nf">get_exterior_handles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.get_exterior_handles"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.get_exterior_handles">[docs]</a>        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exteriorhandles</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_handles</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exteriorhandles</span>
+
+    <span class="k">def</span> <span class="nf">triangles3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.triangles3"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.triangles3">[docs]</a>        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="nd">@staticmethod</span></div>
+    <span class="k">def</span> <span class="nf">generateQPolygon</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+<div class="viewcode-block" id="GenericShapeBase.generateQPolygon"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.generateQPolygon">[docs]</a>        <span class="n">poly</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPolygonF</span><span class="p">([</span><span class="n">qc</span><span class="o">.</span><span class="n">QPointF</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">point</span><span class="p">))</span>
+                             <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">points</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="n">poly</span>
+
+    <span class="k">def</span> <span class="nf">is_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.is_equal"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.is_equal">[docs]</a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">())</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="n">other</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">())</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">())</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span>
+                    <span class="n">other</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">()):</span>
+                <span class="k">for</span> <span class="n">point1</span><span class="p">,</span> <span class="n">point2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">(),</span> <span class="n">other</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">point1</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="n">point2</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">distinguishable_number_difference</span><span class="p">):</span>
+                        <span class="k">return</span> <span class="bp">False</span>
+                <span class="k">for</span> <span class="n">interior1</span><span class="p">,</span> <span class="n">interior2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">(),</span> <span class="n">other</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">()):</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">interior1</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">interior2</span><span class="p">):</span>
+                        <span class="k">return</span> <span class="bp">False</span>
+                    <span class="k">for</span> <span class="n">point1</span><span class="p">,</span> <span class="n">point2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">interior1</span><span class="p">,</span> <span class="n">interior2</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">point1</span><span class="o">.</span><span class="n">is_equal</span><span class="p">(</span><span class="n">point2</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">distinguishable_number_difference</span><span class="p">):</span>
+                            <span class="k">return</span> <span class="bp">False</span>
+                <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dxdy</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.shift"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.shift">[docs]</a>        <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">dxdy</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()]</span>
+        <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">dxdy</span><span class="p">)</span> <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">()</span>
+         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">interior</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.transform"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.transform">[docs]</a>        <span class="n">exteriorpoints</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exteriorpoints_3d</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">interiorpoints</span> <span class="o">=</span> <span class="p">[(</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">interior</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">[:,:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">interiorpoints_3d</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">exteriorpoints</span><span class="p">,</span><span class="n">interiorpoints</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">constrained_shift</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dxdy</span><span class="p">,</span> <span class="n">constraintsystem</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.constrained_shift"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.constrained_shift">[docs]</a>        <span class="n">a</span> <span class="o">=</span> <span class="p">[(</span><span class="n">item</span><span class="p">,</span> <span class="n">dxdy</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()]</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">extend</span><span class="p">([(</span><span class="n">item</span><span class="p">,</span> <span class="n">dxdy</span><span class="p">)</span> <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">()</span>
+                  <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">interior</span><span class="p">])</span>
+        <span class="n">constraintsystem</span><span class="o">.</span><span class="n">constrained_shift</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">flip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.flip"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.flip">[docs]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">exterior</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interiors</span> <span class="o">=</span> <span class="p">[</span><span class="n">interior</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">interior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_interiors</span><span class="p">()]</span>
+
+    <span class="k">def</span> <span class="nf">hollow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.hollow"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.hollow">[docs]</a>        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.fill"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.fill">[docs]</a>        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">insert_exterior_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ii</span><span class="p">,</span> <span class="n">vertex</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.insert_exterior_vertex"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.insert_exterior_vertex">[docs]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="n">vertex</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">append_exterior_vertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertex</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.append_exterior_vertex"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.append_exterior_vertex">[docs]</a>        <span class="bp">self</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertex</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">output_dxf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">model_space</span><span class="p">,</span><span class="n">layer</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.output_dxf"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.output_dxf">[docs]</a>        <span class="n">csg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">to_generic</span><span class="p">(</span><span class="n">csg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span><span class="o">.</span><span class="n">output_dxf</span><span class="p">(</span><span class="n">model_space</span><span class="p">,</span><span class="n">layer</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exteriorpoints</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">&lt;</span><span class="n">other</span><span class="o">.</span><span class="n">exteriorpoints</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">find_minimal_enclosing_circle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GenericShapeBase.find_minimal_enclosing_circle"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.find_minimal_enclosing_circle">[docs]</a>        <span class="kn">from</span> <span class="nn">popupcad.algorithms.minimal_enclosing_circle</span> <span class="kn">import</span> <span class="n">numerical_stable_circle</span>
+        <span class="k">return</span> <span class="n">numerical_stable_circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exteriorpoints</span><span class="p">)</span>
+
+    <span class="c">#Gets the center</span>
+    <span class="k">def</span> <span class="nf">get_center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.get_center"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.get_center">[docs]</a>        <span class="sd">&#39;&#39;&#39;Retrieves the center point of the shape&#39;&#39;&#39;</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exteriorpoints</span><span class="p">()</span>
+        <span class="n">x_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">SI_length_scaling</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
+        <span class="n">y_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">SI_length_scaling</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">x_values</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_values</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">y_values</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_values</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">exterior_points_from_center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GenericShapeBase.exterior_points_from_center"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.exterior_points_from_center">[docs]</a>        <span class="sd">&#39;&#39;&#39;Retrieves the exterior points relative to the center&#39;&#39;&#39;</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_center</span><span class="p">()</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exteriorpoints</span><span class="p">()</span>
+        <span class="n">x_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">SI_length_scaling</span> <span class="o">-</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
+        <span class="n">y_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">SI_length_scaling</span> <span class="o">-</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y_values</span><span class="p">))</span>
+
+
+    <span class="nd">@classmethod</span></div>
+    <span class="k">def</span> <span class="nf">remove_redundant_points</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">loop_test</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="GenericShapeBase.remove_redundant_points"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.genericshapebase.GenericShapeBase.remove_redundant_points">[docs]</a>        <span class="n">newpoints</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">points</span><span class="p">[:]</span>
+            <span class="n">newpoints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+            <span class="k">while</span> <span class="ow">not</span> <span class="ow">not</span> <span class="n">points</span><span class="p">:</span>
+                <span class="n">newpoint</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">points</span><span class="o">.</span><span class="n">twopointsthesame</span><span class="p">(</span><span class="n">newpoints</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span><span class="p">),</span><span class="n">newpoint</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span><span class="p">),</span><span class="n">popupcad</span><span class="o">.</span><span class="n">distinguishable_number_difference</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">loop_test</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">points</span><span class="o">.</span><span class="n">twopointsthesame</span><span class="p">(</span><span class="n">newpoints</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span><span class="p">),</span><span class="n">newpoint</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span><span class="p">),</span><span class="n">popupcad</span><span class="o">.</span><span class="n">distinguishable_number_difference</span><span class="p">):</span>
+                            <span class="n">newpoints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newpoint</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">newpoints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newpoint</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">newpoints</span>
+</pre></div></div></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

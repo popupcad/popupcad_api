@@ -1,0 +1,182 @@
+popupcad.filetypes package
+==========================
+
+Submodules
+----------
+
+popupcad.filetypes.classtools module
+------------------------------------
+
+.. automodule:: popupcad.filetypes.classtools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.constraints module
+-------------------------------------
+
+.. automodule:: popupcad.filetypes.constraints
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.design module
+--------------------------------
+
+.. automodule:: popupcad.filetypes.design
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.genericlaminate module
+-----------------------------------------
+
+.. automodule:: popupcad.filetypes.genericlaminate
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.genericshapebase module
+------------------------------------------
+
+.. automodule:: popupcad.filetypes.genericshapebase
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.genericshapes module
+---------------------------------------
+
+.. automodule:: popupcad.filetypes.genericshapes
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.laminate module
+----------------------------------
+
+.. automodule:: popupcad.filetypes.laminate
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.layer module
+-------------------------------
+
+.. automodule:: popupcad.filetypes.layer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.layerdef module
+----------------------------------
+
+.. automodule:: popupcad.filetypes.layerdef
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.listwidgetitem module
+----------------------------------------
+
+.. automodule:: popupcad.filetypes.listwidgetitem
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.material2 module
+-----------------------------------
+
+.. automodule:: popupcad.filetypes.material2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.operation module
+-----------------------------------
+
+.. automodule:: popupcad.filetypes.operation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.operation2 module
+------------------------------------
+
+.. automodule:: popupcad.filetypes.operation2
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.operationoutput module
+-----------------------------------------
+
+.. automodule:: popupcad.filetypes.operationoutput
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.popupcad_file module
+---------------------------------------
+
+.. automodule:: popupcad.filetypes.popupcad_file
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.program module
+---------------------------------
+
+.. automodule:: popupcad.filetypes.program
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.sketch module
+--------------------------------
+
+.. automodule:: popupcad.filetypes.sketch
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.solidworksimport module
+------------------------------------------
+
+.. automodule:: popupcad.filetypes.solidworksimport
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.undoredo module
+----------------------------------
+
+.. automodule:: popupcad.filetypes.undoredo
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.userdata module
+----------------------------------
+
+.. automodule:: popupcad.filetypes.userdata
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.filetypes.validators module
+------------------------------------
+
+.. automodule:: popupcad.filetypes.validators
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: popupcad.filetypes
+    :members:
+    :undoc-members:
+    :show-inheritance:

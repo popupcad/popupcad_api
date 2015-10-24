@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.widgets.table_editor_popup &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.widgets.table_editor_popup</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">from</span> <span class="nn">popupcad.widgets.table_common</span> <span class="kn">import</span> <span class="n">TableControl</span><span class="p">,</span><span class="n">Table</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">from</span> <span class="nn">popupcad.widgets.dragndroptree</span> <span class="kn">import</span> <span class="n">DraggableTreeWidget</span>
+
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.validators</span> <span class="kn">import</span> <span class="n">StrictDoubleValidator</span>
+
+<div class="viewcode-block" id="UneditableItem"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.UneditableItem">[docs]</a><span class="k">class</span> <span class="nc">UneditableItem</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">UneditableItem</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        
+        <span class="n">flags</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">()</span>
+        <span class="n">flags</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsEditable</span> <span class="o">^</span> <span class="n">flags</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">flags</span><span class="p">)</span>
+<span class="c">#        self.setFlags(qc.Qt.ItemFlag.NoItemFlags &amp; qc.Qt.ItemFlag.ItemIsSelectable &amp; qc.Qt.ItemFlag.ItemIsEnabled)</span>
+        </div>
+<div class="viewcode-block" id="Delegate"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.Delegate">[docs]</a><span class="k">class</span> <span class="nc">Delegate</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QStyledItemDelegate</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_class</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Delegate</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_class</span> <span class="o">=</span> <span class="n">data_class</span>
+</div>
+<div class="viewcode-block" id="Row"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.Row">[docs]</a><span class="k">class</span> <span class="nc">Row</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="Row.row_add"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.Row.row_add">[docs]</a>    <span class="k">def</span> <span class="nf">row_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">list_widget_items</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="n">lwi</span> <span class="o">=</span> <span class="n">UneditableItem</span><span class="p">()</span>
+            <span class="n">lwi</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+            <span class="n">lwi</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">,</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">list_widget_items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lwi</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">list_widget_items</span>
+</div>
+<div class="viewcode-block" id="Row.row_add_empty"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.Row.row_add_empty">[docs]</a>    <span class="k">def</span> <span class="nf">row_add_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">ini</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_add</span><span class="p">(</span><span class="o">*</span><span class="n">items</span><span class="p">)</span>
+        </div>
+<div class="viewcode-block" id="Row.cell_clicked"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.Row.cell_clicked">[docs]</a>    <span class="k">def</span> <span class="nf">cell_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">column</span><span class="p">,</span><span class="n">tablewidget</span><span class="p">):</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">tablewidget</span><span class="o">.</span><span class="n">model</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">column</span><span class="p">)</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="n">tablewidget</span><span class="o">.</span><span class="n">itemFromIndex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+        <span class="n">ini</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+
+        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">build_editor</span><span class="p">()</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">ini</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">results</span><span class="p">()</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">results</span><span class="p">))</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">,</span><span class="n">results</span><span class="p">)</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">header_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">element</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">]</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">column_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="TextDialog"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.TextDialog">[docs]</a><span class="k">class</span> <span class="nc">TextDialog</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QDialog</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TextDialog</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">()</span>
+        <span class="n">button_ok</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button_cancel</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+        
+        <span class="n">sub_layout1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">sub_layout1</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_ok</span><span class="p">)</span>
+        <span class="n">sub_layout1</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_cancel</span><span class="p">)</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">sub_layout1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+        <span class="n">button_ok</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="n">button_cancel</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TextDialog.set_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.TextDialog.set_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>   
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        </div>
+<div class="viewcode-block" id="TextDialog.results"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.TextDialog.results">[docs]</a>    <span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+</div></div>
+<div class="viewcode-block" id="FloatDialog"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.FloatDialog">[docs]</a><span class="k">class</span> <span class="nc">FloatDialog</span><span class="p">(</span><span class="n">TextDialog</span><span class="p">):</span>
+    <span class="n">bottom</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_negative_infinity</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span>
+    <span class="n">decimals</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FloatDialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">validator</span> <span class="o">=</span> <span class="n">StrictDoubleValidator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bottom</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">decimals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">setValidator</span><span class="p">(</span><span class="n">validator</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FloatDialog.set_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.FloatDialog.set_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>   
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+        </div>
+<div class="viewcode-block" id="FloatDialog.results"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.FloatDialog.results">[docs]</a>    <span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_edit</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+</div></div>
+<div class="viewcode-block" id="IntegerDialog"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.IntegerDialog">[docs]</a><span class="k">class</span> <span class="nc">IntegerDialog</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QDialog</span><span class="p">):</span>
+    <span class="n">bottom</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_negative_infinity</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">IntegerDialog</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spin_box</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spin_box</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bottom</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spin_box</span><span class="o">.</span><span class="n">setSingleStep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">button_ok</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button_cancel</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+        
+        <span class="n">sub_layout1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">sub_layout1</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_ok</span><span class="p">)</span>
+        <span class="n">sub_layout1</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_cancel</span><span class="p">)</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spin_box</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">sub_layout1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+        <span class="n">button_ok</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="n">button_cancel</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+
+<div class="viewcode-block" id="IntegerDialog.set_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.IntegerDialog.set_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>   
+        <span class="bp">self</span><span class="o">.</span><span class="n">spin_box</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        </div>
+<div class="viewcode-block" id="IntegerDialog.results"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.IntegerDialog.results">[docs]</a>    <span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">spin_box</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+</div></div>
+<div class="viewcode-block" id="SingleListDialog"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.SingleListDialog">[docs]</a><span class="k">class</span> <span class="nc">SingleListDialog</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QDialog</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_in</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SingleListDialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QListWidget</span><span class="p">()</span>
+
+        <span class="n">button_ok</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button_cancel</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+        
+        <span class="n">sub_layout1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">sub_layout1</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_ok</span><span class="p">)</span>
+        <span class="n">sub_layout1</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_cancel</span><span class="p">)</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">sub_layout1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+        <span class="n">button_ok</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="n">button_cancel</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list_in</span><span class="p">:</span>
+            <span class="n">lwi</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QListWidgetItem</span><span class="p">()</span>
+            <span class="n">lwi</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+            <span class="n">lwi</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">,</span><span class="n">item</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">lwi</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SingleListDialog.set_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.SingleListDialog.set_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ini</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="n">lwi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+            <span class="n">lwi</span><span class="o">.</span><span class="n">setSelected</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">lwi</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">ini</span><span class="p">:</span>
+                <span class="n">lwi</span><span class="o">.</span><span class="n">setSelected</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+                </div>
+<div class="viewcode-block" id="SingleListDialog.results"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.SingleListDialog.results">[docs]</a>    <span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="n">lwi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">lwi</span><span class="o">.</span><span class="n">isSelected</span><span class="p">():</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">lwi</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">results</span>
+</div></div>
+<div class="viewcode-block" id="SingleListDialog_old"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.SingleListDialog_old">[docs]</a><span class="k">class</span> <span class="nc">SingleListDialog_old</span><span class="p">(</span><span class="n">SingleListDialog</span><span class="p">):</span>
+<div class="viewcode-block" id="SingleListDialog_old.set_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.SingleListDialog_old.set_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ini</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="n">lwi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+            <span class="n">lwi</span><span class="o">.</span><span class="n">setSelected</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">lwi</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="n">ini</span><span class="p">:</span>
+                <span class="n">lwi</span><span class="o">.</span><span class="n">setSelected</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+                </div>
+<div class="viewcode-block" id="SingleListDialog_old.results"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.SingleListDialog_old.results">[docs]</a>    <span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="n">lwi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">lwi</span><span class="o">.</span><span class="n">isSelected</span><span class="p">():</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">lwi</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">data</span>
+        <span class="k">return</span> <span class="bp">None</span>
+        </div></div>
+<div class="viewcode-block" id="MultiListDialog"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.MultiListDialog">[docs]</a><span class="k">class</span> <span class="nc">MultiListDialog</span><span class="p">(</span><span class="n">SingleListDialog</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiListDialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">SelectionMode</span><span class="o">.</span><span class="n">MultiSelection</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeDialog"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.DraggableTreeDialog">[docs]</a><span class="k">class</span> <span class="nc">DraggableTreeDialog</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QDialog</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_in</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DraggableTreeDialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span> <span class="o">=</span> <span class="n">DraggableTreeWidget</span><span class="p">()</span>
+
+        <span class="n">button_ok</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button_cancel</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+        
+        <span class="n">sub_layout1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">sub_layout1</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_ok</span><span class="p">)</span>
+        <span class="n">sub_layout1</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_cancel</span><span class="p">)</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">sub_layout1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+        <span class="n">button_ok</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="n">button_cancel</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">linklist</span><span class="p">(</span><span class="n">list_in</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DraggableTreeDialog.set_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.DraggableTreeDialog.set_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ini</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">selectIndeces</span><span class="p">(</span><span class="n">ini</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="DraggableTreeDialog.results"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.DraggableTreeDialog.results">[docs]</a>    <span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">listwidget</span><span class="o">.</span><span class="n">currentIndeces2</span><span class="p">()</span>
+        
+        
+</div></div>
+<div class="viewcode-block" id="TextElement"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.TextElement">[docs]</a><span class="k">class</span> <span class="nc">TextElement</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">ini</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="n">ini</span>
+
+<div class="viewcode-block" id="TextElement.build_editor"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.TextElement.build_editor">[docs]</a>    <span class="k">def</span> <span class="nf">build_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">TextDialog</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">dialog</span>
+        </div></div>
+<div class="viewcode-block" id="FloatElement"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.FloatElement">[docs]</a><span class="k">class</span> <span class="nc">FloatElement</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">ini</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="n">ini</span>
+
+<div class="viewcode-block" id="FloatElement.build_editor"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.FloatElement.build_editor">[docs]</a>    <span class="k">def</span> <span class="nf">build_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">FloatDialog</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">dialog</span>
+</div></div>
+<div class="viewcode-block" id="IntegerElement"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.IntegerElement">[docs]</a><span class="k">class</span> <span class="nc">IntegerElement</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">ini</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="n">ini</span>
+
+<div class="viewcode-block" id="IntegerElement.build_editor"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.IntegerElement.build_editor">[docs]</a>    <span class="k">def</span> <span class="nf">build_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">IntegerDialog</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">dialog</span>
+</div></div>
+<div class="viewcode-block" id="SingleItemListElement_old"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.SingleItemListElement_old">[docs]</a><span class="k">class</span> <span class="nc">SingleItemListElement_old</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">list_getter</span><span class="p">,</span><span class="n">ini</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">my_list</span> <span class="o">=</span> <span class="n">list_getter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="n">ini</span>
+
+<div class="viewcode-block" id="SingleItemListElement_old.build_editor"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.SingleItemListElement_old.build_editor">[docs]</a>    <span class="k">def</span> <span class="nf">build_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">SingleListDialog_old</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">my_list</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dialog</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">my_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_list</span><span class="p">()</span>
+
+    <span class="nd">@my_list.setter</span>
+    <span class="k">def</span> <span class="nf">my_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_list</span> <span class="o">=</span> <span class="n">val</span>
+</div>
+<div class="viewcode-block" id="SingleItemListElement"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.SingleItemListElement">[docs]</a><span class="k">class</span> <span class="nc">SingleItemListElement</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">list_getter</span><span class="p">,</span><span class="n">ini</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">my_list</span> <span class="o">=</span> <span class="n">list_getter</span>
+        <span class="k">if</span> <span class="n">ini</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="n">ini</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ini</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="SingleItemListElement.build_editor"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.SingleItemListElement.build_editor">[docs]</a>    <span class="k">def</span> <span class="nf">build_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">SingleListDialog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">my_list</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dialog</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">my_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_list</span><span class="p">()</span>
+
+    <span class="nd">@my_list.setter</span>
+    <span class="k">def</span> <span class="nf">my_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_list</span> <span class="o">=</span> <span class="n">val</span>        
+        </div>
+<div class="viewcode-block" id="MultiItemListElement"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.MultiItemListElement">[docs]</a><span class="k">class</span> <span class="nc">MultiItemListElement</span><span class="p">(</span><span class="n">SingleItemListElement</span><span class="p">):</span>
+<div class="viewcode-block" id="MultiItemListElement.build_editor"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.MultiItemListElement.build_editor">[docs]</a>    <span class="k">def</span> <span class="nf">build_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">MultiListDialog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">my_list</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dialog</span>
+</div></div>
+<div class="viewcode-block" id="DraggableTreeElement"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.DraggableTreeElement">[docs]</a><span class="k">class</span> <span class="nc">DraggableTreeElement</span><span class="p">(</span><span class="n">SingleItemListElement</span><span class="p">):</span>
+<div class="viewcode-block" id="DraggableTreeElement.build_editor"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_editor_popup.DraggableTreeElement.build_editor">[docs]</a>    <span class="k">def</span> <span class="nf">build_editor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">DraggableTreeDialog</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">my_list</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dialog</span>
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span><span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+
+    <span class="k">class</span> <span class="nc">JointRow</span><span class="p">(</span><span class="n">Row</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">):</span>
+            <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SingleItemListElement</span><span class="p">(</span><span class="s">&#39;joint sketch&#39;</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">))</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SingleItemListElement</span><span class="p">(</span><span class="s">&#39;joint layer&#39;</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">))</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MultiItemListElement</span><span class="p">(</span><span class="s">&#39;sublaminate layers&#39;</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">))</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FloatElement</span><span class="p">(</span><span class="s">&#39;hinge width&#39;</span><span class="p">))</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FloatElement</span><span class="p">(</span><span class="s">&#39;stiffness&#39;</span><span class="p">))</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FloatElement</span><span class="p">(</span><span class="s">&#39;damping&#39;</span><span class="p">))</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FloatElement</span><span class="p">(</span><span class="s">&#39;preload&#39;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="n">elements</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+<span class="c">#    dialog = Dialog1()</span>
+<span class="c">#    result = dialog.exec_()</span>
+<span class="c">#    print(result)    </span>
+<span class="c"># </span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">JointRow</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="k">lambda</span><span class="p">:</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)),</span><span class="n">Delegate</span><span class="p">)</span>
+    <span class="n">table</span><span class="o">.</span><span class="n">row_add_empty</span><span class="p">()</span>
+    <span class="n">table</span><span class="o">.</span><span class="n">row_add</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">widget</span> <span class="o">=</span> <span class="n">TableControl</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+    <span class="n">widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

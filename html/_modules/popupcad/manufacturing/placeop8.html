@@ -1,0 +1,436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.manufacturing.placeop8 &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.manufacturing.placeop8</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">import</span> <span class="nn">popupcad.filetypes</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.operation2</span> <span class="kn">import</span> <span class="n">Operation2</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.design</span> <span class="kn">import</span> <span class="n">NoOperation</span>
+<span class="c">#from popupcad.filetypes.design import Design</span>
+<span class="kn">from</span> <span class="nn">popupcad.widgets.dragndroptree</span> <span class="kn">import</span> <span class="n">DraggableTreeWidget</span>
+<span class="kn">from</span> <span class="nn">dev_tools.enum</span> <span class="kn">import</span> <span class="n">enum</span>
+<span class="c">#from popupcad.filetypes.sketch import Sketch</span>
+<span class="kn">from</span> <span class="nn">popupcad.widgets.listmanager</span> <span class="kn">import</span> <span class="n">SketchListManager</span><span class="p">,</span> <span class="n">DesignListManager</span>
+
+
+<div class="viewcode-block" id="Dialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.Dialog">[docs]</a><span class="k">class</span> <span class="nc">Dialog</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QDialog</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">design</span><span class="p">,</span>
+            <span class="n">prioroperations</span><span class="p">,</span>
+            <span class="n">sketch</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+            <span class="n">subdesign</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+            <span class="n">subopref</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+            <span class="n">transformtype_x</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+            <span class="n">transformtype_y</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+            <span class="n">shift</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">flip</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+            <span class="n">scalex</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+            <span class="n">scaley</span><span class="o">=</span><span class="mf">1.</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Dialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">transformtype_x</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_x</span> <span class="o">=</span> <span class="n">PlaceOperation8</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">scale</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_x</span> <span class="o">=</span> <span class="n">transformtype_x</span>
+
+        <span class="k">if</span> <span class="n">transformtype_y</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_y</span> <span class="o">=</span> <span class="n">PlaceOperation8</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">scale</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_y</span> <span class="o">=</span> <span class="n">transformtype_y</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">prioroperations</span> <span class="o">=</span> <span class="n">prioroperations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">design</span> <span class="o">=</span> <span class="n">design</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">designwidget</span> <span class="o">=</span> <span class="n">DesignListManager</span><span class="p">(</span><span class="n">design</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">optree</span> <span class="o">=</span> <span class="n">DraggableTreeWidget</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sketchwidget</span> <span class="o">=</span> <span class="n">SketchListManager</span><span class="p">(</span><span class="n">design</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_scale_x</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QRadioButton</span><span class="p">(</span><span class="s">&#39;Scale X&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_custom_x</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QRadioButton</span><span class="p">(</span><span class="s">&#39;Custom X&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_scale_y</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QRadioButton</span><span class="p">(</span><span class="s">&#39;Scale Y&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_custom_y</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QRadioButton</span><span class="p">(</span><span class="s">&#39;Custom Y&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_scale_option</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QButtonGroup</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_scale_option</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radiobox_scale_x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_scale_option</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radiobox_custom_x</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_scale_option</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QButtonGroup</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_scale_option</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radiobox_scale_y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_scale_option</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radiobox_custom_y</span><span class="p">)</span>
+
+<span class="c">#        custom_layout = qg.QVBoxLayout()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scalex</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaley</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scalex</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">scalex</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaley</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">scaley</span><span class="p">))</span>
+<span class="c">#        custom_layout.addWidget(self.scalex)</span>
+<span class="c">#        custom_layout.addWidget(self.scaley)</span>
+
+        <span class="n">templayout1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">templayout1</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+        <span class="n">templayout1</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radiobox_scale_x</span><span class="p">)</span>
+        <span class="n">templayout1</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radiobox_custom_x</span><span class="p">)</span>
+        <span class="n">templayout1</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scalex</span><span class="p">)</span>
+        <span class="n">templayout1</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+        <span class="n">templayout2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">templayout2</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+        <span class="n">templayout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radiobox_scale_y</span><span class="p">)</span>
+        <span class="n">templayout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radiobox_custom_y</span><span class="p">)</span>
+        <span class="n">templayout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scaley</span><span class="p">)</span>
+        <span class="n">templayout2</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+
+        <span class="n">layout5</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout5</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Flip Layers&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flip</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QCheckBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">flip</span><span class="p">)</span>
+        <span class="n">layout5</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">)</span>
+
+        <span class="n">layout4</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout4</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Shift Layers&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sb</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QSpinBox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sb</span><span class="o">.</span><span class="n">setRange</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_negative_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sb</span><span class="o">.</span><span class="n">setSingleStep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sb</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">shift</span><span class="p">)</span>
+        <span class="n">layout4</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sb</span><span class="p">)</span>
+
+<span class="c">#        layout3 = qg.QHBoxLayout()</span>
+<span class="c">#        layout3.addWidget(self.lineedit)</span>
+<span class="c">#        layout3.addWidget(button3)</span>
+
+        <span class="n">button1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button1</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="n">button2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+        <span class="n">button2</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+
+        <span class="n">layout2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button1</span><span class="p">)</span>
+        <span class="n">layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button2</span><span class="p">)</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+<span class="c">#        layout.addWidget(qg.QLabel(&#39;Design&#39;))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">designwidget</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Sub-Design Operations&#39;</span><span class="p">))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">optree</span><span class="p">)</span>
+<span class="c">#        layout.addWidget(qg.QLabel(&#39;Sketch&#39;))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sketchwidget</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">templayout1</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">templayout2</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout5</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout4</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_scale_x</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_custom_x</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_scale_y</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_custom_y</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_x</span> <span class="o">==</span> <span class="n">PlaceOperation8</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">scale</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_scale_x</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_x</span> <span class="o">==</span> <span class="n">PlaceOperation8</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">custom</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_custom_x</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_y</span> <span class="o">==</span> <span class="n">PlaceOperation8</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">scale</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_scale_y</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_y</span> <span class="o">==</span> <span class="n">PlaceOperation8</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">custom</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_custom_y</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">designwidget</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">itemSelectionChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loadoperations</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">designwidget</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">designwidget</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">subdesign</span><span class="p">:</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">setSelected</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sketchwidget</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sketchwidget</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">sketch</span><span class="p">:</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">setSelected</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">loadoperations</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">subopref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="nb">id</span><span class="p">,</span> <span class="n">jj</span> <span class="o">=</span> <span class="n">subopref</span>
+                <span class="k">if</span> <span class="n">subdesign</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">ii</span> <span class="o">=</span> <span class="n">subdesign</span><span class="o">.</span><span class="n">operation_index</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">optree</span><span class="o">.</span><span class="n">selectIndeces</span><span class="p">([(</span><span class="n">ii</span><span class="p">,</span> <span class="n">jj</span><span class="p">)])</span>
+        <span class="k">except</span> <span class="n">NoOperation</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+<div class="viewcode-block" id="Dialog.subdesign"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.Dialog.subdesign">[docs]</a>    <span class="k">def</span> <span class="nf">subdesign</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">designwidget</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="Dialog.sketch"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.Dialog.sketch">[docs]</a>    <span class="k">def</span> <span class="nf">sketch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sketchwidget</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="Dialog.loadoperations"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.Dialog.loadoperations">[docs]</a>    <span class="k">def</span> <span class="nf">loadoperations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">designwidget</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">optree</span><span class="o">.</span><span class="n">linklist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subdesign</span><span class="p">()</span><span class="o">.</span><span class="n">operations</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Dialog.acceptdata"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.Dialog.acceptdata">[docs]</a>    <span class="k">def</span> <span class="nf">acceptdata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_scale_x</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="n">transformtype_x</span> <span class="o">=</span> <span class="n">PlaceOperation8</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">scale</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_custom_x</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="n">transformtype_x</span> <span class="o">=</span> <span class="n">PlaceOperation8</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">custom</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_scale_y</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="n">transformtype_y</span> <span class="o">=</span> <span class="n">PlaceOperation8</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">scale</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">radiobox_custom_y</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="n">transformtype_y</span> <span class="o">=</span> <span class="n">PlaceOperation8</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">custom</span>
+
+        <span class="n">ii</span><span class="p">,</span> <span class="n">jj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optree</span><span class="o">.</span><span class="n">currentIndeces2</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">subopid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subdesign</span><span class="p">()</span><span class="o">.</span><span class="n">operations</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">subopref</span> <span class="o">=</span> <span class="n">subopid</span><span class="p">,</span> <span class="n">jj</span>
+        <span class="n">sketch_links</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;place&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sketch</span><span class="p">()</span><span class="o">.</span><span class="n">id</span><span class="p">]}</span>
+        <span class="n">design_links</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;subdesign&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">subdesign</span><span class="p">()</span><span class="o">.</span><span class="n">id</span><span class="p">]}</span>
+        <span class="k">return</span> <span class="n">sketch_links</span><span class="p">,</span> <span class="n">design_links</span><span class="p">,</span> <span class="n">subopref</span><span class="p">,</span> <span class="n">transformtype_x</span><span class="p">,</span> <span class="n">transformtype_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sb</span><span class="o">.</span><span class="n">value</span><span class="p">(</span>
+        <span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="o">.</span><span class="n">isChecked</span><span class="p">(),</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scalex</span><span class="o">.</span><span class="n">text</span><span class="p">()),</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scaley</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+
+</div></div>
+<div class="viewcode-block" id="PlaceOperation8"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.PlaceOperation8">[docs]</a><span class="k">class</span> <span class="nc">PlaceOperation8</span><span class="p">(</span><span class="n">Operation2</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;PlaceOp&#39;</span>
+    <span class="n">transformtypes</span> <span class="o">=</span> <span class="n">enum</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="s">&#39;scale&#39;</span><span class="p">,</span> <span class="n">custom</span><span class="o">=</span><span class="s">&#39;custom&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PlaceOperation8.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.PlaceOperation8.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="n">PlaceOperation8</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">design_links</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subopref</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_x</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_y</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scalex</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scaley</span><span class="p">)</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">customname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">customname</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="PlaceOperation8.upgrade_special"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.PlaceOperation8.upgrade_special">[docs]</a>    <span class="k">def</span> <span class="nf">upgrade_special</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">design</span><span class="p">):</span>
+        <span class="n">subdesign</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">subdesigns</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">design_links</span><span class="p">[</span><span class="s">&#39;subdesign&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">sub_sketch_id</span> <span class="o">=</span> <span class="n">subdesign</span><span class="o">.</span><span class="n">findlocatesketch_id</span><span class="p">()</span>
+        <span class="kn">from</span> <span class="nn">popupcad.manufacturing.transform_external</span> <span class="kn">import</span> <span class="n">TransformExternal</span>
+        <span class="n">sketch_links</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">sketch_links</span><span class="p">[</span><span class="s">&#39;sketch_to&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="p">[</span><span class="s">&#39;place&#39;</span><span class="p">]</span>        
+        <span class="n">new</span> <span class="o">=</span> <span class="n">TransformExternal</span><span class="p">(</span>
+            <span class="n">sketch_links</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">design_links</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subopref</span><span class="p">,</span>
+            <span class="n">sub_sketch_id</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_x</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_y</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scalex</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scaley</span><span class="p">)</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">customname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">customname</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PlaceOperation8</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">editdata</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PlaceOperation8.editdata"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.PlaceOperation8.editdata">[docs]</a>    <span class="k">def</span> <span class="nf">editdata</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">sketch_links</span><span class="p">,</span>
+            <span class="n">design_links</span><span class="p">,</span>
+            <span class="n">subopref</span><span class="p">,</span>
+            <span class="n">transformtype_x</span><span class="p">,</span>
+            <span class="n">transformtype_y</span><span class="p">,</span>
+            <span class="n">shift</span><span class="p">,</span>
+            <span class="n">flip</span><span class="p">,</span>
+            <span class="n">scalex</span><span class="p">,</span>
+            <span class="n">scaley</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PlaceOperation8</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">editdata</span><span class="p">({},</span> <span class="n">sketch_links</span><span class="p">,</span> <span class="n">design_links</span><span class="p">)</span>
+<span class="c">#        self.sketchid = sketchid</span>
+<span class="c">#        self.subdesignid = subdesignid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subopref</span> <span class="o">=</span> <span class="n">subopref</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_x</span> <span class="o">=</span> <span class="n">transformtype_x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_y</span> <span class="o">=</span> <span class="n">transformtype_y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">=</span> <span class="n">shift</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flip</span> <span class="o">=</span> <span class="n">flip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scalex</span> <span class="o">=</span> <span class="n">scalex</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaley</span> <span class="o">=</span> <span class="n">scaley</span>
+</div>
+<div class="viewcode-block" id="PlaceOperation8.operate"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.PlaceOperation8.operate">[docs]</a>    <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
+        <span class="n">subdesign</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">subdesigns</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">design_links</span><span class="p">[</span><span class="s">&#39;subdesign&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+
+        <span class="n">sketch_to_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="p">[</span><span class="s">&#39;place&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sketch_to</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="n">sketch_to_id</span><span class="p">]</span>
+
+        <span class="n">operation_ref</span><span class="p">,</span> <span class="n">output_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subopref</span>
+        <span class="n">csg_laminate</span> <span class="o">=</span> <span class="n">subdesign</span><span class="o">.</span><span class="n">operations</span><span class="p">[</span><span class="n">subdesign</span><span class="o">.</span><span class="n">operation_index</span><span class="p">(</span><span class="n">operation_ref</span><span class="p">)]</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">output_index</span><span class="p">]</span><span class="o">.</span><span class="n">csg</span>
+
+        <span class="n">geom_from</span> <span class="o">=</span> <span class="n">subdesign</span><span class="o">.</span><span class="n">findlocateline</span><span class="p">()</span>
+
+        <span class="n">geoms_to</span> <span class="o">=</span> <span class="p">[</span><span class="n">geom</span> <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">sketch_to</span><span class="o">.</span><span class="n">operationgeometry</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">geom</span><span class="o">.</span><span class="n">is_construction</span><span class="p">()]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_x</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">scale</span><span class="p">:</span>
+            <span class="n">scale_x</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_x</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">custom</span><span class="p">:</span>
+            <span class="n">scale_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalex</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_y</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">scale</span><span class="p">:</span>
+            <span class="n">scale_y</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformtype_y</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformtypes</span><span class="o">.</span><span class="n">custom</span><span class="p">:</span>
+            <span class="n">scale_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaley</span>
+
+        <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">:</span>
+            <span class="n">step</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">outshift</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift</span>
+            <span class="n">inshift</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">outshift</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">inshift</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">shift</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">outshift</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">inshift</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">layerdef_from</span> <span class="o">=</span> <span class="n">subdesign</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">()</span>
+        <span class="n">layerdef_to</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">manufacturing_functions</span><span class="o">.</span><span class="n">transform_csg</span><span class="p">(</span><span class="n">layerdef_from</span><span class="p">,</span><span class="n">layerdef_to</span><span class="p">,</span><span class="n">inshift</span><span class="p">,</span><span class="n">outshift</span><span class="p">,</span><span class="n">step</span><span class="p">,</span><span class="n">geom_from</span><span class="p">,</span><span class="n">geoms_to</span><span class="p">,</span><span class="n">csg_laminate</span><span class="p">,</span><span class="n">scale_x</span><span class="p">,</span><span class="n">scale_y</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="PlaceOperation8.fromQTransform"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.PlaceOperation8.fromQTransform">[docs]</a>    <span class="k">def</span> <span class="nf">fromQTransform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tin</span><span class="p">):</span>
+        <span class="n">tout</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">tin</span><span class="o">.</span><span class="n">m11</span><span class="p">(),</span> <span class="n">tin</span><span class="o">.</span><span class="n">m12</span><span class="p">(),</span> <span class="n">tin</span><span class="o">.</span><span class="n">m13</span><span class="p">()],</span> <span class="p">[</span>
+                           <span class="n">tin</span><span class="o">.</span><span class="n">m21</span><span class="p">(),</span> <span class="n">tin</span><span class="o">.</span><span class="n">m22</span><span class="p">(),</span> <span class="n">tin</span><span class="o">.</span><span class="n">m23</span><span class="p">()],</span> <span class="p">[</span><span class="n">tin</span><span class="o">.</span><span class="n">m31</span><span class="p">(),</span> <span class="n">tin</span><span class="o">.</span><span class="n">m32</span><span class="p">(),</span> <span class="n">tin</span><span class="o">.</span><span class="n">m33</span><span class="p">()]])</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">return</span> <span class="n">tout</span>
+</div>
+<div class="viewcode-block" id="PlaceOperation8.toQTransform"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.PlaceOperation8.toQTransform">[docs]</a>    <span class="k">def</span> <span class="nf">toQTransform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tin</span><span class="p">):</span>
+        <span class="n">tout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QTransform</span><span class="p">(</span>
+            <span class="n">tin</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">tin</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span>
+            <span class="n">tin</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span>
+            <span class="n">tin</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">tin</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span>
+            <span class="n">tin</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span>
+            <span class="n">tin</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">tin</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span>
+            <span class="n">tin</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">tout</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PlaceOperation8.buildnewdialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.PlaceOperation8.buildnewdialog">[docs]</a>    <span class="k">def</span> <span class="nf">buildnewdialog</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">currentop</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">Dialog</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dialog</span>
+</div>
+<div class="viewcode-block" id="PlaceOperation8.buildeditdialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.placeop8.PlaceOperation8.buildeditdialog">[docs]</a>    <span class="k">def</span> <span class="nf">buildeditdialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
+        <span class="n">sketch</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="p">[</span><span class="s">&#39;place&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">subdesign</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">subdesigns</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">design_links</span><span class="p">[</span><span class="s">&#39;subdesign&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">Dialog</span><span class="p">(</span>
+            <span class="n">design</span><span class="p">,</span>
+            <span class="n">design</span><span class="o">.</span><span class="n">prioroperations</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+            <span class="n">sketch</span><span class="o">=</span><span class="n">sketch</span><span class="p">,</span>
+            <span class="n">subdesign</span><span class="o">=</span><span class="n">subdesign</span><span class="p">,</span>
+            <span class="n">subopref</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">subopref</span><span class="p">,</span>
+            <span class="n">transformtype_x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">transformtype_x</span><span class="p">,</span>
+            <span class="n">transformtype_y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">transformtype_y</span><span class="p">,</span>
+            <span class="n">shift</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span>
+            <span class="n">flip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">flip</span><span class="p">,</span>
+            <span class="n">scalex</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scalex</span><span class="p">,</span>
+            <span class="n">scaley</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scaley</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dialog</span></div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

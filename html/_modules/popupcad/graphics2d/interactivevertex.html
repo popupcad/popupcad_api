@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.graphics2d.interactivevertex &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.graphics2d.interactivevertex</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="c">#import popupcad.graphics2d.modes as modes</span>
+<span class="c">#from popupcad.graphics2d.graphicsitems import Common</span>
+<span class="kn">from</span> <span class="nn">popupcad.graphics2d.interactivevertexbase</span> <span class="kn">import</span> <span class="n">InteractiveVertexBase</span>
+
+
+<div class="viewcode-block" id="InteractiveVertex"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.InteractiveVertex">[docs]</a><span class="k">class</span> <span class="nc">InteractiveVertex</span><span class="p">(</span><span class="n">InteractiveVertexBase</span><span class="p">):</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">z_below</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">z_above</span> <span class="o">=</span> <span class="mi">105</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">InteractiveVertex</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span> <span class="o">=</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="InteractiveVertex.setconnection"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.InteractiveVertex.setconnection">[docs]</a>    <span class="k">def</span> <span class="nf">setconnection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connectedinteractive</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span> <span class="o">=</span> <span class="n">connectedinteractive</span>
+</div>
+<div class="viewcode-block" id="InteractiveVertex.hoverEnterEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.InteractiveVertex.hoverEnterEvent">[docs]</a>    <span class="k">def</span> <span class="nf">hoverEnterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsEllipseItem</span><span class="o">.</span><span class="n">hoverEnterEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setZValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z_above</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatestate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_hover</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="InteractiveVertex.hoverLeaveEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.InteractiveVertex.hoverLeaveEvent">[docs]</a>    <span class="k">def</span> <span class="nf">hoverLeaveEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsEllipseItem</span><span class="o">.</span><span class="n">hoverLeaveEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setZValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z_below</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updatestate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_neutral</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="InteractiveVertex.mouseMoveEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.InteractiveVertex.mouseMoveEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseMoveEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span><span class="o">.</span><span class="n">mode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span><span class="o">.</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_edit</span><span class="p">:</span>
+                <span class="nb">super</span><span class="p">(</span><span class="n">InteractiveVertex</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mouseMoveEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="InteractiveVertex.mousePressEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.InteractiveVertex.mousePressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mousePressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">remove</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">KeyboardModifierMask</span><span class="o">.</span><span class="n">ControlModifier</span><span class="p">))</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span>
+                <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">KeyboardModifierMask</span><span class="o">.</span><span class="n">ShiftModifier</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">remove</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span><span class="o">.</span><span class="n">removevertex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">removefromscene</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">InteractiveVertex</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mousePressEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="InteractiveShapeVertex"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.InteractiveShapeVertex">[docs]</a><span class="k">class</span> <span class="nc">InteractiveShapeVertex</span><span class="p">(</span><span class="n">InteractiveVertex</span><span class="p">):</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">z_below</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">z_above</span> <span class="o">=</span> <span class="mi">105</span>
+
+</div>
+<div class="viewcode-block" id="ReferenceInteractiveVertex"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.ReferenceInteractiveVertex">[docs]</a><span class="k">class</span> <span class="nc">ReferenceInteractiveVertex</span><span class="p">(</span><span class="n">InteractiveVertex</span><span class="p">):</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">z_below</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">z_above</span> <span class="o">=</span> <span class="mi">105</span>
+
+</div>
+<div class="viewcode-block" id="DrawingPoint"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.DrawingPoint">[docs]</a><span class="k">class</span> <span class="nc">DrawingPoint</span><span class="p">(</span><span class="n">InteractiveVertexBase</span><span class="p">):</span>
+    <span class="n">isDeletable</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">z_below</span> <span class="o">=</span> <span class="mi">101</span>
+    <span class="n">z_above</span> <span class="o">=</span> <span class="mi">105</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DrawingPoint</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DrawingPoint.refreshview"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.DrawingPoint.refreshview">[docs]</a>    <span class="k">def</span> <span class="nf">refreshview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="DrawingPoint.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.DrawingPoint.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">genericcopy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_generic</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">genericcopy</span><span class="o">.</span><span class="n">outputinteractive</span><span class="p">()</span>
+
+</div></div>
+<div class="viewcode-block" id="StaticDrawingPoint"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.StaticDrawingPoint">[docs]</a><span class="k">class</span> <span class="nc">StaticDrawingPoint</span><span class="p">(</span><span class="n">InteractiveVertexBase</span><span class="p">):</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">z_below</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">z_above</span> <span class="o">=</span> <span class="mi">105</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StaticDrawingPoint</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="StaticDrawingPoint.refreshview"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.StaticDrawingPoint.refreshview">[docs]</a>    <span class="k">def</span> <span class="nf">refreshview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

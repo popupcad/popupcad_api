@@ -1,0 +1,1868 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.widgets package &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="popupcad-widgets-package">
+<h1>popupcad.widgets package<a class="headerlink" href="#popupcad-widgets-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-popupcad.widgets.dragndroplist">
+<span id="popupcad-widgets-dragndroplist-module"></span><h2>popupcad.widgets.dragndroplist module<a class="headerlink" href="#module-popupcad.widgets.dragndroplist" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.dragndroplist.DirectedDraggableListWidget">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.dragndroplist.</code><code class="descname">DirectedDraggableListWidget</code><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DirectedDraggableListWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DirectedDraggableListWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.dragndroplist.DraggableListWidget" title="popupcad.widgets.dragndroplist.DraggableListWidget"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.dragndroplist.DraggableListWidget</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DirectedDraggableListWidget.rowsMovedCheck">
+<code class="descname">rowsMovedCheck</code><span class="sig-paren">(</span><em>sourceindex</em>, <em>rowstart</em>, <em>rowend</em>, <em>destindex</em>, <em>deststart</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DirectedDraggableListWidget.rowsMovedCheck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DirectedDraggableListWidget.rowsMovedCheck" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DirectedDraggableListWidget.set_tree_generator">
+<code class="descname">set_tree_generator</code><span class="sig-paren">(</span><em>generator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DirectedDraggableListWidget.set_tree_generator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DirectedDraggableListWidget.set_tree_generator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.dragndroplist.DirectedDraggableListWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094756C8&gt;</em><a class="headerlink" href="#popupcad.widgets.dragndroplist.DirectedDraggableListWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.dragndroplist.DraggableDirectedItem">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.dragndroplist.</code><code class="descname">DraggableDirectedItem</code><span class="sig-paren">(</span><em>data</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableDirectedItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableDirectedItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.dragndroplist.DraggableItem" title="popupcad.widgets.dragndroplist.DraggableItem"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.dragndroplist.DraggableItem</span></code></a>, <a class="reference internal" href="../dev_tools/dev_tools.html#dev_tools.acyclicdirectedgraph.Node" title="dev_tools.acyclicdirectedgraph.Node"><code class="xref py py-class docutils literal"><span class="pre">dev_tools.acyclicdirectedgraph.Node</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.dragndroplist.DraggableItem">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.dragndroplist.</code><code class="descname">DraggableItem</code><span class="sig-paren">(</span><em>data</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QListWidgetItem</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DraggableItem.clone">
+<code class="descname">clone</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableItem.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableItem.clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DraggableItem.data">
+<code class="descname">data</code><span class="sig-paren">(</span><em>role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableItem.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableItem.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DraggableItem.setData">
+<code class="descname">setData</code><span class="sig-paren">(</span><em>role</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableItem.setData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableItem.setData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DraggableItem.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableItem.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableItem.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.dragndroplist.DraggableListWidget">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.dragndroplist.</code><code class="descname">DraggableListWidget</code><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableListWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableListWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QListWidget</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DraggableListWidget.addData">
+<code class="descname">addData</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableListWidget.addData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableListWidget.addData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DraggableListWidget.allData">
+<code class="descname">allData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableListWidget.allData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableListWidget.allData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DraggableListWidget.allItems">
+<code class="descname">allItems</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableListWidget.allItems"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableListWidget.allItems" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DraggableListWidget.itemDoubleClicked">
+<code class="descname">itemDoubleClicked</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableListWidget.itemDoubleClicked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableListWidget.itemDoubleClicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DraggableListWidget.keyPressEvent">
+<code class="descname">keyPressEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableListWidget.keyPressEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableListWidget.keyPressEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DraggableListWidget.linklist">
+<code class="descname">linklist</code><span class="sig-paren">(</span><em>masterlist</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableListWidget.linklist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableListWidget.linklist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DraggableListWidget.refresh">
+<code class="descname">refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableListWidget.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableListWidget.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroplist.DraggableListWidget.refreshmaster">
+<code class="descname">refreshmaster</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#DraggableListWidget.refreshmaster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableListWidget.refreshmaster" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.dragndroplist.DraggableListWidget.signal_edit">
+<code class="descname">signal_edit</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x00000000094764C8&gt;</em><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableListWidget.signal_edit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.dragndroplist.DraggableListWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object&gt;</em><a class="headerlink" href="#popupcad.widgets.dragndroplist.DraggableListWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="popupcad.widgets.dragndroplist.edituserdata">
+<code class="descclassname">popupcad.widgets.dragndroplist.</code><code class="descname">edituserdata</code><span class="sig-paren">(</span><em>userdata</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#edituserdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.edituserdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="popupcad.widgets.dragndroplist.rowchange">
+<code class="descclassname">popupcad.widgets.dragndroplist.</code><code class="descname">rowchange</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroplist.html#rowchange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroplist.rowchange" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.dragndroptree">
+<span id="popupcad-widgets-dragndroptree-module"></span><h2>popupcad.widgets.dragndroptree module<a class="headerlink" href="#module-popupcad.widgets.dragndroptree" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.dragndroptree.ChildItem">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.dragndroptree.</code><code class="descname">ChildItem</code><span class="sig-paren">(</span><em>parent</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#ChildItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.ChildItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.dragndroptree.TreeItem" title="popupcad.widgets.dragndroptree.TreeItem"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.dragndroptree.TreeItem</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.dragndroptree.</code><code class="descname">DirectedDraggableTreeWidget</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DirectedDraggableTreeWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget" title="popupcad.widgets.dragndroptree.DraggableTreeWidget"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.dragndroptree.DraggableTreeWidget</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.deleteCurrent">
+<code class="descname">deleteCurrent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DirectedDraggableTreeWidget.deleteCurrent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.deleteCurrent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.delete_indeces">
+<code class="descname">delete_indeces</code><span class="sig-paren">(</span><em>indeces</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DirectedDraggableTreeWidget.delete_indeces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.delete_indeces" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.disable">
+<code class="descname">disable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DirectedDraggableTreeWidget.disable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.disable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.enable">
+<code class="descname">enable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DirectedDraggableTreeWidget.enable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.enable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.linklist">
+<code class="descname">linklist</code><span class="sig-paren">(</span><em>masterlist</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DirectedDraggableTreeWidget.linklist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.linklist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.myRowsInserted">
+<code class="descname">myRowsInserted</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DirectedDraggableTreeWidget.myRowsInserted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.myRowsInserted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.onCustomContextMenu">
+<code class="descname">onCustomContextMenu</code><span class="sig-paren">(</span><em>point</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DirectedDraggableTreeWidget.onCustomContextMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.onCustomContextMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.set_get_design">
+<code class="descname">set_get_design</code><span class="sig-paren">(</span><em>get_design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DirectedDraggableTreeWidget.set_get_design"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.set_get_design" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.set_main_image">
+<code class="descname">set_main_image</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DirectedDraggableTreeWidget.set_main_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.set_main_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.set_tree_generator">
+<code class="descname">set_tree_generator</code><span class="sig-paren">(</span><em>generator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DirectedDraggableTreeWidget.set_tree_generator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.set_tree_generator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.show_children">
+<code class="descname">show_children</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DirectedDraggableTreeWidget.show_children"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.show_children" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.show_parents">
+<code class="descname">show_parents</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DirectedDraggableTreeWidget.show_parents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.show_parents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x000000000947BE88&gt;</em><a class="headerlink" href="#popupcad.widgets.dragndroptree.DirectedDraggableTreeWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.dragndroptree.</code><code class="descname">DraggableTreeWidget</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QTreeWidget</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.allData">
+<code class="descname">allData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.allData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.allData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.currentIndeces">
+<code class="descname">currentIndeces</code><span class="sig-paren">(</span><em>ii=-1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.currentIndeces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.currentIndeces" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.currentIndeces2">
+<code class="descname">currentIndeces2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.currentIndeces2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.currentIndeces2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.currentOperationOutputIndex">
+<code class="descname">currentOperationOutputIndex</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.currentOperationOutputIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.currentOperationOutputIndex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.currentRefs">
+<code class="descname">currentRefs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.currentRefs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.currentRefs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.currentRow">
+<code class="descname">currentRow</code><span class="sig-paren">(</span><em>ii=-1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.currentRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.currentRow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.currentRowChanged">
+<code class="descname">currentRowChanged</code><em class="property"> = &lt;PySide.QtCore.Signal object&gt;</em><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.currentRowChanged" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.currentValidIndex">
+<code class="descname">currentValidIndex</code><span class="sig-paren">(</span><em>ii=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.currentValidIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.currentValidIndex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.deleteCurrent">
+<code class="descname">deleteCurrent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.deleteCurrent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.deleteCurrent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.delete_index">
+<code class="descname">delete_index</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.delete_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.delete_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.disable">
+<code class="descname">disable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.disable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.disable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.enable">
+<code class="descname">enable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.enable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.enable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.itemDoubleClicked">
+<code class="descname">itemDoubleClicked</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.itemDoubleClicked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.itemDoubleClicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.keyPressEvent">
+<code class="descname">keyPressEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.keyPressEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.keyPressEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.linklist">
+<code class="descname">linklist</code><span class="sig-paren">(</span><em>masterlist</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.linklist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.linklist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.myItemChanged">
+<code class="descname">myItemChanged</code><span class="sig-paren">(</span><em>current</em>, <em>previous</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.myItemChanged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.myItemChanged" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.myRowsInserted">
+<code class="descname">myRowsInserted</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.myRowsInserted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.myRowsInserted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.parent_index">
+<code class="descname">parent_index</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.parent_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.parent_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.refresh">
+<code class="descname">refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.refreshmaster">
+<code class="descname">refreshmaster</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.refreshmaster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.refreshmaster" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.selectIndeces">
+<code class="descname">selectIndeces</code><span class="sig-paren">(</span><em>indeces</em>, <em>clear=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#DraggableTreeWidget.selectIndeces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.selectIndeces" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.signal_edit">
+<code class="descname">signal_edit</code><em class="property"> = &lt;PySide.QtCore.Signal object&gt;</em><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.signal_edit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.dragndroptree.DraggableTreeWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x000000000947BDC8&gt;</em><a class="headerlink" href="#popupcad.widgets.dragndroptree.DraggableTreeWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="popupcad.widgets.dragndroptree.NotValid">
+<em class="property">exception </em><code class="descclassname">popupcad.widgets.dragndroptree.</code><code class="descname">NotValid</code><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#NotValid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.NotValid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.dragndroptree.ParentItem">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.dragndroptree.</code><code class="descname">ParentItem</code><span class="sig-paren">(</span><em>parent</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#ParentItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.ParentItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.dragndroptree.TreeItem" title="popupcad.widgets.dragndroptree.TreeItem"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.dragndroptree.TreeItem</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.dragndroptree.TreeItem">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.dragndroptree.</code><code class="descname">TreeItem</code><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#TreeItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.TreeItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QTreeWidgetItem</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.TreeItem.data">
+<code class="descname">data</code><span class="sig-paren">(</span><em>column</em>, <em>role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#TreeItem.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.TreeItem.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.dragndroptree.TreeItem.setData">
+<code class="descname">setData</code><span class="sig-paren">(</span><em>column</em>, <em>role</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#TreeItem.setData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.TreeItem.setData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="popupcad.widgets.dragndroptree.debugprint">
+<code class="descclassname">popupcad.widgets.dragndroptree.</code><code class="descname">debugprint</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/dragndroptree.html#debugprint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.dragndroptree.debugprint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.errorlog">
+<span id="popupcad-widgets-errorlog-module"></span><h2>popupcad.widgets.errorlog module<a class="headerlink" href="#module-popupcad.widgets.errorlog" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.errorlog.ErrorLog">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.errorlog.</code><code class="descname">ErrorLog</code><a class="reference internal" href="../_modules/popupcad/widgets/errorlog.html#ErrorLog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.errorlog.ErrorLog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QWidget</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.errorlog.ErrorLog.appendText">
+<code class="descname">appendText</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/errorlog.html#ErrorLog.appendText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.errorlog.ErrorLog.appendText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.errorlog.ErrorLog.sizeHint">
+<code class="descname">sizeHint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/errorlog.html#ErrorLog.sizeHint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.errorlog.ErrorLog.sizeHint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.errorlog.ErrorLog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000009470AC8&gt;</em><a class="headerlink" href="#popupcad.widgets.errorlog.ErrorLog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.listeditor">
+<span id="popupcad-widgets-listeditor-module"></span><h2>popupcad.widgets.listeditor module<a class="headerlink" href="#module-popupcad.widgets.listeditor" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.listeditor.ListBase">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.listeditor.</code><code class="descname">ListBase</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listeditor.html#ListBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listeditor.ListBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QListWidget</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.listeditor.ListBase.add_item">
+<code class="descname">add_item</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listeditor.html#ListBase.add_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listeditor.ListBase.add_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listeditor.ListBase.customadditems">
+<code class="descname">customadditems</code><span class="sig-paren">(</span><em>items</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listeditor.html#ListBase.customadditems"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listeditor.ListBase.customadditems" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listeditor.ListBase.itemDoubleClicked_method">
+<code class="descname">itemDoubleClicked_method</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listeditor.html#ListBase.itemDoubleClicked_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listeditor.ListBase.itemDoubleClicked_method" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listeditor.ListBase.linklist">
+<code class="descname">linklist</code><span class="sig-paren">(</span><em>listin</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listeditor.html#ListBase.linklist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listeditor.ListBase.linklist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listeditor.ListBase.refresh">
+<code class="descname">refresh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listeditor.html#ListBase.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listeditor.ListBase.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listeditor.ListBase.removeitem">
+<code class="descname">removeitem</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listeditor.html#ListBase.removeitem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listeditor.ListBase.removeitem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listeditor.ListBase.selectItems">
+<code class="descname">selectItems</code><span class="sig-paren">(</span><em>items</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listeditor.html#ListBase.selectItems"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listeditor.ListBase.selectItems" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listeditor.ListBase.selectedData">
+<code class="descname">selectedData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listeditor.html#ListBase.selectedData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listeditor.ListBase.selectedData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.listeditor.ListBase.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object&gt;</em><a class="headerlink" href="#popupcad.widgets.listeditor.ListBase.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.listeditor.ListEditor">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.listeditor.</code><code class="descname">ListEditor</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listeditor.html#ListEditor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listeditor.ListEditor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.listeditor.ListBase" title="popupcad.widgets.listeditor.ListBase"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.listeditor.ListBase</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.widgets.listeditor.ListEditor.itemdeleted">
+<code class="descname">itemdeleted</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x00000000094711B8&gt;</em><a class="headerlink" href="#popupcad.widgets.listeditor.ListEditor.itemdeleted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listeditor.ListEditor.keyPressEvent">
+<code class="descname">keyPressEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listeditor.html#ListEditor.keyPressEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listeditor.ListEditor.keyPressEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.listeditor.ListEditor.signal_edit">
+<code class="descname">signal_edit</code><em class="property"> = &lt;PySide.QtCore.Signal object&gt;</em><a class="headerlink" href="#popupcad.widgets.listeditor.ListEditor.signal_edit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.listeditor.ListEditor.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object&gt;</em><a class="headerlink" href="#popupcad.widgets.listeditor.ListEditor.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.listeditor.ListSelector">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.listeditor.</code><code class="descname">ListSelector</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listeditor.html#ListSelector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listeditor.ListSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.listeditor.ListBase" title="popupcad.widgets.listeditor.ListBase"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.listeditor.ListBase</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.widgets.listeditor.ListSelector.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object&gt;</em><a class="headerlink" href="#popupcad.widgets.listeditor.ListSelector.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.listmanager">
+<span id="popupcad-widgets-listmanager-module"></span><h2>popupcad.widgets.listmanager module<a class="headerlink" href="#module-popupcad.widgets.listmanager" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.listmanager.AdvancedDesignListManager">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.listmanager.</code><code class="descname">AdvancedDesignListManager</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#AdvancedDesignListManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.AdvancedDesignListManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.listmanager.DesignListManager" title="popupcad.widgets.listmanager.DesignListManager"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.listmanager.DesignListManager</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.AdvancedDesignListManager.cleanup">
+<code class="descname">cleanup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#AdvancedDesignListManager.cleanup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.AdvancedDesignListManager.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.listmanager.AdvancedDesignListManager.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000009486D08&gt;</em><a class="headerlink" href="#popupcad.widgets.listmanager.AdvancedDesignListManager.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.AdvancedDesignListManager.widgets">
+<code class="descname">widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#AdvancedDesignListManager.widgets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.AdvancedDesignListManager.widgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.listmanager.AdvancedSketchListManager">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.listmanager.</code><code class="descname">AdvancedSketchListManager</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#AdvancedSketchListManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.AdvancedSketchListManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.listmanager.SketchListManager" title="popupcad.widgets.listmanager.SketchListManager"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.listmanager.SketchListManager</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.AdvancedSketchListManager.cleanup">
+<code class="descname">cleanup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#AdvancedSketchListManager.cleanup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.AdvancedSketchListManager.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.listmanager.AdvancedSketchListManager.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000009486BC8&gt;</em><a class="headerlink" href="#popupcad.widgets.listmanager.AdvancedSketchListManager.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.AdvancedSketchListManager.widgets">
+<code class="descname">widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#AdvancedSketchListManager.widgets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.AdvancedSketchListManager.widgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.listmanager.DesignListManager">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.listmanager.</code><code class="descname">DesignListManager</code><span class="sig-paren">(</span><em>design</em>, <em>name='Sketch'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#DesignListManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.DesignListManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.listmanager.ListManager" title="popupcad.widgets.listmanager.ListManager"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.listmanager.ListManager</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.DesignListManager.load_item">
+<code class="descname">load_item</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#DesignListManager.load_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.DesignListManager.load_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.listmanager.DesignListManager.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000009486C48&gt;</em><a class="headerlink" href="#popupcad.widgets.listmanager.DesignListManager.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.DesignListManager.widgets">
+<code class="descname">widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#DesignListManager.widgets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.DesignListManager.widgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.listmanager.Dummy">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.listmanager.</code><code class="descname">Dummy</code><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#Dummy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.Dummy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.listmanager.ListItem">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.listmanager.</code><code class="descname">ListItem</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QListWidgetItem</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.ListItem.data">
+<code class="descname">data</code><span class="sig-paren">(</span><em>role</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListItem.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListItem.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.ListItem.setData">
+<code class="descname">setData</code><span class="sig-paren">(</span><em>role</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListItem.setData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListItem.setData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.listmanager.ListManager">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.listmanager.</code><code class="descname">ListManager</code><span class="sig-paren">(</span><em>items</em>, <em>parent=None</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QWidget</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.ListManager.buildButtonItem">
+<code class="descname">buildButtonItem</code><span class="sig-paren">(</span><em>name</em>, <em>method</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListManager.buildButtonItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListManager.buildButtonItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.ListManager.clear_selected">
+<code class="descname">clear_selected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListManager.clear_selected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListManager.clear_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.ListManager.copy_item">
+<code class="descname">copy_item</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListManager.copy_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListManager.copy_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.ListManager.itemDoubleClicked">
+<code class="descname">itemDoubleClicked</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListManager.itemDoubleClicked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListManager.itemDoubleClicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.listmanager.ListManager.items_updated">
+<code class="descname">items_updated</code><em class="property"> = &lt;PySide.QtCore.Signal object&gt;</em><a class="headerlink" href="#popupcad.widgets.listmanager.ListManager.items_updated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.ListManager.refresh_list">
+<code class="descname">refresh_list</code><span class="sig-paren">(</span><em>selected_item=None</em>, <em>retain_selection=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListManager.refresh_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListManager.refresh_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.ListManager.remove_item">
+<code class="descname">remove_item</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListManager.remove_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListManager.remove_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.ListManager.save_item">
+<code class="descname">save_item</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListManager.save_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListManager.save_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.ListManager.selected_items">
+<code class="descname">selected_items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListManager.selected_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListManager.selected_items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.listmanager.ListManager.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object&gt;</em><a class="headerlink" href="#popupcad.widgets.listmanager.ListManager.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.ListManager.update_list">
+<code class="descname">update_list</code><span class="sig-paren">(</span><em>new_items</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListManager.update_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListManager.update_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.ListManager.widgets">
+<code class="descname">widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#ListManager.widgets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.ListManager.widgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.listmanager.SketchListManager">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.listmanager.</code><code class="descname">SketchListManager</code><span class="sig-paren">(</span><em>design</em>, <em>name='Sketch'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#SketchListManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.SketchListManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.listmanager.ListManager" title="popupcad.widgets.listmanager.ListManager"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.listmanager.ListManager</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.SketchListManager.edit_method">
+<code class="descname">edit_method</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#SketchListManager.edit_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.SketchListManager.edit_method" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.SketchListManager.load_item">
+<code class="descname">load_item</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#SketchListManager.load_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.SketchListManager.load_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.SketchListManager.new_method">
+<code class="descname">new_method</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#SketchListManager.new_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.SketchListManager.new_method" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.listmanager.SketchListManager.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000009486B08&gt;</em><a class="headerlink" href="#popupcad.widgets.listmanager.SketchListManager.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.listmanager.SketchListManager.widgets">
+<code class="descname">widgets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/listmanager.html#SketchListManager.widgets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.listmanager.SketchListManager.widgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.materialselection">
+<span id="popupcad-widgets-materialselection-module"></span><h2>popupcad.widgets.materialselection module<a class="headerlink" href="#module-popupcad.widgets.materialselection" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.materialselection.ClassItem">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.materialselection.</code><code class="descname">ClassItem</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/materialselection.html#ClassItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.materialselection.ClassItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QListWidgetItem</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.materialselection.ClassItem.getClass">
+<code class="descname">getClass</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/materialselection.html#ClassItem.getClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.materialselection.ClassItem.getClass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.materialselection.ClassItem.setClass">
+<code class="descname">setClass</code><span class="sig-paren">(</span><em>class1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/materialselection.html#ClassItem.setClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.materialselection.ClassItem.setClass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.materialselection.MaterialSelection">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.materialselection.</code><code class="descname">MaterialSelection</code><span class="sig-paren">(</span><em>initialleft</em>, <em>initialright</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/materialselection.html#MaterialSelection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.materialselection.MaterialSelection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.materialselection.MaterialSelection.add_item">
+<code class="descname">add_item</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/materialselection.html#MaterialSelection.add_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.materialselection.MaterialSelection.add_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.materialselection.MaterialSelection.initialize_left">
+<code class="descname">initialize_left</code><span class="sig-paren">(</span><em>items</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/materialselection.html#MaterialSelection.initialize_left"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.materialselection.MaterialSelection.initialize_left" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.materialselection.MaterialSelection.initialize_right">
+<code class="descname">initialize_right</code><span class="sig-paren">(</span><em>items</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/materialselection.html#MaterialSelection.initialize_right"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.materialselection.MaterialSelection.initialize_right" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.materialselection.MaterialSelection.remove_item">
+<code class="descname">remove_item</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/materialselection.html#MaterialSelection.remove_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.materialselection.MaterialSelection.remove_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.materialselection.MaterialSelection.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object&gt;</em><a class="headerlink" href="#popupcad.widgets.materialselection.MaterialSelection.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.materialselection.MaterialSelection.update_left">
+<code class="descname">update_left</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/materialselection.html#MaterialSelection.update_left"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.materialselection.MaterialSelection.update_left" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.materialselection2">
+<span id="popupcad-widgets-materialselection2-module"></span><h2>popupcad.widgets.materialselection2 module<a class="headerlink" href="#module-popupcad.widgets.materialselection2" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.materialselection2.AvailableMaterials">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.materialselection2.</code><code class="descname">AvailableMaterials</code><a class="reference internal" href="../_modules/popupcad/widgets/materialselection2.html#AvailableMaterials"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.materialselection2.AvailableMaterials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.dragndroplist.DraggableListWidget" title="popupcad.widgets.dragndroplist.DraggableListWidget"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.dragndroplist.DraggableListWidget</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.widgets.materialselection2.AvailableMaterials.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000009486FC8&gt;</em><a class="headerlink" href="#popupcad.widgets.materialselection2.AvailableMaterials.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.materialselection2.CompositeMakeup">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.materialselection2.</code><code class="descname">CompositeMakeup</code><a class="reference internal" href="../_modules/popupcad/widgets/materialselection2.html#CompositeMakeup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.materialselection2.CompositeMakeup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.dragndroplist.DraggableListWidget" title="popupcad.widgets.dragndroplist.DraggableListWidget"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.dragndroplist.DraggableListWidget</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.widgets.materialselection2.CompositeMakeup.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000009486F48&gt;</em><a class="headerlink" href="#popupcad.widgets.materialselection2.CompositeMakeup.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="popupcad.widgets.materialselection2.get_item_names">
+<code class="descclassname">popupcad.widgets.materialselection2.</code><code class="descname">get_item_names</code><span class="sig-paren">(</span><em>widget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/materialselection2.html#get_item_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.materialselection2.get_item_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.operationlist">
+<span id="popupcad-widgets-operationlist-module"></span><h2>popupcad.widgets.operationlist module<a class="headerlink" href="#module-popupcad.widgets.operationlist" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.operationlist.OperationList">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.operationlist.</code><code class="descname">OperationList</code><span class="sig-paren">(</span><em>unaryops</em>, <em>binaryops</em>, <em>text_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationlist.html#OperationList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationlist.OperationList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QWidget</span></code></p>
+<dl class="attribute">
+<dt id="popupcad.widgets.operationlist.OperationList.binary_selected">
+<code class="descname">binary_selected</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x000000000CC07E68&gt;</em><a class="headerlink" href="#popupcad.widgets.operationlist.OperationList.binary_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.operationlist.OperationList.currentIndex">
+<code class="descname">currentIndex</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationlist.html#OperationList.currentIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationlist.OperationList.currentIndex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.operationlist.OperationList.currentText">
+<code class="descname">currentText</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationlist.html#OperationList.currentText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationlist.OperationList.currentText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.operationlist.OperationList.is_binary">
+<code class="descname">is_binary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationlist.html#OperationList.is_binary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationlist.OperationList.is_binary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.operationlist.OperationList.is_unary">
+<code class="descname">is_unary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationlist.html#OperationList.is_unary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationlist.OperationList.is_unary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.operationlist.OperationList.setCurrentIndex">
+<code class="descname">setCurrentIndex</code><span class="sig-paren">(</span><em>ii</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationlist.html#OperationList.setCurrentIndex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationlist.OperationList.setCurrentIndex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.operationlist.OperationList.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x000000000CA68B48&gt;</em><a class="headerlink" href="#popupcad.widgets.operationlist.OperationList.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.operationlist.OperationList.testchange">
+<code class="descname">testchange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationlist.html#OperationList.testchange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationlist.OperationList.testchange" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.operationlist.OperationList.unary_selected">
+<code class="descname">unary_selected</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x000000000C319E30&gt;</em><a class="headerlink" href="#popupcad.widgets.operationlist.OperationList.unary_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.operationnetwork">
+<span id="popupcad-widgets-operationnetwork-module"></span><h2>popupcad.widgets.operationnetwork module<a class="headerlink" href="#module-popupcad.widgets.operationnetwork" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.operationnetwork.GraphView">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.operationnetwork.</code><code class="descname">GraphView</code><span class="sig-paren">(</span><em>name='Name'</em>, <em>title='Title'</em>, <em>graph_title='Graph Title'</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationnetwork.html#GraphView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationnetwork.GraphView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QWidget</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.operationnetwork.GraphView.add_patch">
+<code class="descname">add_patch</code><span class="sig-paren">(</span><em>patch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationnetwork.html#GraphView.add_patch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationnetwork.GraphView.add_patch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.operationnetwork.GraphView.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationnetwork.html#GraphView.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationnetwork.GraphView.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.operationnetwork.GraphView.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationnetwork.html#GraphView.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationnetwork.GraphView.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.operationnetwork.GraphView.plot">
+<code class="descname">plot</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationnetwork.html#GraphView.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationnetwork.GraphView.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.operationnetwork.GraphView.scatter">
+<code class="descname">scatter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationnetwork.html#GraphView.scatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationnetwork.GraphView.scatter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.operationnetwork.GraphView.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x000000000CAC0548&gt;</em><a class="headerlink" href="#popupcad.widgets.operationnetwork.GraphView.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.operationnetwork.GraphView.text">
+<code class="descname">text</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationnetwork.html#GraphView.text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationnetwork.GraphView.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="popupcad.widgets.operationnetwork.action_method">
+<code class="descclassname">popupcad.widgets.operationnetwork.</code><code class="descname">action_method</code><span class="sig-paren">(</span><em>parentwidget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/operationnetwork.html#action_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.operationnetwork.action_method" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.render_widget">
+<span id="popupcad-widgets-render-widget-module"></span><h2>popupcad.widgets.render_widget module<a class="headerlink" href="#module-popupcad.widgets.render_widget" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.render_widget.RenderWidget">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.render_widget.</code><code class="descname">RenderWidget</code><span class="sig-paren">(</span><em>rect_size</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/render_widget.html#RenderWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.render_widget.RenderWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QWidget</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.render_widget.RenderWidget.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/render_widget.html#RenderWidget.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.render_widget.RenderWidget.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.render_widget.RenderWidget.load_directory">
+<code class="descname">load_directory</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/render_widget.html#RenderWidget.load_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.render_widget.RenderWidget.load_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.render_widget.RenderWidget.raster_design">
+<code class="descname">raster_design</code><span class="sig-paren">(</span><em>d</em>, <em>dest</em>, <em>filetype='png'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/render_widget.html#RenderWidget.raster_design"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.render_widget.RenderWidget.raster_design" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.render_widget.RenderWidget.render">
+<code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/render_widget.html#RenderWidget.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.render_widget.RenderWidget.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.render_widget.RenderWidget.select_directory">
+<code class="descname">select_directory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/render_widget.html#RenderWidget.select_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.render_widget.RenderWidget.select_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.render_widget.RenderWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x000000000948D888&gt;</em><a class="headerlink" href="#popupcad.widgets.render_widget.RenderWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.table_common">
+<span id="popupcad-widgets-table-common-module"></span><h2>popupcad.widgets.table_common module<a class="headerlink" href="#module-popupcad.widgets.table_common" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.table_common.CommonTableWidget">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_common.</code><code class="descname">CommonTableWidget</code><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#CommonTableWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.CommonTableWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QTableWidget</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_common.CommonTableWidget.calc_table_width2">
+<code class="descname">calc_table_width2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#CommonTableWidget.calc_table_width2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.CommonTableWidget.calc_table_width2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.CommonTableWidget.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#CommonTableWidget.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.CommonTableWidget.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.CommonTableWidget.reset_min_width">
+<code class="descname">reset_min_width</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#CommonTableWidget.reset_min_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.CommonTableWidget.reset_min_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.CommonTableWidget.row_add">
+<code class="descname">row_add</code><span class="sig-paren">(</span><em>items</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#CommonTableWidget.row_add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.CommonTableWidget.row_add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.CommonTableWidget.row_add_empty">
+<code class="descname">row_add_empty</code><span class="sig-paren">(</span><em>items</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#CommonTableWidget.row_add_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.CommonTableWidget.row_add_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.CommonTableWidget.row_remove">
+<code class="descname">row_remove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#CommonTableWidget.row_remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.CommonTableWidget.row_remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.CommonTableWidget.row_shift_down">
+<code class="descname">row_shift_down</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#CommonTableWidget.row_shift_down"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.CommonTableWidget.row_shift_down" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.CommonTableWidget.row_shift_up">
+<code class="descname">row_shift_up</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#CommonTableWidget.row_shift_up"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.CommonTableWidget.row_shift_up" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_common.CommonTableWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094B6808&gt;</em><a class="headerlink" href="#popupcad.widgets.table_common.CommonTableWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_common.Delegate">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_common.</code><code class="descname">Delegate</code><span class="sig-paren">(</span><em>data_class</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#Delegate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.Delegate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QStyledItemDelegate</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_common.Delegate.commitAndCloseEditor">
+<code class="descname">commitAndCloseEditor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#Delegate.commitAndCloseEditor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.Delegate.commitAndCloseEditor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.Delegate.createEditor">
+<code class="descname">createEditor</code><span class="sig-paren">(</span><em>parent</em>, <em>option</em>, <em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#Delegate.createEditor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.Delegate.createEditor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.Delegate.setEditorData">
+<code class="descname">setEditorData</code><span class="sig-paren">(</span><em>editor</em>, <em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#Delegate.setEditorData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.Delegate.setEditorData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.Delegate.setModelData">
+<code class="descname">setModelData</code><span class="sig-paren">(</span><em>editor</em>, <em>model</em>, <em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#Delegate.setModelData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.Delegate.setModelData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_common.Delegate.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094B6988&gt;</em><a class="headerlink" href="#popupcad.widgets.table_common.Delegate.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.Delegate.updateEditorGeometry">
+<code class="descname">updateEditorGeometry</code><span class="sig-paren">(</span><em>editor</em>, <em>option</em>, <em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#Delegate.updateEditorGeometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.Delegate.updateEditorGeometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_common.Table">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_common.</code><code class="descname">Table</code><span class="sig-paren">(</span><em>data_class</em>, <em>delegate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#Table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.table_common.CommonTableWidget" title="popupcad.widgets.table_common.CommonTableWidget"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_common.CommonTableWidget</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_common.Table.cell_clicked">
+<code class="descname">cell_clicked</code><span class="sig-paren">(</span><em>row</em>, <em>column</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#Table.cell_clicked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.Table.cell_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.Table.export_data">
+<code class="descname">export_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#Table.export_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.Table.export_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.Table.row_add">
+<code class="descname">row_add</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#Table.row_add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.Table.row_add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_common.Table.row_add_empty">
+<code class="descname">row_add_empty</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#Table.row_add_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.Table.row_add_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_common.Table.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094B68C8&gt;</em><a class="headerlink" href="#popupcad.widgets.table_common.Table.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_common.TableControl">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_common.</code><code class="descname">TableControl</code><span class="sig-paren">(</span><em>table</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_common.html#TableControl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_common.TableControl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QWidget</span></code></p>
+<dl class="attribute">
+<dt id="popupcad.widgets.table_common.TableControl.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094B6A08&gt;</em><a class="headerlink" href="#popupcad.widgets.table_common.TableControl.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.table_editor_delegate">
+<span id="popupcad-widgets-table-editor-delegate-module"></span><h2>popupcad.widgets.table_editor_delegate module<a class="headerlink" href="#module-popupcad.widgets.table_editor_delegate" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_delegate.DraggableTreeElement">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_delegate.</code><code class="descname">DraggableTreeElement</code><span class="sig-paren">(</span><em>name</em>, <em>get_list</em>, <em>ini=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#DraggableTreeElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.DraggableTreeElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.table_editor_delegate.Element" title="popupcad.widgets.table_editor_delegate.Element"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_delegate.Element</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.DraggableTreeElement.build_editor">
+<code class="descname">build_editor</code><span class="sig-paren">(</span><em>parent</em>, <em>delegate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#DraggableTreeElement.build_editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.DraggableTreeElement.build_editor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.DraggableTreeElement.set_editor_data">
+<code class="descname">set_editor_data</code><span class="sig-paren">(</span><em>index</em>, <em>editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#DraggableTreeElement.set_editor_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.DraggableTreeElement.set_editor_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.DraggableTreeElement.set_model_data">
+<code class="descname">set_model_data</code><span class="sig-paren">(</span><em>editor</em>, <em>model</em>, <em>index</em>, <em>delegate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#DraggableTreeElement.set_model_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.DraggableTreeElement.set_model_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_delegate.Element">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_delegate.</code><code class="descname">Element</code><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#Element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.Element.set_data">
+<code class="descname">set_data</code><span class="sig-paren">(</span><em>variable</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#Element.set_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Element.set_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.Element.set_editor_rect">
+<code class="descname">set_editor_rect</code><span class="sig-paren">(</span><em>editor</em>, <em>option</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#Element.set_editor_rect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Element.set_editor_rect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.Element.set_model_data">
+<code class="descname">set_model_data</code><span class="sig-paren">(</span><em>editor</em>, <em>model</em>, <em>index</em>, <em>delegate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#Element.set_model_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Element.set_model_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_delegate.FloatElement">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_delegate.</code><code class="descname">FloatElement</code><span class="sig-paren">(</span><em>name</em>, <em>ini=0.0</em>, <em>bottom=-100000000</em>, <em>top=100000000</em>, <em>decimals=6</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#FloatElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.FloatElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.table_editor_delegate.Element" title="popupcad.widgets.table_editor_delegate.Element"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_delegate.Element</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.FloatElement.build_editor">
+<code class="descname">build_editor</code><span class="sig-paren">(</span><em>parent</em>, <em>delegate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#FloatElement.build_editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.FloatElement.build_editor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.FloatElement.set_editor_data">
+<code class="descname">set_editor_data</code><span class="sig-paren">(</span><em>index</em>, <em>editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#FloatElement.set_editor_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.FloatElement.set_editor_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.FloatElement.set_model_data">
+<code class="descname">set_model_data</code><span class="sig-paren">(</span><em>editor</em>, <em>model</em>, <em>index</em>, <em>delegate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#FloatElement.set_model_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.FloatElement.set_model_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_delegate.ListWidgetItem">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_delegate.</code><code class="descname">ListWidgetItem</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#ListWidgetItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.ListWidgetItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QListWidgetItem</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_delegate.MultiItemListElement">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_delegate.</code><code class="descname">MultiItemListElement</code><span class="sig-paren">(</span><em>name</em>, <em>get_list</em>, <em>ini=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#MultiItemListElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.MultiItemListElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.table_editor_delegate.Element" title="popupcad.widgets.table_editor_delegate.Element"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_delegate.Element</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.MultiItemListElement.build_editor">
+<code class="descname">build_editor</code><span class="sig-paren">(</span><em>parent</em>, <em>delegate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#MultiItemListElement.build_editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.MultiItemListElement.build_editor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.MultiItemListElement.set_editor_data">
+<code class="descname">set_editor_data</code><span class="sig-paren">(</span><em>index</em>, <em>editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#MultiItemListElement.set_editor_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.MultiItemListElement.set_editor_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.MultiItemListElement.set_model_data">
+<code class="descname">set_model_data</code><span class="sig-paren">(</span><em>editor</em>, <em>model</em>, <em>index</em>, <em>delegate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#MultiItemListElement.set_model_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.MultiItemListElement.set_model_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_delegate.MultiListWidget">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_delegate.</code><code class="descname">MultiListWidget</code><span class="sig-paren">(</span><em>list1</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#MultiListWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.MultiListWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QListWidget</span></code></p>
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_delegate.MultiListWidget.editingFinished">
+<code class="descname">editingFinished</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x000000000AE29928&gt;</em><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.MultiListWidget.editingFinished" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.MultiListWidget.setData">
+<code class="descname">setData</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#MultiListWidget.setData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.MultiListWidget.setData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_delegate.MultiListWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x000000000C846D08&gt;</em><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.MultiListWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_delegate.Row">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_delegate.</code><code class="descname">Row</code><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#Row"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.Row.cell_clicked">
+<code class="descname">cell_clicked</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#Row.cell_clicked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Row.cell_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_delegate.Row.column_count">
+<code class="descname">column_count</code><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Row.column_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.Row.create_editor">
+<code class="descname">create_editor</code><span class="sig-paren">(</span><em>parent</em>, <em>option</em>, <em>index</em>, <em>delegate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#Row.create_editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Row.create_editor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_delegate.Row.header_labels">
+<code class="descname">header_labels</code><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Row.header_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.Row.row_add">
+<code class="descname">row_add</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#Row.row_add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Row.row_add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.Row.row_add_empty">
+<code class="descname">row_add_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#Row.row_add_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Row.row_add_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.Row.set_editor_data">
+<code class="descname">set_editor_data</code><span class="sig-paren">(</span><em>editor</em>, <em>index</em>, <em>delegate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#Row.set_editor_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Row.set_editor_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.Row.set_model_data">
+<code class="descname">set_model_data</code><span class="sig-paren">(</span><em>editor</em>, <em>model</em>, <em>index</em>, <em>delegate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#Row.set_model_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Row.set_model_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.Row.update_editor_geometry">
+<code class="descname">update_editor_geometry</code><span class="sig-paren">(</span><em>editor</em>, <em>option</em>, <em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#Row.update_editor_geometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.Row.update_editor_geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_delegate.SingleItemListElement">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_delegate.</code><code class="descname">SingleItemListElement</code><span class="sig-paren">(</span><em>name</em>, <em>get_list</em>, <em>ini=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#SingleItemListElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.SingleItemListElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.table_editor_delegate.Element" title="popupcad.widgets.table_editor_delegate.Element"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_delegate.Element</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.SingleItemListElement.build_editor">
+<code class="descname">build_editor</code><span class="sig-paren">(</span><em>parent</em>, <em>delegate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#SingleItemListElement.build_editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.SingleItemListElement.build_editor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.SingleItemListElement.set_editor_data">
+<code class="descname">set_editor_data</code><span class="sig-paren">(</span><em>index</em>, <em>editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#SingleItemListElement.set_editor_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.SingleItemListElement.set_editor_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.SingleItemListElement.set_model_data">
+<code class="descname">set_model_data</code><span class="sig-paren">(</span><em>editor</em>, <em>model</em>, <em>index</em>, <em>delegate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#SingleItemListElement.set_model_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.SingleItemListElement.set_model_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_delegate.SingleListWidget">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_delegate.</code><code class="descname">SingleListWidget</code><span class="sig-paren">(</span><em>list1</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#SingleListWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.SingleListWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QListWidget</span></code></p>
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_delegate.SingleListWidget.editingFinished">
+<code class="descname">editingFinished</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x000000000B59EAE8&gt;</em><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.SingleListWidget.editingFinished" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.SingleListWidget.fire_signal">
+<code class="descname">fire_signal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#SingleListWidget.fire_signal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.SingleListWidget.fire_signal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_delegate.SingleListWidget.setData">
+<code class="descname">setData</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_delegate.html#SingleListWidget.setData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.SingleListWidget.setData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_delegate.SingleListWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x000000000C846D88&gt;</em><a class="headerlink" href="#popupcad.widgets.table_editor_delegate.SingleListWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.table_editor_popup">
+<span id="popupcad-widgets-table-editor-popup-module"></span><h2>popupcad.widgets.table_editor_popup module<a class="headerlink" href="#module-popupcad.widgets.table_editor_popup" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.Delegate">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">Delegate</code><span class="sig-paren">(</span><em>data_class</em>, <em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#Delegate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.Delegate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QStyledItemDelegate</span></code></p>
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.Delegate.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094B6A88&gt;</em><a class="headerlink" href="#popupcad.widgets.table_editor_popup.Delegate.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.DraggableTreeDialog">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">DraggableTreeDialog</code><span class="sig-paren">(</span><em>list_in</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#DraggableTreeDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.DraggableTreeDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.DraggableTreeDialog.results">
+<code class="descname">results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#DraggableTreeDialog.results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.DraggableTreeDialog.results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.DraggableTreeDialog.set_data">
+<code class="descname">set_data</code><span class="sig-paren">(</span><em>ini</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#DraggableTreeDialog.set_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.DraggableTreeDialog.set_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.DraggableTreeDialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094B6E08&gt;</em><a class="headerlink" href="#popupcad.widgets.table_editor_popup.DraggableTreeDialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.DraggableTreeElement">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">DraggableTreeElement</code><span class="sig-paren">(</span><em>name</em>, <em>list_getter</em>, <em>ini=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#DraggableTreeElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.DraggableTreeElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.table_editor_popup.SingleItemListElement" title="popupcad.widgets.table_editor_popup.SingleItemListElement"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.SingleItemListElement</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.DraggableTreeElement.build_editor">
+<code class="descname">build_editor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#DraggableTreeElement.build_editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.DraggableTreeElement.build_editor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.FloatDialog">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">FloatDialog</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#FloatDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.FloatDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.table_editor_popup.TextDialog" title="popupcad.widgets.table_editor_popup.TextDialog"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.TextDialog</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.FloatDialog.bottom">
+<code class="descname">bottom</code><em class="property"> = -100000000</em><a class="headerlink" href="#popupcad.widgets.table_editor_popup.FloatDialog.bottom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.FloatDialog.decimals">
+<code class="descname">decimals</code><em class="property"> = 6</em><a class="headerlink" href="#popupcad.widgets.table_editor_popup.FloatDialog.decimals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.FloatDialog.results">
+<code class="descname">results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#FloatDialog.results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.FloatDialog.results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.FloatDialog.set_data">
+<code class="descname">set_data</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#FloatDialog.set_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.FloatDialog.set_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.FloatDialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094B6B48&gt;</em><a class="headerlink" href="#popupcad.widgets.table_editor_popup.FloatDialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.FloatDialog.top">
+<code class="descname">top</code><em class="property"> = 100000000</em><a class="headerlink" href="#popupcad.widgets.table_editor_popup.FloatDialog.top" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.FloatElement">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">FloatElement</code><span class="sig-paren">(</span><em>name</em>, <em>ini=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#FloatElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.FloatElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.FloatElement.build_editor">
+<code class="descname">build_editor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#FloatElement.build_editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.FloatElement.build_editor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.IntegerDialog">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">IntegerDialog</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#IntegerDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.IntegerDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.IntegerDialog.bottom">
+<code class="descname">bottom</code><em class="property"> = -100000000</em><a class="headerlink" href="#popupcad.widgets.table_editor_popup.IntegerDialog.bottom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.IntegerDialog.results">
+<code class="descname">results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#IntegerDialog.results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.IntegerDialog.results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.IntegerDialog.set_data">
+<code class="descname">set_data</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#IntegerDialog.set_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.IntegerDialog.set_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.IntegerDialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094B6BC8&gt;</em><a class="headerlink" href="#popupcad.widgets.table_editor_popup.IntegerDialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.IntegerDialog.top">
+<code class="descname">top</code><em class="property"> = 100000000</em><a class="headerlink" href="#popupcad.widgets.table_editor_popup.IntegerDialog.top" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.IntegerElement">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">IntegerElement</code><span class="sig-paren">(</span><em>name</em>, <em>ini=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#IntegerElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.IntegerElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.IntegerElement.build_editor">
+<code class="descname">build_editor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#IntegerElement.build_editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.IntegerElement.build_editor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.MultiItemListElement">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">MultiItemListElement</code><span class="sig-paren">(</span><em>name</em>, <em>list_getter</em>, <em>ini=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#MultiItemListElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.MultiItemListElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.table_editor_popup.SingleItemListElement" title="popupcad.widgets.table_editor_popup.SingleItemListElement"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.SingleItemListElement</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.MultiItemListElement.build_editor">
+<code class="descname">build_editor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#MultiItemListElement.build_editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.MultiItemListElement.build_editor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.MultiListDialog">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">MultiListDialog</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#MultiListDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.MultiListDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.table_editor_popup.SingleListDialog" title="popupcad.widgets.table_editor_popup.SingleListDialog"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.SingleListDialog</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.MultiListDialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094B6D88&gt;</em><a class="headerlink" href="#popupcad.widgets.table_editor_popup.MultiListDialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.Row">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">Row</code><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#Row"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.Row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.Row.cell_clicked">
+<code class="descname">cell_clicked</code><span class="sig-paren">(</span><em>row</em>, <em>column</em>, <em>tablewidget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#Row.cell_clicked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.Row.cell_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.Row.column_count">
+<code class="descname">column_count</code><a class="headerlink" href="#popupcad.widgets.table_editor_popup.Row.column_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.Row.header_labels">
+<code class="descname">header_labels</code><a class="headerlink" href="#popupcad.widgets.table_editor_popup.Row.header_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.Row.row_add">
+<code class="descname">row_add</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#Row.row_add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.Row.row_add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.Row.row_add_empty">
+<code class="descname">row_add_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#Row.row_add_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.Row.row_add_empty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.SingleItemListElement">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">SingleItemListElement</code><span class="sig-paren">(</span><em>name</em>, <em>list_getter</em>, <em>ini=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#SingleItemListElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleItemListElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.SingleItemListElement.build_editor">
+<code class="descname">build_editor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#SingleItemListElement.build_editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleItemListElement.build_editor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.SingleItemListElement.my_list">
+<code class="descname">my_list</code><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleItemListElement.my_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.SingleItemListElement_old">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">SingleItemListElement_old</code><span class="sig-paren">(</span><em>name</em>, <em>list_getter</em>, <em>ini=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#SingleItemListElement_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleItemListElement_old" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.SingleItemListElement_old.build_editor">
+<code class="descname">build_editor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#SingleItemListElement_old.build_editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleItemListElement_old.build_editor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.SingleItemListElement_old.my_list">
+<code class="descname">my_list</code><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleItemListElement_old.my_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.SingleListDialog">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">SingleListDialog</code><span class="sig-paren">(</span><em>list_in</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#SingleListDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleListDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.SingleListDialog.results">
+<code class="descname">results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#SingleListDialog.results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleListDialog.results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.SingleListDialog.set_data">
+<code class="descname">set_data</code><span class="sig-paren">(</span><em>ini</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#SingleListDialog.set_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleListDialog.set_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.SingleListDialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094B6C48&gt;</em><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleListDialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.SingleListDialog_old">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">SingleListDialog_old</code><span class="sig-paren">(</span><em>list_in</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#SingleListDialog_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleListDialog_old" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.widgets.table_editor_popup.SingleListDialog" title="popupcad.widgets.table_editor_popup.SingleListDialog"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.table_editor_popup.SingleListDialog</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.SingleListDialog_old.results">
+<code class="descname">results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#SingleListDialog_old.results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleListDialog_old.results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.SingleListDialog_old.set_data">
+<code class="descname">set_data</code><span class="sig-paren">(</span><em>ini</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#SingleListDialog_old.set_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleListDialog_old.set_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.SingleListDialog_old.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094B6D08&gt;</em><a class="headerlink" href="#popupcad.widgets.table_editor_popup.SingleListDialog_old.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.TextDialog">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">TextDialog</code><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#TextDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.TextDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.TextDialog.results">
+<code class="descname">results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#TextDialog.results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.TextDialog.results" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.TextDialog.set_data">
+<code class="descname">set_data</code><span class="sig-paren">(</span><em>val</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#TextDialog.set_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.TextDialog.set_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.table_editor_popup.TextDialog.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000094B6AC8&gt;</em><a class="headerlink" href="#popupcad.widgets.table_editor_popup.TextDialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.TextElement">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">TextElement</code><span class="sig-paren">(</span><em>name</em>, <em>ini=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#TextElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.TextElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.table_editor_popup.TextElement.build_editor">
+<code class="descname">build_editor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#TextElement.build_editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.TextElement.build_editor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.widgets.table_editor_popup.UneditableItem">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.table_editor_popup.</code><code class="descname">UneditableItem</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/table_editor_popup.html#UneditableItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.table_editor_popup.UneditableItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QTableWidgetItem</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.tablewidget">
+<span id="popupcad-widgets-tablewidget-module"></span><h2>popupcad.widgets.tablewidget module<a class="headerlink" href="#module-popupcad.widgets.tablewidget" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.tablewidget.TableWidget">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.tablewidget.</code><code class="descname">TableWidget</code><span class="sig-paren">(</span><em>columnnames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/tablewidget.html#TableWidget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.tablewidget.TableWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QTableWidget</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.tablewidget.TableWidget.click_method">
+<code class="descname">click_method</code><span class="sig-paren">(</span><em>row</em>, <em>column</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/tablewidget.html#TableWidget.click_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.tablewidget.TableWidget.click_method" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.tablewidget.TableWidget.definerow">
+<code class="descname">definerow</code><span class="sig-paren">(</span><em>row</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/tablewidget.html#TableWidget.definerow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.tablewidget.TableWidget.definerow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.tablewidget.TableWidget.fillrow">
+<code class="descname">fillrow</code><span class="sig-paren">(</span><em>ii</em>, <em>row</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/tablewidget.html#TableWidget.fillrow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.tablewidget.TableWidget.fillrow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.tablewidget.TableWidget.getbuttoncolor">
+<code class="descname">getbuttoncolor</code><span class="sig-paren">(</span><em>row</em>, <em>column</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/tablewidget.html#TableWidget.getbuttoncolor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.tablewidget.TableWidget.getbuttoncolor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.tablewidget.TableWidget.insertRow">
+<code class="descname">insertRow</code><span class="sig-paren">(</span><em>rowdata</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/tablewidget.html#TableWidget.insertRow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.tablewidget.TableWidget.insertRow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.tablewidget.TableWidget.insertrows">
+<code class="descname">insertrows</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/tablewidget.html#TableWidget.insertrows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.tablewidget.TableWidget.insertrows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.tablewidget.TableWidget.returnrow">
+<code class="descname">returnrow</code><span class="sig-paren">(</span><em>ii</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/tablewidget.html#TableWidget.returnrow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.tablewidget.TableWidget.returnrow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.tablewidget.TableWidget.returnrows">
+<code class="descname">returnrows</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/tablewidget.html#TableWidget.returnrows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.tablewidget.TableWidget.returnrows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.tablewidget.TableWidget.setColor">
+<code class="descname">setColor</code><span class="sig-paren">(</span><em>row</em>, <em>column</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/tablewidget.html#TableWidget.setColor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.tablewidget.TableWidget.setColor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.tablewidget.TableWidget.setbuttoncolor">
+<code class="descname">setbuttoncolor</code><span class="sig-paren">(</span><em>row</em>, <em>column</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/tablewidget.html#TableWidget.setbuttoncolor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.tablewidget.TableWidget.setbuttoncolor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.tablewidget.TableWidget.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x000000000C093748&gt;</em><a class="headerlink" href="#popupcad.widgets.tablewidget.TableWidget.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.userinput">
+<span id="popupcad-widgets-userinput-module"></span><h2>popupcad.widgets.userinput module<a class="headerlink" href="#module-popupcad.widgets.userinput" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.userinput.UserInputIDE">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.userinput.</code><code class="descname">UserInputIDE</code><a class="reference internal" href="../_modules/popupcad/widgets/userinput.html#UserInputIDE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.userinput.UserInputIDE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.userinput.UserInputIDE.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/userinput.html#UserInputIDE.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.userinput.UserInputIDE.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.userinput.UserInputIDE.appendText">
+<code class="descname">appendText</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/userinput.html#UserInputIDE.appendText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.userinput.UserInputIDE.appendText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.userinput.UserInputIDE.loadFile">
+<code class="descname">loadFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/userinput.html#UserInputIDE.loadFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.userinput.UserInputIDE.loadFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.userinput.UserInputIDE.saveFile">
+<code class="descname">saveFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/userinput.html#UserInputIDE.saveFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.userinput.UserInputIDE.saveFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.userinput.UserInputIDE.sizeHint">
+<code class="descname">sizeHint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/userinput.html#UserInputIDE.sizeHint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.userinput.UserInputIDE.sizeHint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.widgets.userinput.UserInputIDE.staticMetaObject">
+<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object&gt;</em><a class="headerlink" href="#popupcad.widgets.userinput.UserInputIDE.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets.widgetcommon">
+<span id="popupcad-widgets-widgetcommon-module"></span><h2>popupcad.widgets.widgetcommon module<a class="headerlink" href="#module-popupcad.widgets.widgetcommon" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon">
+<em class="property">class </em><code class="descclassname">popupcad.widgets.widgetcommon.</code><code class="descname">WidgetCommon</code><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon.action_uncheck">
+<code class="descname">action_uncheck</code><span class="sig-paren">(</span><em>action_to_uncheck</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon.action_uncheck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon.action_uncheck" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon.addItem">
+<code class="descname">addItem</code><span class="sig-paren">(</span><em>toolbar</em>, <em>menu</em>, <em>actiondata</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon.addItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon.addItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon.addMenu">
+<code class="descname">addMenu</code><span class="sig-paren">(</span><em>actions</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon.addMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon.addMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon.addToolbar">
+<code class="descname">addToolbar</code><span class="sig-paren">(</span><em>actions</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon.addToolbar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon.addToolbar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon.addToolbarMenu">
+<code class="descname">addToolbarMenu</code><span class="sig-paren">(</span><em>actions</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon.addToolbarMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon.addToolbarMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon.buildSubmenu">
+<code class="descname">buildSubmenu</code><span class="sig-paren">(</span><em>actiondata</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon.buildSubmenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon.buildSubmenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon.buildToolbarMenu">
+<code class="descname">buildToolbarMenu</code><span class="sig-paren">(</span><em>actions</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon.buildToolbarMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon.buildToolbarMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon.buildaction">
+<code class="descname">buildaction</code><span class="sig-paren">(</span><em>text=''</em>, <em>kwargs={}</em>, <em>prepmethod=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon.buildaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon.buildaction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon.builddialog">
+<em class="property">static </em><code class="descname">builddialog</code><span class="sig-paren">(</span><em>widget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon.builddialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon.builddialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon.move_center">
+<code class="descname">move_center</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon.move_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon.move_center" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon.set_nominal_size">
+<code class="descname">set_nominal_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon.set_nominal_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon.set_nominal_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon.showhide2">
+<code class="descname">showhide2</code><span class="sig-paren">(</span><em>window</em>, <em>action</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon.showhide2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon.showhide2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.widgets.widgetcommon.WidgetCommon.sizeHint">
+<code class="descname">sizeHint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/widgets/widgetcommon.html#WidgetCommon.sizeHint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.widgets.widgetcommon.WidgetCommon.sizeHint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.widgets">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-popupcad.widgets" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">popupcad.widgets package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.dragndroplist">popupcad.widgets.dragndroplist module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.dragndroptree">popupcad.widgets.dragndroptree module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.errorlog">popupcad.widgets.errorlog module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.listeditor">popupcad.widgets.listeditor module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.listmanager">popupcad.widgets.listmanager module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.materialselection">popupcad.widgets.materialselection module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.materialselection2">popupcad.widgets.materialselection2 module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.operationlist">popupcad.widgets.operationlist module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.operationnetwork">popupcad.widgets.operationnetwork module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.render_widget">popupcad.widgets.render_widget module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.table_common">popupcad.widgets.table_common module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.table_editor_delegate">popupcad.widgets.table_editor_delegate module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.table_editor_popup">popupcad.widgets.table_editor_popup module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.tablewidget">popupcad.widgets.tablewidget module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.userinput">popupcad.widgets.userinput module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets.widgetcommon">popupcad.widgets.widgetcommon module</a></li>
+<li><a class="reference internal" href="#module-popupcad.widgets">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<form class="search" action="../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

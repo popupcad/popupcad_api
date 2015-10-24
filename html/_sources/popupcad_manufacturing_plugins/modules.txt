@@ -1,0 +1,7 @@
+popupcad_manufacturing_plugins
+==============================
+
+.. toctree::
+   :maxdepth: 4
+
+   popupcad_manufacturing_plugins

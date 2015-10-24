@@ -1,0 +1,45 @@
+popupcad package
+================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    popupcad.algorithms
+    popupcad.filetypes
+    popupcad.geometry
+    popupcad.graphics2d
+    popupcad.graphics3d
+    popupcad.guis
+    popupcad.manufacturing
+    popupcad.materials
+    popupcad.widgets
+
+Submodules
+----------
+
+popupcad.basic_functions module
+-------------------------------
+
+.. automodule:: popupcad.basic_functions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.global_settings module
+-------------------------------
+
+.. automodule:: popupcad.global_settings
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: popupcad
+    :members:
+    :undoc-members:
+    :show-inheritance:

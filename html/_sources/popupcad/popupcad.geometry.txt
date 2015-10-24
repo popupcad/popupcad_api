@@ -1,0 +1,30 @@
+popupcad.geometry package
+=========================
+
+Submodules
+----------
+
+popupcad.geometry.line module
+-----------------------------
+
+.. automodule:: popupcad.geometry.line
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.geometry.vertex module
+-------------------------------
+
+.. automodule:: popupcad.geometry.vertex
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: popupcad.geometry
+    :members:
+    :undoc-members:
+    :show-inheritance:

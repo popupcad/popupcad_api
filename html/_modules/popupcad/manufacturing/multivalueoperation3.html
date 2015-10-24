@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.manufacturing.multivalueoperation3 &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.manufacturing.multivalueoperation3</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.laminate</span> <span class="kn">import</span> <span class="n">Laminate</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.operation2</span> <span class="kn">import</span> <span class="n">Operation2</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">dev_tools.enum</span> <span class="kn">as</span> <span class="nn">enum</span>
+<span class="kn">from</span> <span class="nn">popupcad.widgets.dragndroptree</span> <span class="kn">import</span> <span class="n">DraggableTreeWidget</span><span class="p">,</span> <span class="n">ParentItem</span><span class="p">,</span> <span class="n">ChildItem</span>
+
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.validators</span> <span class="kn">import</span> <span class="n">StrictDoubleValidator</span>
+
+<div class="viewcode-block" id="Dialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.multivalueoperation3.Dialog">[docs]</a><span class="k">class</span> <span class="nc">Dialog</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QDialog</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">keepouttypes</span><span class="p">,</span>
+            <span class="n">valuenames</span><span class="p">,</span>
+            <span class="n">defaults</span><span class="p">,</span>
+            <span class="n">operations</span><span class="p">,</span>
+            <span class="n">selectedop</span><span class="p">,</span>
+            <span class="n">show</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+            <span class="n">keepouttype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+            <span class="n">outputref</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Dialog</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">operations</span> <span class="o">=</span> <span class="n">operations</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">le1</span> <span class="o">=</span> <span class="n">DraggableTreeWidget</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">le1</span><span class="o">.</span><span class="n">linklist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">operations</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">le1</span><span class="o">.</span><span class="n">selectIndeces</span><span class="p">([(</span><span class="n">selectedop</span><span class="p">,</span> <span class="n">outputref</span><span class="p">)])</span>
+
+        <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">defaults</span><span class="p">[:]</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Parent Operation&#39;</span><span class="p">))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">le1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">valueboxes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">valuename</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">valuenames</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+            <span class="n">templayout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+            <span class="n">valueedit</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">()</span>
+            <span class="n">valueedit</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignRight</span><span class="p">)</span>
+            <span class="n">valueedit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+
+    <span class="c">#        self.valueedit.setInputMask(&#39;#009.0&#39;)</span>
+            <span class="n">valueedit</span><span class="o">.</span><span class="n">setValidator</span><span class="p">(</span><span class="n">StrictDoubleValidator</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_negative_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">,</span> <span class="n">valueedit</span><span class="p">))</span>
+            <span class="n">templayout</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+            <span class="n">templayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="n">valuename</span><span class="p">))</span>
+            <span class="n">templayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">valueedit</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">valueboxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">valueedit</span><span class="p">)</span>
+            <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">templayout</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">radiobuttons</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="s">&#39;keepout&#39;</span> <span class="ow">in</span> <span class="n">show</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value2</span> <span class="ow">in</span> <span class="n">keepouttypes</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">b</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QRadioButton</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">keepouttype</span> <span class="o">==</span> <span class="n">value2</span><span class="p">)</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">uservalue</span> <span class="o">=</span> <span class="n">value2</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">radiobuttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+                <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+        <span class="n">button1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+
+        <span class="n">layout2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button1</span><span class="p">)</span>
+        <span class="n">layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button2</span><span class="p">)</span>
+
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+        <span class="n">button1</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="n">button2</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Dialog.acceptdata"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.multivalueoperation3.Dialog.acceptdata">[docs]</a>    <span class="k">def</span> <span class="nf">acceptdata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">option</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">radiobuttons</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">option</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">uservalue</span>
+        <span class="n">ref</span><span class="p">,</span> <span class="n">ii</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">le1</span><span class="o">.</span><span class="n">currentRefs</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">valueedit</span><span class="o">.</span><span class="n">text</span><span class="p">())</span> <span class="k">for</span> <span class="n">valueedit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueboxes</span><span class="p">]</span>
+        <span class="n">operation_links</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;parent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">ref</span><span class="p">,</span> <span class="n">ii</span><span class="p">)]</span>
+
+        <span class="k">return</span> <span class="n">operation_links</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">option</span>
+
+</div></div>
+<div class="viewcode-block" id="MultiValueOperation3"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3">[docs]</a><span class="k">class</span> <span class="nc">MultiValueOperation3</span><span class="p">(</span><span class="n">Operation2</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Multi-Value Operation&#39;</span>
+    <span class="n">valuenames</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">]</span>
+    <span class="n">show</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;keepout&#39;</span><span class="p">]</span>
+    <span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span>
+
+    <span class="n">keepout_types</span> <span class="o">=</span> <span class="n">enum</span><span class="o">.</span><span class="n">enum</span><span class="p">(</span>
+        <span class="n">laser_keepout</span><span class="o">=</span><span class="mi">301</span><span class="p">,</span>
+        <span class="n">mill_keepout</span><span class="o">=</span><span class="mi">302</span><span class="p">,</span>
+        <span class="n">mill_flip_keepout</span><span class="o">=</span><span class="mi">303</span><span class="p">)</span>
+    <span class="n">keepout_type_default</span> <span class="o">=</span> <span class="n">keepout_types</span><span class="o">.</span><span class="n">laser_keepout</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiValueOperation3</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">editdata</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MultiValueOperation3.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[:],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">keepout_type</span><span class="p">)</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">new</span><span class="o">.</span><span class="n">customname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">customname</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="MultiValueOperation3.editdata"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.editdata">[docs]</a>    <span class="k">def</span> <span class="nf">editdata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operation_links</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">keepout_type</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MultiValueOperation3</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">editdata</span><span class="p">(</span><span class="n">operation_links</span><span class="p">,</span> <span class="p">{},</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keepout_type</span> <span class="o">=</span> <span class="n">keepout_type</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MultiValueOperation3.buildnewdialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.buildnewdialog">[docs]</a>    <span class="k">def</span> <span class="nf">buildnewdialog</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">currentop</span><span class="p">):</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">Dialog</span><span class="p">(</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">keepout_types</span><span class="p">,</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">valuenames</span><span class="p">,</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">defaults</span><span class="p">,</span>
+            <span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">,</span>
+            <span class="n">currentop</span><span class="p">,</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">show</span><span class="p">,</span>
+            <span class="n">keepouttype</span><span class="o">=</span><span class="n">cls</span><span class="o">.</span><span class="n">keepout_type_default</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dialog</span>
+</div>
+<div class="viewcode-block" id="MultiValueOperation3.buildeditdialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3.buildeditdialog">[docs]</a>    <span class="k">def</span> <span class="nf">buildeditdialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
+        <span class="n">operation_ref</span><span class="p">,</span> <span class="n">output_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;parent&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">operation_index</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">operation_index</span><span class="p">(</span><span class="n">operation_ref</span><span class="p">)</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">Dialog</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">keepout_types</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">valuenames</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span><span class="p">,</span>
+            <span class="n">design</span><span class="o">.</span><span class="n">prioroperations</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+            <span class="n">operation_index</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">keepout_type</span><span class="p">,</span>
+            <span class="n">output_index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dialog</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

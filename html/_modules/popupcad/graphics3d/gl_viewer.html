@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.graphics3d.gl_viewer &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.graphics3d.gl_viewer</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">pyqtgraph</span> <span class="kn">as</span> <span class="nn">pg</span>
+<span class="kn">import</span> <span class="nn">pyqtgraph.opengl</span> <span class="kn">as</span> <span class="nn">gl</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="c">#pg.setConfigOption(&#39;background&#39;, &#39;w&#39;)</span>
+<span class="c">#pg.setConfigOption(&#39;foreground&#39;, &#39;k&#39;)</span>
+
+
+<div class="viewcode-block" id="GLObjectViewer"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics3d.html#popupcad.graphics3d.gl_viewer.GLObjectViewer">[docs]</a><span class="k">class</span> <span class="nc">GLObjectViewer</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GLObjectViewer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="n">GLViewWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QSlider</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider</span><span class="o">.</span><span class="n">setMaximum</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider</span><span class="o">.</span><span class="n">setTickInterval</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">z_zoom</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">update_zoom</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QSlider</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider2</span><span class="o">.</span><span class="n">setMinimum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider2</span><span class="o">.</span><span class="n">setMaximum</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider2</span><span class="o">.</span><span class="n">setTickInterval</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider2</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">transparency</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider2</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">update_transparency</span><span class="p">)</span>
+
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">view</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slider</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slider2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+<span class="c">#    def screenshot(self):</span>
+<span class="c">#        self.view.screenshot()</span>
+<span class="c">#</span>
+
+</div>
+<div class="viewcode-block" id="GLViewWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics3d.html#popupcad.graphics3d.gl_viewer.GLViewWidget">[docs]</a><span class="k">class</span> <span class="nc">GLViewWidget</span><span class="p">(</span><span class="n">gl</span><span class="o">.</span><span class="n">GLViewWidget</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GLViewWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transparency</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z_zoom</span> <span class="o">=</span> <span class="mi">500</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">[</span><span class="s">&#39;center&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVector3D</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">[</span><span class="s">&#39;distance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">[</span><span class="s">&#39;elevation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">60</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">[</span><span class="s">&#39;azimuth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">90</span>
+<span class="c">#        self.setMinimumSize(300,300)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span>
+            <span class="n">qg</span><span class="o">.</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Policy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">,</span>
+            <span class="n">qg</span><span class="o">.</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Policy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">)</span>
+<span class="c">#        c = pg.mkColor(120,120,200)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">mkColor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c">#        print(c)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setBackgroundColor</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GLViewWidget.clear"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics3d.html#popupcad.graphics3d.gl_viewer.GLViewWidget.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</div>
+<div class="viewcode-block" id="GLViewWidget.add_grid"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics3d.html#popupcad.graphics3d.gl_viewer.GLViewWidget.add_grid">[docs]</a>    <span class="k">def</span> <span class="nf">add_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">gl</span><span class="o">.</span><span class="n">GLGridItem</span><span class="p">()</span>
+        <span class="n">g</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="c">#    def screenshot(self):</span>
+<span class="c">#        import popupcad</span>
+<span class="c">#        import os</span>
+</div>
+<div class="viewcode-block" id="GLViewWidget.update_object"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics3d.html#popupcad.graphics3d.gl_viewer.GLViewWidget.update_object">[docs]</a>    <span class="k">def</span> <span class="nf">update_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zvalue</span><span class="p">,</span> <span class="n">triangles_by_layer</span><span class="p">,</span> <span class="n">layers</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">triangles_by_layer</span> <span class="o">=</span> <span class="n">triangles_by_layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zvalue</span> <span class="o">=</span> <span class="n">zvalue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_object</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meshitems</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_layer_z</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_transparency_inner</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="GLViewWidget.update_zoom"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics3d.html#popupcad.graphics3d.gl_viewer.GLViewWidget.update_zoom">[docs]</a>    <span class="k">def</span> <span class="nf">update_zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">z_zoom</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_layer_z</span><span class="p">()</span></div>
+<div class="viewcode-block" id="GLViewWidget.update_layer_z"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics3d.html#popupcad.graphics3d.gl_viewer.GLViewWidget.update_layer_z">[docs]</a>    <span class="k">def</span> <span class="nf">update_layer_z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">zoom_act</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z_zoom</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="mi">500</span>
+        <span class="k">for</span> <span class="n">layer</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">meshitems</span><span class="p">):</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">resetTransform</span><span class="p">()</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zvalue</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">zoom_act</span><span class="p">)</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="GLViewWidget.update_transparency"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics3d.html#popupcad.graphics3d.gl_viewer.GLViewWidget.update_transparency">[docs]</a>    <span class="k">def</span> <span class="nf">update_transparency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transparency</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_transparency_inner</span><span class="p">()</span></div>
+<div class="viewcode-block" id="GLViewWidget.update_transparency_inner"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics3d.html#popupcad.graphics3d.gl_viewer.GLViewWidget.update_transparency_inner">[docs]</a>    <span class="k">def</span> <span class="nf">update_transparency_inner</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">layer</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">meshitems</span><span class="p">):</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+            <span class="n">transparency</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transparency</span>
+            <span class="k">if</span> <span class="n">transparency</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">color</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">transparency</span><span class="o">/</span><span class="mi">1000</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">setColor</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="GLViewWidget.build_object"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics3d.html#popupcad.graphics3d.gl_viewer.GLViewWidget.build_object">[docs]</a>    <span class="k">def</span> <span class="nf">build_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="c">#        self.add_grid()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meshitems</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+            <span class="n">tri</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">triangles_by_layer</span><span class="p">[</span><span class="n">layer</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tri</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">tri</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tri</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="n">tri</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">tri</span><span class="p">,</span> <span class="n">z</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">color</span>
+<span class="c">#                print(color)</span>
+                <span class="n">colors</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">tri</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tri</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                    <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+                        <span class="n">colors</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="n">jj</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>
+<span class="c">#                m = gl.GLMeshItem(vertexes=tri,vertexColors=colors,edgeColor=(1,1,1,1),computeNormals=True)</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="n">gl</span><span class="o">.</span><span class="n">GLMeshItem</span><span class="p">(</span><span class="n">vertexes</span><span class="o">=</span><span class="n">tri</span><span class="p">,</span><span class="n">computeNormals</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">setGLOptions</span><span class="p">(</span><span class="s">&#39;translucent&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">meshitems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="c">#                self.addItem(m)</span>
+</div>
+<div class="viewcode-block" id="GLViewWidget.add_default_item"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics3d.html#popupcad.graphics3d.gl_viewer.GLViewWidget.add_default_item">[docs]</a>    <span class="k">def</span> <span class="nf">add_default_item</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">verts</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">36</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">37</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">verts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
+            <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">36</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">verts</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
+            <span class="p">[</span><span class="mi">4</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">),</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">),</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">36</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">verts</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
+            <span class="p">[</span><span class="mi">4</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">),</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">),</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">36</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">verts</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="n">m2</span> <span class="o">=</span> <span class="n">gl</span><span class="o">.</span><span class="n">GLMeshItem</span><span class="p">(</span>
+            <span class="n">vertexes</span><span class="o">=</span><span class="n">verts</span><span class="p">,</span>
+            <span class="n">vertexColors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span>
+            <span class="n">smooth</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+            <span class="n">shader</span><span class="o">=</span><span class="s">&#39;balloon&#39;</span><span class="p">,</span>
+            <span class="n">drawEdges</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="n">edgeColor</span><span class="o">=</span><span class="p">(</span>
+                <span class="mi">1</span><span class="p">,</span>
+                <span class="mi">1</span><span class="p">,</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="mi">1</span><span class="p">))</span>
+        <span class="n">m2</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">m2</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="GLViewWidget.sizeHint"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics3d.html#popupcad.graphics3d.gl_viewer.GLViewWidget.sizeHint">[docs]</a>    <span class="k">def</span> <span class="nf">sizeHint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">qc</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">mw</span> <span class="o">=</span> <span class="n">GLObjectViewer</span><span class="p">()</span>
+    <span class="n">mw</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">add_default_item</span><span class="p">()</span>
+    <span class="n">mw</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c">#    sys.exit(app.exec_())</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

@@ -1,0 +1,22 @@
+popupcad.graphics3d package
+===========================
+
+Submodules
+----------
+
+popupcad.graphics3d.gl_viewer module
+------------------------------------
+
+.. automodule:: popupcad.graphics3d.gl_viewer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: popupcad.graphics3d
+    :members:
+    :undoc-members:
+    :show-inheritance:
