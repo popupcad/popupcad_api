@@ -141,7 +141,9 @@
     <span class="n">description</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">description_get</span><span class="p">,</span> <span class="n">description_set</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Operation.edit_description"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation.Operation.edit_description">[docs]</a>    <span class="k">def</span> <span class="nf">edit_description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+        <span class="kn">import</span> <span class="nn">qt</span>
+        <span class="n">qc</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">QtCore</span>
+        <span class="n">qg</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">QtGui</span>
         <span class="n">result</span><span class="p">,</span> <span class="n">ok</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getText</span><span class="p">(</span>
             <span class="bp">None</span><span class="p">,</span> <span class="s">&#39;description&#39;</span><span class="p">,</span> <span class="s">&#39;label&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>

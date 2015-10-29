@@ -60,8 +60,9 @@
 <span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">qt</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">QtCore</span>
+<span class="n">qg</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">QtGui</span>
 
 <div class="viewcode-block" id="TableWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.tablewidget.TableWidget">[docs]</a><span class="k">class</span> <span class="nc">TableWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QTableWidget</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">columnnames</span><span class="p">):</span>

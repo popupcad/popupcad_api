@@ -63,7 +63,9 @@
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">qt</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">QtCore</span>
+<span class="n">qg</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">QtGui</span>
 <span class="kn">import</span> <span class="nn">popupcad</span>
 
 <span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">supportfiledir</span><span class="p">,</span><span class="s">&#39;icons&#39;</span><span class="p">,</span><span class="s">&#39;*.png&#39;</span><span class="p">))</span>

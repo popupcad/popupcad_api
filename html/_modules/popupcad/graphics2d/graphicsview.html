@@ -60,8 +60,9 @@
 <span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">qt</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">QtCore</span>
+<span class="n">qg</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">QtGui</span>
 <span class="kn">import</span> <span class="nn">popupcad</span>
 
 
@@ -112,7 +113,8 @@
 </div>
 <div class="viewcode-block" id="ZoomHandling.fit_scene_rect"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.ZoomHandling.fit_scene_rect">[docs]</a>    <span class="k">def</span> <span class="nf">fit_scene_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">buffer</span><span class="o">=.</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">scene_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_fitted_scene_rect</span><span class="p">(</span><span class="nb">buffer</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">setSceneRect</span><span class="p">(</span><span class="n">scene_rect</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">scene_rect</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span><span class="n">scene_rect</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="n">scene_rect</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">scene_rect</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">setSceneRect</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">scene_rect</span>
 </div>
 <div class="viewcode-block" id="ZoomHandling.bound_zoom"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.ZoomHandling.bound_zoom">[docs]</a>    <span class="k">def</span> <span class="nf">bound_zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -129,7 +131,7 @@
         <span class="n">scene_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">itemsBoundingRect</span><span class="p">()</span>
         <span class="n">scene_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_scene_rect</span><span class="p">(</span><span class="nb">buffer</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fit_scene_rect</span><span class="p">(</span><span class="nb">buffer</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fitInView</span><span class="p">(</span><span class="n">scene_rect</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">KeepAspectRatio</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitInView</span><span class="p">(</span><span class="n">scene_rect</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span><span class="n">scene_rect</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="n">scene_rect</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">scene_rect</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">KeepAspectRatio</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bound_zoom</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="ZoomHandling.zoom"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.ZoomHandling.zoom">[docs]</a>    <span class="k">def</span> <span class="nf">zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -188,8 +190,7 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setScene</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setRubberBandSelectionMode</span><span class="p">(</span>
-            <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemSelectionMode</span><span class="o">.</span><span class="n">ContainsItemShape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setRubberBandSelectionMode</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemSelectionMode</span><span class="o">.</span><span class="n">ContainsItemShape</span><span class="p">)</span>
 <span class="c">#        self.setRubberBandSelectionMode(qc.Qt.ItemSelectionMode.IntersectsItemShape)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setRenderHints</span><span class="p">(</span>
             <span class="n">qg</span><span class="o">.</span><span class="n">QPainter</span><span class="o">.</span><span class="n">Antialiasing</span> <span class="o">|</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainter</span><span class="o">.</span><span class="n">SmoothPixmapTransform</span><span class="p">)</span>

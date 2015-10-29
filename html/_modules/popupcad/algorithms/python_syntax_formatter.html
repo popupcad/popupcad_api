@@ -65,19 +65,20 @@
 
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">from</span> <span class="nn">PySide.QtCore</span> <span class="kn">import</span> <span class="n">QRegExp</span>
-<span class="kn">from</span> <span class="nn">PySide.QtGui</span> <span class="kn">import</span> <span class="n">QColor</span><span class="p">,</span> <span class="n">QTextCharFormat</span><span class="p">,</span> <span class="n">QFont</span><span class="p">,</span> <span class="n">QSyntaxHighlighter</span>
+<span class="kn">import</span> <span class="nn">qt</span>
+<span class="n">qc</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">QtCore</span>
+<span class="n">qg</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">QtGui</span>
 
 <div class="viewcode-block" id="syntax_format"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.python_syntax_formatter.syntax_format">[docs]</a><span class="k">def</span> <span class="nf">syntax_format</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Return a QTextCharFormat with the given attributes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_color</span> <span class="o">=</span> <span class="n">QColor</span><span class="p">()</span>
+    <span class="n">_color</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="p">()</span>
     <span class="n">_color</span><span class="o">.</span><span class="n">setNamedColor</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
 
-    <span class="n">_format</span> <span class="o">=</span> <span class="n">QTextCharFormat</span><span class="p">()</span>
+    <span class="n">_format</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QTextCharFormat</span><span class="p">()</span>
     <span class="n">_format</span><span class="o">.</span><span class="n">setForeground</span><span class="p">(</span><span class="n">_color</span><span class="p">)</span>
     <span class="k">if</span> <span class="s">&#39;bold&#39;</span> <span class="ow">in</span> <span class="n">style</span><span class="p">:</span>
-        <span class="n">_format</span><span class="o">.</span><span class="n">setFontWeight</span><span class="p">(</span><span class="n">QFont</span><span class="o">.</span><span class="n">Bold</span><span class="p">)</span>
+        <span class="n">_format</span><span class="o">.</span><span class="n">setFontWeight</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QFont</span><span class="o">.</span><span class="n">Bold</span><span class="p">)</span>
     <span class="k">if</span> <span class="s">&#39;italic&#39;</span> <span class="ow">in</span> <span class="n">style</span><span class="p">:</span>
         <span class="n">_format</span><span class="o">.</span><span class="n">setFontItalic</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 
@@ -98,7 +99,7 @@
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="PythonHighlighter"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.python_syntax_formatter.PythonHighlighter">[docs]</a><span class="k">class</span> <span class="nc">PythonHighlighter</span> <span class="p">(</span><span class="n">QSyntaxHighlighter</span><span class="p">):</span>
+<div class="viewcode-block" id="PythonHighlighter"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.python_syntax_formatter.PythonHighlighter">[docs]</a><span class="k">class</span> <span class="nc">PythonHighlighter</span> <span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QSyntaxHighlighter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Syntax highlighter for the Python language.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c"># Python keywords</span>
@@ -129,13 +130,13 @@
         <span class="s">&#39;\{&#39;</span><span class="p">,</span> <span class="s">&#39;\}&#39;</span><span class="p">,</span> <span class="s">&#39;\(&#39;</span><span class="p">,</span> <span class="s">&#39;\)&#39;</span><span class="p">,</span> <span class="s">&#39;\[&#39;</span><span class="p">,</span> <span class="s">&#39;\]&#39;</span><span class="p">,</span>
     <span class="p">]</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">):</span>
-        <span class="n">QSyntaxHighlighter</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">)</span>
+        <span class="n">qg</span><span class="o">.</span><span class="n">QSyntaxHighlighter</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">)</span>
 
         <span class="c"># Multi-line strings (expression, flag, style)</span>
         <span class="c"># FIXME: The triple-quotes in these two lines will mess up the</span>
         <span class="c"># syntax highlighting from this point onward</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tri_single</span> <span class="o">=</span> <span class="p">(</span><span class="n">QRegExp</span><span class="p">(</span><span class="s">&quot;&#39;&#39;&#39;&quot;</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;string2&#39;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tri_double</span> <span class="o">=</span> <span class="p">(</span><span class="n">QRegExp</span><span class="p">(</span><span class="s">&#39;&quot;&quot;&quot;&#39;</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;string2&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tri_single</span> <span class="o">=</span> <span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">QRegExp</span><span class="p">(</span><span class="s">&quot;&#39;&#39;&#39;&quot;</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;string2&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tri_double</span> <span class="o">=</span> <span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">QRegExp</span><span class="p">(</span><span class="s">&#39;&quot;&quot;&quot;&#39;</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">STYLES</span><span class="p">[</span><span class="s">&#39;string2&#39;</span><span class="p">])</span>
 
         <span class="n">rules</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -172,7 +173,7 @@
         <span class="p">]</span>
 
         <span class="c"># Build a QRegExp for each pattern</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rules</span> <span class="o">=</span> <span class="p">[(</span><span class="n">QRegExp</span><span class="p">(</span><span class="n">pat</span><span class="p">),</span> <span class="n">index</span><span class="p">,</span> <span class="n">fmt</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rules</span> <span class="o">=</span> <span class="p">[(</span><span class="n">qc</span><span class="o">.</span><span class="n">QRegExp</span><span class="p">(</span><span class="n">pat</span><span class="p">),</span> <span class="n">index</span><span class="p">,</span> <span class="n">fmt</span><span class="p">)</span>
             <span class="k">for</span> <span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">fmt</span><span class="p">)</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">]</span>
 
 
@@ -239,11 +240,13 @@
             <span class="k">return</span> <span class="bp">False</span>
             </div></div>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">PySide</span> <span class="kn">import</span> <span class="n">QtGui</span>
+    <span class="kn">import</span> <span class="nn">qt</span>
+    <span class="n">qc</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">QtCore</span>
+    <span class="n">qg</span> <span class="o">=</span> <span class="n">qt</span><span class="o">.</span><span class="n">QtGui</span>
     <span class="kn">import</span> <span class="nn">syntax</span>
     
-    <span class="n">app</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QApplication</span><span class="p">([])</span>
-    <span class="n">editor</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPlainTextEdit</span><span class="p">()</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">([])</span>
+    <span class="n">editor</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPlainTextEdit</span><span class="p">()</span>
     <span class="n">syntax</span><span class="o">.</span><span class="n">PythonHighlighter</span><span class="p">(</span><span class="n">editor</span><span class="o">.</span><span class="n">document</span><span class="p">())</span>
     <span class="n">editor</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     
