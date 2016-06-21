@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,20 +54,21 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.widgets.tablewidget</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 
 <div class="viewcode-block" id="TableWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.tablewidget.TableWidget">[docs]</a><span class="k">class</span> <span class="nc">TableWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QTableWidget</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">columnnames</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">TableWidget</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
         
-<span class="c">#        columnnames = [&#39;Layer&#39;,&#39;V&#39;,&#39;E&#39;,&#39;Color&#39;]</span>
+<span class="c1">#        columnnames = [&#39;Layer&#39;,&#39;V&#39;,&#39;E&#39;,&#39;Color&#39;]</span>
         <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnCount</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">columnnames</span><span class="p">)</span><span class="o">-</span><span class="n">c</span><span class="p">):</span>
             <span class="nb">super</span><span class="p">(</span><span class="n">TableWidget</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">insertColumn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnCount</span><span class="p">())</span>
@@ -114,7 +115,7 @@
 <div class="viewcode-block" id="TableWidget.definerow"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.tablewidget.TableWidget.definerow">[docs]</a>    <span class="k">def</span> <span class="nf">definerow</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">row</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">column</span><span class="p">,</span><span class="n">widget</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coltype</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">setCellWidget</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">column</span><span class="p">,</span><span class="n">widget</span><span class="p">())</span>
-        <span class="n">button</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Color&#39;</span><span class="p">)</span>       
+        <span class="n">button</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Color&#39;</span><span class="p">)</span>       
         <span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">setColor</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
         <span class="n">button</span><span class="o">.</span><span class="n">setFlat</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setCellWidget</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">button</span><span class="p">)</span>
@@ -128,8 +129,8 @@
         <span class="n">rowdata</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnCount</span><span class="p">()):</span>
             <span class="n">rowdata</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getfunction</span><span class="p">[</span><span class="n">jj</span><span class="p">](</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">))</span>
-<span class="c">#        self.resizeColumnsToContents()</span>
-<span class="c">#        self.horizontalHeader().stretchLastSection()</span>
+<span class="c1">#        self.resizeColumnsToContents()</span>
+<span class="c1">#        self.horizontalHeader().stretchLastSection()</span>
         <span class="k">return</span> <span class="n">rowdata</span></div>
 <div class="viewcode-block" id="TableWidget.returnrows"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.tablewidget.TableWidget.returnrows">[docs]</a>    <span class="k">def</span> <span class="nf">returnrows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -138,10 +139,10 @@
         <span class="k">return</span> <span class="n">data</span>
 </div>
 <div class="viewcode-block" id="TableWidget.insertrows"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.tablewidget.TableWidget.insertrows">[docs]</a>    <span class="k">def</span> <span class="nf">insertrows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
-<span class="c">#        data = []</span>
+<span class="c1">#        data = []</span>
         <span class="k">for</span> <span class="n">rowdata</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">insertRow</span><span class="p">(</span><span class="n">rowdata</span><span class="p">)</span>
-<span class="c">#        return data</span>
+<span class="c1">#        return data</span>
         </div>
 <div class="viewcode-block" id="TableWidget.click_method"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.tablewidget.TableWidget.click_method">[docs]</a>    <span class="k">def</span> <span class="nf">click_method</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">column</span><span class="p">):</span>
         <span class="k">print</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">)</span>
@@ -158,23 +159,23 @@
             <span class="k">print</span><span class="p">(</span><span class="n">color</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">column</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fillfunction</span><span class="p">[</span><span class="n">column</span><span class="p">](</span><span class="n">row</span><span class="p">,</span><span class="n">column</span><span class="p">,</span><span class="n">color</span><span class="p">)</span>
             </div></div>
-<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="s">&#39;Row 1&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">)],</span>
-             <span class="p">[</span><span class="s">&#39;Row 2&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span>
-             <span class="p">[</span><span class="s">&#39;Row 3&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span>
-             <span class="p">[</span><span class="s">&#39;Row 4&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">127</span><span class="p">,</span><span class="mi">127</span><span class="p">,</span><span class="mi">0</span><span class="p">)]</span> <span class="p">]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;Row 1&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">)],</span>
+             <span class="p">[</span><span class="s1">&#39;Row 2&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span>
+             <span class="p">[</span><span class="s1">&#39;Row 3&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span>
+             <span class="p">[</span><span class="s1">&#39;Row 4&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">127</span><span class="p">,</span><span class="mi">127</span><span class="p">,</span><span class="mi">0</span><span class="p">)]</span> <span class="p">]</span>
     
-<span class="c">#    data= numpy.array(data)</span>
-    <span class="n">w</span><span class="o">=</span><span class="n">TableWidget</span><span class="p">([</span><span class="s">&#39;Name&#39;</span><span class="p">,</span><span class="s">&#39;V&#39;</span><span class="p">,</span><span class="s">&#39;E&#39;</span><span class="p">,</span><span class="s">&#39;Color&#39;</span><span class="p">])</span>
-<span class="c">#</span>
+<span class="c1">#    data= numpy.array(data)</span>
+    <span class="n">w</span><span class="o">=</span><span class="n">TableWidget</span><span class="p">([</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span><span class="s1">&#39;V&#39;</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">,</span><span class="s1">&#39;Color&#39;</span><span class="p">])</span>
+<span class="c1">#</span>
     <span class="n">w</span><span class="o">.</span><span class="n">insertrows</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="c">#    for ii,rowdata in enumerate(data):</span>
-<span class="c">#        w.insertRow(rowdata)</span>
-<span class="c">#    for ii,rowdata in enumerate(data):</span>
-<span class="c">#        w.fillrow(ii,rowdata)</span>
-<span class="c">#</span>
+<span class="c1">#    for ii,rowdata in enumerate(data):</span>
+<span class="c1">#        w.insertRow(rowdata)</span>
+<span class="c1">#    for ii,rowdata in enumerate(data):</span>
+<span class="c1">#        w.fillrow(ii,rowdata)</span>
+<span class="c1">#</span>
     <span class="n">w</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
 </pre></div>

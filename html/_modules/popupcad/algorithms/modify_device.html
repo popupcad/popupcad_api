@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,10 +54,10 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.algorithms.modify_device</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.laminate</span> <span class="kn">import</span> <span class="n">Laminate</span>
@@ -79,18 +79,18 @@
     <span class="n">support_pieces</span> <span class="o">=</span> <span class="n">support_width</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">support_out2</span><span class="p">)</span>
 
     <span class="n">holes_1</span> <span class="o">=</span> <span class="n">support_pieces</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">holes_radius</span><span class="p">)</span>
-    <span class="n">holes_2</span> <span class="o">=</span> <span class="n">holes_1</span><span class="o">.</span><span class="n">unarylayeroperation</span><span class="p">(</span><span class="s">&#39;union&#39;</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">layers</span><span class="p">)</span>
+    <span class="n">holes_2</span> <span class="o">=</span> <span class="n">holes_1</span><span class="o">.</span><span class="n">unarylayeroperation</span><span class="p">(</span><span class="s1">&#39;union&#39;</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">layers</span><span class="p">)</span>
     <span class="n">holes</span> <span class="o">=</span> <span class="n">holes_2</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">holes_1</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mf">1e-3</span> <span class="o">*</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span><span class="p">))</span>
     <span class="n">device_with_holes</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">holes</span><span class="p">)</span>
 
     <span class="n">cut_width</span> <span class="o">=</span> <span class="n">support_sketch</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">cut_width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">cuts_1</span> <span class="o">=</span> <span class="n">cut_width</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">support_out2</span><span class="p">)</span>
-    <span class="n">cuts_2</span> <span class="o">=</span> <span class="n">cuts_1</span><span class="o">.</span><span class="n">unarylayeroperation</span><span class="p">(</span><span class="s">&#39;union&#39;</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">layers</span><span class="p">)</span>
-<span class="c">#    cuts_3 = cuts_2.difference(cuts_1)</span>
-<span class="c">#    cuts= cuts_3.unarylayeroperation(&#39;union&#39;,layers,layers)</span>
+    <span class="n">cuts_2</span> <span class="o">=</span> <span class="n">cuts_1</span><span class="o">.</span><span class="n">unarylayeroperation</span><span class="p">(</span><span class="s1">&#39;union&#39;</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">layers</span><span class="p">)</span>
+<span class="c1">#    cuts_3 = cuts_2.difference(cuts_1)</span>
+<span class="c1">#    cuts= cuts_3.unarylayeroperation(&#39;union&#39;,layers,layers)</span>
 
-<span class="c"># return the support, the cuts which will remove the support from the</span>
-<span class="c"># device, and the modified device</span>
+<span class="c1"># return the support, the cuts which will remove the support from the</span>
+<span class="c1"># device, and the modified device</span>
     <span class="k">return</span> <span class="n">device_with_holes</span><span class="p">,</span> <span class="n">support_width</span><span class="p">,</span> <span class="n">cuts_2</span></div>
 </pre></div>
 

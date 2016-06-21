@@ -52,6 +52,14 @@ popupcad.manufacturing.dummy_operation1 module
     :undoc-members:
     :show-inheritance:
 
+popupcad.manufacturing.fill module
+----------------------------------
+
+.. automodule:: popupcad.manufacturing.fill
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 popupcad.manufacturing.freeze module
 ------------------------------------
 
@@ -64,6 +72,14 @@ popupcad.manufacturing.hole_operation module
 --------------------------------------------
 
 .. automodule:: popupcad.manufacturing.hole_operation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.manufacturing.hollow module
+------------------------------------
+
+.. automodule:: popupcad.manufacturing.hollow
     :members:
     :undoc-members:
     :show-inheritance:

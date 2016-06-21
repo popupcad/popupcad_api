@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="popupcad_manufacturing_plugins" href="../../popupcad_manufacturing_plugins.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body role="document">
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Contributed by Nick Gravish</span>
+<span class="sd">Email: gravish&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">from</span> <span class="nn">popupcad.manufacturing.multivalueoperation3</span> <span class="kn">import</span> <span class="n">MultiValueOperation3</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.sketch</span> <span class="kn">import</span> <span class="n">Sketch</span>
+<span class="kn">from</span> <span class="nn">popupcad.manufacturing.sub_operation2</span> <span class="kn">import</span> <span class="n">SubOperation2</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.laminate</span> <span class="kn">import</span> <span class="n">Laminate</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.operationoutput</span> <span class="kn">import</span> <span class="n">OperationOutput</span>
+
+<div class="viewcode-block" id="AlignmentLayup"><a class="viewcode-back" href="../../../popupcad_manufacturing_plugins/popupcad_manufacturing_plugins.manufacturing.html#popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup">[docs]</a><span class="k">class</span> <span class="nc">AlignmentLayup</span><span class="p">(</span><span class="n">MultiValueOperation3</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;AlignmentLayup&#39;</span>
+    <span class="n">valuenames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sheet width&#39;</span><span class="p">,</span> <span class="s1">&#39;Pin offset&#39;</span><span class="p">,</span> <span class="s1">&#39;Pin radius&#39;</span><span class="p">]</span>
+    <span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="mf">25.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">0.79</span><span class="p">]</span>
+    <span class="n">show</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="AlignmentLayup.operate"><a class="viewcode-back" href="../../../popupcad_manufacturing_plugins/popupcad_manufacturing_plugins.manufacturing.html#popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup.operate">[docs]</a>    <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a generic_laminate ref of a layup laminate with all the layers of the part and with the appropriate 25x25mm alignment</span>
+<span class="sd">        features compatible with the Wood lab micro-robotics manufacturing process.</span>
+
+<span class="sd">        Input:</span>
+<span class="sd">        Design -&gt; a popupcad design file</span>
+
+<span class="sd">        Output:</span>
+<span class="sd">        layup -&gt; A handle to the layup design file</span>
+<span class="sd">        subop -&gt; A subop which is inserted into the input design file to reduce the number of operations</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+        <span class="c1">#### general geometry constants that most layups will have</span>
+        <span class="n">sheet_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>        <span class="c1"># mm</span>
+        <span class="n">hole_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>        <span class="c1"># location of hole in from corner</span>
+        <span class="n">hole_rad</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>        <span class="c1"># alignment pin geoms</span>
+
+        <span class="n">cross_len</span>   <span class="o">=</span> <span class="o">.</span><span class="mi">75</span>                   <span class="c1"># tick length</span>
+        <span class="n">cross_horiz</span> <span class="o">=</span> <span class="n">sheet_width</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">cross_len</span>        <span class="c1"># horizontal dimension from center crosshair</span>
+        <span class="n">dt</span>          <span class="o">=</span> <span class="mf">0.001</span>                 <span class="c1"># small thickness for crosshair</span>
+
+        <span class="n">buff_x</span>      <span class="o">=</span> <span class="mi">5</span>                     <span class="c1"># for window sizes</span>
+        <span class="n">buff_y</span>      <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">wind_h</span>      <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">space_x</span>     <span class="o">=</span> <span class="mf">1.3</span>
+
+        <span class="c1"># window width, maximum of 1 mm</span>
+        <span class="n">wind_w</span>      <span class="o">=</span> <span class="k">lambda</span> <span class="n">N</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">((</span><span class="n">sheet_width</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">buff_x</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mf">1.3</span><span class="o">*</span><span class="n">N</span> <span class="o">-</span> <span class="mf">1.3</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span><span class="mf">0.01</span><span class="p">)</span>
+
+        <span class="c1"># the laminate design</span>
+        <span class="n">layup</span> <span class="o">=</span> <span class="n">design</span> <span class="c1"># popupcad.filetypes.design.Design.new()</span>
+        <span class="n">layer_list</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">()</span><span class="o">.</span><span class="n">layers</span>
+
+        <span class="c1"># initiate the sketches</span>
+        <span class="c1">############# sheet first</span>
+        <span class="n">sheet</span> <span class="o">=</span> <span class="n">Sketch</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+        <span class="n">tmp_geom</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span>  <span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">),</span>
+                    <span class="p">(</span> <span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span>  <span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">),</span> <span class="p">(</span> <span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">)]</span>
+        <span class="n">sheet_poly</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">genericshapes</span><span class="o">.</span><span class="n">GenericPoly</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">tmp_geom</span><span class="p">,[])</span>
+        <span class="n">sheet</span><span class="o">.</span><span class="n">addoperationgeometries</span><span class="p">([</span><span class="n">sheet_poly</span><span class="p">])</span>
+
+        <span class="c1">############# holes second</span>
+        <span class="n">holes</span> <span class="o">=</span> <span class="n">Sketch</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+        <span class="n">tmp_geom</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">hole_offset</span><span class="p">,</span> <span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">hole_offset</span><span class="p">),</span>
+                    <span class="p">(</span><span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">hole_offset</span><span class="p">,</span>  <span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">hole_offset</span><span class="p">),</span>
+                    <span class="p">(</span> <span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">hole_offset</span><span class="p">,</span>  <span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">hole_offset</span><span class="p">),</span>
+                    <span class="p">(</span> <span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">hole_offset</span><span class="p">,</span> <span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">hole_offset</span><span class="p">)]</span>
+        <span class="c1"># make list of hole geometry</span>
+        <span class="n">holes_poly</span> <span class="o">=</span> <span class="p">[</span><span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">genericshapes</span><span class="o">.</span><span class="n">GenericCircle</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">([</span><span class="n">pt</span><span class="p">,</span> <span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">hole_rad</span><span class="p">,</span> <span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">])],[])</span>
+                                            <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">tmp_geom</span><span class="p">]</span>
+        <span class="n">holes</span><span class="o">.</span><span class="n">addoperationgeometries</span><span class="p">(</span><span class="n">holes_poly</span><span class="p">)</span>
+
+        <span class="c1">############# upper triangle</span>
+        <span class="n">left_tri</span> <span class="o">=</span> <span class="n">Sketch</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+        <span class="n">tmp_geom</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">hole_offset</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">hole_offset</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)),</span>
+                    <span class="p">(</span><span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">hole_offset</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="n">hole_rad</span><span class="p">,</span>  <span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">hole_offset</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)),</span>
+                    <span class="p">(</span><span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">hole_offset</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">hole_rad</span><span class="p">,</span>  <span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">-</span> <span class="n">hole_offset</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.2</span><span class="o">*</span><span class="n">hole_rad</span><span class="o">*.</span><span class="mi">75</span><span class="p">)]</span>
+        <span class="c1"># make list of hole geometry</span>
+        <span class="n">sheet_poly</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">genericshapes</span><span class="o">.</span><span class="n">GenericPoly</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">tmp_geom</span><span class="p">,[])</span>
+        <span class="n">left_tri</span><span class="o">.</span><span class="n">addoperationgeometries</span><span class="p">([</span><span class="n">sheet_poly</span><span class="p">])</span>
+
+        <span class="c1">############# crosshairs</span>
+        <span class="n">cross_hairs</span> <span class="o">=</span> <span class="n">Sketch</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+        <span class="n">tmp_geom_horiz</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">cross_len</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">cross_len</span><span class="p">)]</span>
+        <span class="n">tmp_geom_vert</span>  <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="n">cross_len</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">cross_len</span><span class="p">,</span><span class="mi">0</span><span class="p">)]</span>
+        <span class="n">shift</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">cross_horiz</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cross_horiz</span><span class="p">]</span>
+
+        <span class="n">cross_poly_horiz</span> <span class="o">=</span> <span class="p">[</span><span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">genericshapes</span><span class="o">.</span><span class="n">GenericPoly</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">([(</span><span class="n">tmp_geom_horiz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span>
+                                                                                                <span class="n">tmp_geom_horiz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">),</span>
+                                                                                               <span class="p">(</span><span class="n">tmp_geom_horiz</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span>
+                                                                                                <span class="n">tmp_geom_horiz</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">),</span>
+                                                                                               <span class="p">(</span><span class="n">tmp_geom_horiz</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span>
+                                                                                                <span class="n">tmp_geom_horiz</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">),</span>
+                                                                                               <span class="p">(</span><span class="n">tmp_geom_horiz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span>
+                                                                                                <span class="n">tmp_geom_horiz</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">)],</span>
+                                                                                               <span class="p">[])</span>
+                                                                                        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">shift</span><span class="p">]</span>
+
+        <span class="n">cross_poly_vert</span>  <span class="o">=</span> <span class="p">[</span><span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">genericshapes</span><span class="o">.</span><span class="n">GenericPoly</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">([(</span><span class="n">tmp_geom_vert</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span>
+                                                                                                <span class="n">tmp_geom_vert</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">),</span>
+                                                                                               <span class="p">(</span><span class="n">tmp_geom_vert</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span>
+                                                                                                <span class="n">tmp_geom_vert</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">),</span>
+                                                                                               <span class="p">(</span><span class="n">tmp_geom_vert</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span>
+                                                                                                <span class="n">tmp_geom_vert</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">),</span>
+                                                                                               <span class="p">(</span><span class="n">tmp_geom_vert</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span>
+                                                                                                <span class="n">tmp_geom_vert</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">dt</span><span class="o">/</span><span class="mf">2.</span><span class="p">)],</span>
+                                                                                               <span class="p">[])</span>
+                                                                                        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">shift</span><span class="p">]</span>
+
+        <span class="n">cross_hairs</span><span class="o">.</span><span class="n">addoperationgeometries</span><span class="p">(</span><span class="n">cross_poly_horiz</span> <span class="o">+</span> <span class="n">cross_poly_vert</span><span class="p">)</span>
+
+        <span class="c1"># Build the sheet with holes</span>
+        <span class="c1"># Add the sketches to the sketch list</span>
+        <span class="n">layup</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="n">sheet</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">sheet</span>
+        <span class="n">layup</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="n">holes</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">holes</span>
+        <span class="n">layup</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="n">cross_hairs</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">cross_hairs</span>
+        <span class="n">layup</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="n">left_tri</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_tri</span>
+
+        <span class="c1"># get the layer links for making sketch ops</span>
+        <span class="n">layer_links</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layer_list</span><span class="p">]</span>
+
+        <span class="n">holes_sketch</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">simplesketchoperation</span><span class="o">.</span><span class="n">SimpleSketchOp</span><span class="p">({</span><span class="s1">&#39;sketch&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">holes</span><span class="o">.</span><span class="n">id</span><span class="p">]},</span><span class="n">layer_links</span><span class="p">)</span>
+        <span class="n">holes_sketch</span> <span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Holes&quot;</span>
+
+        <span class="n">trian_sketch</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">simplesketchoperation</span><span class="o">.</span><span class="n">SimpleSketchOp</span><span class="p">({</span><span class="s1">&#39;sketch&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">left_tri</span><span class="o">.</span><span class="n">id</span><span class="p">]},</span><span class="n">layer_links</span><span class="p">)</span>
+        <span class="n">trian_sketch</span> <span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Left triangle&quot;</span>
+
+        <span class="n">sheet_sketch</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">simplesketchoperation</span><span class="o">.</span><span class="n">SimpleSketchOp</span><span class="p">({</span><span class="s1">&#39;sketch&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">sheet</span><span class="o">.</span><span class="n">id</span><span class="p">]},</span><span class="n">layer_links</span><span class="p">)</span>
+        <span class="n">sheet_sketch</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;sheet&quot;</span>
+
+        <span class="n">cross_sketch</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">simplesketchoperation</span><span class="o">.</span><span class="n">SimpleSketchOp</span><span class="p">({</span><span class="s1">&#39;sketch&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">cross_hairs</span><span class="o">.</span><span class="n">id</span><span class="p">]},</span><span class="n">layer_links</span><span class="p">)</span>
+        <span class="n">cross_sketch</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Crosshairs&quot;</span>
+
+        <span class="c1"># laminate operation to combine cross hairs and holes</span>
+        <span class="n">sheet_with_holes</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">laminateoperation2</span><span class="o">.</span><span class="n">LaminateOperation2</span><span class="p">({</span><span class="s1">&#39;unary&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="n">sheet_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span>
+                                                                                         <span class="s1">&#39;binary&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="n">holes_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+                                                                                                    <span class="p">(</span><span class="n">cross_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+                                                                                                    <span class="p">(</span><span class="n">trian_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">)]},</span>
+                                                                                        <span class="s1">&#39;difference&#39;</span><span class="p">)</span>
+        <span class="n">sheet_with_holes</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Sheet with holes&quot;</span>
+
+        <span class="c1">############# rectangle windows</span>
+        <span class="n">windows</span> <span class="o">=</span> <span class="p">[</span><span class="n">Sketch</span><span class="o">.</span><span class="n">new</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">layer_list</span><span class="p">]</span>
+        <span class="n">windows_sketchop</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># make windows, center on middle of sheet at bottom</span>
+        <span class="n">window_width</span> <span class="o">=</span> <span class="n">wind_w</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">windows</span><span class="p">))</span>
+        <span class="n">window_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">round</span><span class="p">(</span><span class="n">kk</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">space_x</span><span class="p">)</span><span class="o">*</span><span class="n">window_width</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">kk</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">windows</span><span class="p">))])</span>
+        <span class="n">window_coords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">window_coords</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">window_coords</span><span class="p">))</span> <span class="c1"># center is 0</span>
+
+        <span class="k">for</span> <span class="n">kk</span><span class="p">,</span> <span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">layer_list</span><span class="p">,</span>
+                                                          <span class="n">windows</span><span class="p">,</span>
+                                                          <span class="n">window_coords</span><span class="p">)):</span>
+
+            <span class="n">window</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_window&#39;</span>
+
+            <span class="n">tmp_geom</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x_coord</span><span class="p">,</span> <span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">buff_y</span><span class="p">),</span>
+                        <span class="p">(</span><span class="n">x_coord</span><span class="p">,</span>  <span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">buff_y</span> <span class="o">+</span> <span class="n">wind_h</span><span class="p">),</span>
+                        <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">window_width</span><span class="p">,</span> <span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">buff_y</span> <span class="o">+</span> <span class="n">wind_h</span><span class="p">),</span>
+                        <span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="n">window_width</span><span class="p">,</span> <span class="o">-</span><span class="n">sheet_width</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="n">buff_y</span><span class="p">)]</span>
+            <span class="n">sheet_poly</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">genericshapes</span><span class="o">.</span><span class="n">GenericPoly</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">tmp_geom</span><span class="p">,[])</span>
+            <span class="n">window</span><span class="o">.</span><span class="n">addoperationgeometries</span><span class="p">([</span><span class="n">sheet_poly</span><span class="p">])</span>
+            <span class="n">layup</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="n">window</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">window</span>
+
+            <span class="c1"># make a sketch op on all layers above the current layer, this will be removed with a difference from the sheet</span>
+            <span class="n">windows_sketchop</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">simplesketchoperation</span><span class="o">.</span><span class="n">SimpleSketchOp</span><span class="p">({</span><span class="s1">&#39;sketch&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">window</span><span class="o">.</span><span class="n">id</span><span class="p">]},</span>
+                                                                                       <span class="n">layer_links</span><span class="p">[</span><span class="n">kk</span><span class="o">+</span><span class="mi">1</span><span class="p">:]))</span>
+            <span class="n">windows_sketchop</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Window_&quot;</span> <span class="o">+</span> <span class="n">layer</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="c1"># laminate operation to remove windows from sheet with holes</span>
+        <span class="n">sheet_with_windows</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">laminateoperation2</span><span class="o">.</span><span class="n">LaminateOperation2</span><span class="p">({</span><span class="s1">&#39;unary&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="n">sheet_with_holes</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span>
+                                                                                         <span class="s1">&#39;binary&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="n">sktch</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">sktch</span>
+                                                                                                    <span class="ow">in</span> <span class="n">windows_sketchop</span><span class="p">]},</span>
+                                                                                         <span class="s1">&#39;difference&#39;</span><span class="p">)</span>
+        <span class="n">sheet_with_windows</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Final sheet&quot;</span>
+
+        <span class="c1"># add the sketch ops to the design and generate the sketch op</span>
+        <span class="n">other_ops</span> <span class="o">=</span> <span class="n">windows_sketchop</span> <span class="o">+</span> <span class="p">[</span><span class="n">trian_sketch</span><span class="p">,</span> <span class="n">holes_sketch</span><span class="p">,</span> <span class="n">sheet_sketch</span><span class="p">,</span> <span class="n">cross_sketch</span><span class="p">,</span> <span class="n">sheet_with_holes</span><span class="p">,</span> <span class="n">sheet_with_windows</span><span class="p">]</span>
+        <span class="p">[</span><span class="n">layup</span><span class="o">.</span><span class="n">addoperation</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">other_ops</span><span class="p">]</span>
+        <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">layup</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">other_ops</span><span class="p">]</span>
+        <span class="p">[</span><span class="n">layup</span><span class="o">.</span><span class="n">remove_operation</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">other_ops</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="n">OperationOutput</span><span class="p">(</span><span class="n">sheet_with_windows</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;OutputLaminate&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">sheet_with_windows</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">csg</span>
+
+        <span class="c1"># might need valueoperation</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

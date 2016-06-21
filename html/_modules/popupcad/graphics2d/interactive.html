@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,95 +54,52 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.graphics2d.interactive</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">popupcad</span>
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 <span class="kn">from</span> <span class="nn">popupcad.graphics2d.graphicsitems</span> <span class="kn">import</span> <span class="n">Common</span>
 <span class="kn">from</span> <span class="nn">popupcad.graphics2d.graphicsitems</span> <span class="kn">import</span> <span class="n">CommonShape</span>
 <span class="kn">from</span> <span class="nn">popupcad.graphics2d.modes</span> <span class="kn">import</span> <span class="n">Modes</span>
 
+<span class="kn">import</span> <span class="nn">qt.qt_hacks</span> <span class="kn">as</span> <span class="nn">qh</span>
 
 <div class="viewcode-block" id="InteractiveModes"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractiveModes">[docs]</a><span class="k">class</span> <span class="nc">InteractiveModes</span><span class="p">(</span><span class="n">Modes</span><span class="p">):</span>
     <span class="n">modelist</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;mode_defined&#39;</span><span class="p">)</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;mode_edit&#39;</span><span class="p">)</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;mode_selectable_edges&#39;</span><span class="p">)</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;mode_render&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mode_defined&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mode_edit&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mode_selectable_edges&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mode_render&#39;</span><span class="p">)</span>
 
 </div>
 <div class="viewcode-block" id="Interactive"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive">[docs]</a><span class="k">class</span> <span class="nc">Interactive</span><span class="p">(</span><span class="n">Common</span><span class="p">,</span> <span class="n">CommonShape</span><span class="p">,</span> <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsPathItem</span><span class="p">):</span>
     <span class="n">z_value</span> <span class="o">=</span> <span class="mi">15</span>
     <span class="n">isDeletable</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">linewidth</span> <span class="o">=</span> <span class="mf">3.0</span>
+    <span class="n">_line_width</span> <span class="o">=</span> <span class="mf">3.0</span>
     <span class="n">style</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidLine</span>
     <span class="n">capstyle</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundCap</span>
     <span class="n">joinstyle</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundJoin</span>
     <span class="n">brushstyle</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidPattern</span>
-    <span class="n">nobrush</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoBrush</span>
     <span class="n">modes</span> <span class="o">=</span> <span class="n">InteractiveModes</span><span class="p">()</span>
 
-    <span class="n">boundingrectbuffer</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">pen_colors</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">pen_colors</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_defined</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">pen_colors</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_edit</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">pen_colors</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_render</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">pen_colors</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_selectable_edges</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-    <span class="n">pendefinedcolor</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">peneditcolor</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">penrendercolor</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">penselectioncolor</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-    <span class="n">brushdefinedcolor</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">)</span>
-    <span class="n">brusheditcolor</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">)</span>
-    <span class="n">brushselectioncolor</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">)</span>
-
-    <span class="n">pens</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">pens</span><span class="p">[</span>
-        <span class="n">modes</span><span class="o">.</span><span class="n">mode_defined</span><span class="p">]</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
-        <span class="n">pendefinedcolor</span><span class="p">,</span>
-        <span class="n">linewidth</span><span class="p">,</span>
-        <span class="n">style</span><span class="p">,</span>
-        <span class="n">capstyle</span><span class="p">,</span>
-        <span class="n">joinstyle</span><span class="p">)</span>
-    <span class="n">pens</span><span class="p">[</span>
-        <span class="n">modes</span><span class="o">.</span><span class="n">mode_edit</span><span class="p">]</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
-        <span class="n">peneditcolor</span><span class="p">,</span>
-        <span class="n">linewidth</span><span class="p">,</span>
-        <span class="n">style</span><span class="p">,</span>
-        <span class="n">capstyle</span><span class="p">,</span>
-        <span class="n">joinstyle</span><span class="p">)</span>
-    <span class="n">pens</span><span class="p">[</span>
-        <span class="n">modes</span><span class="o">.</span><span class="n">mode_render</span><span class="p">]</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
-        <span class="n">penrendercolor</span><span class="p">,</span>
-        <span class="mf">1.</span><span class="p">,</span>
-        <span class="n">style</span><span class="p">,</span>
-        <span class="n">capstyle</span><span class="p">,</span>
-        <span class="n">joinstyle</span><span class="p">)</span>
-    <span class="n">pens</span><span class="p">[</span>
-        <span class="n">modes</span><span class="o">.</span><span class="n">mode_selectable_edges</span><span class="p">]</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
-        <span class="n">penselectioncolor</span><span class="p">,</span>
-        <span class="n">linewidth</span><span class="p">,</span>
-        <span class="n">style</span><span class="p">,</span>
-        <span class="n">capstyle</span><span class="p">,</span>
-        <span class="n">joinstyle</span><span class="p">)</span>
-
-    <span class="n">brushes</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">brushes</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_defined</span><span class="p">]</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">brushdefinedcolor</span><span class="p">,</span> <span class="n">brushstyle</span><span class="p">)</span>
-    <span class="n">brushes</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_edit</span><span class="p">]</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">brusheditcolor</span><span class="p">,</span> <span class="n">brushstyle</span><span class="p">)</span>
-    <span class="n">brushes</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_render</span><span class="p">]</span> <span class="o">=</span> <span class="n">nobrush</span>
-    <span class="n">brushes</span><span class="p">[</span>
-        <span class="n">modes</span><span class="o">.</span><span class="n">mode_selectable_edges</span><span class="p">]</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span>
-        <span class="n">brushselectioncolor</span><span class="p">,</span>
-        <span class="n">brushstyle</span><span class="p">)</span>
-
-    <span class="n">nobrushes</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">nobrushes</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_defined</span><span class="p">]</span> <span class="o">=</span> <span class="n">nobrush</span>
-    <span class="n">nobrushes</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_edit</span><span class="p">]</span> <span class="o">=</span> <span class="n">nobrush</span>
-    <span class="n">nobrushes</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_render</span><span class="p">]</span> <span class="o">=</span> <span class="n">nobrush</span>
-    <span class="n">nobrushes</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_selectable_edges</span><span class="p">]</span> <span class="o">=</span> <span class="n">nobrush</span>
+    <span class="n">brush_colors</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">brush_colors</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_defined</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">)</span>
+    <span class="n">brush_colors</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_edit</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">)</span>
+    <span class="n">brush_colors</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_render</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">brush_colors</span><span class="p">[</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_selectable_edges</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generic</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generic</span> <span class="o">=</span> <span class="n">generic</span>
@@ -175,6 +132,7 @@
 <div class="viewcode-block" id="Interactive.set_view_scale"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive.set_view_scale">[docs]</a>    <span class="k">def</span> <span class="nf">set_view_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view_scale</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_view_scale</span> <span class="o">=</span> <span class="n">view_scale</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">querypen</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prepareGeometryChange</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update_bounding_rect</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="Interactive.get_view_scale"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive.get_view_scale">[docs]</a>    <span class="k">def</span> <span class="nf">get_view_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -225,11 +183,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="Interactive.querybrush"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive.querybrush">[docs]</a>    <span class="k">def</span> <span class="nf">querybrush</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">brushes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">]</span>
-</div>
+        <span class="n">brush</span> <span class="o">=</span>  <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">brush_colors</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">brushstyle</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">brush</span>
+        </div>
+<div class="viewcode-block" id="Interactive.get_line_width"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive.get_line_width">[docs]</a>    <span class="k">def</span> <span class="nf">get_line_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line_width</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">view_scale</span>
+        </div>
+    <span class="n">line_width</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_line_width</span><span class="p">)</span>
+
 <div class="viewcode-block" id="Interactive.querypen"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive.querypen">[docs]</a>    <span class="k">def</span> <span class="nf">querypen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">pen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pens</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">]</span>
-        <span class="n">pen</span><span class="o">.</span><span class="n">setCosmetic</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">pen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">pen_colors</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">]),</span><span class="bp">self</span><span class="o">.</span><span class="n">line_width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">capstyle</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">joinstyle</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pen</span>
 </div>
 <div class="viewcode-block" id="Interactive.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -247,8 +210,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">refreshview</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="Interactive.refreshview"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive.refreshview">[docs]</a>    <span class="k">def</span> <span class="nf">refreshview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c">#        for handle in self.handles():</span>
-        <span class="c">#            handle.notify()</span>
+        <span class="c1">#        for handle in self.handles():</span>
+        <span class="c1">#            handle.notify()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setZValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z_value</span><span class="p">)</span>
 
@@ -266,8 +229,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">moved_trigger</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_edit</span><span class="p">:</span>
-            <span class="n">add</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">KeyboardModifierMask</span><span class="o">.</span><span class="n">ControlModifier</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
+            <span class="n">add</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span> <span class="o">&amp;</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ControlModifier</span>
             <span class="k">if</span> <span class="n">add</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">addvertex</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">scenePos</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">itemclicked</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="p">)</span>
@@ -280,7 +242,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">moved_trigger</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">savesnapshot</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
         <span class="n">dp</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">scenePos</span><span class="p">()</span> <span class="o">-</span> <span class="n">event</span><span class="o">.</span><span class="n">lastScenePos</span><span class="p">()</span>
-        <span class="n">dp</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dp</span><span class="o">.</span><span class="n">toTuple</span><span class="p">())</span> <span class="o">/</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+        <span class="n">dp</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">qh</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span> <span class="o">/</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">constrained_shift</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraintsystem</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Interactive</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mouseMoveEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
@@ -308,7 +270,7 @@
 <div class="viewcode-block" id="Interactive.addvertex"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive.addvertex">[docs]</a>    <span class="k">def</span> <span class="nf">addvertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">qpoint</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">popupcad.geometry.vertex</span> <span class="kn">import</span> <span class="n">ShapeVertex</span>
         <span class="kn">import</span> <span class="nn">numpy</span>
-        <span class="n">v</span> <span class="o">=</span> <span class="n">ShapeVertex</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">qpoint</span><span class="o">.</span><span class="n">toTuple</span><span class="p">())</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">ShapeVertex</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">qh</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">qpoint</span><span class="p">))</span><span class="o">/</span><span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">addvertex_exterior</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">special</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updatehandles</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refreshview</span><span class="p">()</span>
@@ -321,18 +283,21 @@
 <div class="viewcode-block" id="Interactive.updateshape"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive.updateshape">[docs]</a>    <span class="k">def</span> <span class="nf">updateshape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Interactive</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updatechildhandles</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectableedges</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_bounding_rect</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="Interactive.children"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive.children">[docs]</a>    <span class="k">def</span> <span class="nf">children</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectableedges</span>
 </div>
-<div class="viewcode-block" id="Interactive.update_bounding_rect"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive.update_bounding_rect">[docs]</a>    <span class="k">def</span> <span class="nf">update_bounding_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
-<span class="c">#</span>
-<span class="c">#    def customshape(self):</span>
-<span class="c">#        path = self.path()</span>
-<span class="c">#        s = qg.QPainterPathStroker()</span>
-<span class="c">#        s.setWidth(10 * self.view_scale)</span>
-<span class="c">#        return s.createStroke(path)</span>
+<div class="viewcode-block" id="Interactive.update_bounding_rect"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive.update_bounding_rect">[docs]</a>    <span class="k">def</span> <span class="nf">update_bounding_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<span class="c1">#        update bounding_rect        </span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPathStroker</span><span class="p">()</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">setWidth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">line_width</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bounding_rect</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">createStroke</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">boundingRect</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="Interactive.boundingRect"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.Interactive.boundingRect">[docs]</a>    <span class="k">def</span> <span class="nf">boundingRect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bounding_rect</span>
 
 </div></div>
 <div class="viewcode-block" id="InteractivePoly"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractivePoly">[docs]</a><span class="k">class</span> <span class="nc">InteractivePoly</span><span class="p">(</span><span class="n">Interactive</span><span class="p">):</span>
@@ -348,41 +313,18 @@
 
 </div>
 <div class="viewcode-block" id="InteractivePath"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractivePath">[docs]</a><span class="k">class</span> <span class="nc">InteractivePath</span><span class="p">(</span><span class="n">Interactive</span><span class="p">):</span>
-    <span class="n">brushes</span> <span class="o">=</span> <span class="n">Interactive</span><span class="o">.</span><span class="n">nobrushes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
+<div class="viewcode-block" id="InteractivePath.querybrush"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractivePath.querybrush">[docs]</a>    <span class="k">def</span> <span class="nf">querybrush</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoBrush</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="InteractivePath.create_selectable_edges"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractivePath.create_selectable_edges">[docs]</a>    <span class="k">def</span> <span class="nf">create_selectable_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_selectable_edge_path</span><span class="p">()</span>
-
-<span class="c">#    def shape(self):</span>
-<span class="c">#        return self.customshape()</span>
-
-<span class="c">#    def boundingRect(self):</span>
-<span class="c">#        return self.shape().boundingRect()</span>
-</div>
-<div class="viewcode-block" id="InteractivePath.updateshape"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractivePath.updateshape">[docs]</a>    <span class="k">def</span> <span class="nf">updateshape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">InteractivePath</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">update_bounding_rect</span><span class="p">()</span>
-        </div>
-<div class="viewcode-block" id="InteractivePath.update_bounding_rect"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractivePath.update_bounding_rect">[docs]</a>    <span class="k">def</span> <span class="nf">update_bounding_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPathStroker</span><span class="p">()</span>
-        <span class="n">s</span><span class="o">.</span><span class="n">setWidth</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_scale</span><span class="p">)</span>
-<span class="c">#        self.prepareGeometryChange()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_bounding_rect</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">createStroke</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">())</span><span class="o">.</span><span class="n">boundingRect</span><span class="p">()</span>
-        </div>
-<div class="viewcode-block" id="InteractivePath.boundingRect"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractivePath.boundingRect">[docs]</a>    <span class="k">def</span> <span class="nf">boundingRect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bounding_rect</span>
-</div></div>
+        </div></div>
 <div class="viewcode-block" id="InteractiveLine"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractiveLine">[docs]</a><span class="k">class</span> <span class="nc">InteractiveLine</span><span class="p">(</span><span class="n">Interactive</span><span class="p">):</span>
-    <span class="n">brushes</span> <span class="o">=</span> <span class="n">Interactive</span><span class="o">.</span><span class="n">nobrushes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
+<div class="viewcode-block" id="InteractiveLine.querybrush"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractiveLine.querybrush">[docs]</a>    <span class="k">def</span> <span class="nf">querybrush</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoBrush</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="InteractiveLine.create_selectable_edges"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractiveLine.create_selectable_edges">[docs]</a>    <span class="k">def</span> <span class="nf">create_selectable_edges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_selectable_edge_path</span><span class="p">()</span>
-
-<span class="c">#    def shape(self):</span>
-<span class="c">#        return self.customshape()</span>
-<span class="c">#</span>
-<span class="c">#    def boundingRect(self):</span>
-<span class="c">#        return self.shape().boundingRect()</span>
 </div>
 <div class="viewcode-block" id="InteractiveLine.updateshape"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractiveLine.updateshape">[docs]</a>    <span class="k">def</span> <span class="nf">updateshape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">atan2</span><span class="p">,</span> <span class="n">pi</span>
@@ -397,24 +339,14 @@
         <span class="n">path</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="p">()</span>
         <span class="n">poly</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPolygonF</span><span class="p">([</span><span class="n">qc</span><span class="o">.</span><span class="n">QPointF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">qc</span><span class="o">.</span><span class="n">QPointF</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
         <span class="n">path</span><span class="o">.</span><span class="n">addPolygon</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_bounding_rect</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setPath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
         <span class="n">xy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapFromScene</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">xy</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">xy</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updatechildhandles</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectableedges</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">update_bounding_rect</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="InteractiveLine.update_bounding_rect"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractiveLine.update_bounding_rect">[docs]</a>    <span class="k">def</span> <span class="nf">update_bounding_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c">#update bounding_rect        </span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPathStroker</span><span class="p">()</span>
-        <span class="n">s</span><span class="o">.</span><span class="n">setWidth</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">view_scale</span><span class="p">)</span>
-<span class="c">#        self.prepareGeometryChange()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_bounding_rect</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">createStroke</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">())</span><span class="o">.</span><span class="n">boundingRect</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="InteractiveLine.boundingRect"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactive.InteractiveLine.boundingRect">[docs]</a>    <span class="k">def</span> <span class="nf">boundingRect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bounding_rect</span></div></div>
-</pre></div>
+</pre></div></div></div>
 
           </div>
         </div>

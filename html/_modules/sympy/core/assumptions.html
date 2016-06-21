@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,7 +54,7 @@
           <div class="body" role="main">
             
   <h1>Source code for sympy.core.assumptions</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This module contains the machinery handling assumptions.</span>
 
 <span class="sd">All symbolic objects have assumption attributes that can be accessed via</span>
@@ -203,45 +203,45 @@
 
 <span class="n">_assume_rules</span> <span class="o">=</span> <span class="n">FactRules</span><span class="p">([</span>
 
-    <span class="s">&#39;integer        -&gt;  rational&#39;</span><span class="p">,</span>
-    <span class="s">&#39;rational       -&gt;  real&#39;</span><span class="p">,</span>
-    <span class="s">&#39;rational       -&gt;  algebraic&#39;</span><span class="p">,</span>
-    <span class="s">&#39;algebraic      -&gt;  complex&#39;</span><span class="p">,</span>
-    <span class="s">&#39;real           -&gt;  complex&#39;</span><span class="p">,</span>
-    <span class="s">&#39;real           -&gt;  hermitian&#39;</span><span class="p">,</span>
-    <span class="s">&#39;imaginary      -&gt;  complex&#39;</span><span class="p">,</span>
-    <span class="s">&#39;imaginary      -&gt;  antihermitian&#39;</span><span class="p">,</span>
-    <span class="s">&#39;complex        -&gt;  commutative&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;integer        -&gt;  rational&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;rational       -&gt;  real&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;rational       -&gt;  algebraic&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;algebraic      -&gt;  complex&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;real           -&gt;  complex&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;real           -&gt;  hermitian&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;imaginary      -&gt;  complex&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;imaginary      -&gt;  antihermitian&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;complex        -&gt;  commutative&#39;</span><span class="p">,</span>
 
-    <span class="s">&#39;odd            ==  integer &amp; !even&#39;</span><span class="p">,</span>
-    <span class="s">&#39;even           ==  integer &amp; !odd&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;odd            ==  integer &amp; !even&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;even           ==  integer &amp; !odd&#39;</span><span class="p">,</span>
 
-    <span class="s">&#39;real           ==  negative | zero | positive&#39;</span><span class="p">,</span>
-    <span class="s">&#39;transcendental ==  complex &amp; !algebraic&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;real           ==  negative | zero | positive&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;transcendental ==  complex &amp; !algebraic&#39;</span><span class="p">,</span>
 
-    <span class="s">&#39;negative       ==  nonpositive &amp; nonzero&#39;</span><span class="p">,</span>
-    <span class="s">&#39;positive       ==  nonnegative &amp; nonzero&#39;</span><span class="p">,</span>
-    <span class="s">&#39;zero           ==  nonnegative &amp; nonpositive&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;negative       ==  nonpositive &amp; nonzero&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;positive       ==  nonnegative &amp; nonzero&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;zero           ==  nonnegative &amp; nonpositive&#39;</span><span class="p">,</span>
 
-    <span class="s">&#39;nonpositive    ==  real &amp; !positive&#39;</span><span class="p">,</span>
-    <span class="s">&#39;nonnegative    ==  real &amp; !negative&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;nonpositive    ==  real &amp; !positive&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;nonnegative    ==  real &amp; !negative&#39;</span><span class="p">,</span>
 
-    <span class="s">&#39;zero           -&gt;  even &amp; finite&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;zero           -&gt;  even &amp; finite&#39;</span><span class="p">,</span>
 
-    <span class="s">&#39;prime          -&gt;  integer &amp; positive&#39;</span><span class="p">,</span>
-    <span class="s">&#39;composite      ==  integer &amp; positive &amp; !prime&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;prime          -&gt;  integer &amp; positive&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;composite      ==  integer &amp; positive &amp; !prime&#39;</span><span class="p">,</span>
 
-    <span class="s">&#39;irrational     ==  real &amp; !rational&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;irrational     ==  real &amp; !rational&#39;</span><span class="p">,</span>
 
-    <span class="s">&#39;imaginary      -&gt;  !real&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;imaginary      -&gt;  !real&#39;</span><span class="p">,</span>
 
-    <span class="s">&#39;infinite       -&gt;  !finite&#39;</span><span class="p">,</span>
-    <span class="s">&#39;noninteger     ==  real &amp; !integer&#39;</span><span class="p">,</span>
-    <span class="s">&#39;nonzero        ==  !zero&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;infinite       -&gt;  !finite&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;noninteger     ==  real &amp; !integer&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;nonzero        ==  !zero&#39;</span><span class="p">,</span>
 <span class="p">])</span>
 
 <span class="n">_assume_defined</span> <span class="o">=</span> <span class="n">_assume_rules</span><span class="o">.</span><span class="n">defined_facts</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">_assume_defined</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&#39;polar&#39;</span><span class="p">)</span>
+<span class="n">_assume_defined</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s1">&#39;polar&#39;</span><span class="p">)</span>
 <span class="n">_assume_defined</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">_assume_defined</span><span class="p">)</span>
 
 
@@ -262,7 +262,7 @@
 
 <span class="k">def</span> <span class="nf">as_property</span><span class="p">(</span><span class="n">fact</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert a fact name to the name of the corresponding property&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="s">&#39;is_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">fact</span>
+    <span class="k">return</span> <span class="s1">&#39;is_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">fact</span>
 
 
 <span class="k">def</span> <span class="nf">make_property</span><span class="p">(</span><span class="n">fact</span><span class="p">):</span>
@@ -307,11 +307,11 @@
     <span class="n">assumptions</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_assumptions</span>
     <span class="n">handler_map</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_prop_handler</span>
 
-    <span class="c"># Store None into the assumptions so that recursive attempts at</span>
-    <span class="c"># evaluating the same fact don&#39;t trigger infinite recursion.</span>
+    <span class="c1"># Store None into the assumptions so that recursive attempts at</span>
+    <span class="c1"># evaluating the same fact don&#39;t trigger infinite recursion.</span>
     <span class="n">assumptions</span><span class="o">.</span><span class="n">_tell</span><span class="p">(</span><span class="n">fact</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
-    <span class="c"># First try the assumption evaluation function if it exists</span>
+    <span class="c1"># First try the assumption evaluation function if it exists</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">evaluate</span> <span class="o">=</span> <span class="n">handler_map</span><span class="p">[</span><span class="n">fact</span><span class="p">]</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
@@ -322,7 +322,7 @@
             <span class="n">assumptions</span><span class="o">.</span><span class="n">deduce_all_facts</span><span class="p">(((</span><span class="n">fact</span><span class="p">,</span> <span class="n">a</span><span class="p">),))</span>
             <span class="k">return</span> <span class="n">a</span>
 
-    <span class="c"># Try assumption&#39;s prerequisites</span>
+    <span class="c1"># Try assumption&#39;s prerequisites</span>
     <span class="n">prereq</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_assume_rules</span><span class="o">.</span><span class="n">prereq</span><span class="p">[</span><span class="n">fact</span><span class="p">])</span>
     <span class="n">shuffle</span><span class="p">(</span><span class="n">prereq</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">pk</span> <span class="ow">in</span> <span class="n">prereq</span><span class="p">:</span>
@@ -331,12 +331,12 @@
         <span class="k">if</span> <span class="n">pk</span> <span class="ow">in</span> <span class="n">handler_map</span><span class="p">:</span>
             <span class="n">_ask</span><span class="p">(</span><span class="n">pk</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 
-            <span class="c"># we might have found the value of fact</span>
+            <span class="c1"># we might have found the value of fact</span>
             <span class="n">ret_val</span> <span class="o">=</span> <span class="n">assumptions</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fact</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">ret_val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">ret_val</span>
 
-    <span class="c"># Note: the result has already been cached</span>
+    <span class="c1"># Note: the result has already been cached</span>
     <span class="k">return</span> <span class="bp">None</span>
 
 
@@ -348,7 +348,7 @@
         <span class="n">local_defs</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_assume_defined</span><span class="p">:</span>
             <span class="n">attrname</span> <span class="o">=</span> <span class="n">as_property</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-            <span class="n">v</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attrname</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attrname</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="n">integer_types</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">None</span><span class="p">))):</span>
                 <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="n">v</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
@@ -368,27 +368,27 @@
         <span class="n">cls</span><span class="o">.</span><span class="n">_prop_handler</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">_assume_defined</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">cls</span><span class="o">.</span><span class="n">_prop_handler</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s">&#39;_eval_is_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">_prop_handler</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="s1">&#39;_eval_is_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="k">pass</span>
 
-        <span class="c"># Put definite results directly into the class dict, for speed</span>
+        <span class="c1"># Put definite results directly into the class dict, for speed</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">default_assumptions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">as_property</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">v</span><span class="p">)</span>
 
-        <span class="c"># protection e.g. for Integer.is_even=F &lt;- (Rational.is_integer=F)</span>
+        <span class="c1"># protection e.g. for Integer.is_even=F &lt;- (Rational.is_integer=F)</span>
         <span class="n">derived_from_bases</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">__bases__</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">derived_from_bases</span> <span class="o">|=</span> <span class="nb">set</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">default_assumptions</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
-                <span class="k">continue</span>  <span class="c"># not an assumption-aware class</span>
+                <span class="k">continue</span>  <span class="c1"># not an assumption-aware class</span>
         <span class="k">for</span> <span class="n">fact</span> <span class="ow">in</span> <span class="n">derived_from_bases</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">default_assumptions</span><span class="p">):</span>
             <span class="n">pname</span> <span class="o">=</span> <span class="n">as_property</span><span class="p">(</span><span class="n">fact</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">pname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">__dict__</span><span class="p">:</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">pname</span><span class="p">,</span> <span class="n">make_property</span><span class="p">(</span><span class="n">fact</span><span class="p">))</span>
 
-        <span class="c"># Finally, add any missing automagic property (e.g. for Basic)</span>
+        <span class="c1"># Finally, add any missing automagic property (e.g. for Basic)</span>
         <span class="k">for</span> <span class="n">fact</span> <span class="ow">in</span> <span class="n">_assume_defined</span><span class="p">:</span>
             <span class="n">pname</span> <span class="o">=</span> <span class="n">as_property</span><span class="p">(</span><span class="n">fact</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">pname</span><span class="p">):</span>

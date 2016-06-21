@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,10 +54,10 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.manufacturing.simplify2</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -66,14 +66,14 @@
 
 
 <div class="viewcode-block" id="Simplify2"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.simplify2.Simplify2">[docs]</a><span class="k">class</span> <span class="nc">Simplify2</span><span class="p">(</span><span class="n">MultiValueOperation3</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Simplify&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Simplify&#39;</span>
     <span class="n">show</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="c">#    function = &#39;buffer&#39;</span>
-    <span class="n">valuenames</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Tolerance&#39;</span><span class="p">]</span>
+<span class="c1">#    function = &#39;buffer&#39;</span>
+    <span class="n">valuenames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Tolerance&#39;</span><span class="p">]</span>
     <span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
 <div class="viewcode-block" id="Simplify2.operate"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.simplify2.Simplify2.operate">[docs]</a>    <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
-        <span class="n">operation_ref</span><span class="p">,</span> <span class="n">output_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;parent&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">operation_ref</span><span class="p">,</span> <span class="n">output_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s1">&#39;parent&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">ls1</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">op_from_ref</span><span class="p">(</span><span class="n">operation_ref</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">output_index</span><span class="p">]</span><span class="o">.</span><span class="n">csg</span>
         <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">morphology</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span>
             <span class="n">ls1</span><span class="p">,</span>

@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,10 +54,10 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.filetypes.solidworksimport</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -66,9 +66,11 @@
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericPoly</span>
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapebase</span> <span class="kn">import</span> <span class="n">NotSimple</span><span class="p">,</span> <span class="n">ShapeInvalid</span><span class="p">,</span> <span class="n">GenericShapeBase</span>
 <span class="kn">import</span> <span class="nn">popupcad</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.popupcad_file</span> <span class="kn">import</span> <span class="n">popupCADFile</span>
-<span class="c">#import shapely.geometry as sg</span>
+
 <div class="viewcode-block" id="Loop"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Loop">[docs]</a><span class="k">class</span> <span class="nc">Loop</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loop</span><span class="p">,</span> <span class="n">geom</span><span class="p">):</span>
@@ -85,8 +87,9 @@
 
 </div>
 <div class="viewcode-block" id="Assembly"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Assembly">[docs]</a><span class="k">class</span> <span class="nc">Assembly</span><span class="p">(</span><span class="n">popupCADFile</span><span class="p">):</span>
-    <span class="n">filetypes</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;yaml&#39;</span><span class="p">:</span> <span class="s">&#39;Yaml File&#39;</span><span class="p">}</span>
-    <span class="n">defaultfiletype</span> <span class="o">=</span> <span class="s">&#39;yaml&#39;</span>
+    <span class="n">file_filter</span> <span class="o">=</span> <span class="s1">&#39;Yaml File(*.yaml)&#39;</span>
+    <span class="n">selected_filter</span> <span class="o">=</span> <span class="s1">&#39;Yaml File(*.yaml)&#39;</span>
+    <span class="n">defaultfiletype</span> <span class="o">=</span> <span class="s1">&#39;yaml&#39;</span>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Assembly.lastdir"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Assembly.lastdir">[docs]</a>    <span class="k">def</span> <span class="nf">lastdir</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
@@ -111,23 +114,23 @@
         <span class="n">ok5</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="k">if</span> <span class="n">scalefactor</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">scalefactor</span><span class="p">,</span> <span class="n">ok1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getDouble</span><span class="p">(</span>
-                <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;Scale Factor&#39;</span><span class="p">,</span> <span class="s">&#39;Scale Factor&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
+                <span class="n">parent</span><span class="p">,</span> <span class="s1">&#39;Scale Factor&#39;</span><span class="p">,</span> <span class="s1">&#39;Scale Factor&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">area_ratio</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">area_ratio</span><span class="p">,</span> <span class="n">ok2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getDouble</span><span class="p">(</span>
-                <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;Area Ratio&#39;</span><span class="p">,</span> <span class="s">&#39;Area Ratio&#39;</span><span class="p">,</span> <span class="o">.</span><span class="mo">001</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
+                <span class="n">parent</span><span class="p">,</span> <span class="s1">&#39;Area Ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;Area Ratio&#39;</span><span class="p">,</span> <span class="o">.</span><span class="mo">001</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">colinear_tol</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">colinear_tol</span><span class="p">,</span> <span class="n">ok3</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getDouble</span><span class="p">(</span>
-                <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;Colinear Tolerance&#39;</span><span class="p">,</span> <span class="s">&#39;Colinear Tolerance&#39;</span><span class="p">,</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
+                <span class="n">parent</span><span class="p">,</span> <span class="s1">&#39;Colinear Tolerance&#39;</span><span class="p">,</span> <span class="s1">&#39;Colinear Tolerance&#39;</span><span class="p">,</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">bufferval</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">bufferval</span><span class="p">,</span> <span class="n">ok4</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getDouble</span><span class="p">(</span>
-                <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;Buffer&#39;</span><span class="p">,</span> <span class="s">&#39;Buffer&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_negative_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
+                <span class="n">parent</span><span class="p">,</span> <span class="s1">&#39;Buffer&#39;</span><span class="p">,</span> <span class="s1">&#39;Buffer&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_negative_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">cleanup</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">cleanup</span><span class="p">,</span> <span class="n">ok5</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getDouble</span><span class="p">(</span>
-                <span class="n">parent</span><span class="p">,</span> <span class="s">&#39;Simplify&#39;</span><span class="p">,</span> <span class="s">&#39;Simplify&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
+                <span class="n">parent</span><span class="p">,</span> <span class="s1">&#39;Simplify&#39;</span><span class="p">,</span> <span class="s1">&#39;Simplify&#39;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">ok1</span> <span class="ow">and</span> <span class="n">ok2</span> <span class="ow">and</span> <span class="n">ok3</span> <span class="ow">and</span> <span class="n">ok4</span> <span class="ow">and</span> <span class="n">ok5</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span>
@@ -189,8 +192,8 @@
                         <span class="k">pass</span>
                     <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
                         <span class="k">print</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
-<span class="c">#                        if ex.message!=&#39;A LinearRing must have at least 3 coordinate tuples&#39;:</span>
-<span class="c">#                            print(ex.message)</span>
+<span class="c1">#                        if ex.message!=&#39;A LinearRing must have at least 3 coordinate tuples&#39;:</span>
+<span class="c1">#                            print(ex.message)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filter_small_areas</span><span class="p">(</span><span class="n">area_ratio</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
@@ -204,7 +207,7 @@
 </div>
 <div class="viewcode-block" id="Assembly.build_face_sketch"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.solidworksimport.Assembly.build_face_sketch">[docs]</a>    <span class="k">def</span> <span class="nf">build_face_sketch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">scalefactor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">bufferval</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cleanup</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
-        <span class="n">sketch</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">sketch</span><span class="o">.</span><span class="n">Sketch</span><span class="p">()</span>
+        <span class="n">sketch</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">sketch</span><span class="o">.</span><span class="n">Sketch</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
         <span class="n">sketch</span><span class="o">.</span><span class="n">addoperationgeometries</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geoms</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sketch</span>
 </div>
@@ -232,7 +235,7 @@
             <span class="n">loops</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">interiorpoints</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">loops</span>
 </div></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
 
     <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>

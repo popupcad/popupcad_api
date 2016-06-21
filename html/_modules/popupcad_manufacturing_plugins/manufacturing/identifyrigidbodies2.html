@@ -27,7 +27,7 @@
     <link rel="up" title="popupcad_manufacturing_plugins" href="../../popupcad_manufacturing_plugins.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,10 +54,10 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad_manufacturing_plugins.manufacturing.identifyrigidbodies2</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -66,13 +66,13 @@
 <span class="kn">import</span> <span class="nn">popupcad</span>
 
 <div class="viewcode-block" id="IdentifyRigidBodies2"><a class="viewcode-back" href="../../../popupcad_manufacturing_plugins/popupcad_manufacturing_plugins.manufacturing.html#popupcad_manufacturing_plugins.manufacturing.identifyrigidbodies2.IdentifyRigidBodies2">[docs]</a><span class="k">class</span> <span class="nc">IdentifyRigidBodies2</span><span class="p">(</span><span class="n">MultiValueOperation3</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Identify Rigid Bodies&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Identify Rigid Bodies&#39;</span>
     <span class="n">show</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">valuenames</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">defaults</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="IdentifyRigidBodies2.generate"><a class="viewcode-back" href="../../../popupcad_manufacturing_plugins/popupcad_manufacturing_plugins.manufacturing.html#popupcad_manufacturing_plugins.manufacturing.identifyrigidbodies2.IdentifyRigidBodies2.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
-        <span class="n">operation_ref</span><span class="p">,</span> <span class="n">output_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;parent&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">operation_ref</span><span class="p">,</span> <span class="n">output_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s1">&#39;parent&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">generic</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">op_from_ref</span><span class="p">(</span>
             <span class="n">operation_ref</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">output_index</span><span class="p">]</span><span class="o">.</span><span class="n">generic_laminate</span><span class="p">()</span>
         <span class="n">layerdef</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">()</span>
@@ -84,7 +84,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="n">OperationOutput</span><span class="p">(</span>
                     <span class="n">item</span><span class="p">,</span>
-                    <span class="s">&#39;Rigid Body {0:d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ii</span><span class="p">),</span>
+                    <span class="s1">&#39;Rigid Body {0:d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ii</span><span class="p">),</span>
                     <span class="bp">self</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div></div>
 </pre></div>

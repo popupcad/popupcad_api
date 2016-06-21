@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,14 +54,15 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.widgets.table_common</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 
 <div class="viewcode-block" id="CommonTableWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_common.CommonTableWidget">[docs]</a><span class="k">class</span> <span class="nc">CommonTableWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QTableWidget</span><span class="p">):</span>
     <span class="k">pass</span>
@@ -79,11 +80,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setStretchLastSection</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_table_width2</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">horizontalHeader</span><span class="p">()</span><span class="o">.</span><span class="n">setStretchLastSection</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-<span class="c">#</span>
-<span class="c">#    def calc_table_width(self):</span>
-<span class="c">#        w = sum([self.columnWidth(ii) for ii in range(self.columnCount())])</span>
-<span class="c">#        w2 = self.frameWidth() * 2</span>
-<span class="c">#        return w + w2</span>
+<span class="c1">#</span>
+<span class="c1">#    def calc_table_width(self):</span>
+<span class="c1">#        w = sum([self.columnWidth(ii) for ii in range(self.columnCount())])</span>
+<span class="c1">#        w2 = self.frameWidth() * 2</span>
+<span class="c1">#        return w + w2</span>
         </div>
 <div class="viewcode-block" id="CommonTableWidget.row_add"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_common.CommonTableWidget.row_add">[docs]</a>    <span class="k">def</span> <span class="nf">row_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
         <span class="n">ii</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rowCount</span><span class="p">()</span>
@@ -147,10 +148,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">setColumnCount</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_class</span><span class="o">.</span><span class="n">column_count</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setHorizontalHeaderLabels</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_class</span><span class="o">.</span><span class="n">header_labels</span><span class="p">)</span>
 
-<span class="c">#        self.resizeColumnsToContents()</span>
-<span class="c">#        self.reset_min_width()</span>
-<span class="c">#        self.setHorizontalScrollBarPolicy(</span>
-<span class="c">#            qc.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)</span>
+<span class="c1">#        self.resizeColumnsToContents()</span>
+<span class="c1">#        self.reset_min_width()</span>
+<span class="c1">#        self.setHorizontalScrollBarPolicy(</span>
+<span class="c1">#            qc.Qt.ScrollBarAlwaysOff)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setItemDelegate</span><span class="p">(</span><span class="n">delegate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_class</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cellClicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_clicked</span><span class="p">)</span>
@@ -160,7 +161,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Table</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">row_add</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Table.row_add_empty"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_common.Table.row_add_empty">[docs]</a>    <span class="k">def</span> <span class="nf">row_add_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_class</span><span class="o">.</span><span class="n">row_add_empty</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_class</span><span class="o">.</span><span class="n">row_add_empty</span><span class="p">()</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Table</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">row_add_empty</span><span class="p">(</span><span class="n">items</span><span class="p">)</span></div>
 <div class="viewcode-block" id="Table.cell_clicked"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.table_common.Table.cell_clicked">[docs]</a>    <span class="k">def</span> <span class="nf">cell_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">row</span><span class="p">,</span><span class="n">column</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data_class</span><span class="o">.</span><span class="n">cell_clicked</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">column</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span></div>
@@ -170,7 +171,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">(</span>
                     <span class="n">ii</span><span class="p">,</span>
                     <span class="n">jj</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">(</span>
-                    <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span> <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
+                    <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">UserRole</span><span class="p">)</span> <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">data_class</span><span class="o">.</span><span class="n">column_count</span><span class="p">)]</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">rowCount</span><span class="p">())]</span>
 </div></div>
@@ -204,10 +205,10 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">TableControl</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">main_layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
 
-        <span class="n">button_add</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;+&#39;</span><span class="p">)</span>
-        <span class="n">button_remove</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">)</span>
-        <span class="n">button_up</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;up&#39;</span><span class="p">)</span>
-        <span class="n">button_down</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;down&#39;</span><span class="p">)</span>
+        <span class="n">button_add</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">)</span>
+        <span class="n">button_remove</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+        <span class="n">button_up</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;up&#39;</span><span class="p">)</span>
+        <span class="n">button_down</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;down&#39;</span><span class="p">)</span>
 
         <span class="n">button_add</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">row_add_empty</span><span class="p">)</span>
         <span class="n">button_remove</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">row_remove</span><span class="p">)</span>

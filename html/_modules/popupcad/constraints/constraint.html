@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.constraints.constraint &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body role="document">
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.constraints.constraint</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+<span class="kn">import</span> <span class="nn">sympy</span>
+<span class="kn">import</span> <span class="nn">sympy.utilities</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">numpy.linalg</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">from</span> <span class="nn">dev_tools.enum</span> <span class="kn">import</span> <span class="n">enum</span>
+<span class="kn">from</span> <span class="nn">popupcad.constraints.constraint_support</span> <span class="kn">import</span> <span class="o">*</span>     
+
+<div class="viewcode-block" id="Constraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint">[docs]</a><span class="k">class</span> <span class="nc">Constraint</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Constraint&#39;</span>
+    <span class="n">deletable</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">CleanupFlags</span> <span class="o">=</span> <span class="n">enum</span><span class="p">(</span><span class="n">NotDeletable</span><span class="o">=</span><span class="mi">101</span><span class="p">,</span> <span class="n">Deletable</span><span class="o">=</span><span class="mi">102</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertex_ids</span><span class="p">,</span> <span class="n">segment_ids</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertex_ids</span> <span class="o">=</span> <span class="n">vertex_ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">segment_ids</span> <span class="o">=</span> <span class="n">segment_ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Constraint.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_ids</span><span class="p">[:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment_ids</span><span class="p">[:])</span>
+        <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="Constraint.upgrade"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.upgrade">[docs]</a>    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</div>
+<div class="viewcode-block" id="Constraint.init_symbolics"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.init_symbolics">[docs]</a>    <span class="k">def</span> <span class="nf">init_symbolics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span> <span class="o">=</span> <span class="p">[</span><span class="n">SymbolicVertex</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex_ids</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_segments</span> <span class="o">=</span> <span class="p">[</span><span class="n">SymbolicLine</span><span class="p">(</span><span class="n">SymbolicVertex</span><span class="p">(</span><span class="n">id1</span><span class="p">),</span><span class="n">SymbolicVertex</span><span class="p">(</span><span class="n">id2</span><span class="p">))</span> <span class="k">for</span> <span class="n">id1</span><span class="p">,</span><span class="n">id2</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment_ids</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_segment_vertices</span> <span class="o">=</span> <span class="p">[</span><span class="n">SymbolicVertex</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices_in_lines</span><span class="p">()]</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Constraint.new"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.new">[docs]</a>    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">):</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="o">*</span><span class="n">cls</span><span class="o">.</span><span class="n">_define_internals</span><span class="p">(</span><span class="o">*</span><span class="n">objects</span><span class="p">))</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">check_valid</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">obj</span>
+    </div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">generated_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generated_equations</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_generated_equations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbolic_equations</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generated_equations</span>
+
+    <span class="nd">@generated_equations.deleter</span>
+    <span class="k">def</span> <span class="nf">generated_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generated_equations</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f_constraints</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f_J</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">f_jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f_jacobian</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_f_jacobian</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">lambdify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">jacobian</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f_jacobian</span>
+            
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">f_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f_constraints</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_f_constraints</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">lambdify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">generated_equations</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f_constraints</span>
+            
+<div class="viewcode-block" id="Constraint.mapped_f_constraints"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.mapped_f_constraints">[docs]</a>    <span class="k">def</span> <span class="nf">mapped_f_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>     
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f_constraints</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">y</span>
+</div>
+<div class="viewcode-block" id="Constraint.mapped_f_jacobian"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.mapped_f_jacobian">[docs]</a>    <span class="k">def</span> <span class="nf">mapped_f_jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f_jacobian</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_B</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">variables</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">equation</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">generated_equations</span><span class="p">:</span>
+            <span class="n">variables</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">equation</span><span class="o">.</span><span class="n">atoms</span><span class="p">(</span><span class="n">Variable</span><span class="p">))</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">var</span><span class="p">:</span><span class="nb">str</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">variables</span>
+        
+<div class="viewcode-block" id="Constraint.jacobian"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.jacobian">[docs]</a>    <span class="k">def</span> <span class="nf">jacobian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">eq</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generated_equations</span><span class="p">)</span>        
+        <span class="n">J</span> <span class="o">=</span> <span class="n">eq</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">J</span>
+</div>
+<div class="viewcode-block" id="Constraint.build_system_mapping"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.build_system_mapping">[docs]</a>    <span class="k">def</span> <span class="nf">build_system_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">sys_vars</span><span class="p">,</span><span class="n">num_eq</span><span class="p">,</span><span class="n">eq_indeces</span><span class="p">):</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">num_eq</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generated_equations</span><span class="p">)</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys_vars</span><span class="p">)</span>
+
+        <span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">jj</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">eq_indeces</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generated_equations</span><span class="p">))):</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="n">B</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">o</span><span class="p">,</span><span class="n">p</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">):</span>
+            <span class="n">jj</span> <span class="o">=</span> <span class="n">sys_vars</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">B</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_A</span> <span class="o">=</span> <span class="n">A</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_B</span> <span class="o">=</span> <span class="n">B</span>
+<span class="c1">#        return A,B</span>
+    </div>
+<div class="viewcode-block" id="Constraint.edit"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.edit">[docs]</a>    <span class="k">def</span> <span class="nf">edit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+</div>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_define_internals</span><span class="p">(</span><span class="o">*</span><span class="n">objects</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">popupcad.geometry.line</span> <span class="kn">import</span> <span class="n">Line</span>
+        <span class="kn">from</span> <span class="nn">popupcad.geometry.vertex</span> <span class="kn">import</span> <span class="n">BaseVertex</span>
+
+        <span class="n">vertex_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">segment_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">segment_vertex_ids</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">vertices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">segment_vertices</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">BaseVertex</span><span class="p">):</span>
+                <span class="n">vertex_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="n">vertices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">constraints_ref</span><span class="p">())</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">Line</span><span class="p">):</span>
+                <span class="n">segment_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="nb">tuple</span><span class="p">(</span>
+                        <span class="nb">sorted</span><span class="p">(</span>
+                            <span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">vertex1</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">vertex2</span><span class="o">.</span><span class="n">id</span><span class="p">))))</span>
+
+                <span class="n">segment_vertex_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">vertex1</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="n">segment_vertex_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">vertex2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+                <span class="n">segments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">constraints_ref</span><span class="p">())</span>
+                <span class="n">segment_vertices</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">vertex_constraints_ref</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s1">&#39;wrong thing supplied&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vertex_ids</span><span class="p">,</span> <span class="n">segment_ids</span>
+
+<div class="viewcode-block" id="Constraint.vertices_in_lines"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.vertices_in_lines">[docs]</a>    <span class="k">def</span> <span class="nf">vertices_in_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">vertex</span> <span class="k">for</span> <span class="n">tuple1</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment_ids</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">tuple1</span><span class="p">]</span>
+</div>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+<div class="viewcode-block" id="Constraint.getlines"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.getlines">[docs]</a>    <span class="k">def</span> <span class="nf">getlines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_segments</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_symbolics</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_segments</span>
+</div>
+<div class="viewcode-block" id="Constraint.getallvertices"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.getallvertices">[docs]</a>    <span class="k">def</span> <span class="nf">getallvertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_segment_vertices</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_symbolics</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_segment_vertices</span>
+</div>
+<div class="viewcode-block" id="Constraint.getvertices"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.getvertices">[docs]</a>    <span class="k">def</span> <span class="nf">getvertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_symbolics</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vertices</span>
+</div>
+<div class="viewcode-block" id="Constraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+</div>
+<div class="viewcode-block" id="Constraint.properties"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.properties">[docs]</a>    <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">dev_tools.propertyeditor</span> <span class="kn">import</span> <span class="n">PropertyEditor</span>
+        <span class="k">return</span> <span class="n">PropertyEditor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Constraint.cleanup"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.cleanup">[docs]</a>    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objects</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cleanup_objects</span><span class="p">(</span><span class="n">objects</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid</span><span class="p">():</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CleanupFlags</span><span class="o">.</span><span class="n">NotDeletable</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CleanupFlags</span><span class="o">.</span><span class="n">Deletable</span>
+</div>
+<div class="viewcode-block" id="Constraint.cleanup_objects"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.cleanup_objects">[docs]</a>    <span class="k">def</span> <span class="nf">cleanup_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objects</span><span class="p">):</span>
+        <span class="n">current_ids</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">([</span><span class="n">item</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertex_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">frozenset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_ids</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">current_ids</span><span class="p">))</span>
+        <span class="n">segment_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">id1</span><span class="p">,</span> <span class="n">id2</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment_ids</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">id1</span> <span class="ow">in</span> <span class="n">current_ids</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">id2</span> <span class="ow">in</span> <span class="n">current_ids</span><span class="p">):</span>
+                <span class="n">segment_ids</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">id1</span><span class="p">,</span> <span class="n">id2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">segment_ids</span> <span class="o">=</span> <span class="n">segment_ids</span>
+</div>
+<div class="viewcode-block" id="Constraint.exactly_two_points"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.exactly_two_points">[docs]</a>    <span class="k">def</span> <span class="nf">exactly_two_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_ids</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices_in_lines</span><span class="p">()))</span> <span class="o">==</span> <span class="mi">2</span>
+</div>
+<div class="viewcode-block" id="Constraint.at_least_two_points"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.at_least_two_points">[docs]</a>    <span class="k">def</span> <span class="nf">at_least_two_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_ids</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices_in_lines</span><span class="p">()))</span> <span class="o">&gt;=</span> <span class="mi">2</span>
+</div>
+<div class="viewcode-block" id="Constraint.exactly_two_lines"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.exactly_two_lines">[docs]</a>    <span class="k">def</span> <span class="nf">exactly_two_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_ids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+</div>
+<div class="viewcode-block" id="Constraint.at_least_two_lines"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.at_least_two_lines">[docs]</a>    <span class="k">def</span> <span class="nf">at_least_two_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_ids</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span>
+</div>
+<div class="viewcode-block" id="Constraint.at_least_one_line"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.at_least_one_line">[docs]</a>    <span class="k">def</span> <span class="nf">at_least_one_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_ids</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+</div>
+<div class="viewcode-block" id="Constraint.exactly_one_point_and_one_line"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.exactly_one_point_and_one_line">[docs]</a>    <span class="k">def</span> <span class="nf">exactly_one_point_and_one_line</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_ids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_ids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+</div>
+<div class="viewcode-block" id="Constraint.throwvalidityerror"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.throwvalidityerror">[docs]</a>    <span class="k">def</span> <span class="nf">throwvalidityerror</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">WrongArguments</span><span class="p">(</span><span class="s1">&#39;Need exactly one point and one line&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Constraint.at_least_one_point"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.at_least_one_point">[docs]</a>    <span class="k">def</span> <span class="nf">at_least_one_point</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_ids</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices_in_lines</span><span class="p">()))</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+</div>
+    <span class="n">all_validity_tests</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">all_validity_tests</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">exactly_two_points</span><span class="p">,</span><span class="s1">&#39;Need exactly two points&#39;</span><span class="p">))</span>
+    <span class="n">all_validity_tests</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">at_least_two_points</span><span class="p">,</span><span class="s1">&#39;Need at least two points&#39;</span><span class="p">))</span>
+    <span class="n">all_validity_tests</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">exactly_two_lines</span><span class="p">,</span><span class="s1">&#39;Need exactly two lines&#39;</span><span class="p">))</span> 
+    <span class="n">all_validity_tests</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">at_least_two_lines</span><span class="p">,</span><span class="s1">&#39;Need at least two lines&#39;</span><span class="p">))</span>
+    <span class="n">all_validity_tests</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">at_least_one_line</span><span class="p">,</span><span class="s1">&#39;Need at least one line&#39;</span><span class="p">))</span>
+    <span class="n">all_validity_tests</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">exactly_one_point_and_one_line</span><span class="p">,</span><span class="s1">&#39;Need exactly one point and one line&#39;</span><span class="p">))</span>
+    <span class="n">all_validity_tests</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">at_least_one_point</span><span class="p">,</span><span class="s1">&#39;Need at least one point&#39;</span><span class="p">))</span>
+
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">exactly_two_points</span><span class="p">,</span><span class="n">at_least_two_points</span><span class="p">,</span><span class="n">exactly_two_lines</span><span class="p">,</span><span class="n">at_least_two_lines</span><span class="p">,</span><span class="n">at_least_one_line</span><span class="p">,</span><span class="n">exactly_one_point_and_one_line</span><span class="p">,</span><span class="n">at_least_one_point</span><span class="p">]</span>
+    
+<div class="viewcode-block" id="Constraint.check_valid"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.check_valid">[docs]</a>    <span class="k">def</span> <span class="nf">check_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">check</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">validity_tests</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">WrongArguments</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_validity_tests</span><span class="p">)[</span><span class="n">check</span><span class="p">])</span>
+                </div>
+<div class="viewcode-block" id="Constraint.valid"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.Constraint.valid">[docs]</a>    <span class="k">def</span> <span class="nf">valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">check</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">validity_tests</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+        </div></div>
+<div class="viewcode-block" id="ValueConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.ValueConstraint">[docs]</a><span class="k">class</span> <span class="nc">ValueConstraint</span><span class="p">(</span><span class="n">Constraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;ValueConstraint&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">vertex_ids</span><span class="p">,</span> <span class="n">segment_ids</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertex_ids</span> <span class="o">=</span> <span class="n">vertex_ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">segment_ids</span> <span class="o">=</span> <span class="n">segment_ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ValueConstraint.new"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.ValueConstraint.new">[docs]</a>    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">):</span>
+        <span class="n">value</span><span class="p">,</span> <span class="n">ok</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">getValue</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="o">*</span><span class="n">cls</span><span class="o">.</span><span class="n">_define_internals</span><span class="p">(</span><span class="o">*</span><span class="n">objects</span><span class="p">))</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">check_valid</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">obj</span>
+</div>
+<div class="viewcode-block" id="ValueConstraint.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.ValueConstraint.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex_ids</span><span class="p">[:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment_ids</span><span class="p">[:])</span>
+        <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ValueConstraint.getValue"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.ValueConstraint.getValue">[docs]</a>    <span class="k">def</span> <span class="nf">getValue</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getDouble</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="s1">&#39;Edit Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_negative_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="ValueConstraint.edit"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraint.ValueConstraint.edit">[docs]</a>    <span class="k">def</span> <span class="nf">edit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">value</span><span class="p">,</span> <span class="n">ok</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QInputDialog</span><span class="o">.</span><span class="n">getDouble</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="s2">&quot;Edit Value&quot;</span><span class="p">,</span> <span class="s2">&quot;Value:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_negative_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">generated_equations</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

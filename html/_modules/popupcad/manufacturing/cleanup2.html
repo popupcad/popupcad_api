@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,10 +54,10 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.manufacturing.cleanup2</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -65,17 +65,16 @@
 <span class="kn">from</span> <span class="nn">popupcad.manufacturing.multivalueoperation3</span> <span class="kn">import</span> <span class="n">MultiValueOperation3</span>
 
 <div class="viewcode-block" id="Cleanup2"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.cleanup2.Cleanup2">[docs]</a><span class="k">class</span> <span class="nc">Cleanup2</span><span class="p">(</span><span class="n">MultiValueOperation3</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Cleanup&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Cleanup&#39;</span>
     <span class="n">show</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="c">#    function = &#39;buffer&#39;</span>
-    <span class="n">valuenames</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Buffer&#39;</span><span class="p">,</span> <span class="s">&#39;Resolution&#39;</span><span class="p">]</span>
+<span class="c1">#    function = &#39;buffer&#39;</span>
+    <span class="n">valuenames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Buffer&#39;</span><span class="p">,</span> <span class="s1">&#39;Resolution&#39;</span><span class="p">]</span>
     <span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
 <div class="viewcode-block" id="Cleanup2.operate"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.cleanup2.Cleanup2.operate">[docs]</a>    <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
-        <span class="n">operation_ref</span><span class="p">,</span> <span class="n">output_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;parent&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">operation_ref</span><span class="p">,</span> <span class="n">output_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s1">&#39;parent&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">ls1</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">op_from_ref</span><span class="p">(</span><span class="n">operation_ref</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">output_index</span><span class="p">]</span><span class="o">.</span><span class="n">csg</span>
-        <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">morphology</span><span class="o">.</span><span class="n">cleanup</span><span class="p">(</span>
-            <span class="n">ls1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span></div></div>
+        <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">morphology</span><span class="o">.</span><span class="n">cleanup</span><span class="p">(</span><span class="n">ls1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span></div></div>
 </pre></div>
 
           </div>

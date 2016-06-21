@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.widgets.export_widget &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body role="document">
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.widgets.export_widget</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">qt.QtSvg</span> <span class="kn">as</span> <span class="nn">qs</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="c1">#from math import pi, sin, cos</span>
+<span class="c1">#import numpy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1">#from popupcad.filetypes.validators import StrictDoubleValidator</span>
+
+<div class="viewcode-block" id="DxfExportWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.export_widget.DxfExportWidget">[docs]</a><span class="k">class</span> <span class="nc">DxfExportWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QDialog</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">folder</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">folder</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">folder</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">exportdir</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DxfExportWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+        <span class="n">button_accept</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button_reject</span><span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Cancel&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">separate_layers</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QCheckBox</span><span class="p">(</span><span class="s1">&#39;One layer per file&#39;</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dirbutton</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
+        <span class="n">layout0</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout0</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="p">)</span>
+        <span class="n">layout0</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirbutton</span><span class="p">)</span>
+        <span class="n">layout2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_accept</span><span class="p">)</span>
+        <span class="n">layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_reject</span><span class="p">)</span>
+        <span class="n">layout3</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="n">layout3</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout0</span><span class="p">)</span>
+        <span class="n">layout3</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">separate_layers</span><span class="p">)</span>
+        <span class="n">layout3</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dirbutton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectExport</span><span class="p">)</span>
+        <span class="n">button_accept</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
+        <span class="n">button_reject</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout3</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DxfExportWidget.selectExport"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.export_widget.DxfExportWidget.selectExport">[docs]</a>    <span class="k">def</span> <span class="nf">selectExport</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">directorypath</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s2">&quot;Select Directory&quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">directorypath</span><span class="o">!=</span><span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">directorypath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">directorypath</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">directorypath</span><span class="p">)</span>
+        </div>
+<div class="viewcode-block" id="DxfExportWidget.accept_data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.export_widget.DxfExportWidget.accept_data">[docs]</a>    <span class="k">def</span> <span class="nf">accept_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;directory&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;separate_layers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">separate_layers</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">data</span>
+        </div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">win</span> <span class="o">=</span> <span class="n">DxfExportWidget</span><span class="p">()</span>
+    <span class="n">win</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
+        
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

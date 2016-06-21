@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dev_tools.hierarchy &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body role="document">
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for dev_tools.hierarchy</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1">#from pynamics.tree_node import TreeNode</span>
+<span class="kn">from</span> <span class="nn">dev_tools.acyclicdirectedgraph</span> <span class="kn">import</span> <span class="n">Node</span><span class="p">,</span><span class="n">AcyclicDirectedGraph</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="c1">#import numpy</span>
+<span class="c1">#import yaml</span>
+
+
+<div class="viewcode-block" id="level"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.hierarchy.level">[docs]</a><span class="k">def</span> <span class="nf">level</span><span class="p">(</span><span class="n">connections</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">level</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">]</span></div>
+<div class="viewcode-block" id="overlaps"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.hierarchy.overlaps">[docs]</a><span class="k">def</span> <span class="nf">overlaps</span><span class="p">(</span><span class="n">connections</span><span class="p">,</span><span class="n">connection</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">connection</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">]</span></div>
+<div class="viewcode-block" id="max_overlapping_levels"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.hierarchy.max_overlapping_levels">[docs]</a><span class="k">def</span> <span class="nf">max_overlapping_levels</span><span class="p">(</span><span class="n">connections</span><span class="p">,</span><span class="n">connection</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">([</span><span class="n">item</span><span class="o">.</span><span class="n">level</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">connections</span> <span class="k">if</span> <span class="n">connection</span><span class="o">.</span><span class="n">overlaps</span><span class="p">(</span><span class="n">item</span><span class="p">)])</span></div>
+<div class="viewcode-block" id="num_levels"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.hierarchy.num_levels">[docs]</a><span class="k">def</span> <span class="nf">num_levels</span><span class="p">(</span><span class="n">connections</span><span class="p">):</span>
+    <span class="n">levels</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">level</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">]</span>
+    <span class="n">num_levels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">levels</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">num_levels</span>
+    </div>
+<div class="viewcode-block" id="Operation"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.hierarchy.Operation">[docs]</a><span class="k">class</span> <span class="nc">Operation</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Operation</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="n">name</span>
+        
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        </div>
+<div class="viewcode-block" id="Connection"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.hierarchy.Connection">[docs]</a><span class="k">class</span> <span class="nc">Connection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">list1</span><span class="p">,</span><span class="n">parent</span><span class="p">,</span><span class="n">child</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list1</span> <span class="o">=</span> <span class="n">list1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">=</span> <span class="n">child</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ii</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">list1</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">jj</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">list1</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hops</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">jj</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ii</span>
+
+<div class="viewcode-block" id="Connection.get_level"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.hierarchy.Connection.get_level">[docs]</a>    <span class="k">def</span> <span class="nf">get_level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_level</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_level</span>
+</div>
+<div class="viewcode-block" id="Connection.set_level"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.hierarchy.Connection.set_level">[docs]</a>    <span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">level</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_level</span> <span class="o">=</span> <span class="n">level</span>
+</div>
+    <span class="n">level</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_level</span><span class="p">,</span><span class="n">set_level</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;{0} --&gt; {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="Connection.segments"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.hierarchy.Connection.segments">[docs]</a>    <span class="k">def</span> <span class="nf">segments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ii</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">jj</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">jj</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">e</span>
+</div>
+<div class="viewcode-block" id="Connection.overlapped_items"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.hierarchy.Connection.overlapped_items">[docs]</a>    <span class="k">def</span> <span class="nf">overlapped_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">a</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">jj</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">a</span>
+</div>
+<div class="viewcode-block" id="Connection.overlapping_segments"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.hierarchy.Connection.overlapping_segments">[docs]</a>    <span class="k">def</span> <span class="nf">overlapping_segments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+        <span class="n">my_segments</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="p">())</span>
+        <span class="n">other_segments</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">segments</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">my_segments</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">other_segments</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="Connection.overlaps"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.hierarchy.Connection.overlaps">[docs]</a>    <span class="k">def</span> <span class="nf">overlaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">overlapping_segments</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+    </div></div>
+<div class="viewcode-block" id="create_sorted_connections"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.hierarchy.create_sorted_connections">[docs]</a><span class="k">def</span> <span class="nf">create_sorted_connections</span><span class="p">(</span><span class="n">list_in</span><span class="p">,</span> <span class="n">get_children</span><span class="p">):</span>
+    <span class="n">connections</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">operation</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">list_in</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">get_children</span><span class="p">(</span><span class="n">operation</span><span class="p">):</span>
+            <span class="n">connections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Connection</span><span class="p">(</span><span class="n">list_in</span><span class="p">,</span><span class="n">operation</span><span class="p">,</span><span class="n">child</span><span class="p">))</span>
+    <span class="n">connections</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:(</span><span class="n">item</span><span class="o">.</span><span class="n">hops</span><span class="p">,</span><span class="n">item</span><span class="o">.</span><span class="n">ii</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">connection</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">:</span>
+        <span class="n">connection</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="n">max_overlapping_levels</span><span class="p">(</span><span class="n">connections</span><span class="p">,</span><span class="n">connection</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">connections</span>
+        
+</div>
+<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">num_operations</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="c1">#            </span>
+<span class="c1">#    operations = []</span>
+<span class="c1">#    for item in range(num_operations):</span>
+<span class="c1">#        operation = Operation(&#39;item &#39;+str(item))</span>
+<span class="c1">#        operations.append(operation)</span>
+<span class="c1">#</span>
+<span class="c1">#    connection_list = []        </span>
+<span class="c1">#    for ii,operation in enumerate(operations[:-1]):</span>
+<span class="c1">##        operation.add_branch(operations[ii+1])</span>
+<span class="c1">#        connection_list.append((operation,operations[ii+1]))</span>
+<span class="c1">#        </span>
+<span class="c1">#        </span>
+<span class="c1">#    num_extra_connections = 10</span>
+<span class="c1">#    </span>
+<span class="c1">#    extras = []</span>
+<span class="c1">#    for ii in range(num_extra_connections):</span>
+<span class="c1">#        a = random.randint(0,num_operations-2)</span>
+<span class="c1">#        b = random.randint(a+1,num_operations-1)</span>
+<span class="c1">#        extras.append((a,b))</span>
+<span class="c1">##        operations[a].add_branch(operations[b])</span>
+<span class="c1">#        connection_list.append((operations[a],operations[b]))</span>
+<span class="c1">#</span>
+<span class="c1">#    network = AcyclicDirectedGraph(operations,connection_list)</span>
+
+<span class="c1">#    ----------------------------------------------------------</span>
+
+    <span class="n">operations</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_operations</span><span class="p">))</span>
+    <span class="n">connections</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">operations</span><span class="p">:</span>
+        <span class="n">connections</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">connections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">connections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">connections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">connections</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+        
+
+    <span class="n">connections</span> <span class="o">=</span> <span class="n">create_sorted_connections</span><span class="p">(</span><span class="n">operations</span><span class="p">,</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span><span class="n">connections</span><span class="p">[</span><span class="n">item</span><span class="p">])</span>
+
+    <span class="n">A</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39; &#39;</span><span class="p">]</span><span class="o">*</span><span class="n">num_levels</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_operations</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">:</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">ii</span><span class="p">][</span><span class="n">c</span><span class="o">.</span><span class="n">level</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;*&#39;</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">jj</span><span class="p">][</span><span class="n">c</span><span class="o">.</span><span class="n">level</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;*&#39;</span>
+<span class="c1">#        </span>
+        <span class="k">for</span> <span class="n">kk</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">overlapped_items</span><span class="p">():</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">kk</span><span class="p">][</span><span class="n">c</span><span class="o">.</span><span class="n">level</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;|&#39;</span>
+<span class="c1">#    #</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="c1">#        </span>
+<span class="c1">#        </span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

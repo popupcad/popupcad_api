@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,17 +54,18 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.graphics2d.interactivevertex</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
-<span class="c">#import popupcad.graphics2d.modes as modes</span>
-<span class="c">#from popupcad.graphics2d.graphicsitems import Common</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="c1">#import popupcad.graphics2d.modes as modes</span>
+<span class="c1">#from popupcad.graphics2d.graphicsitems import Common</span>
 <span class="kn">from</span> <span class="nn">popupcad.graphics2d.interactivevertexbase</span> <span class="kn">import</span> <span class="n">InteractiveVertexBase</span>
 
 
@@ -97,11 +98,10 @@
                 <span class="nb">super</span><span class="p">(</span><span class="n">InteractiveVertex</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">mouseMoveEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="InteractiveVertex.mousePressEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertex.InteractiveVertex.mousePressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mousePressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="n">remove</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span>
-                <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">KeyboardModifierMask</span><span class="o">.</span><span class="n">ControlModifier</span><span class="p">))</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span>
-            <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span>
-                <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">KeyboardModifierMask</span><span class="o">.</span><span class="n">ShiftModifier</span><span class="p">))</span>
+        <span class="n">modifiers</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">())</span>
+        <span class="n">shiftpressed</span> <span class="o">=</span> <span class="n">modifiers</span> <span class="o">&amp;</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ShiftModifier</span>
+        <span class="n">ctrlpressed</span> <span class="o">=</span> <span class="n">modifiers</span> <span class="o">&amp;</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ControlModifier</span>
+        <span class="n">remove</span> <span class="o">=</span> <span class="n">ctrlpressed</span> <span class="ow">and</span> <span class="n">shiftpressed</span>
         <span class="k">if</span> <span class="n">remove</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">connectedinteractive</span><span class="o">.</span><span class="n">removevertex</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>

@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,10 +54,10 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.filetypes.laminate</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.layer</span> <span class="kn">import</span> <span class="n">Layer</span>
@@ -129,27 +129,27 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">getlayer</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Laminate.union"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.union">[docs]</a>    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls2</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">ls2</span><span class="p">,</span> <span class="s">&#39;union&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">ls2</span><span class="p">,</span> <span class="s1">&#39;union&#39;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Laminate.difference"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.difference">[docs]</a>    <span class="k">def</span> <span class="nf">difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls2</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">ls2</span><span class="p">,</span> <span class="s">&#39;difference&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">ls2</span><span class="p">,</span> <span class="s1">&#39;difference&#39;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Laminate.intersection"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.intersection">[docs]</a>    <span class="k">def</span> <span class="nf">intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls2</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">ls2</span><span class="p">,</span> <span class="s">&#39;intersection&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">ls2</span><span class="p">,</span> <span class="s1">&#39;intersection&#39;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Laminate.symmetric_difference"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.symmetric_difference">[docs]</a>    <span class="k">def</span> <span class="nf">symmetric_difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls2</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">ls2</span><span class="p">,</span> <span class="s">&#39;symmetric_difference&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">ls2</span><span class="p">,</span> <span class="s1">&#39;symmetric_difference&#39;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Laminate.buffer"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.buffer">[docs]</a>    <span class="k">def</span> <span class="nf">buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;resolution&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;resolution&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">default_buffer_resolution</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueoperation</span><span class="p">(</span><span class="s">&#39;buffer&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;resolution&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;resolution&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">default_buffer_resolution</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueoperation</span><span class="p">(</span><span class="s1">&#39;buffer&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Laminate.cleanup"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.cleanup">[docs]</a>    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">morphology</span><span class="o">.</span><span class="n">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">,</span><span class="n">resolution</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Laminate.simplify"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.simplify">[docs]</a>    <span class="k">def</span> <span class="nf">simplify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tolerance</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueoperation</span><span class="p">(</span><span class="s">&#39;simplify&#39;</span><span class="p">,</span><span class="n">tolerance</span><span class="p">,</span><span class="n">preserve_topology</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueoperation</span><span class="p">(</span><span class="s1">&#39;simplify&#39;</span><span class="p">,</span><span class="n">tolerance</span><span class="p">,</span><span class="n">preserve_topology</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Laminate.binaryoperation"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.laminate.Laminate.binaryoperation">[docs]</a>    <span class="k">def</span> <span class="nf">binaryoperation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls2</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
         <span class="bp">self</span> <span class="o">=</span> <span class="bp">self</span>

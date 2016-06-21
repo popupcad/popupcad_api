@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,18 +54,20 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.graphics2d.interactivevertexbase</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">modes</span>
 <span class="kn">from</span> <span class="nn">popupcad.graphics2d.graphicsitems</span> <span class="kn">import</span> <span class="n">Common</span>
 <span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">import</span> <span class="nn">qt.qt_hacks</span> <span class="kn">as</span> <span class="nn">qh</span>
 
 
 <div class="viewcode-block" id="InteractiveVertexBase"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertexbase.InteractiveVertexBase">[docs]</a><span class="k">class</span> <span class="nc">InteractiveVertexBase</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsEllipseItem</span><span class="p">,</span> <span class="n">Common</span><span class="p">):</span>
@@ -75,21 +77,15 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">temppos</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;pos&#39;</span><span class="p">)</span>
+            <span class="n">temppos</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="n">temppos</span> <span class="o">=</span> <span class="bp">None</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">InteractiveVertexBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">modes</span><span class="o">.</span><span class="n">EdgeVertexStates</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">modes</span> <span class="o">=</span> <span class="n">modes</span><span class="o">.</span><span class="n">EdgeVertexModes</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">defaultpen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
-            <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
-                <span class="mi">0</span><span class="p">,</span>
-                <span class="mi">0</span><span class="p">,</span>
-                <span class="mi">0</span><span class="p">,</span>
-                <span class="mi">0</span><span class="p">),</span>
-            <span class="mf">0.0</span><span class="p">,</span>
-            <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">PenStyle</span><span class="o">.</span><span class="n">NoPen</span><span class="p">)</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">defaultpen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span><span class="n">color</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoPen</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setAcceptHoverEvents</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setRect</span><span class="p">(</span><span class="o">-</span>
@@ -112,7 +108,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">generic</span> <span class="o">=</span> <span class="n">symbol</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ItemIsMovable</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
-<span class="c">#        self.setFlag(self.ItemSendsGeometryChanges,True)</span>
+<span class="c1">#        self.setFlag(self.ItemSendsGeometryChanges,True)</span>
 
 <div class="viewcode-block" id="InteractiveVertexBase.updatemode"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertexbase.InteractiveVertexBase.updatemode">[docs]</a>    <span class="k">def</span> <span class="nf">updatemode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">modes</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
@@ -168,28 +164,14 @@
 </div>
 <div class="viewcode-block" id="InteractiveVertexBase.querybrush"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertexbase.InteractiveVertexBase.querybrush">[docs]</a>    <span class="k">def</span> <span class="nf">querybrush</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">modes</span><span class="o">.</span><span class="n">mode_render</span><span class="p">:</span>
-            <span class="n">brush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoBrush</span><span class="p">)</span>
+            <span class="n">brush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoBrush</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_hover</span><span class="p">:</span>
-                <span class="n">brush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span>
-                    <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
-                        <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidPattern</span><span class="p">)</span>
+                <span class="n">brush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidPattern</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_pressed</span><span class="p">:</span>
-                <span class="n">brush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span>
-                    <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
-                        <span class="mi">1</span><span class="p">,</span>
-                        <span class="mi">0</span><span class="p">,</span>
-                        <span class="mi">0</span><span class="p">,</span>
-                        <span class="mi">1</span><span class="p">),</span>
-                    <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidPattern</span><span class="p">)</span>
+                <span class="n">brush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidPattern</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_neutral</span><span class="p">:</span>
-                <span class="n">brush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span>
-                    <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
-                        <span class="mi">0</span><span class="p">,</span>
-                        <span class="mi">0</span><span class="p">,</span>
-                        <span class="mi">0</span><span class="p">,</span>
-                        <span class="mi">1</span><span class="p">),</span>
-                    <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidPattern</span><span class="p">)</span>
+                <span class="n">brush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidPattern</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">brush</span>
 </div>
 <div class="viewcode-block" id="InteractiveVertexBase.setselectable"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertexbase.InteractiveVertexBase.setselectable">[docs]</a>    <span class="k">def</span> <span class="nf">setselectable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test</span><span class="p">):</span>
@@ -205,14 +187,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">setZValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z_below</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updatestate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="o">.</span><span class="n">state_neutral</span><span class="p">)</span>
 
-<span class="c">#    def itemChange(self,change,value):</span>
-<span class="c">#        if change == self.GraphicsItemChange.ItemPositionHasChanged:</span>
-<span class="c">#            if self.changed_trigger:</span>
-<span class="c">#                self.changed_trigger = False</span>
-<span class="c">#                self.scene().savesnapshot.emit()</span>
-<span class="c">#            self.get_generic().setpos(self.pos().toTuple())</span>
-<span class="c">#</span>
-<span class="c">#        return super(InteractiveVertexBase,self).itemChange(change,value)</span>
+<span class="c1">#    def itemChange(self,change,value):</span>
+<span class="c1">#        if change == self.GraphicsItemChange.ItemPositionHasChanged:</span>
+<span class="c1">#            if self.changed_trigger:</span>
+<span class="c1">#                self.changed_trigger = False</span>
+<span class="c1">#                self.scene().savesnapshot.emit()</span>
+<span class="c1">#            self.get_generic().setpos(qh.to_tuple(self.pos()))</span>
+<span class="c1">#</span>
+<span class="c1">#        return super(InteractiveVertexBase,self).itemChange(change,value)</span>
 </div>
 <div class="viewcode-block" id="InteractiveVertexBase.mousePressEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertexbase.InteractiveVertexBase.mousePressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mousePressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span> <span class="o">=</span> <span class="bp">True</span>
@@ -228,7 +210,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">moved_trigger</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">savesnapshot</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
         <span class="n">dp</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">scenePos</span><span class="p">()</span> <span class="o">-</span> <span class="n">event</span><span class="o">.</span><span class="n">lastScenePos</span><span class="p">()</span>
-        <span class="n">dp</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dp</span><span class="o">.</span><span class="n">toTuple</span><span class="p">())</span> <span class="o">/</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+        <span class="n">dp</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">qh</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span> <span class="o">/</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">constrained_shift</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraintsystem</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
 </div>
@@ -238,11 +220,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">moved_trigger</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">moved_trigger</span> <span class="o">=</span> <span class="bp">False</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">constraint_update_request</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">constraint_update_request</span><span class="o">.</span><span class="n">emit</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="p">])</span>
 </div>
 <div class="viewcode-block" id="InteractiveVertexBase.setPos"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertexbase.InteractiveVertexBase.setPos">[docs]</a>    <span class="k">def</span> <span class="nf">setPos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">numpy</span>
-        <span class="n">pos</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">toTuple</span><span class="p">())</span> <span class="o">/</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">qh</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">pos</span><span class="p">))</span> <span class="o">/</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">setpos</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
 </div>
@@ -255,9 +237,9 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span>
 
 
-<span class="c">#    def pos(self):</span>
-<span class="c">#        pos= super(InteractiveVertexBase,self).pos()</span>
-<span class="c">#        return pos</span>
+<span class="c1">#    def pos(self):</span>
+<span class="c1">#        pos= super(InteractiveVertexBase,self).pos()</span>
+<span class="c1">#        return pos</span>
 </div>
 <div class="viewcode-block" id="InteractiveVertexBase.updateshape"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.interactivevertexbase.InteractiveVertexBase.updateshape">[docs]</a>    <span class="k">def</span> <span class="nf">updateshape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">postuple</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_generic</span><span class="p">()</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>

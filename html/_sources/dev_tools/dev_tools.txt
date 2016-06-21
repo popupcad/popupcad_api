@@ -28,10 +28,26 @@ dev_tools.genericfile module
     :undoc-members:
     :show-inheritance:
 
+dev_tools.hierarchy module
+--------------------------
+
+.. automodule:: dev_tools.hierarchy
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 dev_tools.propertyeditor module
 -------------------------------
 
 .. automodule:: dev_tools.propertyeditor
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dev_tools.virtual_structure module
+----------------------------------
+
+.. automodule:: dev_tools.virtual_structure
     :members:
     :undoc-members:
     :show-inheritance:

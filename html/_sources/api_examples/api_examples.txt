@@ -28,6 +28,14 @@ api_examples.design_file_connections module
     :undoc-members:
     :show-inheritance:
 
+api_examples.dxf_import_all_layers module
+-----------------------------------------
+
+.. automodule:: api_examples.dxf_import_all_layers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 api_examples.get_mass_properties module
 ---------------------------------------
 
@@ -60,6 +68,14 @@ api_examples.merge_designs module
     :undoc-members:
     :show-inheritance:
 
+api_examples.profile_sketcher module
+------------------------------------
+
+.. automodule:: api_examples.profile_sketcher
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 api_examples.programmatic_generation module
 -------------------------------------------
 
@@ -80,6 +96,14 @@ api_examples.switch_subdesign module
 ------------------------------------
 
 .. automodule:: api_examples.switch_subdesign
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+api_examples.test_tilepart_widget module
+----------------------------------------
+
+.. automodule:: api_examples.test_tilepart_widget
     :members:
     :undoc-members:
     :show-inheritance:

@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,106 +54,100 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad_manufacturing_plugins</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">manufacturing</span>
 
-<span class="c">#import external modules</span>
-<span class="kn">import</span> <span class="nn">PySide</span>
+<span class="c1">#import external modules</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">shapely</span>
 
-<span class="kn">import</span> <span class="nn">popupcad.guis.icons</span>
+<div class="viewcode-block" id="build_menu_system"><a class="viewcode-back" href="../popupcad_manufacturing_plugins/popupcad_manufacturing_plugins.html#popupcad_manufacturing_plugins.build_menu_system">[docs]</a><span class="k">def</span> <span class="nf">build_menu_system</span><span class="p">(</span><span class="n">program</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">new_sheet</span><span class="p">():</span>
+        <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">outersheet3</span><span class="o">.</span><span class="n">OuterSheet3</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">new_web</span><span class="p">():</span>
+        <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">autoweb4</span><span class="o">.</span><span class="n">AutoWeb4</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">new_scrap</span><span class="p">():</span>
+        <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">scrapoperation2</span><span class="o">.</span><span class="n">ScrapOperation2</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">new_support</span><span class="p">():</span>
+        <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">supportcandidate4</span><span class="o">.</span><span class="n">SupportCandidate4</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">new_custom_support</span><span class="p">():</span>
+        <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">customsupport4</span><span class="o">.</span><span class="n">CustomSupport4</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">new_keepout</span><span class="p">():</span>
+        <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">keepout3</span><span class="o">.</span><span class="n">KeepOut3</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">new_removability</span><span class="p">():</span>
+        <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">removability2</span><span class="o">.</span><span class="n">Removability2</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">new_identify_bodies</span><span class="p">():</span>
+        <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">identifybodies2</span><span class="o">.</span><span class="n">IdentifyBodies2</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">new_identify_rigid_bodies</span><span class="p">():</span>
+        <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">identifyrigidbodies2</span><span class="o">.</span><span class="n">IdentifyRigidBodies2</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">new_alignment_layup</span><span class="p">():</span>
+        <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">generatealignmentlayup</span><span class="o">.</span><span class="n">AlignmentLayup</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">new_tile_part</span><span class="p">():</span>
+        <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">tilepart</span><span class="o">.</span><span class="n">TilePart</span><span class="p">)</span>
 
+    <span class="n">action_definitions</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">action_definitions</span><span class="p">[</span><span class="s1">&#39;sheet&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Sheet&#39;</span><span class="p">,</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;outersheet&#39;</span><span class="p">}</span>
+    <span class="n">action_definitions</span><span class="p">[</span><span class="s1">&#39;web&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;&amp;Web&#39;</span><span class="p">,</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;outerweb&#39;</span> <span class="p">}</span>
+    <span class="n">action_definitions</span><span class="p">[</span><span class="s1">&#39;scrap&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Scrap&#39;</span><span class="p">,</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;scrap&#39;</span><span class="p">}</span>
+
+    <span class="n">action_definitions</span><span class="p">[</span><span class="s1">&#39;support_action&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;S&amp;upport&#39;</span><span class="p">,</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;autosupport&#39;</span><span class="p">}</span>
+    <span class="n">action_definitions</span><span class="p">[</span><span class="s1">&#39;custom_support&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Custom Support&#39;</span><span class="p">,</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;customsupport&#39;</span><span class="p">}</span>
+
+    <span class="n">action_definitions</span><span class="p">[</span><span class="s1">&#39;keepout&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Keep-out&#39;</span><span class="p">,</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;firstpass&#39;</span><span class="p">}</span>
+    <span class="n">action_definitions</span><span class="p">[</span><span class="s1">&#39;identify_rigid_bodies&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Identify Rigid Bodies&#39;</span><span class="p">}</span>
+
+    <span class="n">action_definitions</span><span class="p">[</span><span class="s1">&#39;removability&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Removability&#39;</span><span class="p">,</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;removability&#39;</span><span class="p">}</span>
+    <span class="n">action_definitions</span><span class="p">[</span><span class="s1">&#39;identify_bodies&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Identify Bodies&#39;</span><span class="p">,</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;identifybodies&#39;</span><span class="p">}</span>
+
+    <span class="n">action_definitions</span><span class="p">[</span><span class="s1">&#39;alignment_layup&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Alignment layup&#39;</span><span class="p">,</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;identifybodies&#39;</span><span class="p">}</span>
+    <span class="n">action_definitions</span><span class="p">[</span><span class="s1">&#39;tile_part&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Tile parts&#39;</span><span class="p">,</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;identifybodies&#39;</span><span class="p">}</span>
+
+    <span class="n">toolbar_definitions</span><span class="o">=</span><span class="p">{}</span>
+    <span class="n">toolbar_definitions</span><span class="p">[</span><span class="s1">&#39;Scrap&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Scrap&#39;</span><span class="p">,</span> <span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;scrap&#39;</span><span class="p">}</span>
+    <span class="n">toolbar_definitions</span><span class="p">[</span><span class="s1">&#39;Support&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Support&#39;</span><span class="p">,</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;outerweb&#39;</span><span class="p">}</span>
+    <span class="n">toolbar_definitions</span><span class="p">[</span><span class="s1">&#39;Misc&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Misc...&#39;</span><span class="p">,</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;dotdotdot&#39;</span><span class="p">}</span>
+    <span class="n">toolbar_definitions</span><span class="p">[</span><span class="s1">&#39;Microrobotics&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="s1">&#39;Microrobotics&#39;</span><span class="p">,</span><span class="s1">&#39;icon&#39;</span><span class="p">:</span> <span class="s1">&#39;dotdotdot&#39;</span><span class="p">}</span>
+
+    <span class="n">menu_structure</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">menu_structure</span><span class="p">[</span><span class="s1">&#39;manufacturing&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Scrap&#39;</span><span class="p">,</span><span class="s1">&#39;Support&#39;</span><span class="p">,</span><span class="s1">&#39;identify_bodies&#39;</span><span class="p">,</span><span class="s1">&#39;Misc&#39;</span><span class="p">,</span><span class="s1">&#39;Microrobotics&#39;</span><span class="p">]</span>
+    <span class="n">menu_structure</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;manufacturing&#39;</span><span class="p">]</span>
+    <span class="n">menu_structure</span><span class="p">[</span><span class="s1">&#39;Scrap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sheet&#39;</span><span class="p">,</span><span class="s1">&#39;web&#39;</span><span class="p">,</span><span class="s1">&#39;scrap&#39;</span><span class="p">]</span>
+    <span class="n">menu_structure</span><span class="p">[</span><span class="s1">&#39;Support&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;support_action&#39;</span><span class="p">,</span><span class="s1">&#39;custom_support&#39;</span><span class="p">]</span>
+    <span class="n">menu_structure</span><span class="p">[</span><span class="s1">&#39;Misc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;keepout&#39;</span><span class="p">,</span><span class="s1">&#39;identify_rigid_bodies&#39;</span><span class="p">,</span><span class="s1">&#39;removability&#39;</span><span class="p">]</span>
+    <span class="n">menu_structure</span><span class="p">[</span><span class="s1">&#39;Microrobotics&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;alignment_layup&#39;</span><span class="p">,</span> <span class="s1">&#39;tile_part&#39;</span><span class="p">]</span>
+
+    <span class="n">toolbar_structure</span> <span class="o">=</span> <span class="n">menu_structure</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">shortcuts</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">triggered</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">triggered</span><span class="p">[</span><span class="s1">&#39;sheet&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_sheet</span>
+    <span class="n">triggered</span><span class="p">[</span><span class="s1">&#39;web&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_web</span>
+    <span class="n">triggered</span><span class="p">[</span><span class="s1">&#39;scrap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_scrap</span>
+    <span class="n">triggered</span><span class="p">[</span><span class="s1">&#39;support_action&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_support</span>
+    <span class="n">triggered</span><span class="p">[</span><span class="s1">&#39;custom_support&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_custom_support</span>
+    <span class="n">triggered</span><span class="p">[</span><span class="s1">&#39;keepout&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_keepout</span>
+    <span class="n">triggered</span><span class="p">[</span><span class="s1">&#39;identify_rigid_bodies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_identify_rigid_bodies</span>
+    <span class="n">triggered</span><span class="p">[</span><span class="s1">&#39;removability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_removability</span>
+    <span class="n">triggered</span><span class="p">[</span><span class="s1">&#39;identify_bodies&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_identify_bodies</span>
+    <span class="n">triggered</span><span class="p">[</span><span class="s1">&#39;alignment_layup&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_alignment_layup</span>
+    <span class="n">triggered</span><span class="p">[</span><span class="s1">&#39;tile_part&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_tile_part</span>
+
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">triggered</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">action_definitions</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;triggered&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>    
+
+    <span class="kn">from</span> <span class="nn">popupcad.guis.actions</span> <span class="kn">import</span> <span class="n">MenuSystem</span>
+    <span class="n">menu_system</span> <span class="o">=</span> <span class="n">MenuSystem</span><span class="p">(</span><span class="n">action_definitions</span><span class="p">,</span><span class="n">toolbar_definitions</span><span class="p">,</span><span class="n">menu_structure</span><span class="p">,</span><span class="n">toolbar_structure</span><span class="p">,</span><span class="n">shortcuts</span><span class="p">,</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">menu_system</span>
+    </div>
 <div class="viewcode-block" id="initialize"><a class="viewcode-back" href="../popupcad_manufacturing_plugins/popupcad_manufacturing_plugins.html#popupcad_manufacturing_plugins.initialize">[docs]</a><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">program</span><span class="p">):</span>
-    <span class="n">icons</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">guis</span><span class="o">.</span><span class="n">icons</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
-
-    <span class="n">scrap</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">scrap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s">&#39;text&#39;</span><span class="p">:</span> <span class="s">&#39;Sheet&#39;</span><span class="p">,</span>
-            <span class="s">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="n">icons</span><span class="p">[</span><span class="s">&#39;outersheet&#39;</span><span class="p">],</span>
-                <span class="s">&#39;triggered&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span>
-                    <span class="n">manufacturing</span><span class="o">.</span><span class="n">outersheet3</span><span class="o">.</span><span class="n">OuterSheet3</span><span class="p">)}})</span>
-    <span class="n">scrap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s">&#39;text&#39;</span><span class="p">:</span> <span class="s">&#39;&amp;Web&#39;</span><span class="p">,</span>
-            <span class="s">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="n">icons</span><span class="p">[</span><span class="s">&#39;outerweb&#39;</span><span class="p">],</span>
-                <span class="s">&#39;triggered&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span>
-                    <span class="n">manufacturing</span><span class="o">.</span><span class="n">autoweb4</span><span class="o">.</span><span class="n">AutoWeb4</span><span class="p">)}})</span>
-    <span class="n">scrap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s">&#39;text&#39;</span><span class="p">:</span> <span class="s">&#39;Scrap&#39;</span><span class="p">,</span>
-            <span class="s">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="n">icons</span><span class="p">[</span><span class="s">&#39;scrap&#39;</span><span class="p">],</span>
-                <span class="s">&#39;triggered&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span>
-                    <span class="n">manufacturing</span><span class="o">.</span><span class="n">scrapoperation2</span><span class="o">.</span><span class="n">ScrapOperation2</span><span class="p">)}})</span>
-
-    <span class="n">supportactions</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">supportactions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s">&#39;text&#39;</span><span class="p">:</span> <span class="s">&#39;S&amp;upport&#39;</span><span class="p">,</span>
-            <span class="s">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="n">icons</span><span class="p">[</span><span class="s">&#39;autosupport&#39;</span><span class="p">],</span>
-                <span class="s">&#39;triggered&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span>
-                    <span class="n">manufacturing</span><span class="o">.</span><span class="n">supportcandidate4</span><span class="o">.</span><span class="n">SupportCandidate4</span><span class="p">)}})</span>
-    <span class="n">supportactions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s">&#39;text&#39;</span><span class="p">:</span> <span class="s">&#39;Custom Support&#39;</span><span class="p">,</span>
-            <span class="s">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="n">icons</span><span class="p">[</span><span class="s">&#39;customsupport&#39;</span><span class="p">],</span>
-                <span class="s">&#39;triggered&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span>
-                    <span class="n">manufacturing</span><span class="o">.</span><span class="n">customsupport4</span><span class="o">.</span><span class="n">CustomSupport4</span><span class="p">)}})</span>
-
-    <span class="n">other</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">other</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s">&#39;text&#39;</span><span class="p">:</span> <span class="s">&#39;Keep-out&#39;</span><span class="p">,</span>
-            <span class="s">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="n">icons</span><span class="p">[</span><span class="s">&#39;firstpass&#39;</span><span class="p">],</span>
-                <span class="s">&#39;triggered&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span>
-                    <span class="n">manufacturing</span><span class="o">.</span><span class="n">keepout3</span><span class="o">.</span><span class="n">KeepOut3</span><span class="p">)}})</span>
-<span class="c">#    other.append({&#39;text&#39;:&#39;Cuts&#39;,&#39;kwargs&#39;:{&#39;icon&#39;:icons[&#39;firstpass&#39;],&#39;triggered&#39;:lambda:program.editor.newoperation(manufacturing.cutop2.CutOperation2)}})</span>
-    <span class="n">other</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s">&#39;text&#39;</span><span class="p">:</span> <span class="s">&#39;Identify Rigid Bodies&#39;</span><span class="p">,</span>
-            <span class="s">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&#39;triggered&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span>
-                    <span class="n">manufacturing</span><span class="o">.</span><span class="n">identifyrigidbodies2</span><span class="o">.</span><span class="n">IdentifyRigidBodies2</span><span class="p">)}})</span>
-
-    <span class="n">manufacturingactions</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">manufacturingactions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span><span class="s">&#39;text&#39;</span><span class="p">:</span> <span class="s">&#39;Scrap&#39;</span><span class="p">,</span> <span class="s">&#39;submenu&#39;</span><span class="p">:</span> <span class="n">scrap</span><span class="p">,</span> <span class="s">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="n">icons</span><span class="p">[</span><span class="s">&#39;scrap&#39;</span><span class="p">]}})</span>
-    <span class="n">manufacturingactions</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s">&#39;text&#39;</span><span class="p">:</span> <span class="s">&#39;Supports&#39;</span><span class="p">,</span>
-                                 <span class="s">&#39;submenu&#39;</span><span class="p">:</span> <span class="n">supportactions</span><span class="p">,</span>
-                                 <span class="s">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="n">icons</span><span class="p">[</span><span class="s">&#39;outerweb&#39;</span><span class="p">]}})</span>
-<span class="c">#        manufacturingactions.append({&#39;text&#39;:&#39;Tool Clearance&#39;,&#39;kwargs&#39;:{&#39;triggered&#39;:lambda:program.editor.newoperation(ToolClearance2)}})</span>
-    <span class="n">manufacturingactions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s">&#39;text&#39;</span><span class="p">:</span> <span class="s">&#39;Removability&#39;</span><span class="p">,</span>
-            <span class="s">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="n">icons</span><span class="p">[</span><span class="s">&#39;removability&#39;</span><span class="p">],</span>
-                <span class="s">&#39;triggered&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span>
-                    <span class="n">manufacturing</span><span class="o">.</span><span class="n">removability2</span><span class="o">.</span><span class="n">Removability2</span><span class="p">)}})</span>
-    <span class="n">manufacturingactions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s">&#39;text&#39;</span><span class="p">:</span> <span class="s">&#39;Identify Bodies&#39;</span><span class="p">,</span>
-            <span class="s">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="n">icons</span><span class="p">[</span><span class="s">&#39;identifybodies&#39;</span><span class="p">],</span>
-                <span class="s">&#39;triggered&#39;</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">newoperation</span><span class="p">(</span>
-                    <span class="n">manufacturing</span><span class="o">.</span><span class="n">identifybodies2</span><span class="o">.</span><span class="n">IdentifyBodies2</span><span class="p">)}})</span>
-    <span class="n">manufacturingactions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span><span class="s">&#39;text&#39;</span><span class="p">:</span> <span class="s">&#39;Misc&#39;</span><span class="p">,</span> <span class="s">&#39;submenu&#39;</span><span class="p">:</span> <span class="n">other</span><span class="p">,</span> <span class="s">&#39;kwargs&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;icon&#39;</span><span class="p">:</span> <span class="n">icons</span><span class="p">[</span><span class="s">&#39;dotdotdot&#39;</span><span class="p">]}})</span>
-
-    <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">toolbar_manufacturing</span><span class="p">,</span> <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">menu_manufacturing</span> <span class="o">=</span> <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">addToolbarMenu</span><span class="p">(</span>
-        <span class="n">manufacturingactions</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Manufacturing&#39;</span><span class="p">)</span></div>
+    <span class="n">menu_system</span> <span class="o">=</span> <span class="n">build_menu_system</span><span class="p">(</span><span class="n">program</span><span class="p">)</span>
+    <span class="n">program</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">load_menu_system</span><span class="p">(</span><span class="n">menu_system</span><span class="p">)</span></div>
 </pre></div>
 
           </div>

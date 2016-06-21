@@ -26,7 +26,7 @@
     <link rel="top" title="popupCAD API" href="../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -60,34 +60,54 @@
 <div class="section" id="module-popupcad.guis.actions">
 <span id="popupcad-guis-actions-module"></span><h2>popupcad.guis.actions module<a class="headerlink" href="#module-popupcad.guis.actions" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
-<dt id="popupcad.guis.actions.Action">
-<em class="property">class </em><code class="descclassname">popupcad.guis.actions.</code><code class="descname">Action</code><a class="reference internal" href="../_modules/popupcad/guis/actions.html#Action"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.actions.Action" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QAction</span></code></p>
+<dt id="popupcad.guis.actions.MenuSystem">
+<em class="property">class </em><code class="descclassname">popupcad.guis.actions.</code><code class="descname">MenuSystem</code><span class="sig-paren">(</span><em>action_defs</em>, <em>toolbar_definitions</em>, <em>menu_struct</em>, <em>toolbar_struct</em>, <em>shortcuts</em>, <em>top_menu_key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/actions.html#MenuSystem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.actions.MenuSystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.guis.actions.MenuSystem.build">
+<code class="descname">build</code><span class="sig-paren">(</span><em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/actions.html#MenuSystem.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.actions.MenuSystem.build" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="popupcad.guis.actions.MenuSystem.build_action">
+<em class="property">static </em><code class="descname">build_action</code><span class="sig-paren">(</span><em>key</em>, <em>parent</em>, <em>action_defs</em>, <em>shortcuts_translation</em>, <em>icons</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/actions.html#MenuSystem.build_action"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.actions.MenuSystem.build_action" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.guis.actions.MenuSystem.build_menu_r2">
+<em class="property">classmethod </em><code class="descname">build_menu_r2</code><span class="sig-paren">(</span><em>element</em>, <em>structure</em>, <em>dictionary</em>, <em>menu_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/actions.html#MenuSystem.build_menu_r2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.actions.MenuSystem.build_menu_r2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.actions.MenuSystem.build_toolbar">
+<code class="descname">build_toolbar</code><span class="sig-paren">(</span><em>toolbar_structure</em>, <em>top_element</em>, <em>dictionary</em>, <em>icons</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/actions.html#MenuSystem.build_toolbar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.actions.MenuSystem.build_toolbar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.actions.MenuSystem.set_parent">
+<code class="descname">set_parent</code><span class="sig-paren">(</span><em>parent</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/actions.html#MenuSystem.set_parent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.actions.MenuSystem.set_parent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
-<dt id="popupcad.guis.actions.Action.staticMetaObject">
-<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000009502A48&gt;</em><a class="headerlink" href="#popupcad.guis.actions.Action.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dt id="popupcad.guis.actions.MenuSystem.shortcut_interpretation">
+<code class="descname">shortcut_interpretation</code><em class="property"> = {'Ctrl+Shift+S': 63, 'Ctrl+Z': 11, 'Ctrl+S': 5, 'Ctrl+C': 9, 'Ctrl+N': 6, 'Ctrl+X': 8, 'Ctrl+V': 10, 'Ctrl+Y': 12, 'Ctrl+O': 3}</em><a class="headerlink" href="#popupcad.guis.actions.MenuSystem.shortcut_interpretation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
-
-<dl class="function">
-<dt id="popupcad.guis.actions.build">
-<code class="descclassname">popupcad.guis.actions.</code><code class="descname">build</code><span class="sig-paren">(</span><em>editor</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/actions.html#build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.actions.build" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 <div class="section" id="module-popupcad.guis.editor">
 <span id="popupcad-guis-editor-module"></span><h2>popupcad.guis.editor module<a class="headerlink" href="#module-popupcad.guis.editor" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.guis.editor.Editor">
 <em class="property">class </em><code class="descclassname">popupcad.guis.editor.</code><code class="descname">Editor</code><span class="sig-paren">(</span><em>parent=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="popupcad.widgets.html#popupcad.widgets.widgetcommon.WidgetCommon" title="popupcad.widgets.widgetcommon.WidgetCommon"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.widgetcommon.WidgetCommon</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QMainWindow</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="popupcad.widgets.html#popupcad.widgets.widgetcommon.MainGui" title="popupcad.widgets.widgetcommon.MainGui"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.widgetcommon.MainGui</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QMainWindow</span></code></p>
 <p>Editor Class</p>
 <p>The Editor is the main widget for popupCAD.</p>
 <dl class="method">
@@ -115,9 +135,9 @@ Please see LICENSE for full license.</p>
 <code class="descname">closeEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.closeEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.closeEvent" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="popupcad.guis.editor.Editor.createActions">
-<code class="descname">createActions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.createActions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.createActions" title="Permalink to this definition">¶</a></dt>
+<dl class="attribute">
+<dt id="popupcad.guis.editor.Editor.design">
+<code class="descname">design</code><a class="headerlink" href="#popupcad.guis.editor.Editor.design" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -156,18 +176,8 @@ Please see LICENSE for full license.</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="popupcad.guis.editor.Editor.export_dxf">
-<code class="descname">export_dxf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.export_dxf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.export_dxf" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="popupcad.guis.editor.Editor.export_dxf_layers">
-<code class="descname">export_dxf_layers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.export_dxf_layers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.export_dxf_layers" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="popupcad.guis.editor.Editor.export_laminate">
-<code class="descname">export_laminate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.export_laminate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.export_laminate" title="Permalink to this definition">¶</a></dt>
+<dt id="popupcad.guis.editor.Editor.export_dxf_outer">
+<code class="descname">export_dxf_outer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.export_dxf_outer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.export_dxf_outer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -187,12 +197,7 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.guis.editor.Editor.gridchange">
-<code class="descname">gridchange</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x00000000095051F0&gt;</em><a class="headerlink" href="#popupcad.guis.editor.Editor.gridchange" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="popupcad.guis.editor.Editor.importscripts">
-<code class="descname">importscripts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.importscripts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.importscripts" title="Permalink to this definition">¶</a></dt>
+<code class="descname">gridchange</code><a class="headerlink" href="#popupcad.guis.editor.Editor.gridchange" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -203,6 +208,96 @@ Please see LICENSE for full license.</p>
 <dl class="method">
 <dt id="popupcad.guis.editor.Editor.load_design">
 <code class="descname">load_design</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.load_design"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.load_design" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_buffer_op">
+<code class="descname">new_buffer_op</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_buffer_op"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_buffer_op" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_cleanup2">
+<code class="descname">new_cleanup2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_cleanup2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_cleanup2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_cleanup3">
+<code class="descname">new_cleanup3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_cleanup3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_cleanup3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_codeop">
+<code class="descname">new_codeop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_codeop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_codeop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_cross_section">
+<code class="descname">new_cross_section</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_cross_section"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_cross_section" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_fill">
+<code class="descname">new_fill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_fill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_freezeop">
+<code class="descname">new_freezeop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_freezeop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_freezeop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_holeop">
+<code class="descname">new_holeop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_holeop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_holeop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_hollow">
+<code class="descname">new_hollow</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_hollow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_hollow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_jointop3">
+<code class="descname">new_jointop3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_jointop3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_jointop3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_laminate_op">
+<code class="descname">new_laminate_op</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_laminate_op"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_laminate_op" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_layer_op">
+<code class="descname">new_layer_op</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_layer_op"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_layer_op" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_shiftflip">
+<code class="descname">new_shiftflip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_shiftflip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_shiftflip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_simplify2">
+<code class="descname">new_simplify2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_simplify2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_simplify2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_sketch_op">
+<code class="descname">new_sketch_op</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_sketch_op"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_sketch_op" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_subop">
+<code class="descname">new_subop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_subop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_subop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_transform_external">
+<code class="descname">new_transform_external</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_transform_external"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_transform_external" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.new_transform_internal">
+<code class="descname">new_transform_internal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.new_transform_internal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.new_transform_internal" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -222,7 +317,12 @@ Please see LICENSE for full license.</p>
 
 <dl class="method">
 <dt id="popupcad.guis.editor.Editor.open">
-<code class="descname">open</code><span class="sig-paren">(</span><em>filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.open" title="Permalink to this definition">¶</a></dt>
+<code class="descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.open_filename">
+<code class="descname">open_filename</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.open_filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.open_filename" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -232,12 +332,12 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.guis.editor.Editor.operationadded">
-<code class="descname">operationadded</code><em class="property"> = &lt;PySide.QtCore.Signal object&gt;</em><a class="headerlink" href="#popupcad.guis.editor.Editor.operationadded" title="Permalink to this definition">¶</a></dt>
+<code class="descname">operationadded</code><a class="headerlink" href="#popupcad.guis.editor.Editor.operationadded" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="popupcad.guis.editor.Editor.operationedited">
-<code class="descname">operationedited</code><em class="property"> = &lt;PySide.QtCore.Signal object&gt;</em><a class="headerlink" href="#popupcad.guis.editor.Editor.operationedited" title="Permalink to this definition">¶</a></dt>
+<code class="descname">operationedited</code><a class="headerlink" href="#popupcad.guis.editor.Editor.operationedited" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -257,7 +357,7 @@ Please see LICENSE for full license.</p>
 
 <dl class="method">
 <dt id="popupcad.guis.editor.Editor.reprocessoperations_outer">
-<code class="descname">reprocessoperations_outer</code><span class="sig-paren">(</span><em>operations=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.reprocessoperations_outer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.reprocessoperations_outer" title="Permalink to this definition">¶</a></dt>
+<code class="descname">reprocessoperations_outer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.reprocessoperations_outer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.reprocessoperations_outer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -272,12 +372,17 @@ Please see LICENSE for full license.</p>
 
 <dl class="method">
 <dt id="popupcad.guis.editor.Editor.saveAs">
-<code class="descname">saveAs</code><span class="sig-paren">(</span><em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.saveAs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.saveAs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">saveAs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.saveAs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.saveAs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="popupcad.guis.editor.Editor.save_joint_def">
 <code class="descname">save_joint_def</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.save_joint_def"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.save_joint_def" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.screenShot">
+<code class="descname">screenShot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.screenShot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.screenShot" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -293,6 +398,26 @@ Please see LICENSE for full license.</p>
 <dl class="method">
 <dt id="popupcad.guis.editor.Editor.show3dgeometry3">
 <code class="descname">show3dgeometry3</code><span class="sig-paren">(</span><em>operationoutput</em>, <em>selectedlayers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.show3dgeometry3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.show3dgeometry3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.show_hide_error_log">
+<code class="descname">show_hide_error_log</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.show_hide_error_log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.show_hide_error_log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.show_hide_layerlistwidgetdock">
+<code class="descname">show_hide_layerlistwidgetdock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.show_hide_layerlistwidgetdock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.show_hide_layerlistwidgetdock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.show_hide_operationdock">
+<code class="descname">show_hide_operationdock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.show_hide_operationdock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.show_hide_operationdock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.show_hide_view_3d">
+<code class="descname">show_hide_view_3d</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.show_hide_view_3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.show_hide_view_3d" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -315,11 +440,6 @@ Please see LICENSE for full license.</p>
 <code class="descname">sketchlist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.sketchlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.sketchlist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="popupcad.guis.editor.Editor.staticMetaObject">
-<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x00000000095025C8&gt;</em><a class="headerlink" href="#popupcad.guis.editor.Editor.staticMetaObject" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="popupcad.guis.editor.Editor.subdesigns">
 <code class="descname">subdesigns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.subdesigns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.subdesigns" title="Permalink to this definition">¶</a></dt>
@@ -340,6 +460,11 @@ Please see LICENSE for full license.</p>
 <code class="descname">upgrade</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.upgrade"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.upgrade" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="popupcad.guis.editor.Editor.zoomToFit">
+<code class="descname">zoomToFit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/editor.html#Editor.zoomToFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.editor.Editor.zoomToFit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="exception">
@@ -349,26 +474,32 @@ Please see LICENSE for full license.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-popupcad.guis.editor_menu_system_generator">
+<span id="popupcad-guis-editor-menu-system-generator-module"></span><h2>popupcad.guis.editor_menu_system_generator module<a class="headerlink" href="#module-popupcad.guis.editor_menu_system_generator" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;asu.edu.
+Please see LICENSE for full license.</p>
+</div>
 <div class="section" id="module-popupcad.guis.icons">
 <span id="popupcad-guis-icons-module"></span><h2>popupcad.guis.icons module<a class="headerlink" href="#module-popupcad.guis.icons" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="function">
-<dt id="popupcad.guis.icons.build">
-<code class="descclassname">popupcad.guis.icons.</code><code class="descname">build</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/icons.html#build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.icons.build" title="Permalink to this definition">¶</a></dt>
+<dt id="popupcad.guis.icons.get_icons">
+<code class="descclassname">popupcad.guis.icons.</code><code class="descname">get_icons</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/icons.html#get_icons"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.icons.get_icons" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="section" id="module-popupcad.guis.sketcher">
 <span id="popupcad-guis-sketcher-module"></span><h2>popupcad.guis.sketcher module<a class="headerlink" href="#module-popupcad.guis.sketcher" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.guis.sketcher.Sketcher">
 <em class="property">class </em><code class="descclassname">popupcad.guis.sketcher.</code><code class="descname">Sketcher</code><span class="sig-paren">(</span><em>parent</em>, <em>sketch</em>, <em>design=None</em>, <em>accept_method=None</em>, <em>selectops=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="popupcad.widgets.html#popupcad.widgets.widgetcommon.WidgetCommon" title="popupcad.widgets.widgetcommon.WidgetCommon"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.widgetcommon.WidgetCommon</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QMainWindow</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="popupcad.widgets.html#popupcad.widgets.widgetcommon.MainGui" title="popupcad.widgets.widgetcommon.MainGui"><code class="xref py py-class docutils literal"><span class="pre">popupcad.widgets.widgetcommon.MainGui</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QMainWindow</span></code></p>
 <dl class="method">
 <dt id="popupcad.guis.sketcher.Sketcher.accept">
 <code class="descname">accept</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.accept"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.accept" title="Permalink to this definition">¶</a></dt>
@@ -380,8 +511,103 @@ Please see LICENSE for full license.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_circle">
+<code class="descname">add_circle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_circle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_circle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="popupcad.guis.sketcher.Sketcher.add_constraint">
 <code class="descname">add_constraint</code><span class="sig-paren">(</span><em>constraintclass</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_constraint_angle">
+<code class="descname">add_constraint_angle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint_angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_constraint_coincident">
+<code class="descname">add_constraint_coincident</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint_coincident"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint_coincident" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_constraint_distance">
+<code class="descname">add_constraint_distance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint_distance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_constraint_equal">
+<code class="descname">add_constraint_equal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint_equal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint_equal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_constraint_fixed">
+<code class="descname">add_constraint_fixed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint_fixed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint_fixed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_constraint_horizontal">
+<code class="descname">add_constraint_horizontal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint_horizontal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint_horizontal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_constraint_line_midpoint">
+<code class="descname">add_constraint_line_midpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint_line_midpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint_line_midpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_constraint_parallel">
+<code class="descname">add_constraint_parallel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint_parallel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint_parallel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_constraint_perpendicular">
+<code class="descname">add_constraint_perpendicular</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint_perpendicular"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint_perpendicular" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_constraint_point_line_distance">
+<code class="descname">add_constraint_point_line_distance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint_point_line_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint_point_line_distance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_constraint_vertical">
+<code class="descname">add_constraint_vertical</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint_vertical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint_vertical" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_constraint_x_distance">
+<code class="descname">add_constraint_x_distance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint_x_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint_x_distance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_constraint_y_distance">
+<code class="descname">add_constraint_y_distance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_constraint_y_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_constraint_y_distance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_line">
+<code class="descname">add_line</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_path">
+<code class="descname">add_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_poly">
+<code class="descname">add_poly</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_poly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_poly" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_rect">
+<code class="descname">add_rect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_rect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_rect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.add_text">
+<code class="descname">add_text</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.add_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.add_text" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -425,11 +651,6 @@ Please see LICENSE for full license.</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="popupcad.guis.sketcher.Sketcher.createActions">
-<code class="descname">createActions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.createActions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.createActions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="popupcad.guis.sketcher.Sketcher.cut_to_clipboard">
 <code class="descname">cut_to_clipboard</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.cut_to_clipboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.cut_to_clipboard" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -437,6 +658,11 @@ Please see LICENSE for full license.</p>
 <dl class="method">
 <dt id="popupcad.guis.sketcher.Sketcher.editItem">
 <code class="descname">editItem</code><span class="sig-paren">(</span><em>constraint</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.editItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.editItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.extract">
+<code class="descname">extract</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.extract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.extract" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -510,6 +736,11 @@ Please see LICENSE for full license.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.redo">
+<code class="descname">redo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.redo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.redo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="popupcad.guis.sketcher.Sketcher.refreshconstraints">
 <code class="descname">refreshconstraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.refreshconstraints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.refreshconstraints" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -525,6 +756,11 @@ Please see LICENSE for full license.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.rubberband">
+<code class="descname">rubberband</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.rubberband"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.rubberband" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="popupcad.guis.sketcher.Sketcher.save">
 <code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -535,13 +771,48 @@ Please see LICENSE for full license.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.screenShot">
+<code class="descname">screenShot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.screenShot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.screenShot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.scrollhand">
+<code class="descname">scrollhand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.scrollhand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.scrollhand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="popupcad.guis.sketcher.Sketcher.set_construction">
 <code class="descname">set_construction</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.set_construction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.set_construction" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.set_construction_off">
+<code class="descname">set_construction_off</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.set_construction_off"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.set_construction_off" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.set_construction_on">
+<code class="descname">set_construction_on</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.set_construction_on"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.set_construction_on" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="popupcad.guis.sketcher.Sketcher.setupLayout">
 <code class="descname">setupLayout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.setupLayout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.setupLayout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.show_hide_constraints">
+<code class="descname">show_hide_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.show_hide_constraints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.show_hide_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.show_hide_op_tree">
+<code class="descname">show_hide_op_tree</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.show_hide_op_tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.show_hide_op_tree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.show_hide_properties">
+<code class="descname">show_hide_properties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.show_hide_properties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.show_hide_properties" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -556,7 +827,7 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.guis.sketcher.Sketcher.showprop">
-<code class="descname">showprop</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x00000000094674C8&gt;</em><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.showprop" title="Permalink to this definition">¶</a></dt>
+<code class="descname">showprop</code><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.showprop" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -569,14 +840,14 @@ Please see LICENSE for full license.</p>
 <code class="descname">solidworksimport</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.solidworksimport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.solidworksimport" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="popupcad.guis.sketcher.Sketcher.staticMetaObject">
-<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000009464F48&gt;</em><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.staticMetaObject" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="popupcad.guis.sketcher.Sketcher.triangulate">
 <code class="descname">triangulate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.triangulate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.triangulate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.undo">
+<code class="descname">undo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.undo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.undo" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -599,13 +870,24 @@ Please see LICENSE for full license.</p>
 <code class="descname">update_window_title</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.update_window_title"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.update_window_title" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="popupcad.guis.sketcher.Sketcher.zoomToFit">
+<code class="descname">zoomToFit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/guis/sketcher.html#Sketcher.zoomToFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.guis.sketcher.Sketcher.zoomToFit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
+</div>
+<div class="section" id="module-popupcad.guis.sketcher_menu_system_generator">
+<span id="popupcad-guis-sketcher-menu-system-generator-module"></span><h2>popupcad.guis.sketcher_menu_system_generator module<a class="headerlink" href="#module-popupcad.guis.sketcher_menu_system_generator" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;asu.edu.
+Please see LICENSE for full license.</p>
 </div>
 <div class="section" id="module-popupcad.guis">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-popupcad.guis" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 </div>
 </div>
@@ -622,8 +904,10 @@ Please see LICENSE for full license.</p>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-popupcad.guis.actions">popupcad.guis.actions module</a></li>
 <li><a class="reference internal" href="#module-popupcad.guis.editor">popupcad.guis.editor module</a></li>
+<li><a class="reference internal" href="#module-popupcad.guis.editor_menu_system_generator">popupcad.guis.editor_menu_system_generator module</a></li>
 <li><a class="reference internal" href="#module-popupcad.guis.icons">popupcad.guis.icons module</a></li>
 <li><a class="reference internal" href="#module-popupcad.guis.sketcher">popupcad.guis.sketcher module</a></li>
+<li><a class="reference internal" href="#module-popupcad.guis.sketcher_menu_system_generator">popupcad.guis.sketcher_menu_system_generator module</a></li>
 <li><a class="reference internal" href="#module-popupcad.guis">Module contents</a></li>
 </ul>
 </li>

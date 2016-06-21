@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>api_examples.programmatic_generation &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body role="document">
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for api_examples.programmatic_generation</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.sketch</span> <span class="kn">import</span> <span class="n">Sketch</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">from</span> <span class="nn">popupcad_manufacturing_plugins.manufacturing.outersheet3</span> <span class="kn">import</span> <span class="n">OuterSheet3</span>
+
+<div class="viewcode-block" id="find_sketch_with_string"><a class="viewcode-back" href="../../api_examples/api_examples.html#api_examples.programmatic_generation.find_sketch_with_string">[docs]</a><span class="k">def</span> <span class="nf">find_sketch_with_string</span><span class="p">(</span><span class="n">design</span><span class="p">,</span><span class="n">string</span><span class="p">):</span>
+    <span class="n">sketches</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">get_basename</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">sketches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sketches</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    
+    <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    
+    <span class="n">top_design</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">design</span><span class="o">.</span><span class="n">Design</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+    <span class="n">top_design</span><span class="o">.</span><span class="n">define_layers</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">LayerDef</span><span class="p">(</span><span class="o">*</span><span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">material2</span><span class="o">.</span><span class="n">default_sublaminate</span><span class="p">))</span>
+    
+    <span class="n">single_layer_joint_manufacturing</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">design</span><span class="o">.</span><span class="n">Design</span><span class="o">.</span><span class="n">load_yaml</span><span class="p">(</span><span class="s1">&#39;jointed_robot_subdesign.cad&#39;</span><span class="p">)</span>
+    <span class="n">sub_body_sketch</span> <span class="o">=</span> <span class="n">find_sketch_with_string</span><span class="p">(</span><span class="n">single_layer_joint_manufacturing</span><span class="p">,</span><span class="s1">&#39;body&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sub_joint_sketch</span> <span class="o">=</span> <span class="n">find_sketch_with_string</span><span class="p">(</span><span class="n">single_layer_joint_manufacturing</span><span class="p">,</span><span class="s1">&#39;joint&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="n">devices</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">device_links</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;unary&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;binary&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+    <span class="n">sheet_links</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;unary&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;binary&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+    <span class="n">first_cut_links</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;unary&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;binary&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+    <span class="n">second_cut_links</span><span class="o">=</span> <span class="p">{</span><span class="s1">&#39;unary&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;binary&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+    
+    <span class="n">ii</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">ii</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">:</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">20</span><span class="o">+</span><span class="p">[</span><span class="n">ii</span><span class="o">*</span><span class="mi">20</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">body_polygon</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">triangulate</span><span class="o">.</span><span class="n">convex_hull</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+        <span class="n">area</span><span class="p">,</span><span class="n">centroid</span><span class="p">,</span><span class="n">volume</span><span class="p">,</span><span class="n">mass</span><span class="p">,</span><span class="n">tris</span> <span class="o">=</span> <span class="n">body_polygon</span><span class="o">.</span><span class="n">mass_properties</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">popupcad</span><span class="o">.</span><span class="n">SI_length_scaling</span><span class="p">)</span>
+        <span class="n">centroid</span> <span class="o">=</span> <span class="n">centroid</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="c1">#    </span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">body_polygon</span><span class="o">.</span><span class="n">exteriorpoints</span><span class="p">()</span><span class="o">+</span><span class="p">[</span><span class="n">centroid</span><span class="p">])</span>
+        <span class="n">body_triangles</span><span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">triangulate</span><span class="o">.</span><span class="n">triangulate</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+        <span class="n">generic_lines</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">getjoints</span><span class="o">.</span><span class="n">getjoints</span><span class="p">(</span><span class="n">body_triangles</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+        
+        <span class="n">body_sketch</span> <span class="o">=</span> <span class="n">Sketch</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+        <span class="n">body_sketch</span><span class="o">.</span><span class="n">addoperationgeometries</span><span class="p">([</span><span class="n">body_polygon</span><span class="p">])</span>
+        <span class="n">joints_sketch</span> <span class="o">=</span> <span class="n">Sketch</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+        <span class="n">joints_sketch</span><span class="o">.</span><span class="n">addoperationgeometries</span><span class="p">(</span><span class="n">generic_lines</span><span class="p">)</span>
+        
+        
+        <span class="n">top_design</span><span class="o">.</span><span class="n">subdesigns</span><span class="p">[</span><span class="n">single_layer_joint_manufacturing</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">single_layer_joint_manufacturing</span>
+        <span class="n">top_design</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="n">body_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">body_sketch</span>
+        <span class="n">top_design</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="n">joints_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">joints_sketch</span>
+        
+        <span class="n">design_links</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">design_links</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">single_layer_joint_manufacturing</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+        <span class="n">sketch_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">sketch_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">sub_operation2</span><span class="o">.</span><span class="n">SketchData</span><span class="p">(</span><span class="n">sub_body_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">body_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+        <span class="n">sketch_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">sub_operation2</span><span class="o">.</span><span class="n">SketchData</span><span class="p">(</span><span class="n">sub_joint_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">joints_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+        <span class="n">input_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">output_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">output_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">sub_operation2</span><span class="o">.</span><span class="n">OutputData</span><span class="p">((</span><span class="n">single_layer_joint_manufacturing</span><span class="o">.</span><span class="n">operations</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">output_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">sub_operation2</span><span class="o">.</span><span class="n">OutputData</span><span class="p">((</span><span class="n">single_layer_joint_manufacturing</span><span class="o">.</span><span class="n">operations</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">output_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">sub_operation2</span><span class="o">.</span><span class="n">OutputData</span><span class="p">((</span><span class="n">single_layer_joint_manufacturing</span><span class="o">.</span><span class="n">operations</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">output_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">sub_operation2</span><span class="o">.</span><span class="n">OutputData</span><span class="p">((</span><span class="n">single_layer_joint_manufacturing</span><span class="o">.</span><span class="n">operations</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">0</span><span class="p">))</span>
+        
+        <span class="n">subop</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">sub_operation2</span><span class="o">.</span><span class="n">SubOperation2</span><span class="p">(</span><span class="n">design_links</span><span class="p">,</span> <span class="n">sketch_list</span><span class="p">,</span> <span class="n">input_list</span><span class="p">,</span> <span class="n">output_list</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">subop</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">top_design</span><span class="p">)</span>
+            <span class="n">top_design</span><span class="o">.</span><span class="n">addoperation</span><span class="p">(</span><span class="n">subop</span><span class="p">)</span>
+            <span class="n">device_links</span><span class="p">[</span><span class="s1">&#39;unary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">subop</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+            <span class="n">sheet_links</span><span class="p">[</span><span class="s1">&#39;unary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">subop</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">first_cut_links</span><span class="p">[</span><span class="s1">&#39;unary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">subop</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">second_cut_links</span><span class="p">[</span><span class="s1">&#39;unary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">subop</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+            <span class="n">ii</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+    
+    <span class="n">devices</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">laminateoperation2</span><span class="o">.</span><span class="n">LaminateOperation2</span><span class="p">(</span><span class="n">device_links</span><span class="p">,</span><span class="s1">&#39;union&#39;</span><span class="p">)</span>
+    <span class="n">devices</span><span class="o">.</span><span class="n">customname</span> <span class="o">=</span> <span class="s1">&#39;Devices&#39;</span>
+    <span class="n">sheets</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">laminateoperation2</span><span class="o">.</span><span class="n">LaminateOperation2</span><span class="p">(</span><span class="n">sheet_links</span><span class="p">,</span><span class="s1">&#39;union&#39;</span><span class="p">)</span>
+    <span class="n">sheets</span><span class="o">.</span><span class="n">customname</span> <span class="o">=</span> <span class="s1">&#39;Sheets&#39;</span>
+    <span class="n">first_passes</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">laminateoperation2</span><span class="o">.</span><span class="n">LaminateOperation2</span><span class="p">(</span><span class="n">first_cut_links</span><span class="p">,</span><span class="s1">&#39;union&#39;</span><span class="p">)</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="n">OuterSheet3</span><span class="p">({</span><span class="s1">&#39;parent&#39;</span><span class="p">:[(</span><span class="n">sheets</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">)]},[</span><span class="mi">1</span><span class="p">],</span><span class="n">OuterSheet3</span><span class="o">.</span><span class="n">keepout_types</span><span class="o">.</span><span class="n">laser_keepout</span><span class="p">)</span>
+    <span class="n">sheet_with_holes</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">laminateoperation2</span><span class="o">.</span><span class="n">LaminateOperation2</span><span class="p">({</span><span class="s1">&#39;unary&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="n">sheet</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span> <span class="s1">&#39;binary&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="n">sheets</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">)]},</span><span class="s1">&#39;difference&#39;</span><span class="p">)</span>
+    <span class="n">first_pass</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">laminateoperation2</span><span class="o">.</span><span class="n">LaminateOperation2</span><span class="p">({</span><span class="s1">&#39;unary&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="n">sheet_with_holes</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">),(</span><span class="n">first_passes</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">)],</span> <span class="s1">&#39;binary&#39;</span><span class="p">:</span> <span class="p">[]},</span><span class="s1">&#39;union&#39;</span><span class="p">)</span>
+    <span class="n">first_pass</span><span class="o">.</span><span class="n">customname</span><span class="o">=</span><span class="s1">&#39;First Pass&#39;</span>
+    <span class="n">second_passes</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">manufacturing</span><span class="o">.</span><span class="n">laminateoperation2</span><span class="o">.</span><span class="n">LaminateOperation2</span><span class="p">(</span><span class="n">second_cut_links</span><span class="p">,</span><span class="s1">&#39;union&#39;</span><span class="p">)</span>
+    <span class="n">second_passes</span><span class="o">.</span><span class="n">customname</span> <span class="o">=</span> <span class="s1">&#39;Second Pass&#39;</span> 
+    
+    <span class="n">other_ops</span> <span class="o">=</span> <span class="p">[</span><span class="n">devices</span><span class="p">,</span><span class="n">sheets</span><span class="p">,</span><span class="n">first_passes</span><span class="p">,</span><span class="n">sheet</span><span class="p">,</span><span class="n">sheet_with_holes</span><span class="p">,</span><span class="n">first_pass</span><span class="p">,</span><span class="n">second_passes</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">top_design</span><span class="o">.</span><span class="n">addoperation</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">other_ops</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">top_design</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">other_ops</span><span class="p">]</span>
+    
+    <span class="n">editor</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">guis</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">Editor</span><span class="p">()</span>
+    <span class="n">editor</span><span class="o">.</span><span class="n">load_design</span><span class="p">(</span><span class="n">top_design</span><span class="p">)</span>
+    <span class="n">editor</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

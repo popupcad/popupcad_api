@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,33 +54,33 @@
           <div class="body" role="main">
             
   <h1>Source code for dev_tools.propertyeditor</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 
 <div class="viewcode-block" id="Child"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.propertyeditor.Child">[docs]</a><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c">#    display = [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;]</span>
-    <span class="n">editable</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span>
-    <span class="n">new_attr</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;&lt;new_string&gt;&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;new_float&gt;&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
-    <span class="n">deletable</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;*&#39;</span><span class="p">]</span>
+    <span class="c1">#    display = [&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;,&#39;e&#39;]</span>
+    <span class="n">editable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]</span>
+    <span class="n">new_attr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;&lt;new_string&gt;&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;new_float&gt;&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+    <span class="n">deletable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">]</span>
     <span class="n">attr_names_editable</span> <span class="o">=</span> <span class="bp">True</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="s">&#39;text&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="s1">&#39;text&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="mf">4.5</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="mi">5</span>
 
 </div>
 <div class="viewcode-block" id="Depth"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.propertyeditor.Depth">[docs]</a><span class="k">class</span> <span class="nc">Depth</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c">#    hidden = [&#39;depth&#39;]</span>
+    <span class="c1">#    hidden = [&#39;depth&#39;]</span>
 
     <span class="n">depth</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 
@@ -91,9 +91,9 @@
 
 </div>
 <div class="viewcode-block" id="Parent"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.propertyeditor.Parent">[docs]</a><span class="k">class</span> <span class="nc">Parent</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c">#    display = [&#39;child&#39;,&#39;tuple1&#39;,&#39;list1&#39;,&#39;x&#39;,&#39;a&#39;,&#39;dict1&#39;]</span>
-    <span class="n">editable</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;child&#39;</span><span class="p">,</span> <span class="s">&#39;tuple1&#39;</span><span class="p">,</span> <span class="s">&#39;list1&#39;</span><span class="p">,</span> <span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;dict1&#39;</span><span class="p">]</span>
-    <span class="n">deletable</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;*&#39;</span><span class="p">]</span>
+    <span class="c1">#    display = [&#39;child&#39;,&#39;tuple1&#39;,&#39;list1&#39;,&#39;x&#39;,&#39;a&#39;,&#39;dict1&#39;]</span>
+    <span class="n">editable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;child&#39;</span><span class="p">,</span> <span class="s1">&#39;tuple1&#39;</span><span class="p">,</span> <span class="s1">&#39;list1&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;dict1&#39;</span><span class="p">]</span>
+    <span class="n">deletable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">]</span>
     <span class="n">attr_names_editable</span> <span class="o">=</span> <span class="bp">True</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -102,7 +102,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">234.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Child</span><span class="p">()]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mf">123.4</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dict1</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span> <span class="mf">6.6</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dict1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mf">6.6</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">recursiveclass</span> <span class="o">=</span> <span class="n">Depth</span><span class="p">()</span>
 
 </div>
@@ -138,7 +138,7 @@
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">valuetype</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
             <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-<span class="c">#            self.updateparent()</span>
+<span class="c1">#            self.updateparent()</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">valuetype</span> <span class="o">==</span> <span class="nb">tuple</span><span class="p">:</span>
             <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
             <span class="n">oldtuple</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
@@ -168,7 +168,7 @@
                     <span class="n">TreeWidgetItem</span><span class="p">(</span>
                         <span class="n">parent</span><span class="p">,</span>
                         <span class="bp">self</span><span class="p">,</span>
-                        <span class="s">&#39;[{index:0d}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="s1">&#39;[{index:0d}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                             <span class="n">index</span><span class="o">=</span><span class="n">ii</span><span class="p">),</span>
                         <span class="n">item</span><span class="p">,</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">+</span>
@@ -199,7 +199,7 @@
             <span class="n">keys2</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;_&#39;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;_&#39;</span><span class="p">:</span>
                         <span class="n">keys2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
                     <span class="n">keys2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -210,16 +210,16 @@
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="k">pass</span>
 
-            <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">([</span><span class="s">&#39;hidden&#39;</span><span class="p">,</span>
-                                         <span class="s">&#39;editable&#39;</span><span class="p">,</span>
-                                         <span class="s">&#39;deletable&#39;</span><span class="p">,</span>
-                                         <span class="s">&#39;new_attr&#39;</span><span class="p">,</span>
-                                         <span class="s">&#39;attr_names_editable&#39;</span><span class="p">]))</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">([</span><span class="s1">&#39;hidden&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;editable&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;deletable&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;new_attr&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;attr_names_editable&#39;</span><span class="p">]))</span>
 
             <span class="n">classkeys</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
-                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s">&#39;__call__&#39;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;__call__&#39;</span><span class="p">):</span>
                     <span class="k">pass</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">classkeys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
@@ -246,12 +246,14 @@
                             <span class="n">value</span><span class="p">))</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="k">pass</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sortChildren</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SortOrder</span><span class="o">.</span><span class="n">AscendingOrder</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sortChildren</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AscendingOrder</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="ParentItem.refresh"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.propertyeditor.ParentItem.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">removeAllChildren</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generatechildren</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">structureparent</span><span class="p">)</span>
-
+</div>
+<div class="viewcode-block" id="ParentItem.is_editable"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.propertyeditor.ParentItem.is_editable">[docs]</a>    <span class="k">def</span> <span class="nf">is_editable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">False</span>
 </div></div>
 <div class="viewcode-block" id="TreeWidgetItem"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.propertyeditor.TreeWidgetItem">[docs]</a><span class="k">class</span> <span class="nc">TreeWidgetItem</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QTreeWidgetItem</span><span class="p">,</span> <span class="n">ParentItem</span><span class="p">):</span>
     <span class="n">depthlimit</span> <span class="o">=</span> <span class="mi">5</span>
@@ -265,8 +267,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span>
 
         <span class="n">qg</span><span class="o">.</span><span class="n">QTreeWidgetItem</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="p">[</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsEditable</span> <span class="o">|</span>
-                      <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsEnabled</span> <span class="o">|</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsSelectable</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEditable</span> <span class="o">|</span>
+                      <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span> <span class="o">|</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">depthlimit</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">generatechildren</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -286,7 +288,7 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">editable</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-                    <span class="s">&#39;*&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">editable</span><span class="p">)</span>
+                    <span class="s1">&#39;*&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">editable</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">result</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">valuetype</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">listkeys</span><span class="p">:</span>
@@ -302,22 +304,22 @@
 </div>
 <div class="viewcode-block" id="TreeWidgetItem.is_deletable"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.propertyeditor.TreeWidgetItem.is_deletable">[docs]</a>    <span class="k">def</span> <span class="nf">is_deletable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">deletable</span> <span class="ow">or</span> <span class="s">&#39;*&#39;</span><span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">deletable</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">deletable</span> <span class="ow">or</span> <span class="s1">&#39;*&#39;</span><span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">deletable</span>
         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">valuetype</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">listkeys</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">False</span>
             <span class="k">return</span> <span class="bp">False</span>
 </div>
 <div class="viewcode-block" id="TreeWidgetItem.setData"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.propertyeditor.TreeWidgetItem.setData">[docs]</a>    <span class="k">def</span> <span class="nf">setData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">role</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_editable</span><span class="p">(</span><span class="n">column</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">column</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">valuetype</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
                         <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="s">&#39;false&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-                                <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;0&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="s">&#39;f&#39;</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;false&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+                                <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;f&#39;</span><span class="p">):</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">False</span>
-                        <span class="k">elif</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="s">&#39;true&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="s">&#39;1&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="s">&#39;t&#39;</span><span class="p">):</span>
+                        <span class="k">elif</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;t&#39;</span><span class="p">):</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">True</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">updateparent</span><span class="p">()</span>
                     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">valuetype</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">valuekeys</span><span class="p">:</span>
@@ -333,14 +335,14 @@
 </div>
 <div class="viewcode-block" id="TreeWidgetItem.data"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.propertyeditor.TreeWidgetItem.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">column</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
-            <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">key</span>
         <span class="k">elif</span> <span class="n">column</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
                 <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
                 <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 
 </div></div>
@@ -351,8 +353,8 @@
             <span class="n">parent</span><span class="p">,</span>
             <span class="n">dataparent</span><span class="p">,</span>
             <span class="n">level</span><span class="p">,</span>
-            <span class="n">key</span><span class="o">=</span><span class="s">&#39;&lt;new string&gt;&#39;</span><span class="p">,</span>
-            <span class="n">value</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+            <span class="n">key</span><span class="o">=</span><span class="s1">&#39;&lt;new string&gt;&#39;</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span> <span class="o">=</span> <span class="n">dataparent</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">key</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
@@ -360,15 +362,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span>
 
         <span class="n">qg</span><span class="o">.</span><span class="n">QTreeWidgetItem</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="p">[</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsEditable</span> <span class="o">|</span>
-                      <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsEnabled</span> <span class="o">|</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsSelectable</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEditable</span> <span class="o">|</span>
+                      <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEnabled</span> <span class="o">|</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsSelectable</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">level</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">depthlimit</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">generatechildren</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="InsertNewWidgetItem.setData"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.propertyeditor.InsertNewWidgetItem.setData">[docs]</a>    <span class="k">def</span> <span class="nf">setData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">role</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">column</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                     <span class="n">newvalue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[:]</span>
                 <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
@@ -390,14 +392,14 @@
                 <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                     <span class="k">pass</span>
                 <span class="n">newtwi</span><span class="o">.</span><span class="n">updateparent</span><span class="p">()</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">sortChildren</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SortOrder</span><span class="o">.</span><span class="n">AscendingOrder</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">sortChildren</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AscendingOrder</span><span class="p">)</span>
 
 </div></div>
 <div class="viewcode-block" id="PropertyEditor"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.propertyeditor.PropertyEditor">[docs]</a><span class="k">class</span> <span class="nc">PropertyEditor</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QTreeWidget</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PropertyEditor</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setHeaderLabels</span><span class="p">([</span><span class="s">&#39;key&#39;</span><span class="p">,</span> <span class="s">&#39;value&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setHeaderLabels</span><span class="p">([</span><span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">ParentItem</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setAlternatingRowColors</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 
@@ -409,7 +411,7 @@
                 <span class="n">item</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">removeattr</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">key</span><span class="p">)</span>
                 <span class="n">item</span><span class="o">.</span><span class="n">dataparent</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
 </div></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
 
@@ -417,7 +419,7 @@
     <span class="n">pv</span> <span class="o">=</span> <span class="n">PropertyEditor</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
 
     <span class="n">pv</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="c">#    sys.exit(app.exec_())</span>
+<span class="c1">#    sys.exit(app.exec_())</span>
 </pre></div>
 
           </div>

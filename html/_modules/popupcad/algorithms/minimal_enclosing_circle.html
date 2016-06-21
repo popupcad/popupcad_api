@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,51 +54,51 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.algorithms.minimal_enclosing_circle</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="c"># </span>
-<span class="c"># Smallest enclosing circle</span>
-<span class="c"># </span>
-<span class="c"># Copyright (c) 2014 Project Nayuki</span>
-<span class="c"># http://www.nayuki.io/page/smallest-enclosing-circle</span>
-<span class="c"># </span>
-<span class="c"># This program is free software: you can redistribute it and/or modify</span>
-<span class="c"># it under the terms of the GNU General Public License as published by</span>
-<span class="c"># the Free Software Foundation, either version 3 of the License, or</span>
-<span class="c"># (at your option) any later version.</span>
-<span class="c"># </span>
-<span class="c"># This program is distributed in the hope that it will be useful,</span>
-<span class="c"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-<span class="c"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-<span class="c"># GNU General Public License for more details.</span>
-<span class="c"># </span>
-<span class="c"># You should have received a copy of the GNU General Public License</span>
-<span class="c"># along with this program (see COPYING.txt).</span>
-<span class="c"># If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
-<span class="c"># </span>
+<span class="c1"># </span>
+<span class="c1"># Smallest enclosing circle</span>
+<span class="c1"># </span>
+<span class="c1"># Copyright (c) 2014 Project Nayuki</span>
+<span class="c1"># http://www.nayuki.io/page/smallest-enclosing-circle</span>
+<span class="c1"># </span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1"># </span>
+<span class="c1"># This program is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1"># </span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program (see COPYING.txt).</span>
+<span class="c1"># If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># </span>
 
 <span class="kn">import</span> <span class="nn">math</span><span class="o">,</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 
-<span class="c"># Data conventions: A point is a pair of floats (x, y). A circle is a triple of floats (center x, center y, radius).</span>
+<span class="c1"># Data conventions: A point is a pair of floats (x, y). A circle is a triple of floats (center x, center y, radius).</span>
 
-<span class="c"># </span>
-<span class="c"># Returns the smallest circle that encloses all the given points. Runs in expected O(n) time, randomized.</span>
-<span class="c"># Input: A sequence of pairs of floats or ints, e.g. [(0,5), (3.1,-2.7)].</span>
-<span class="c"># Output: A triple of floats representing a circle.</span>
-<span class="c"># Note: If 0 points are given, None is returned. If 1 point is given, a circle of radius 0 is returned.</span>
-<span class="c"># </span>
+<span class="c1"># </span>
+<span class="c1"># Returns the smallest circle that encloses all the given points. Runs in expected O(n) time, randomized.</span>
+<span class="c1"># Input: A sequence of pairs of floats or ints, e.g. [(0,5), (3.1,-2.7)].</span>
+<span class="c1"># Output: A triple of floats representing a circle.</span>
+<span class="c1"># Note: If 0 points are given, None is returned. If 1 point is given, a circle of radius 0 is returned.</span>
+<span class="c1"># </span>
 <div class="viewcode-block" id="make_circle"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.minimal_enclosing_circle.make_circle">[docs]</a><span class="k">def</span> <span class="nf">make_circle</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
-    <span class="c"># Convert to float and randomize order</span>
+    <span class="c1"># Convert to float and randomize order</span>
     <span class="n">shuffled</span> <span class="o">=</span> <span class="p">[(</span><span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">points</span><span class="p">]</span>
     <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">shuffled</span><span class="p">)</span>
 
-    <span class="c"># Progressively add points to circle or recompute circle</span>
+    <span class="c1"># Progressively add points to circle or recompute circle</span>
     <span class="n">c</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shuffled</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">_is_in_circle</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
@@ -106,7 +106,7 @@
     <span class="k">return</span> <span class="n">c</span>
 
 
-<span class="c"># One boundary point known</span></div>
+<span class="c1"># One boundary point known</span></div>
 <span class="k">def</span> <span class="nf">_make_circle_one_point</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
     <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">)</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
@@ -118,7 +118,7 @@
     <span class="k">return</span> <span class="n">c</span>
 
 
-<span class="c"># Two boundary points known</span>
+<span class="c1"># Two boundary points known</span>
 <span class="k">def</span> <span class="nf">_make_circle_two_points</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
     <span class="n">diameter</span> <span class="o">=</span> <span class="n">_make_diameter</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">_is_in_circle</span><span class="p">(</span><span class="n">diameter</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">points</span><span class="p">):</span>
@@ -139,7 +139,7 @@
 
 
 <span class="k">def</span> <span class="nf">_make_circumcircle</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">):</span>
-    <span class="c"># Mathematical algorithm from Wikipedia: Circumscribed circle</span>
+    <span class="c1"># Mathematical algorithm from Wikipedia: Circumscribed circle</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">ay</span> <span class="o">=</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">bx</span> <span class="o">=</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">by</span> <span class="o">=</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">cx</span> <span class="o">=</span> <span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -161,22 +161,22 @@
     <span class="k">return</span> <span class="n">c</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">_EPSILON</span>
 
 
-<span class="c"># Returns twice the signed area of the triangle defined by (x0, y0), (x1, y1), (x2, y2)</span>
+<span class="c1"># Returns twice the signed area of the triangle defined by (x0, y0), (x1, y1), (x2, y2)</span>
 <span class="k">def</span> <span class="nf">_cross_product</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x2</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span>
     
-<span class="c">#Modification frm Stackoverflow</span>
+<span class="c1">#Modification frm Stackoverflow</span>
 <div class="viewcode-block" id="numerical_stable_circle"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.minimal_enclosing_circle.numerical_stable_circle">[docs]</a><span class="k">def</span> <span class="nf">numerical_stable_circle</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
     <span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
     <span class="n">mean_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="c">#    print &#39;mean of points:&#39;, mean_pts</span>
-    <span class="n">pts</span> <span class="o">-=</span> <span class="n">mean_pts</span>  <span class="c"># translate towards origin</span>
+<span class="c1">#    print &#39;mean of points:&#39;, mean_pts</span>
+    <span class="n">pts</span> <span class="o">-=</span> <span class="n">mean_pts</span>  <span class="c1"># translate towards origin</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">make_circle</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
-  <span class="c">#  print &#39;result without mean:&#39;, result</span>
+  <span class="c1">#  print &#39;result without mean:&#39;, result</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">mean_pts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">mean_pts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
     
-<span class="c">#A unit test from Stackoverflw</span></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="c1">#A unit test from Stackoverflw</span></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">points</span><span class="o">=</span> <span class="p">[(</span><span class="mf">421640.3639270504</span><span class="p">,</span> <span class="mf">4596366.353552659</span><span class="p">),</span> <span class="p">(</span><span class="mf">421635.79361391126</span><span class="p">,</span> <span class="mf">4596369.054192241</span><span class="p">),</span> 
             <span class="p">(</span><span class="mf">421632.6774913164</span><span class="p">,</span> <span class="mf">4596371.131607305</span><span class="p">),</span> <span class="p">(</span><span class="mf">421629.14588570886</span><span class="p">,</span> <span class="mf">4596374.870954419</span><span class="p">),</span> 
             <span class="p">(</span><span class="mf">421625.6142801013</span><span class="p">,</span> <span class="mf">4596377.779335507</span><span class="p">),</span> <span class="p">(</span><span class="mf">421624.99105558236</span><span class="p">,</span> <span class="mf">4596382.14190714</span><span class="p">),</span> 

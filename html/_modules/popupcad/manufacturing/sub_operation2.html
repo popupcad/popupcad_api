@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,14 +54,15 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.manufacturing.sub_operation2</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 <span class="kn">import</span> <span class="nn">popupcad</span>
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.operation2</span> <span class="kn">import</span> <span class="n">Operation2</span>
 <span class="kn">from</span> <span class="nn">popupcad.widgets.table_editor_popup</span> <span class="kn">import</span> <span class="n">Table</span><span class="p">,</span> <span class="n">SingleItemListElement</span><span class="p">,</span><span class="n">IntegerElement</span><span class="p">,</span><span class="n">Row</span><span class="p">,</span> <span class="n">TableControl</span><span class="p">,</span> <span class="n">DraggableTreeElement</span><span class="p">,</span><span class="n">Delegate</span>
@@ -86,23 +87,23 @@
 <div class="viewcode-block" id="SketchRow"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.sub_operation2.SketchRow">[docs]</a><span class="k">class</span> <span class="nc">SketchRow</span><span class="p">(</span><span class="n">Row</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">):</span>
         <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SingleItemListElement</span><span class="p">(</span><span class="s">&#39;to replace&#39;</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">))</span>
-        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SingleItemListElement</span><span class="p">(</span><span class="s">&#39;replace with&#39;</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">))</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SingleItemListElement</span><span class="p">(</span><span class="s1">&#39;to replace&#39;</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">))</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SingleItemListElement</span><span class="p">(</span><span class="s1">&#39;replace with&#39;</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="n">elements</span>
 </div>
 <div class="viewcode-block" id="InputRow"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.sub_operation2.InputRow">[docs]</a><span class="k">class</span> <span class="nc">InputRow</span><span class="p">(</span><span class="n">Row</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">):</span>
         <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DraggableTreeElement</span><span class="p">(</span><span class="s">&#39;to replace&#39;</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">))</span>
-        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DraggableTreeElement</span><span class="p">(</span><span class="s">&#39;replace with&#39;</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">))</span>
-        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">IntegerElement</span><span class="p">(</span><span class="s">&#39;shift&#39;</span><span class="p">))</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DraggableTreeElement</span><span class="p">(</span><span class="s1">&#39;to replace&#39;</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">))</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DraggableTreeElement</span><span class="p">(</span><span class="s1">&#39;replace with&#39;</span><span class="p">,</span> <span class="n">get_layers</span><span class="p">))</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">IntegerElement</span><span class="p">(</span><span class="s1">&#39;shift&#39;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="n">elements</span>
 </div>
 <div class="viewcode-block" id="OutputRow"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.sub_operation2.OutputRow">[docs]</a><span class="k">class</span> <span class="nc">OutputRow</span><span class="p">(</span><span class="n">Row</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">):</span>
         <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DraggableTreeElement</span><span class="p">(</span><span class="s">&#39;output&#39;</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">))</span>
-        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">IntegerElement</span><span class="p">(</span><span class="s">&#39;shift&#39;</span><span class="p">))</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DraggableTreeElement</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="n">get_sketches</span><span class="p">))</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">IntegerElement</span><span class="p">(</span><span class="s1">&#39;shift&#39;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">=</span> <span class="n">elements</span>
 </div>
 <div class="viewcode-block" id="MainWidget"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.sub_operation2.MainWidget">[docs]</a><span class="k">class</span> <span class="nc">MainWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QDialog</span><span class="p">):</span>
@@ -124,8 +125,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">input_control</span> <span class="o">=</span> <span class="n">TableControl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_table</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_control</span> <span class="o">=</span> <span class="n">TableControl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_table</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
-        <span class="n">button_ok</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
-        <span class="n">button_cancel</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+        <span class="n">button_ok</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button_cancel</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Cancel&#39;</span><span class="p">)</span>
 
         <span class="n">button_ok</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
         <span class="n">button_cancel</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
@@ -143,7 +144,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">jointop</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">subdesign</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">subdesigns</span><span class="p">[</span><span class="n">jointop</span><span class="o">.</span><span class="n">design_links</span><span class="p">[</span><span class="s">&#39;source&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="n">subdesign</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">subdesigns</span><span class="p">[</span><span class="n">jointop</span><span class="o">.</span><span class="n">design_links</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
             <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">designwidget</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
                 <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">designwidget</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">subdesign</span><span class="p">:</span>
@@ -208,13 +209,13 @@
             <span class="n">output_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">OutputData</span><span class="p">((</span><span class="n">op1_ref</span><span class="p">,</span> <span class="n">op1_output</span><span class="p">),</span><span class="n">shift</span><span class="p">))</span>
 
         <span class="n">design_links</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">design_links</span><span class="p">[</span><span class="s">&#39;source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">subdesign</span><span class="p">()</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+        <span class="n">design_links</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">subdesign</span><span class="p">()</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">design_links</span><span class="p">,</span> <span class="n">sketch_list</span><span class="p">,</span> <span class="n">input_list</span><span class="p">,</span> <span class="n">output_list</span>
 
 </div></div>
 <div class="viewcode-block" id="SubOperation2"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.sub_operation2.SubOperation2">[docs]</a><span class="k">class</span> <span class="nc">SubOperation2</span><span class="p">(</span><span class="n">Operation2</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;SubOp&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;SubOp&#39;</span>
 
 <div class="viewcode-block" id="SubOperation2.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.sub_operation2.SubOperation2.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span>
@@ -227,8 +228,8 @@
         <span class="k">return</span> <span class="n">new</span>
 </div>
 <div class="viewcode-block" id="SubOperation2.upgrade"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.sub_operation2.SubOperation2.upgrade">[docs]</a>    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">design_links</span><span class="p">[</span><span class="s">&#39;source&#39;</span><span class="p">],</span><span class="nb">int</span><span class="p">):</span>
-            <span class="n">design_links</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;source&#39;</span><span class="p">:[</span><span class="bp">self</span><span class="o">.</span><span class="n">design_links</span><span class="p">[</span><span class="s">&#39;source&#39;</span><span class="p">]]}</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">design_links</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">],</span><span class="nb">int</span><span class="p">):</span>
+            <span class="n">design_links</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;source&#39;</span><span class="p">:[</span><span class="bp">self</span><span class="o">.</span><span class="n">design_links</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]]}</span>
             <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span>
                 <span class="n">design_links</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">sketch_list</span><span class="p">[:],</span>
@@ -288,7 +289,7 @@
 <div class="viewcode-block" id="SubOperation2.generate"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.sub_operation2.SubOperation2.generate">[docs]</a>    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">popupcad.manufacturing.dummy_operation1</span> <span class="kn">import</span> <span class="n">DummyOp1</span>
         
-        <span class="n">subdesign_orig</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">subdesigns</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">design_links</span><span class="p">[</span><span class="s">&#39;source&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">subdesign_orig</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">subdesigns</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">design_links</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
         <span class="n">subdesign</span> <span class="o">=</span> <span class="n">subdesign_orig</span><span class="o">.</span><span class="n">copy_yaml</span><span class="p">()</span>
 
         <span class="n">sketches</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -313,7 +314,7 @@
             <span class="n">csg3</span> <span class="o">=</span> <span class="n">csg2</span><span class="o">.</span><span class="n">switch_layer_defs</span><span class="p">(</span><span class="n">layerdef_subdesign</span><span class="p">)</span>
             <span class="n">dummy_op</span> <span class="o">=</span> <span class="n">DummyOp1</span><span class="p">(</span><span class="n">csg3</span><span class="p">)</span>
             <span class="n">to_ref2</span> <span class="o">=</span> <span class="p">(</span><span class="n">dummy_op</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-            <span class="n">subdesign</span><span class="o">.</span><span class="n">operations</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dummy_op</span><span class="p">)</span>
+            <span class="n">subdesign</span><span class="o">.</span><span class="n">insert_operation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dummy_op</span><span class="p">)</span>
             <span class="n">subdesign</span><span class="o">.</span><span class="n">replace_op_refs_force</span><span class="p">(</span><span class="n">from_ref</span><span class="p">,</span> <span class="n">to_ref2</span><span class="p">)</span>
 
         <span class="n">subdesign</span><span class="o">.</span><span class="n">reprocessoperations</span><span class="p">()</span>

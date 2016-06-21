@@ -12,14 +12,6 @@ popupcad.filetypes.classtools module
     :undoc-members:
     :show-inheritance:
 
-popupcad.filetypes.constraints module
--------------------------------------
-
-.. automodule:: popupcad.filetypes.constraints
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 popupcad.filetypes.design module
 --------------------------------
 

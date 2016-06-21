@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,21 +54,23 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.graphics2d.graphicsview</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 <span class="kn">import</span> <span class="nn">popupcad</span>
+
+<span class="kn">import</span> <span class="nn">qt.qt_hacks</span> <span class="kn">as</span> <span class="nn">qh</span>
 
 
 <div class="viewcode-block" id="ZoomHandling"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.ZoomHandling">[docs]</a><span class="k">class</span> <span class="nc">ZoomHandling</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setScene</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">zoomToFit</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setTransformationAnchor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">NoAnchor</span><span class="p">)</span>
 
@@ -112,7 +114,8 @@
 </div>
 <div class="viewcode-block" id="ZoomHandling.fit_scene_rect"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.ZoomHandling.fit_scene_rect">[docs]</a>    <span class="k">def</span> <span class="nf">fit_scene_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">buffer</span><span class="o">=.</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">scene_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_fitted_scene_rect</span><span class="p">(</span><span class="nb">buffer</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">setSceneRect</span><span class="p">(</span><span class="n">scene_rect</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">scene_rect</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span><span class="n">scene_rect</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="n">scene_rect</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">scene_rect</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">setSceneRect</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">scene_rect</span>
 </div>
 <div class="viewcode-block" id="ZoomHandling.bound_zoom"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.ZoomHandling.bound_zoom">[docs]</a>    <span class="k">def</span> <span class="nf">bound_zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -129,7 +132,7 @@
         <span class="n">scene_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">itemsBoundingRect</span><span class="p">()</span>
         <span class="n">scene_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_scene_rect</span><span class="p">(</span><span class="nb">buffer</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fit_scene_rect</span><span class="p">(</span><span class="nb">buffer</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fitInView</span><span class="p">(</span><span class="n">scene_rect</span><span class="p">,</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">KeepAspectRatio</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitInView</span><span class="p">(</span><span class="n">scene_rect</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span><span class="n">scene_rect</span><span class="o">.</span><span class="n">y</span><span class="p">(),</span> <span class="n">scene_rect</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">scene_rect</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">KeepAspectRatio</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bound_zoom</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="ZoomHandling.zoom"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.ZoomHandling.zoom">[docs]</a>    <span class="k">def</span> <span class="nf">zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -154,30 +157,25 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">zoom</span><span class="p">,</span> <span class="n">zoom</span><span class="p">)</span>
         <span class="n">p3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapToScene</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
 
-        <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">p3</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span><span class="o">.</span><span class="n">toTuple</span><span class="p">()</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">qh</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">p3</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="o">*</span><span class="n">dx</span><span class="p">)</span>
         <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
 
 </div></div>
 <div class="viewcode-block" id="ImagingSupport"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.ImagingSupport">[docs]</a><span class="k">class</span> <span class="nc">ImagingSupport</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setScene</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span>
-
-<div class="viewcode-block" id="ImagingSupport.raster"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.ImagingSupport.raster">[docs]</a>    <span class="k">def</span> <span class="nf">raster</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">filetype</span><span class="o">=</span><span class="s">&#39;PNG&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="ImagingSupport.raster"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.ImagingSupport.raster">[docs]</a>    <span class="k">def</span> <span class="nf">raster</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">filetype</span><span class="o">=</span><span class="s1">&#39;PNG&#39;</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">os</span>
         <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">sceneRect</span><span class="p">()</span>
         <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapFromScene</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">bottomLeft</span><span class="p">())</span>
         <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapFromScene</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">topRight</span><span class="p">())</span>
         <span class="n">rect</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
-        <span class="n">im</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QImage</span><span class="p">(</span>
-            <span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span>
-            <span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span>
-            <span class="n">qg</span><span class="o">.</span><span class="n">QImage</span><span class="o">.</span><span class="n">Format</span><span class="o">.</span><span class="n">Format_ARGB32</span><span class="p">)</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QImage</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span><span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span><span class="n">qg</span><span class="o">.</span><span class="n">QImage</span><span class="o">.</span><span class="n">Format_ARGB32</span><span class="p">)</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mh">0x00000000</span><span class="p">)</span>
         <span class="n">painter</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainter</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
-        <span class="n">painter</span><span class="o">.</span><span class="n">setRenderHint</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QPainter</span><span class="o">.</span><span class="n">RenderHint</span><span class="o">.</span><span class="n">Antialiasing</span><span class="p">)</span>
+        <span class="n">painter</span><span class="o">.</span><span class="n">setRenderHint</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QPainter</span><span class="o">.</span><span class="n">Antialiasing</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">painter</span><span class="p">)</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;{0}.{1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">filetype</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;{0}.{1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">filetype</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
         <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
         <span class="n">im</span><span class="o">.</span><span class="n">mirrored</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="n">filetype</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
         <span class="n">painter</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
@@ -186,19 +184,14 @@
 </div></div>
 <div class="viewcode-block" id="MouseModes"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.MouseModes">[docs]</a><span class="k">class</span> <span class="nc">MouseModes</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setScene</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setRubberBandSelectionMode</span><span class="p">(</span>
-            <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemSelectionMode</span><span class="o">.</span><span class="n">ContainsItemShape</span><span class="p">)</span>
-<span class="c">#        self.setRubberBandSelectionMode(qc.Qt.ItemSelectionMode.IntersectsItemShape)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setRubberBandSelectionMode</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ContainsItemShape</span><span class="p">)</span>
+<span class="c1">#        self.setRubberBandSelectionMode(qc.Qt.IntersectsItemShape)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setRenderHints</span><span class="p">(</span>
             <span class="n">qg</span><span class="o">.</span><span class="n">QPainter</span><span class="o">.</span><span class="n">Antialiasing</span> <span class="o">|</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainter</span><span class="o">.</span><span class="n">SmoothPixmapTransform</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setDragMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ScrollHandDrag</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rubberband</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">newpolygon</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">restoredrag</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">leavingeditmode</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">restoredrag</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">enteringeditmode</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">turn_off_drag</span><span class="p">)</span>
-
+        
 <div class="viewcode-block" id="MouseModes.keyPressEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.MouseModes.keyPressEvent">[docs]</a>    <span class="k">def</span> <span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsView</span><span class="o">.</span><span class="n">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key_Escape</span><span class="p">:</span>
@@ -211,21 +204,21 @@
 </div>
 <div class="viewcode-block" id="MouseModes.turn_off_drag"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.MouseModes.turn_off_drag">[docs]</a>    <span class="k">def</span> <span class="nf">turn_off_drag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lastdrag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dragMode</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setDragMode</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsView</span><span class="o">.</span><span class="n">DragMode</span><span class="o">.</span><span class="n">NoDrag</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDragMode</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsView</span><span class="o">.</span><span class="n">NoDrag</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="MouseModes.restoredrag"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.MouseModes.restoredrag">[docs]</a>    <span class="k">def</span> <span class="nf">restoredrag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setDragMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lastdrag</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastdrag</span> <span class="o">==</span> <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsView</span><span class="o">.</span><span class="n">DragMode</span><span class="o">.</span><span class="n">ScrollHandDrag</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastdrag</span> <span class="o">==</span> <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsView</span><span class="o">.</span><span class="n">ScrollHandDrag</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">setIsEnabled</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">setIsEnabled</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="MouseModes.scrollhand"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.MouseModes.scrollhand">[docs]</a>    <span class="k">def</span> <span class="nf">scrollhand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lastdrag</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsView</span><span class="o">.</span><span class="n">DragMode</span><span class="o">.</span><span class="n">ScrollHandDrag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastdrag</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsView</span><span class="o">.</span><span class="n">ScrollHandDrag</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">restoredrag</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="MouseModes.rubberband"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.MouseModes.rubberband">[docs]</a>    <span class="k">def</span> <span class="nf">rubberband</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lastdrag</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsView</span><span class="o">.</span><span class="n">DragMode</span><span class="o">.</span><span class="n">RubberBandDrag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lastdrag</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsView</span><span class="o">.</span><span class="n">RubberBandDrag</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">restoredrag</span><span class="p">()</span>
 
 </div></div>
@@ -233,12 +226,15 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsView</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">ZoomHandling</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">)</span>
-        <span class="n">ImagingSupport</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">)</span>
-        <span class="n">MouseModes</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span>
-            <span class="n">qg</span><span class="o">.</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Policy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">,</span>
-            <span class="n">qg</span><span class="o">.</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Policy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setScene</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span>
+        
+        <span class="n">ZoomHandling</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">MouseModes</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">ImagingSupport</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        
+        <span class="n">scene</span><span class="o">.</span><span class="n">connect_mouse_modes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">,</span><span class="n">qg</span><span class="o">.</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">MinimumExpanding</span><span class="p">)</span>
 
 <div class="viewcode-block" id="GraphicsView.sizeHint"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.graphicsview.GraphicsView.sizeHint">[docs]</a>    <span class="k">def</span> <span class="nf">sizeHint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">qc</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
@@ -248,10 +244,12 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">):</span>
         <span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsView</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">ZoomHandling</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">)</span>
-        <span class="n">ImagingSupport</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scene</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setScene</span><span class="p">(</span><span class="n">scene</span><span class="p">)</span>
+        
+        <span class="n">ZoomHandling</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">ImagingSupport</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
     <span class="n">scene</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">graphics2d</span><span class="o">.</span><span class="n">graphicsscene</span><span class="o">.</span><span class="n">GraphicsScene</span><span class="p">()</span>

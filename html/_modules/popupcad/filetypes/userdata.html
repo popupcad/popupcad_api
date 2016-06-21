@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,18 +54,18 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.filetypes.userdata</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 
 <div class="viewcode-block" id="UserData"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.userdata.UserData">[docs]</a><span class="k">class</span> <span class="nc">UserData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;UserData&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;UserData&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customname</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customname</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setcustomname</span><span class="p">(</span><span class="n">customname</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -75,7 +75,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">buildviewdata</span><span class="p">()</span>
 
 <div class="viewcode-block" id="UserData.edit"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.userdata.UserData.edit">[docs]</a>    <span class="k">def</span> <span class="nf">edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&#39;edited&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;edited&#39;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="UserData.setcustomname"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.userdata.UserData.setcustomname">[docs]</a>    <span class="k">def</span> <span class="nf">setcustomname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">customname</span> <span class="o">=</span> <span class="n">name</span>
@@ -84,10 +84,10 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">customname</span>
 </div>
 <div class="viewcode-block" id="UserData.buildviewdata"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.userdata.UserData.buildviewdata">[docs]</a>    <span class="k">def</span> <span class="nf">buildviewdata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">customname</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">customname</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">customname</span> <span class="o">+</span> <span class="s">&#39;(&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s">&#39;)&#39;</span></div></div>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">customname</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span></div></div>
 </pre></div>
 
           </div>

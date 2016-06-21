@@ -27,7 +27,7 @@
     <link rel="up" title="popupcad_manufacturing_plugins" href="../../popupcad_manufacturing_plugins.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,18 +54,19 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad_manufacturing_plugins.manufacturing.scrapoperation2</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.operation2</span> <span class="kn">import</span> <span class="n">Operation2</span>
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.operationoutput</span> <span class="kn">import</span> <span class="n">OperationOutput</span>
 
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 <span class="kn">import</span> <span class="nn">dev_tools.enum</span> <span class="kn">as</span> <span class="nn">enum</span>
 <span class="kn">from</span> <span class="nn">popupcad.widgets.dragndroptree</span> <span class="kn">import</span> <span class="n">DraggableTreeWidget</span>
 <span class="kn">import</span> <span class="nn">popupcad</span>
@@ -99,9 +100,9 @@
             <span class="n">values</span> <span class="o">=</span> <span class="n">defaults</span><span class="p">[:]</span>
 
         <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Sheet&#39;</span><span class="p">))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Sheet&#39;</span><span class="p">))</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">le1</span><span class="p">)</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Device&#39;</span><span class="p">))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Device&#39;</span><span class="p">))</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">le3</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">valueboxes</span> <span class="o">=</span> <span class="p">[]</span>
@@ -111,7 +112,7 @@
             <span class="n">valueedit</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignRight</span><span class="p">)</span>
             <span class="n">valueedit</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
 
-    <span class="c">#        self.valueedit.setInputMask(&#39;#009.0&#39;)</span>
+    <span class="c1">#        self.valueedit.setInputMask(&#39;#009.0&#39;)</span>
             <span class="n">valueedit</span><span class="o">.</span><span class="n">setValidator</span><span class="p">(</span><span class="n">StrictDoubleValidator</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_negative_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">,</span> <span class="n">valueedit</span><span class="p">))</span>
             <span class="n">templayout</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
             <span class="n">templayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="n">valuename</span><span class="p">))</span>
@@ -120,7 +121,7 @@
             <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">templayout</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">radiobuttons</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="s">&#39;keepout&#39;</span> <span class="ow">in</span> <span class="n">show</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;keepout&#39;</span> <span class="ow">in</span> <span class="n">show</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value2</span> <span class="ow">in</span> <span class="n">keepouttypes</span><span class="o">.</span><span class="n">dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">b</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QRadioButton</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
                 <span class="n">b</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">keepouttype</span> <span class="o">==</span> <span class="n">value2</span><span class="p">)</span>
@@ -128,8 +129,8 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">radiobuttons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
                 <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 
-        <span class="n">button1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
-        <span class="n">button2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+        <span class="n">button1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Cancel&#39;</span><span class="p">)</span>
 
         <span class="n">layout2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
         <span class="n">layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button1</span><span class="p">)</span>
@@ -149,15 +150,15 @@
                 <span class="n">option</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">uservalue</span>
 
         <span class="n">operation_links</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;sheet&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">le1</span><span class="o">.</span><span class="n">currentRefs</span><span class="p">(),</span>
-            <span class="s">&#39;device&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">le3</span><span class="o">.</span><span class="n">currentRefs</span><span class="p">()}</span>
+            <span class="s1">&#39;sheet&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">le1</span><span class="o">.</span><span class="n">currentRefs</span><span class="p">(),</span>
+            <span class="s1">&#39;device&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">le3</span><span class="o">.</span><span class="n">currentRefs</span><span class="p">()}</span>
         <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">valueedit</span><span class="o">.</span><span class="n">text</span><span class="p">())</span> <span class="k">for</span> <span class="n">valueedit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueboxes</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">operation_links</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">option</span>
 
 </div></div>
 <div class="viewcode-block" id="ScrapOperation2"><a class="viewcode-back" href="../../../popupcad_manufacturing_plugins/popupcad_manufacturing_plugins.manufacturing.html#popupcad_manufacturing_plugins.manufacturing.scrapoperation2.ScrapOperation2">[docs]</a><span class="k">class</span> <span class="nc">ScrapOperation2</span><span class="p">(</span><span class="n">Operation2</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Scrap&#39;</span>
-    <span class="n">valuenames</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;device buffer&#39;</span><span class="p">]</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Scrap&#39;</span>
+    <span class="n">valuenames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;device buffer&#39;</span><span class="p">]</span>
     <span class="n">show</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">defaults</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">]</span>
 
@@ -194,8 +195,8 @@
         <span class="k">return</span> <span class="n">dialog</span>
 </div>
 <div class="viewcode-block" id="ScrapOperation2.buildeditdialog"><a class="viewcode-back" href="../../../popupcad_manufacturing_plugins/popupcad_manufacturing_plugins.manufacturing.html#popupcad_manufacturing_plugins.manufacturing.scrapoperation2.ScrapOperation2.buildeditdialog">[docs]</a>    <span class="k">def</span> <span class="nf">buildeditdialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
-        <span class="n">sheet_id</span><span class="p">,</span> <span class="n">sheet_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;sheet&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">device_id</span><span class="p">,</span> <span class="n">device_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;device&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sheet_id</span><span class="p">,</span> <span class="n">sheet_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s1">&#39;sheet&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">device_id</span><span class="p">,</span> <span class="n">device_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="n">sheet_index</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">operation_index</span><span class="p">(</span><span class="n">sheet_id</span><span class="p">)</span>
         <span class="n">device_index</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">operation_index</span><span class="p">(</span><span class="n">device_id</span><span class="p">)</span>
@@ -217,8 +218,8 @@
         <span class="kn">import</span> <span class="nn">popupcad</span>
         <span class="kn">import</span> <span class="nn">popupcad.algorithms.removability</span> <span class="kn">as</span> <span class="nn">removability</span>
 
-        <span class="n">sheet_id</span><span class="p">,</span> <span class="n">sheet_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;sheet&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">device_id</span><span class="p">,</span> <span class="n">device_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;device&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sheet_id</span><span class="p">,</span> <span class="n">sheet_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s1">&#39;sheet&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">device_id</span><span class="p">,</span> <span class="n">device_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="n">sheet</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">op_from_ref</span><span class="p">(</span><span class="n">sheet_id</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">sheet_output</span><span class="p">]</span><span class="o">.</span><span class="n">csg</span>
         <span class="n">device</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">op_from_ref</span><span class="p">(</span><span class="n">device_id</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">device_output</span><span class="p">]</span><span class="o">.</span><span class="n">csg</span>
@@ -226,9 +227,9 @@
         <span class="n">removable_both</span><span class="p">,</span> <span class="n">removable_up</span><span class="p">,</span> <span class="n">removable_down</span> <span class="o">=</span> <span class="n">removability</span><span class="o">.</span><span class="n">generate_removable_scrap</span><span class="p">(</span>
             <span class="n">device</span><span class="p">,</span> <span class="n">sheet</span><span class="p">,</span> <span class="n">device_buffer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span><span class="n">popupcad</span><span class="o">.</span><span class="n">csg_processing_scaling</span><span class="p">)</span>
 
-        <span class="n">a</span> <span class="o">=</span> <span class="n">OperationOutput</span><span class="p">(</span><span class="n">removable_both</span><span class="p">,</span> <span class="s">&#39;removable_both&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="n">OperationOutput</span><span class="p">(</span><span class="n">removable_up</span><span class="p">,</span> <span class="s">&#39;removable_up&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">OperationOutput</span><span class="p">(</span><span class="n">removable_down</span><span class="p">,</span> <span class="s">&#39;removable_down&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">OperationOutput</span><span class="p">(</span><span class="n">removable_both</span><span class="p">,</span> <span class="s1">&#39;removable_both&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">OperationOutput</span><span class="p">(</span><span class="n">removable_up</span><span class="p">,</span> <span class="s1">&#39;removable_up&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">OperationOutput</span><span class="p">(</span><span class="n">removable_down</span><span class="p">,</span> <span class="s1">&#39;removable_down&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span></div></div>
 </pre></div>
 

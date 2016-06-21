@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>api_examples.design_advanced_functions &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body role="document">
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for api_examples.design_advanced_functions</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="remap_subdesign_ids"><a class="viewcode-back" href="../../api_examples/api_examples.html#api_examples.design_advanced_functions.remap_subdesign_ids">[docs]</a><span class="k">def</span> <span class="nf">remap_subdesign_ids</span><span class="p">(</span><span class="n">design</span><span class="p">):</span>
+    <span class="n">subdesigns_orig</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">subdesigns</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">subdesign_mapping</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">subdesigns_new</span> <span class="o">=</span> <span class="p">{}</span> 
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">subdesign</span> <span class="ow">in</span> <span class="n">subdesigns_orig</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">new_sketch</span> <span class="o">=</span> <span class="n">subdesign</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+        <span class="n">subdesigns_new</span><span class="p">[</span><span class="n">new_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_sketch</span>
+        <span class="n">subdesign_mapping</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">key</span><span class="p">,</span><span class="n">new_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">oldref</span><span class="p">,</span> <span class="n">newref</span> <span class="ow">in</span> <span class="n">subdesign_mapping</span><span class="p">:</span>
+        <span class="n">design</span><span class="o">.</span><span class="n">replace_subdesign_refs</span><span class="p">(</span><span class="n">oldref</span><span class="p">,</span><span class="n">newref</span><span class="p">)</span>
+    
+    <span class="n">design</span><span class="o">.</span><span class="n">subdesigns</span> <span class="o">=</span> <span class="n">subdesigns_new</span>
+    <span class="k">return</span> <span class="n">subdesign_mapping</span>
+</div>
+<div class="viewcode-block" id="remap_sketch_ids"><a class="viewcode-back" href="../../api_examples/api_examples.html#api_examples.design_advanced_functions.remap_sketch_ids">[docs]</a><span class="k">def</span> <span class="nf">remap_sketch_ids</span><span class="p">(</span><span class="n">design</span><span class="p">):</span>
+    <span class="n">sub_sketches_orig</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">sketch_mapping</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">sub_sketches_new</span> <span class="o">=</span> <span class="p">{}</span> 
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">sketch</span> <span class="ow">in</span> <span class="n">sub_sketches_orig</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">new_sketch</span> <span class="o">=</span> <span class="n">sketch</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+        <span class="n">sub_sketches_new</span><span class="p">[</span><span class="n">new_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_sketch</span>
+        <span class="n">sketch_mapping</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">key</span><span class="p">,</span><span class="n">new_sketch</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">oldref</span><span class="p">,</span> <span class="n">newref</span> <span class="ow">in</span> <span class="n">sketch_mapping</span><span class="p">:</span>
+        <span class="n">design</span><span class="o">.</span><span class="n">replace_sketch_refs_force</span><span class="p">(</span><span class="n">oldref</span><span class="p">,</span><span class="n">newref</span><span class="p">)</span>
+    
+    <span class="n">design</span><span class="o">.</span><span class="n">sketches</span> <span class="o">=</span> <span class="n">sub_sketches_new</span>
+    <span class="k">return</span> <span class="n">sketch_mapping</span>
+    </div>
+<div class="viewcode-block" id="strip_locates"><a class="viewcode-back" href="../../api_examples/api_examples.html#api_examples.design_advanced_functions.strip_locates">[docs]</a><span class="k">def</span> <span class="nf">strip_locates</span><span class="p">(</span><span class="n">design</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">op</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">op</span><span class="p">,</span><span class="s1">&#39;locationgeometry&#39;</span><span class="p">):</span>
+            <span class="n">design</span><span class="o">.</span><span class="n">pop_operation</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
+            </div>
+<div class="viewcode-block" id="remap_operation_ids"><a class="viewcode-back" href="../../api_examples/api_examples.html#api_examples.design_advanced_functions.remap_operation_ids">[docs]</a><span class="k">def</span> <span class="nf">remap_operation_ids</span><span class="p">(</span><span class="n">design</span><span class="p">):</span>
+    <span class="n">op_mapping</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">sub_ops_new</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">:</span>
+        <span class="n">new_op</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">copy_wrapper</span><span class="p">()</span>
+        <span class="n">new_op</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">new_op</span><span class="p">)</span>
+        <span class="n">sub_ops_new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_op</span><span class="p">)</span>
+        <span class="n">op_mapping</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">op</span><span class="p">,</span><span class="n">new_op</span><span class="p">))</span>    
+        
+    <span class="n">design</span><span class="o">.</span><span class="n">operations</span> <span class="o">=</span> <span class="n">sub_ops_new</span>
+    
+    <span class="k">for</span> <span class="n">oldref</span><span class="p">,</span><span class="n">newref</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">op1</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">op2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="k">for</span> <span class="n">op1</span><span class="p">,</span><span class="n">op2</span> <span class="ow">in</span> <span class="n">op_mapping</span><span class="p">]:</span>
+        <span class="n">design</span><span class="o">.</span><span class="n">replace_op_refs2</span><span class="p">(</span><span class="n">oldref</span><span class="p">,</span><span class="n">newref</span><span class="p">)</span>    
+
+    <span class="k">return</span> <span class="n">op_mapping</span>
+    </div>
+<div class="viewcode-block" id="switch_layer_defs"><a class="viewcode-back" href="../../api_examples/api_examples.html#api_examples.design_advanced_functions.switch_layer_defs">[docs]</a><span class="k">def</span> <span class="nf">switch_layer_defs</span><span class="p">(</span><span class="n">design</span><span class="p">,</span><span class="n">layerdef_new</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">op</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">op</span><span class="p">,</span><span class="s1">&#39;switch_layer_defs&#39;</span><span class="p">):</span>
+            <span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">=</span><span class="n">op</span><span class="o">.</span><span class="n">switch_layer_defs</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">(),</span><span class="n">layerdef_new</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="external_to_internal_transform_outer"><a class="viewcode-back" href="../../api_examples/api_examples.html#api_examples.design_advanced_functions.external_to_internal_transform_outer">[docs]</a><span class="k">def</span> <span class="nf">external_to_internal_transform_outer</span><span class="p">(</span><span class="n">design</span><span class="p">,</span><span class="n">subdesign</span><span class="p">,</span><span class="n">sketch_mapping</span><span class="p">,</span><span class="n">op_mapping</span><span class="p">):</span>
+    <span class="n">op_mapping2</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="kn">from</span> <span class="nn">popupcad.manufacturing.transform_external</span> <span class="kn">import</span> <span class="n">TransformExternal</span>
+    <span class="n">sketch_mapping_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">sketch_mapping</span><span class="p">)</span>
+    <span class="n">op_mapping_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">item1</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">item2</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="k">for</span> <span class="n">item1</span><span class="p">,</span><span class="n">item2</span> <span class="ow">in</span> <span class="n">op_mapping</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">op</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">TransformExternal</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">op</span><span class="o">.</span><span class="n">design_links</span><span class="p">[</span><span class="s1">&#39;subdesign&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">subdesign</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+                <span class="n">new</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">to_internal_transform</span><span class="p">(</span><span class="n">sketch_mapping_dict</span><span class="p">,</span><span class="n">op_mapping_dict</span><span class="p">)</span>
+                <span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">=</span><span class="n">new</span>
+                <span class="n">op_mapping2</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">op</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="n">new</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+    
+    <span class="k">for</span> <span class="n">oldref</span><span class="p">,</span><span class="n">newref</span> <span class="ow">in</span> <span class="n">op_mapping2</span><span class="p">:</span>
+        <span class="n">design</span><span class="o">.</span><span class="n">replace_op_refs2</span><span class="p">(</span><span class="n">oldref</span><span class="p">,</span><span class="n">newref</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="remap_sub"><a class="viewcode-back" href="../../api_examples/api_examples.html#api_examples.design_advanced_functions.remap_sub">[docs]</a><span class="k">def</span> <span class="nf">remap_sub</span><span class="p">(</span><span class="n">subdesign</span><span class="p">):</span>
+    <span class="c1">#reassign new ids to subdesign sketches and remap their use within the subdesign</span>
+
+    <span class="n">debug</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="n">subdesign_mapping</span> <span class="o">=</span> <span class="n">remap_subdesign_ids</span><span class="p">(</span><span class="n">subdesign</span><span class="p">)</span>
+    <span class="n">sketch_mapping</span> <span class="o">=</span> <span class="n">remap_sketch_ids</span><span class="p">(</span><span class="n">subdesign</span><span class="p">)</span>
+    <span class="n">strip_locates</span><span class="p">(</span><span class="n">subdesign</span><span class="p">)</span>
+    <span class="n">op_mapping</span> <span class="o">=</span> <span class="n">remap_operation_ids</span><span class="p">(</span><span class="n">subdesign</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">subdesign</span><span class="o">.</span><span class="n">save_yaml</span><span class="p">(</span><span class="s1">&#39;C:/Users/danaukes/desktop/test.cad&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">subdesign_mapping</span><span class="p">,</span><span class="n">sketch_mapping</span><span class="p">,</span><span class="n">op_mapping</span>
+
+</div>
+<div class="viewcode-block" id="merge_designs"><a class="viewcode-back" href="../../api_examples/api_examples.html#api_examples.design_advanced_functions.merge_designs">[docs]</a><span class="k">def</span> <span class="nf">merge_designs</span><span class="p">(</span><span class="n">design</span><span class="p">,</span><span class="n">subdesign</span><span class="p">,</span><span class="n">index</span><span class="p">):</span>
+    <span class="n">debug</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">subdesign_mapping</span><span class="p">,</span><span class="n">sketch_mapping</span><span class="p">,</span><span class="n">op_mapping</span> <span class="o">=</span> <span class="n">remap_sub</span><span class="p">(</span><span class="n">subdesign</span><span class="p">)</span>
+
+    <span class="n">design</span><span class="o">.</span><span class="n">subdesigns</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">subdesign</span><span class="o">.</span><span class="n">subdesigns</span><span class="p">)</span>
+    <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">subdesign</span><span class="o">.</span><span class="n">sketches</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">design</span><span class="o">.</span><span class="n">save_yaml</span><span class="p">(</span><span class="s1">&#39;C:/Users/danaukes/desktop/test2.cad&#39;</span><span class="p">)</span>
+    
+    <span class="n">switch_layer_defs</span><span class="p">(</span><span class="n">subdesign</span><span class="p">,</span><span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">subdesign</span><span class="o">.</span><span class="n">save_yaml</span><span class="p">(</span><span class="s1">&#39;C:/Users/danaukes/desktop/test3.cad&#39;</span><span class="p">)</span>
+    
+    <span class="n">design</span><span class="o">.</span><span class="n">operations</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">[:</span><span class="n">index</span><span class="p">]</span><span class="o">+</span><span class="n">subdesign</span><span class="o">.</span><span class="n">operations</span><span class="o">+</span><span class="n">design</span><span class="o">.</span><span class="n">operations</span><span class="p">[</span><span class="n">index</span><span class="p">:]</span>
+    <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+        <span class="n">design</span><span class="o">.</span><span class="n">save_yaml</span><span class="p">(</span><span class="s1">&#39;C:/Users/danaukes/desktop/test4.cad&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">subdesign_mapping</span><span class="p">,</span><span class="n">sketch_mapping</span><span class="p">,</span><span class="n">op_mapping</span>
+    
+    </div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

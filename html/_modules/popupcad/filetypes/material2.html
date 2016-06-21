@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,15 +54,15 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.filetypes.material2</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Material2"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.material2.Material2">[docs]</a><span class="k">class</span> <span class="nc">Material2</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">editable</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;*&#39;</span><span class="p">]</span>
+    <span class="n">editable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">color</span><span class="p">,</span><span class="n">thickness</span><span class="p">,</span><span class="n">E1</span><span class="p">,</span><span class="n">E2</span><span class="p">,</span><span class="n">density</span><span class="p">,</span><span class="n">poisson</span><span class="p">,</span><span class="n">is_adhesive</span><span class="p">,</span><span class="n">is_rigid</span><span class="p">,</span><span class="n">is_conductive</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -84,8 +84,10 @@
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
     
-<div class="viewcode-block" id="Material2.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.material2.Material2.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Material2.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.material2.Material2.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">identical</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
         <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">thickness</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">E1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">E2</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">density</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">poisson</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">is_adhesive</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">is_rigid</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">is_conductive</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
         <span class="k">return</span> <span class="n">new</span>
 </div>
 <div class="viewcode-block" id="Material2.upgrade"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.material2.Material2.upgrade">[docs]</a>    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -97,33 +99,33 @@
     <span class="n">material_defaults</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
 
-<span class="n">default_sublaminate_keys</span> <span class="o">=</span> <span class="n">material_defaults</span><span class="p">[</span><span class="s">&#39;default_sublaminate_keys&#39;</span><span class="p">]</span>
-<span class="n">default_material_types</span> <span class="o">=</span> <span class="n">material_defaults</span><span class="p">[</span><span class="s">&#39;default_material_types&#39;</span><span class="p">]</span>
+<span class="n">default_sublaminate_keys</span> <span class="o">=</span> <span class="n">material_defaults</span><span class="p">[</span><span class="s1">&#39;default_sublaminate_keys&#39;</span><span class="p">]</span>
+<span class="n">default_material_types</span> <span class="o">=</span> <span class="n">material_defaults</span><span class="p">[</span><span class="s1">&#39;default_material_types&#39;</span><span class="p">]</span>
 
-<span class="c">#rigid = Material2(&#39;rigid&#39;,(.5,.5,.5,.5),.1,1,1,1,.5,False,True,False)</span>
-<span class="c">#adhesive = Material2(&#39;adhesive&#39;,(.5,.5,.5,.5),.1,1,1,1,.5,True,False,False)</span>
-<span class="c">#flexible = Material2(&#39;flexible&#39;,(.5,.5,.5,.5),.1,1,1,1,.5,False,False,False)</span>
-<span class="c">#</span>
-<span class="c">#default_sublaminate_keys = [&#39;rigid&#39;,&#39;adhesive&#39;,&#39;flexible&#39;,&#39;adhesive&#39;,&#39;rigid&#39;]</span>
-<span class="c">#</span>
-<span class="c">#default_material_types = {}</span>
-<span class="c">#default_material_types[&#39;rigid&#39;] = rigid</span>
-<span class="c">#default_material_types[&#39;adhesive&#39;] = adhesive</span>
-<span class="c">#default_material_types[&#39;flexible&#39;] = flexible</span>
+<span class="c1">#rigid = Material2(&#39;rigid&#39;,(.5,.5,.5,.5),.1,1,1,1,.5,False,True,False)</span>
+<span class="c1">#adhesive = Material2(&#39;adhesive&#39;,(.5,.5,.5,.5),.1,1,1,1,.5,True,False,False)</span>
+<span class="c1">#flexible = Material2(&#39;flexible&#39;,(.5,.5,.5,.5),.1,1,1,1,.5,False,False,False)</span>
+<span class="c1">#</span>
+<span class="c1">#default_sublaminate_keys = [&#39;rigid&#39;,&#39;adhesive&#39;,&#39;flexible&#39;,&#39;adhesive&#39;,&#39;rigid&#39;]</span>
+<span class="c1">#</span>
+<span class="c1">#default_material_types = {}</span>
+<span class="c1">#default_material_types[&#39;rigid&#39;] = rigid</span>
+<span class="c1">#default_material_types[&#39;adhesive&#39;] = adhesive</span>
+<span class="c1">#default_material_types[&#39;flexible&#39;] = flexible</span>
 
-<span class="c">#</span>
+<span class="c1">#</span>
 <span class="n">default_materials</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">default_material_types</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-<span class="n">default_sublaminate</span> <span class="o">=</span> <span class="p">[</span><span class="n">default_material_types</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">default_sublaminate_keys</span><span class="p">]</span>
+<span class="n">default_sublaminate</span> <span class="o">=</span> <span class="p">[</span><span class="n">default_material_types</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">default_sublaminate_keys</span><span class="p">]</span>
 
-<span class="c">#material_defaults = {}</span>
-<span class="c">#material_defaults[&#39;default_sublaminate_keys&#39;] = default_sublaminate_keys</span>
-<span class="c">#material_defaults[&#39;default_material_types&#39;] = default_material_types</span>
-<span class="c">#</span>
-<span class="c">#import popupcad</span>
-<span class="c">#import yaml</span>
+<span class="c1">#material_defaults = {}</span>
+<span class="c1">#material_defaults[&#39;default_sublaminate_keys&#39;] = default_sublaminate_keys</span>
+<span class="c1">#material_defaults[&#39;default_material_types&#39;] = default_material_types</span>
+<span class="c1">#</span>
+<span class="c1">#import popupcad</span>
+<span class="c1">#import yaml</span>
 
-<span class="c">#with open(popupcad.internal_materials_filename,&#39;w&#39;) as f:</span>
-<span class="c">#    yaml.dump(material_defaults,f)</span>
+<span class="c1">#with open(popupcad.internal_materials_filename,&#39;w&#39;) as f:</span>
+<span class="c1">#    yaml.dump(material_defaults,f)</span>
 </pre></div>
 
           </div>

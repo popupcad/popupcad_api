@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,42 +54,33 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.graphics2d.proto</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 <span class="kn">from</span> <span class="nn">popupcad.graphics2d.graphicsitems</span> <span class="kn">import</span> <span class="n">Common</span><span class="p">,</span> <span class="n">CommonShape</span>
 <span class="kn">from</span> <span class="nn">popupcad.geometry.vertex</span> <span class="kn">import</span> <span class="n">ShapeVertex</span>
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericPoly</span><span class="p">,</span> <span class="n">GenericPolyline</span><span class="p">,</span> <span class="n">GenericLine</span><span class="p">,</span> <span class="n">GenericCircle</span><span class="p">,</span> <span class="n">GenericTwoPointRect</span>
 <span class="kn">import</span> <span class="nn">popupcad</span>
 
+<span class="kn">import</span> <span class="nn">qt.qt_hacks</span> <span class="kn">as</span> <span class="nn">qh</span>
 
 <div class="viewcode-block" id="Proto"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.proto.Proto">[docs]</a><span class="k">class</span> <span class="nc">Proto</span><span class="p">(</span><span class="n">Common</span><span class="p">):</span>
     <span class="n">z_value</span> <span class="o">=</span> <span class="mi">20</span>
     <span class="n">isDeletable</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="n">minradius</span> <span class="o">=</span> <span class="mi">20</span>
 
-    <span class="n">basicpen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
-        <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
-            <span class="mi">0</span><span class="p">,</span>
-            <span class="mi">0</span><span class="p">,</span>
-            <span class="mi">0</span><span class="p">,</span>
-            <span class="mi">1</span><span class="p">),</span>
-        <span class="mf">1.0</span><span class="p">,</span>
-        <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidLine</span><span class="p">,</span>
-        <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundCap</span><span class="p">,</span>
-        <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundJoin</span><span class="p">)</span>
+    <span class="n">basicpen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mf">1.0</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidLine</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundCap</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundJoin</span><span class="p">)</span>
     <span class="n">basicpen</span><span class="o">.</span><span class="n">setCosmetic</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 
-    <span class="n">basicbrush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span>
-        <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
-            <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidPattern</span><span class="p">)</span>
-    <span class="n">nobrush</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoBrush</span>
+    <span class="n">basicbrush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidPattern</span><span class="p">)</span>
+    <span class="n">nobrush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoBrush</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Proto</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -145,7 +136,7 @@
 </div>
 <div class="viewcode-block" id="Proto.mousemove"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.proto.Proto.mousemove">[docs]</a>    <span class="k">def</span> <span class="nf">mousemove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">numpy</span>
-        <span class="n">point</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">toTuple</span><span class="p">())</span> <span class="o">/</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">qh</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">point</span><span class="p">))</span> <span class="o">/</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">temphandle</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">temphandle</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">setpos</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
@@ -169,7 +160,7 @@
 </div>
 <div class="viewcode-block" id="ProtoMultiPoint.mousepress"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.proto.ProtoMultiPoint.mousepress">[docs]</a>    <span class="k">def</span> <span class="nf">mousepress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">numpy</span>
-        <span class="n">point</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">toTuple</span><span class="p">())</span> <span class="o">/</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">qh</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">point</span><span class="p">))</span> <span class="o">/</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">temphandle</span><span class="p">:</span>
             <span class="n">a</span> <span class="o">=</span> <span class="n">ShapeVertex</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
@@ -187,11 +178,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">updateshape</span><span class="p">()</span>
 
-<span class="c">#    def mousedoubleclick(self, point):</span>
-<span class="c">#        if self.generic.csg_valid() and self.generic.isValid():</span>
-<span class="c">#            if self.generic.len_exterior() &gt; 2:</span>
-<span class="c">#                self.finish_definition()</span>
-<span class="c">#                self.updateshape()</span>
+<span class="c1">#    def mousedoubleclick(self, point):</span>
+<span class="c1">#        if self.generic.csg_valid() and self.generic.isValid():</span>
+<span class="c1">#            if self.generic.len_exterior() &gt; 2:</span>
+<span class="c1">#                self.finish_definition()</span>
+<span class="c1">#                self.updateshape()</span>
 
 </div></div>
 <div class="viewcode-block" id="ProtoTwoPoint"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.proto.ProtoTwoPoint">[docs]</a><span class="k">class</span> <span class="nc">ProtoTwoPoint</span><span class="p">(</span><span class="n">Proto</span><span class="p">):</span>
@@ -202,8 +193,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">temphandle</span> <span class="o">=</span> <span class="bp">None</span>
             <span class="k">return</span> <span class="bp">True</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">len_exterior</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">handle</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span><span class="o">.</span><span class="n">toTuple</span><span class="p">(</span>
-            <span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getpos</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">qh</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">handle</span><span class="o">.</span><span class="n">pos</span><span class="p">())</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getpos</span><span class="p">():</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkdist</span><span class="p">(</span><span class="n">handle</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">),</span>
                                   <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">get_exterior</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span><span class="o">=</span><span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">addvertex_exterior</span><span class="p">(</span><span class="n">handle</span><span class="o">.</span><span class="n">get_generic</span><span class="p">())</span>
@@ -216,7 +206,7 @@
 </div>
 <div class="viewcode-block" id="ProtoTwoPoint.mousepress"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.proto.ProtoTwoPoint.mousepress">[docs]</a>    <span class="k">def</span> <span class="nf">mousepress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">numpy</span>
-        <span class="n">point</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">toTuple</span><span class="p">())</span> <span class="o">/</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">qh</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">(</span><span class="n">point</span><span class="p">))</span> <span class="o">/</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">temphandle</span><span class="p">:</span>
             <span class="n">a</span> <span class="o">=</span> <span class="n">ShapeVertex</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>

@@ -26,7 +26,7 @@
     <link rel="top" title="popupCAD API" href="../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -60,7 +60,7 @@
 <div class="section" id="module-popupcad_manufacturing_plugins.manufacturing.autoweb4">
 <span id="popupcad-manufacturing-plugins-manufacturing-autoweb4-module"></span><h2>popupcad_manufacturing_plugins.manufacturing.autoweb4 module<a class="headerlink" href="#module-popupcad_manufacturing_plugins.manufacturing.autoweb4" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad_manufacturing_plugins.manufacturing.autoweb4.AutoWeb4">
@@ -92,7 +92,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad_manufacturing_plugins.manufacturing.customsupport4">
 <span id="popupcad-manufacturing-plugins-manufacturing-customsupport4-module"></span><h2>popupcad_manufacturing_plugins.manufacturing.customsupport4 module<a class="headerlink" href="#module-popupcad_manufacturing_plugins.manufacturing.customsupport4" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad_manufacturing_plugins.manufacturing.customsupport4.CustomSupport4">
@@ -144,7 +144,7 @@ Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad_manufacturing_plugins.manufacturing.customsupport4.Dialog">
 <em class="property">class </em><code class="descclassname">popupcad_manufacturing_plugins.manufacturing.customsupport4.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>design</em>, <em>operationlist</em>, <em>device_index=0</em>, <em>support_width=1.0</em>, <em>support_out=1.0</em>, <em>hole_radius=1.0</em>, <em>cut_width=1.0</em>, <em>deviceoutputref=0</em>, <em>sketch=None</em>, <em>selectedoutput=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/customsupport4.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.customsupport4.Dialog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QDialog</span></code></p>
 <dl class="method">
 <dt id="popupcad_manufacturing_plugins.manufacturing.customsupport4.Dialog.acceptdata">
 <code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/customsupport4.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.customsupport4.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
@@ -155,9 +155,48 @@ Please see LICENSE for full license.</p>
 <code class="descname">sketch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/customsupport4.html#Dialog.sketch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.customsupport4.Dialog.sketch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup">
+<span id="popupcad-manufacturing-plugins-manufacturing-generatealignmentlayup-module"></span><h2>popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup module<a class="headerlink" href="#module-popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup" title="Permalink to this headline">¶</a></h2>
+<p>Contributed by Nick Gravish
+Email: gravish&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup">
+<em class="property">class </em><code class="descclassname">popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.</code><code class="descname">AlignmentLayup</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/generatealignmentlayup.html#AlignmentLayup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.multivalueoperation3.MultiValueOperation3" title="popupcad.manufacturing.multivalueoperation3.MultiValueOperation3"><code class="xref py py-class docutils literal"><span class="pre">popupcad.manufacturing.multivalueoperation3.MultiValueOperation3</span></code></a></p>
 <dl class="attribute">
-<dt id="popupcad_manufacturing_plugins.manufacturing.customsupport4.Dialog.staticMetaObject">
-<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x000000000D067D48&gt;</em><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.customsupport4.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dt id="popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup.defaults">
+<code class="descname">defaults</code><em class="property"> = [25.0, 3.0, 0.79]</em><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup.defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup.name">
+<code class="descname">name</code><em class="property"> = 'AlignmentLayup'</em><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/generatealignmentlayup.html#AlignmentLayup.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup.operate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a generic_laminate ref of a layup laminate with all the layers of the part and with the appropriate 25x25mm alignment
+features compatible with the Wood lab micro-robotics manufacturing process.</p>
+<p>Input:
+Design -&gt; a popupcad design file</p>
+<p>Output:
+layup -&gt; A handle to the layup design file
+subop -&gt; A subop which is inserted into the input design file to reduce the number of operations</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup.show">
+<code class="descname">show</code><em class="property"> = []</em><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup.valuenames">
+<code class="descname">valuenames</code><em class="property"> = ['Sheet width', 'Pin offset', 'Pin radius']</em><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup.AlignmentLayup.valuenames" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -166,7 +205,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad_manufacturing_plugins.manufacturing.identifybodies2">
 <span id="popupcad-manufacturing-plugins-manufacturing-identifybodies2-module"></span><h2>popupcad_manufacturing_plugins.manufacturing.identifybodies2 module<a class="headerlink" href="#module-popupcad_manufacturing_plugins.manufacturing.identifybodies2" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad_manufacturing_plugins.manufacturing.identifybodies2.IdentifyBodies2">
@@ -203,7 +242,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad_manufacturing_plugins.manufacturing.identifyrigidbodies2">
 <span id="popupcad-manufacturing-plugins-manufacturing-identifyrigidbodies2-module"></span><h2>popupcad_manufacturing_plugins.manufacturing.identifyrigidbodies2 module<a class="headerlink" href="#module-popupcad_manufacturing_plugins.manufacturing.identifyrigidbodies2" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad_manufacturing_plugins.manufacturing.identifyrigidbodies2.IdentifyRigidBodies2">
@@ -240,7 +279,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad_manufacturing_plugins.manufacturing.keepout3">
 <span id="popupcad-manufacturing-plugins-manufacturing-keepout3-module"></span><h2>popupcad_manufacturing_plugins.manufacturing.keepout3 module<a class="headerlink" href="#module-popupcad_manufacturing_plugins.manufacturing.keepout3" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad_manufacturing_plugins.manufacturing.keepout3.KeepOut3">
@@ -272,7 +311,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad_manufacturing_plugins.manufacturing.outersheet3">
 <span id="popupcad-manufacturing-plugins-manufacturing-outersheet3-module"></span><h2>popupcad_manufacturing_plugins.manufacturing.outersheet3 module<a class="headerlink" href="#module-popupcad_manufacturing_plugins.manufacturing.outersheet3" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad_manufacturing_plugins.manufacturing.outersheet3.OuterSheet3">
@@ -309,7 +348,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad_manufacturing_plugins.manufacturing.removability2">
 <span id="popupcad-manufacturing-plugins-manufacturing-removability2-module"></span><h2>popupcad_manufacturing_plugins.manufacturing.removability2 module<a class="headerlink" href="#module-popupcad_manufacturing_plugins.manufacturing.removability2" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad_manufacturing_plugins.manufacturing.removability2.Removability2">
@@ -352,20 +391,15 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad_manufacturing_plugins.manufacturing.scrapoperation2">
 <span id="popupcad-manufacturing-plugins-manufacturing-scrapoperation2-module"></span><h2>popupcad_manufacturing_plugins.manufacturing.scrapoperation2 module<a class="headerlink" href="#module-popupcad_manufacturing_plugins.manufacturing.scrapoperation2" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad_manufacturing_plugins.manufacturing.scrapoperation2.Dialog">
 <em class="property">class </em><code class="descclassname">popupcad_manufacturing_plugins.manufacturing.scrapoperation2.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>keepouttypes</em>, <em>valuenames</em>, <em>defaults</em>, <em>operations</em>, <em>show</em>, <em>operationindeces=None</em>, <em>values=None</em>, <em>keepouttype=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/scrapoperation2.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.scrapoperation2.Dialog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QDialog</span></code></p>
 <dl class="method">
 <dt id="popupcad_manufacturing_plugins.manufacturing.scrapoperation2.Dialog.acceptdata">
 <code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/scrapoperation2.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.scrapoperation2.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad_manufacturing_plugins.manufacturing.scrapoperation2.Dialog.staticMetaObject">
-<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x000000000D066A88&gt;</em><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.scrapoperation2.Dialog.staticMetaObject" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -431,7 +465,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad_manufacturing_plugins.manufacturing.supportcandidate4">
 <span id="popupcad-manufacturing-plugins-manufacturing-supportcandidate4-module"></span><h2>popupcad_manufacturing_plugins.manufacturing.supportcandidate4 module<a class="headerlink" href="#module-popupcad_manufacturing_plugins.manufacturing.supportcandidate4" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad_manufacturing_plugins.manufacturing.supportcandidate4.SupportCandidate4">
@@ -460,10 +494,78 @@ Please see LICENSE for full license.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-popupcad_manufacturing_plugins.manufacturing.tilepart">
+<span id="popupcad-manufacturing-plugins-manufacturing-tilepart-module"></span><h2>popupcad_manufacturing_plugins.manufacturing.tilepart module<a class="headerlink" href="#module-popupcad_manufacturing_plugins.manufacturing.tilepart" title="Permalink to this headline">¶</a></h2>
+<p>Contributed by Nick Gravish
+Email: gravish&lt;at&gt;seas.harvard.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad_manufacturing_plugins.manufacturing.tilepart.Dialog">
+<em class="property">class </em><code class="descclassname">popupcad_manufacturing_plugins.manufacturing.tilepart.</code><code class="descname">Dialog</code><span class="sig-paren">(</span><em>design</em>, <em>prioroperations</em>, <em>tilepart=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/tilepart.html#Dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.tilepart.Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QDialog</span></code></p>
+<dl class="method">
+<dt id="popupcad_manufacturing_plugins.manufacturing.tilepart.Dialog.acceptdata">
+<code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/tilepart.html#Dialog.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.tilepart.Dialog.acceptdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad_manufacturing_plugins.manufacturing.tilepart.Dialog.build_dialog">
+<code class="descname">build_dialog</code><span class="sig-paren">(</span><em>design</em>, <em>prioroperations</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/tilepart.html#Dialog.build_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.tilepart.Dialog.build_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad_manufacturing_plugins.manufacturing.tilepart.Dialog.build_sketch_links">
+<code class="descname">build_sketch_links</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/tilepart.html#Dialog.build_sketch_links"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.tilepart.Dialog.build_sketch_links" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart">
+<em class="property">class </em><code class="descclassname">popupcad_manufacturing_plugins.manufacturing.tilepart.</code><code class="descname">TilePart</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/tilepart.html#TilePart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../popupcad/popupcad.filetypes.html#popupcad.filetypes.operation2.Operation2" title="popupcad.filetypes.operation2.Operation2"><code class="xref py py-class docutils literal"><span class="pre">popupcad.filetypes.operation2.Operation2</span></code></a></p>
+<dl class="method">
+<dt id="popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.buildeditdialog">
+<code class="descname">buildeditdialog</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/tilepart.html#TilePart.buildeditdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.buildeditdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.buildnewdialog">
+<em class="property">classmethod </em><code class="descname">buildnewdialog</code><span class="sig-paren">(</span><em>design</em>, <em>currentop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/tilepart.html#TilePart.buildnewdialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.buildnewdialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/tilepart.html#TilePart.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.editdata">
+<code class="descname">editdata</code><span class="sig-paren">(</span><em>part_opref</em>, <em>release_opref</em>, <em>sheet_opref</em>, <em>sketch_bounding_box</em>, <em>N</em>, <em>scale</em>, <em>x_gap</em>, <em>y_gap</em>, <em>support_offset</em>, <em>sketch_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/tilepart.html#TilePart.editdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.editdata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.name">
+<code class="descname">name</code><em class="property"> = 'TiledPart'</em><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.operate">
+<code class="descname">operate</code><span class="sig-paren">(</span><em>design</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad_manufacturing_plugins/manufacturing/tilepart.html#TilePart.operate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.operate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.show">
+<code class="descname">show</code><em class="property"> = []</em><a class="headerlink" href="#popupcad_manufacturing_plugins.manufacturing.tilepart.TilePart.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-popupcad_manufacturing_plugins.manufacturing">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-popupcad_manufacturing_plugins.manufacturing" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 </div>
 </div>
@@ -480,6 +582,7 @@ Please see LICENSE for full license.</p>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-popupcad_manufacturing_plugins.manufacturing.autoweb4">popupcad_manufacturing_plugins.manufacturing.autoweb4 module</a></li>
 <li><a class="reference internal" href="#module-popupcad_manufacturing_plugins.manufacturing.customsupport4">popupcad_manufacturing_plugins.manufacturing.customsupport4 module</a></li>
+<li><a class="reference internal" href="#module-popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup">popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup module</a></li>
 <li><a class="reference internal" href="#module-popupcad_manufacturing_plugins.manufacturing.identifybodies2">popupcad_manufacturing_plugins.manufacturing.identifybodies2 module</a></li>
 <li><a class="reference internal" href="#module-popupcad_manufacturing_plugins.manufacturing.identifyrigidbodies2">popupcad_manufacturing_plugins.manufacturing.identifyrigidbodies2 module</a></li>
 <li><a class="reference internal" href="#module-popupcad_manufacturing_plugins.manufacturing.keepout3">popupcad_manufacturing_plugins.manufacturing.keepout3 module</a></li>
@@ -487,6 +590,7 @@ Please see LICENSE for full license.</p>
 <li><a class="reference internal" href="#module-popupcad_manufacturing_plugins.manufacturing.removability2">popupcad_manufacturing_plugins.manufacturing.removability2 module</a></li>
 <li><a class="reference internal" href="#module-popupcad_manufacturing_plugins.manufacturing.scrapoperation2">popupcad_manufacturing_plugins.manufacturing.scrapoperation2 module</a></li>
 <li><a class="reference internal" href="#module-popupcad_manufacturing_plugins.manufacturing.supportcandidate4">popupcad_manufacturing_plugins.manufacturing.supportcandidate4 module</a></li>
+<li><a class="reference internal" href="#module-popupcad_manufacturing_plugins.manufacturing.tilepart">popupcad_manufacturing_plugins.manufacturing.tilepart module</a></li>
 <li><a class="reference internal" href="#module-popupcad_manufacturing_plugins.manufacturing">Module contents</a></li>
 </ul>
 </li>

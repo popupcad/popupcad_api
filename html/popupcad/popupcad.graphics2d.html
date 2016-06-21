@@ -26,7 +26,7 @@
     <link rel="top" title="popupCAD API" href="../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -60,7 +60,7 @@
 <div class="section" id="module-popupcad.graphics2d.graphicsitems">
 <span id="popupcad-graphics2d-graphicsitems-module"></span><h2>popupcad.graphics2d.graphicsitems module<a class="headerlink" href="#module-popupcad.graphics2d.graphicsitems" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.graphicsitems.Common">
@@ -138,15 +138,50 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad.graphics2d.graphicsscene">
 <span id="popupcad-graphics2d-graphicsscene-module"></span><h2>popupcad.graphics2d.graphicsscene module<a class="headerlink" href="#module-popupcad.graphics2d.graphicsscene" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.graphicsscene.GraphicsScene">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.graphicsscene.</code><code class="descname">GraphicsScene</code><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsscene.html#GraphicsScene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.GraphicsScene" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.graphicsscene.popupCADObjectSupport" title="popupcad.graphics2d.graphicsscene.popupCADObjectSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsscene.popupCADObjectSupport</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.svg_support.SVGOutputSupport" title="popupcad.graphics2d.svg_support.SVGOutputSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.svg_support.SVGOutputSupport</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsscene.SketcherSupport" title="popupcad.graphics2d.graphicsscene.SketcherSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsscene.SketcherSupport</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsScene</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.graphicsscene.popupCADObjectSupport" title="popupcad.graphics2d.graphicsscene.popupCADObjectSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsscene.popupCADObjectSupport</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.svg_support.SVGOutputSupport" title="popupcad.graphics2d.svg_support.SVGOutputSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.svg_support.SVGOutputSupport</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsscene.SketcherSupport" title="popupcad.graphics2d.graphicsscene.SketcherSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsscene.SketcherSupport</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsScene</span></code></p>
 <dl class="attribute">
-<dt id="popupcad.graphics2d.graphicsscene.GraphicsScene.staticMetaObject">
-<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000008E4AA88&gt;</em><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.GraphicsScene.staticMetaObject" title="Permalink to this definition">¶</a></dt>
+<dt id="popupcad.graphics2d.graphicsscene.GraphicsScene.constraint_update_request">
+<code class="descname">constraint_update_request</code><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.GraphicsScene.constraint_update_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.graphics2d.graphicsscene.GraphicsScene.enteringeditmode">
+<code class="descname">enteringeditmode</code><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.GraphicsScene.enteringeditmode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.graphics2d.graphicsscene.GraphicsScene.itemclicked">
+<code class="descname">itemclicked</code><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.GraphicsScene.itemclicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.graphics2d.graphicsscene.GraphicsScene.itemdeleted">
+<code class="descname">itemdeleted</code><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.GraphicsScene.itemdeleted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.graphics2d.graphicsscene.GraphicsScene.leavingeditmode">
+<code class="descname">leavingeditmode</code><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.GraphicsScene.leavingeditmode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.graphics2d.graphicsscene.GraphicsScene.newpolygon">
+<code class="descname">newpolygon</code><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.GraphicsScene.newpolygon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.graphics2d.graphicsscene.GraphicsScene.refresh_request">
+<code class="descname">refresh_request</code><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.GraphicsScene.refresh_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.graphics2d.graphicsscene.GraphicsScene.savesnapshot">
+<code class="descname">savesnapshot</code><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.GraphicsScene.savesnapshot" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -154,12 +189,7 @@ Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.graphicsscene.SimpleGraphicsScene">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.graphicsscene.</code><code class="descname">SimpleGraphicsScene</code><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsscene.html#SimpleGraphicsScene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SimpleGraphicsScene" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.graphicsscene.popupCADObjectSupport" title="popupcad.graphics2d.graphicsscene.popupCADObjectSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsscene.popupCADObjectSupport</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.svg_support.SVGOutputSupport" title="popupcad.graphics2d.svg_support.SVGOutputSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.svg_support.SVGOutputSupport</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsScene</span></code></p>
-<dl class="attribute">
-<dt id="popupcad.graphics2d.graphicsscene.SimpleGraphicsScene.staticMetaObject">
-<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000008E4AB08&gt;</em><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SimpleGraphicsScene.staticMetaObject" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.graphicsscene.popupCADObjectSupport" title="popupcad.graphics2d.graphicsscene.popupCADObjectSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsscene.popupCADObjectSupport</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.svg_support.SVGOutputSupport" title="popupcad.graphics2d.svg_support.SVGOutputSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.svg_support.SVGOutputSupport</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsScene</span></code></p>
 </dd></dl>
 
 <dl class="class">
@@ -181,9 +211,9 @@ Please see LICENSE for full license.</p>
 <code class="descname">childfinished</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsscene.html#SketcherSupport.childfinished"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.childfinished" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="popupcad.graphics2d.graphicsscene.SketcherSupport.constraint_update_request">
-<code class="descname">constraint_update_request</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x0000000008E56490&gt;</em><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.constraint_update_request" title="Permalink to this definition">¶</a></dt>
+<dl class="method">
+<dt id="popupcad.graphics2d.graphicsscene.SketcherSupport.connect_mouse_modes">
+<code class="descname">connect_mouse_modes</code><span class="sig-paren">(</span><em>view</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsscene.html#SketcherSupport.connect_mouse_modes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.connect_mouse_modes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -206,34 +236,14 @@ Please see LICENSE for full license.</p>
 <code class="descname">deselectall</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsscene.html#SketcherSupport.deselectall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.deselectall" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="popupcad.graphics2d.graphicsscene.SketcherSupport.enteringeditmode">
-<code class="descname">enteringeditmode</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x0000000008E42180&gt;</em><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.enteringeditmode" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="popupcad.graphics2d.graphicsscene.SketcherSupport.get_sketch">
 <code class="descname">get_sketch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsscene.html#SketcherSupport.get_sketch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.get_sketch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="popupcad.graphics2d.graphicsscene.SketcherSupport.itemclicked">
-<code class="descname">itemclicked</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x0000000008E42148&gt;</em><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.itemclicked" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.graphicsscene.SketcherSupport.itemdeleted">
-<code class="descname">itemdeleted</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x0000000008E560D8&gt;</em><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.itemdeleted" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="popupcad.graphics2d.graphicsscene.SketcherSupport.keyPressEvent">
 <code class="descname">keyPressEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsscene.html#SketcherSupport.keyPressEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.keyPressEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.graphicsscene.SketcherSupport.leavingeditmode">
-<code class="descname">leavingeditmode</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x0000000008E42228&gt;</em><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.leavingeditmode" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -256,19 +266,9 @@ Please see LICENSE for full license.</p>
 <code class="descname">mouseReleaseEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsscene.html#SketcherSupport.mouseReleaseEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.mouseReleaseEvent" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="popupcad.graphics2d.graphicsscene.SketcherSupport.newpolygon">
-<code class="descname">newpolygon</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x0000000008E420D8&gt;</em><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.newpolygon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="popupcad.graphics2d.graphicsscene.SketcherSupport.paste_from_clipboard">
 <code class="descname">paste_from_clipboard</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsscene.html#SketcherSupport.paste_from_clipboard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.paste_from_clipboard" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.graphicsscene.SketcherSupport.refresh_request">
-<code class="descname">refresh_request</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x0000000008E56458&gt;</em><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.refresh_request" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -279,11 +279,6 @@ Please see LICENSE for full license.</p>
 <dl class="method">
 <dt id="popupcad.graphics2d.graphicsscene.SketcherSupport.removerefgeoms">
 <code class="descname">removerefgeoms</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsscene.html#SketcherSupport.removerefgeoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.removerefgeoms" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.graphicsscene.SketcherSupport.savesnapshot">
-<code class="descname">savesnapshot</code><em class="property"> = &lt;PySide.QtCore.Signal object at 0x0000000008E56228&gt;</em><a class="headerlink" href="#popupcad.graphics2d.graphicsscene.SketcherSupport.savesnapshot" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -348,27 +343,22 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad.graphics2d.graphicsview">
 <span id="popupcad-graphics2d-graphicsview-module"></span><h2>popupcad.graphics2d.graphicsview module<a class="headerlink" href="#module-popupcad.graphics2d.graphicsview" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.graphicsview.GraphicsView">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.graphicsview.</code><code class="descname">GraphicsView</code><span class="sig-paren">(</span><em>scene</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsview.html#GraphicsView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsview.GraphicsView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.graphicsview.ZoomHandling" title="popupcad.graphics2d.graphicsview.ZoomHandling"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsview.ZoomHandling</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsview.ImagingSupport" title="popupcad.graphics2d.graphicsview.ImagingSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsview.ImagingSupport</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsview.MouseModes" title="popupcad.graphics2d.graphicsview.MouseModes"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsview.MouseModes</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsView</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.graphicsview.ZoomHandling" title="popupcad.graphics2d.graphicsview.ZoomHandling"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsview.ZoomHandling</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsview.ImagingSupport" title="popupcad.graphics2d.graphicsview.ImagingSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsview.ImagingSupport</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsview.MouseModes" title="popupcad.graphics2d.graphicsview.MouseModes"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsview.MouseModes</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsView</span></code></p>
 <dl class="method">
 <dt id="popupcad.graphics2d.graphicsview.GraphicsView.sizeHint">
 <code class="descname">sizeHint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsview.html#GraphicsView.sizeHint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsview.GraphicsView.sizeHint" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.graphicsview.GraphicsView.staticMetaObject">
-<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000008E5D408&gt;</em><a class="headerlink" href="#popupcad.graphics2d.graphicsview.GraphicsView.staticMetaObject" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="popupcad.graphics2d.graphicsview.ImagingSupport">
-<em class="property">class </em><code class="descclassname">popupcad.graphics2d.graphicsview.</code><code class="descname">ImagingSupport</code><span class="sig-paren">(</span><em>scene</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsview.html#ImagingSupport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsview.ImagingSupport" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">popupcad.graphics2d.graphicsview.</code><code class="descname">ImagingSupport</code><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsview.html#ImagingSupport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsview.ImagingSupport" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="popupcad.graphics2d.graphicsview.ImagingSupport.raster">
@@ -379,7 +369,7 @@ Please see LICENSE for full license.</p>
 
 <dl class="class">
 <dt id="popupcad.graphics2d.graphicsview.MouseModes">
-<em class="property">class </em><code class="descclassname">popupcad.graphics2d.graphicsview.</code><code class="descname">MouseModes</code><span class="sig-paren">(</span><em>scene</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsview.html#MouseModes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsview.MouseModes" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">popupcad.graphics2d.graphicsview.</code><code class="descname">MouseModes</code><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsview.html#MouseModes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsview.MouseModes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="popupcad.graphics2d.graphicsview.MouseModes.keyPressEvent">
@@ -411,17 +401,12 @@ Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.graphicsview.SimpleGraphicsView">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.graphicsview.</code><code class="descname">SimpleGraphicsView</code><span class="sig-paren">(</span><em>scene</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsview.html#SimpleGraphicsView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsview.SimpleGraphicsView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.graphicsview.ZoomHandling" title="popupcad.graphics2d.graphicsview.ZoomHandling"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsview.ZoomHandling</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsview.ImagingSupport" title="popupcad.graphics2d.graphicsview.ImagingSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsview.ImagingSupport</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsView</span></code></p>
-<dl class="attribute">
-<dt id="popupcad.graphics2d.graphicsview.SimpleGraphicsView.staticMetaObject">
-<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000008E5D488&gt;</em><a class="headerlink" href="#popupcad.graphics2d.graphicsview.SimpleGraphicsView.staticMetaObject" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.graphicsview.ZoomHandling" title="popupcad.graphics2d.graphicsview.ZoomHandling"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsview.ZoomHandling</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsview.ImagingSupport" title="popupcad.graphics2d.graphicsview.ImagingSupport"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsview.ImagingSupport</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsView</span></code></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="popupcad.graphics2d.graphicsview.ZoomHandling">
-<em class="property">class </em><code class="descclassname">popupcad.graphics2d.graphicsview.</code><code class="descname">ZoomHandling</code><span class="sig-paren">(</span><em>scene</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsview.html#ZoomHandling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsview.ZoomHandling" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">popupcad.graphics2d.graphicsview.</code><code class="descname">ZoomHandling</code><a class="reference internal" href="../_modules/popupcad/graphics2d/graphicsview.html#ZoomHandling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.graphicsview.ZoomHandling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="popupcad.graphics2d.graphicsview.ZoomHandling.bound_zoom">
@@ -479,12 +464,12 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad.graphics2d.interactive">
 <span id="popupcad-graphics2d-interactive-module"></span><h2>popupcad.graphics2d.interactive module<a class="headerlink" href="#module-popupcad.graphics2d.interactive" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.interactive.Interactive">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.interactive.</code><code class="descname">Interactive</code><span class="sig-paren">(</span><em>generic</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#Interactive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.Common" title="popupcad.graphics2d.graphicsitems.Common"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.Common</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsPathItem</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.Common" title="popupcad.graphics2d.graphicsitems.Common"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.Common</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsPathItem</span></code></p>
 <dl class="method">
 <dt id="popupcad.graphics2d.interactive.Interactive.addvertex">
 <code class="descname">addvertex</code><span class="sig-paren">(</span><em>qpoint</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#Interactive.addvertex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.addvertex" title="Permalink to this definition">¶</a></dt>
@@ -495,39 +480,24 @@ Please see LICENSE for full license.</p>
 <code class="descname">allchildren</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#Interactive.allchildren"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.allchildren" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.Interactive.boundingrectbuffer">
-<code class="descname">boundingrectbuffer</code><em class="property"> = 2</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.boundingrectbuffer" title="Permalink to this definition">¶</a></dt>
+<dl class="method">
+<dt id="popupcad.graphics2d.interactive.Interactive.boundingRect">
+<code class="descname">boundingRect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#Interactive.boundingRect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.boundingRect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.Interactive.brushdefinedcolor">
-<code class="descname">brushdefinedcolor</code><em class="property"> = PySide.QtGui.QColor.fromRgbF(1.000000, 1.000000, 0.000000, 0.250004)</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.brushdefinedcolor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.Interactive.brusheditcolor">
-<code class="descname">brusheditcolor</code><em class="property"> = PySide.QtGui.QColor.fromRgbF(1.000000, 1.000000, 0.000000, 0.250004)</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.brusheditcolor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.Interactive.brushes">
-<code class="descname">brushes</code><em class="property"> = {'mode_defined': &lt;PySide.QtGui.QBrush(QColor(ARGB 0.250004, 1, 1, 0) , SolidPattern )   at 0x0000000008E643C8&gt;, 'mode_render': PySide.QtCore.Qt.BrushStyle.NoBrush, 'mode_edit': &lt;PySide.QtGui.QBrush(QColor(ARGB 0.250004, 1, 1, 0) , SolidPattern )   at 0x0000000008E64408&gt;, 'mode_selectable_edges': &lt;PySide.QtGui.QBrush(QColor(ARGB 0.250004, 1, 1, 0) , SolidPattern )   at 0x0000000008E64448&gt;}</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.brushes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.Interactive.brushselectioncolor">
-<code class="descname">brushselectioncolor</code><em class="property"> = PySide.QtGui.QColor.fromRgbF(1.000000, 1.000000, 0.000000, 0.250004)</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.brushselectioncolor" title="Permalink to this definition">¶</a></dt>
+<dt id="popupcad.graphics2d.interactive.Interactive.brush_colors">
+<code class="descname">brush_colors</code><em class="property"> = {'mode_selectable_edges': (1, 1, 0, 0.25), 'mode_edit': (1, 1, 0, 0.25), 'mode_defined': (1, 1, 0, 0.25), 'mode_render': (1, 1, 1, 1)}</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.brush_colors" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.interactive.Interactive.brushstyle">
-<code class="descname">brushstyle</code><em class="property"> = PySide.QtCore.Qt.BrushStyle.SolidPattern</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.brushstyle" title="Permalink to this definition">¶</a></dt>
+<code class="descname">brushstyle</code><em class="property"> = 1</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.brushstyle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.interactive.Interactive.capstyle">
-<code class="descname">capstyle</code><em class="property"> = PySide.QtCore.Qt.PenCapStyle.RoundCap</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.capstyle" title="Permalink to this definition">¶</a></dt>
+<code class="descname">capstyle</code><em class="property"> = 32</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.capstyle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -556,6 +526,11 @@ Please see LICENSE for full license.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="popupcad.graphics2d.interactive.Interactive.get_line_width">
+<code class="descname">get_line_width</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#Interactive.get_line_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.get_line_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="popupcad.graphics2d.interactive.Interactive.get_view_scale">
 <code class="descname">get_view_scale</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#Interactive.get_view_scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.get_view_scale" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -577,17 +552,17 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.interactive.Interactive.joinstyle">
-<code class="descname">joinstyle</code><em class="property"> = PySide.QtCore.Qt.PenJoinStyle.RoundJoin</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.joinstyle" title="Permalink to this definition">¶</a></dt>
+<code class="descname">joinstyle</code><em class="property"> = 128</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.joinstyle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.Interactive.linewidth">
-<code class="descname">linewidth</code><em class="property"> = 3.0</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.linewidth" title="Permalink to this definition">¶</a></dt>
+<dt id="popupcad.graphics2d.interactive.Interactive.line_width">
+<code class="descname">line_width</code><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.line_width" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.interactive.Interactive.modes">
-<code class="descname">modes</code><em class="property"> = &lt;popupcad.graphics2d.interactive.InteractiveModes object at 0x0000000008E58D68&gt;</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.modes" title="Permalink to this definition">¶</a></dt>
+<code class="descname">modes</code><em class="property"> = &lt;popupcad.graphics2d.interactive.InteractiveModes object at 0x0000000007151D30&gt;</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.modes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -610,44 +585,14 @@ Please see LICENSE for full license.</p>
 <code class="descname">mouseReleaseEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#Interactive.mouseReleaseEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.mouseReleaseEvent" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.Interactive.nobrush">
-<code class="descname">nobrush</code><em class="property"> = PySide.QtCore.Qt.BrushStyle.NoBrush</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.nobrush" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.Interactive.nobrushes">
-<code class="descname">nobrushes</code><em class="property"> = {'mode_defined': PySide.QtCore.Qt.BrushStyle.NoBrush, 'mode_render': PySide.QtCore.Qt.BrushStyle.NoBrush, 'mode_edit': PySide.QtCore.Qt.BrushStyle.NoBrush, 'mode_selectable_edges': PySide.QtCore.Qt.BrushStyle.NoBrush}</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.nobrushes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="popupcad.graphics2d.interactive.Interactive.painterpath">
 <code class="descname">painterpath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#Interactive.painterpath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.painterpath" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.Interactive.pendefinedcolor">
-<code class="descname">pendefinedcolor</code><em class="property"> = PySide.QtGui.QColor.fromRgbF(0.000000, 0.000000, 1.000000, 1.000000)</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.pendefinedcolor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.Interactive.peneditcolor">
-<code class="descname">peneditcolor</code><em class="property"> = PySide.QtGui.QColor.fromRgbF(1.000000, 0.000000, 0.000000, 1.000000)</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.peneditcolor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.Interactive.penrendercolor">
-<code class="descname">penrendercolor</code><em class="property"> = PySide.QtGui.QColor.fromRgbF(0.000000, 0.000000, 0.000000, 1.000000)</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.penrendercolor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.Interactive.pens">
-<code class="descname">pens</code><em class="property"> = {'mode_defined': &lt;PySide.QtGui.QPen(3,QBrush(QColor(ARGB 1, 0, 0, 1) , SolidPattern )  , SolidLine , 32 , 128 , QVector() , 0 , 2 )   at 0x0000000008E64288&gt;, 'mode_render': &lt;PySide.QtGui.QPen(1,QBrush(QColor(ARGB 1, 0, 0, 0) , SolidPattern )  , SolidLine , 32 , 128 , QVector() , 0 , 2 )   at 0x0000000008E64308&gt;, 'mode_edit': &lt;PySide.QtGui.QPen(3,QBrush(QColor(ARGB 1, 1, 0, 0) , SolidPattern )  , SolidLine , 32 , 128 , QVector() , 0 , 2 )   at 0x0000000008E642C8&gt;, 'mode_selectable_edges': &lt;PySide.QtGui.QPen(3,QBrush(QColor(ARGB 1, 0, 0, 1) , SolidPattern )  , SolidLine , 32 , 128 , QVector() , 0 , 2 )   at 0x0000000008E64348&gt;}</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.pens" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.Interactive.penselectioncolor">
-<code class="descname">penselectioncolor</code><em class="property"> = PySide.QtGui.QColor.fromRgbF(0.000000, 0.000000, 1.000000, 1.000000)</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.penselectioncolor" title="Permalink to this definition">¶</a></dt>
+<dt id="popupcad.graphics2d.interactive.Interactive.pen_colors">
+<code class="descname">pen_colors</code><em class="property"> = {'mode_selectable_edges': (0, 0, 1, 1), 'mode_edit': (1, 0, 0, 1), 'mode_defined': (0, 0, 1, 1), 'mode_render': (0, 0, 0, 1)}</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.pen_colors" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -687,12 +632,12 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.interactive.Interactive.style">
-<code class="descname">style</code><em class="property"> = PySide.QtCore.Qt.PenStyle.SolidLine</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.style" title="Permalink to this definition">¶</a></dt>
+<code class="descname">style</code><em class="property"> = 1</em><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.style" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="popupcad.graphics2d.interactive.Interactive.update_bounding_rect">
-<code class="descname">update_bounding_rect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#Interactive.update_bounding_rect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.update_bounding_rect" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update_bounding_rect</code><span class="sig-paren">(</span><em>path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#Interactive.update_bounding_rect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.Interactive.update_bounding_rect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -743,23 +688,13 @@ Please see LICENSE for full license.</p>
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.interactive.</code><code class="descname">InteractiveLine</code><span class="sig-paren">(</span><em>generic</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#InteractiveLine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.InteractiveLine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.interactive.Interactive" title="popupcad.graphics2d.interactive.Interactive"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.interactive.Interactive</span></code></a></p>
 <dl class="method">
-<dt id="popupcad.graphics2d.interactive.InteractiveLine.boundingRect">
-<code class="descname">boundingRect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#InteractiveLine.boundingRect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.InteractiveLine.boundingRect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.InteractiveLine.brushes">
-<code class="descname">brushes</code><em class="property"> = {'mode_defined': PySide.QtCore.Qt.BrushStyle.NoBrush, 'mode_render': PySide.QtCore.Qt.BrushStyle.NoBrush, 'mode_edit': PySide.QtCore.Qt.BrushStyle.NoBrush, 'mode_selectable_edges': PySide.QtCore.Qt.BrushStyle.NoBrush}</em><a class="headerlink" href="#popupcad.graphics2d.interactive.InteractiveLine.brushes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="popupcad.graphics2d.interactive.InteractiveLine.create_selectable_edges">
 <code class="descname">create_selectable_edges</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#InteractiveLine.create_selectable_edges"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.InteractiveLine.create_selectable_edges" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="popupcad.graphics2d.interactive.InteractiveLine.update_bounding_rect">
-<code class="descname">update_bounding_rect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#InteractiveLine.update_bounding_rect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.InteractiveLine.update_bounding_rect" title="Permalink to this definition">¶</a></dt>
+<dt id="popupcad.graphics2d.interactive.InteractiveLine.querybrush">
+<code class="descname">querybrush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#InteractiveLine.querybrush"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.InteractiveLine.querybrush" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -785,28 +720,13 @@ Please see LICENSE for full license.</p>
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.interactive.</code><code class="descname">InteractivePath</code><span class="sig-paren">(</span><em>generic</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#InteractivePath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.InteractivePath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.interactive.Interactive" title="popupcad.graphics2d.interactive.Interactive"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.interactive.Interactive</span></code></a></p>
 <dl class="method">
-<dt id="popupcad.graphics2d.interactive.InteractivePath.boundingRect">
-<code class="descname">boundingRect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#InteractivePath.boundingRect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.InteractivePath.boundingRect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.interactive.InteractivePath.brushes">
-<code class="descname">brushes</code><em class="property"> = {'mode_defined': PySide.QtCore.Qt.BrushStyle.NoBrush, 'mode_render': PySide.QtCore.Qt.BrushStyle.NoBrush, 'mode_edit': PySide.QtCore.Qt.BrushStyle.NoBrush, 'mode_selectable_edges': PySide.QtCore.Qt.BrushStyle.NoBrush}</em><a class="headerlink" href="#popupcad.graphics2d.interactive.InteractivePath.brushes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="popupcad.graphics2d.interactive.InteractivePath.create_selectable_edges">
 <code class="descname">create_selectable_edges</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#InteractivePath.create_selectable_edges"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.InteractivePath.create_selectable_edges" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="popupcad.graphics2d.interactive.InteractivePath.update_bounding_rect">
-<code class="descname">update_bounding_rect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#InteractivePath.update_bounding_rect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.InteractivePath.update_bounding_rect" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="popupcad.graphics2d.interactive.InteractivePath.updateshape">
-<code class="descname">updateshape</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#InteractivePath.updateshape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.InteractivePath.updateshape" title="Permalink to this definition">¶</a></dt>
+<dt id="popupcad.graphics2d.interactive.InteractivePath.querybrush">
+<code class="descname">querybrush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactive.html#InteractivePath.querybrush"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactive.InteractivePath.querybrush" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -827,7 +747,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad.graphics2d.interactiveedge">
 <span id="popupcad-graphics2d-interactiveedge-module"></span><h2>popupcad.graphics2d.interactiveedge module<a class="headerlink" href="#module-popupcad.graphics2d.interactiveedge" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.interactiveedge.EdgeBase">
@@ -853,10 +773,10 @@ Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.interactiveedge.HighlightedEdge">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.interactiveedge.</code><code class="descname">HighlightedEdge</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactiveedge.html#HighlightedEdge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.HighlightedEdge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsLineItem</span></code>, <a class="reference internal" href="#popupcad.graphics2d.interactiveedge.EdgeBase" title="popupcad.graphics2d.interactiveedge.EdgeBase"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.interactiveedge.EdgeBase</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsLineItem</span></code>, <a class="reference internal" href="#popupcad.graphics2d.interactiveedge.EdgeBase" title="popupcad.graphics2d.interactiveedge.EdgeBase"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.interactiveedge.EdgeBase</span></code></a></p>
 <dl class="attribute">
 <dt id="popupcad.graphics2d.interactiveedge.HighlightedEdge.capstyle">
-<code class="descname">capstyle</code><em class="property"> = PySide.QtCore.Qt.PenCapStyle.RoundCap</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.HighlightedEdge.capstyle" title="Permalink to this definition">¶</a></dt>
+<code class="descname">capstyle</code><em class="property"> = 32</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.HighlightedEdge.capstyle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -866,7 +786,7 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.interactiveedge.HighlightedEdge.joinstyle">
-<code class="descname">joinstyle</code><em class="property"> = PySide.QtCore.Qt.PenJoinStyle.RoundJoin</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.HighlightedEdge.joinstyle" title="Permalink to this definition">¶</a></dt>
+<code class="descname">joinstyle</code><em class="property"> = 128</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.HighlightedEdge.joinstyle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -886,7 +806,7 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.interactiveedge.HighlightedEdge.style">
-<code class="descname">style</code><em class="property"> = PySide.QtCore.Qt.PenStyle.SolidLine</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.HighlightedEdge.style" title="Permalink to this definition">¶</a></dt>
+<code class="descname">style</code><em class="property"> = 1</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.HighlightedEdge.style" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -899,7 +819,7 @@ Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.interactiveedge.InteractiveEdge">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.interactiveedge.</code><code class="descname">InteractiveEdge</code><span class="sig-paren">(</span><em>generic</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactiveedge.html#InteractiveEdge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.InteractiveEdge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsLineItem</span></code>, <a class="reference internal" href="#popupcad.graphics2d.interactiveedge.EdgeBase" title="popupcad.graphics2d.interactiveedge.EdgeBase"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.interactiveedge.EdgeBase</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsLineItem</span></code>, <a class="reference internal" href="#popupcad.graphics2d.interactiveedge.EdgeBase" title="popupcad.graphics2d.interactiveedge.EdgeBase"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.interactiveedge.EdgeBase</span></code></a></p>
 <dl class="method">
 <dt id="popupcad.graphics2d.interactiveedge.InteractiveEdge.boundingRect">
 <code class="descname">boundingRect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactiveedge.html#InteractiveEdge.boundingRect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.InteractiveEdge.boundingRect" title="Permalink to this definition">¶</a></dt>
@@ -912,12 +832,12 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.interactiveedge.InteractiveEdge.capstyle">
-<code class="descname">capstyle</code><em class="property"> = PySide.QtCore.Qt.PenCapStyle.RoundCap</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.InteractiveEdge.capstyle" title="Permalink to this definition">¶</a></dt>
+<code class="descname">capstyle</code><em class="property"> = 32</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.InteractiveEdge.capstyle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.interactiveedge.InteractiveEdge.defaultcolor">
-<code class="descname">defaultcolor</code><em class="property"> = PySide.QtGui.QColor.fromRgbF(0.000000, 0.000000, 0.000000, 0.100008)</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.InteractiveEdge.defaultcolor" title="Permalink to this definition">¶</a></dt>
+<code class="descname">defaultcolor</code><em class="property"> = &lt;PyQt4.QtGui.QColor object at 0x000000000710D208&gt;</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.InteractiveEdge.defaultcolor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -952,7 +872,7 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.interactiveedge.InteractiveEdge.joinstyle">
-<code class="descname">joinstyle</code><em class="property"> = PySide.QtCore.Qt.PenJoinStyle.RoundJoin</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.InteractiveEdge.joinstyle" title="Permalink to this definition">¶</a></dt>
+<code class="descname">joinstyle</code><em class="property"> = 128</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.InteractiveEdge.joinstyle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -977,7 +897,7 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.interactiveedge.InteractiveEdge.nopen">
-<code class="descname">nopen</code><em class="property"> = PySide.QtCore.Qt.PenStyle.NoPen</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.InteractiveEdge.nopen" title="Permalink to this definition">¶</a></dt>
+<code class="descname">nopen</code><em class="property"> = 0</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.InteractiveEdge.nopen" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1002,7 +922,7 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.interactiveedge.InteractiveEdge.style">
-<code class="descname">style</code><em class="property"> = PySide.QtCore.Qt.PenStyle.SolidLine</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.InteractiveEdge.style" title="Permalink to this definition">¶</a></dt>
+<code class="descname">style</code><em class="property"> = 1</em><a class="headerlink" href="#popupcad.graphics2d.interactiveedge.InteractiveEdge.style" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1057,7 +977,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad.graphics2d.interactivevertex">
 <span id="popupcad-graphics2d-interactivevertex-module"></span><h2>popupcad.graphics2d.interactivevertex module<a class="headerlink" href="#module-popupcad.graphics2d.interactivevertex" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.interactivevertex.DrawingPoint">
@@ -1213,12 +1133,12 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad.graphics2d.interactivevertexbase">
 <span id="popupcad-graphics2d-interactivevertexbase-module"></span><h2>popupcad.graphics2d.interactivevertexbase module<a class="headerlink" href="#module-popupcad.graphics2d.interactivevertexbase" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.interactivevertexbase.InteractiveVertexBase">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.interactivevertexbase.</code><code class="descname">InteractiveVertexBase</code><span class="sig-paren">(</span><em>symbol</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactivevertexbase.html#InteractiveVertexBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactivevertexbase.InteractiveVertexBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsEllipseItem</span></code>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.Common" title="popupcad.graphics2d.graphicsitems.Common"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.Common</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsEllipseItem</span></code>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.Common" title="popupcad.graphics2d.graphicsitems.Common"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.Common</span></code></a></p>
 <dl class="method">
 <dt id="popupcad.graphics2d.interactivevertexbase.InteractiveVertexBase.get_generic">
 <code class="descname">get_generic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/interactivevertexbase.html#InteractiveVertexBase.get_generic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.interactivevertexbase.InteractiveVertexBase.get_generic" title="Permalink to this definition">¶</a></dt>
@@ -1325,7 +1245,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad.graphics2d.modes">
 <span id="popupcad-graphics2d-modes-module"></span><h2>popupcad.graphics2d.modes module<a class="headerlink" href="#module-popupcad.graphics2d.modes" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.modes.EdgeVertexModes">
@@ -1375,7 +1295,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad.graphics2d.proto">
 <span id="popupcad-graphics2d-proto-module"></span><h2>popupcad.graphics2d.proto module<a class="headerlink" href="#module-popupcad.graphics2d.proto" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.proto.Proto">
@@ -1383,12 +1303,12 @@ Please see LICENSE for full license.</p>
 <dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.Common" title="popupcad.graphics2d.graphicsitems.Common"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.Common</span></code></a></p>
 <dl class="attribute">
 <dt id="popupcad.graphics2d.proto.Proto.basicbrush">
-<code class="descname">basicbrush</code><em class="property"> = &lt;PySide.QtGui.QBrush(QColor(ARGB 0.250004, 1, 1, 0) , SolidPattern )   at 0x0000000008E6A188&gt;</em><a class="headerlink" href="#popupcad.graphics2d.proto.Proto.basicbrush" title="Permalink to this definition">¶</a></dt>
+<code class="descname">basicbrush</code><em class="property"> = &lt;PyQt4.QtGui.QBrush object at 0x000000000714C748&gt;</em><a class="headerlink" href="#popupcad.graphics2d.proto.Proto.basicbrush" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.proto.Proto.basicpen">
-<code class="descname">basicpen</code><em class="property"> = &lt;PySide.QtGui.QPen(1,QBrush(QColor(ARGB 1, 0, 0, 0) , SolidPattern )  , SolidLine , 32 , 128 , QVector() , 0 , 2 )   at 0x0000000008E6A148&gt;</em><a class="headerlink" href="#popupcad.graphics2d.proto.Proto.basicpen" title="Permalink to this definition">¶</a></dt>
+<code class="descname">basicpen</code><em class="property"> = &lt;PyQt4.QtGui.QPen object at 0x000000000714C6D8&gt;</em><a class="headerlink" href="#popupcad.graphics2d.proto.Proto.basicpen" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1438,7 +1358,7 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.proto.Proto.nobrush">
-<code class="descname">nobrush</code><em class="property"> = PySide.QtCore.Qt.BrushStyle.NoBrush</em><a class="headerlink" href="#popupcad.graphics2d.proto.Proto.nobrush" title="Permalink to this definition">¶</a></dt>
+<code class="descname">nobrush</code><em class="property"> = &lt;PyQt4.QtGui.QBrush object at 0x000000000714C668&gt;</em><a class="headerlink" href="#popupcad.graphics2d.proto.Proto.nobrush" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1456,7 +1376,7 @@ Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.proto.ProtoCircle">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.proto.</code><code class="descname">ProtoCircle</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/proto.html#ProtoCircle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.proto.ProtoCircle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.proto.ProtoTwoPoint" title="popupcad.graphics2d.proto.ProtoTwoPoint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.proto.ProtoTwoPoint</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsPathItem</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.proto.ProtoTwoPoint" title="popupcad.graphics2d.proto.ProtoTwoPoint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.proto.ProtoTwoPoint</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsPathItem</span></code></p>
 <dl class="attribute">
 <dt id="popupcad.graphics2d.proto.ProtoCircle.shape_class">
 <code class="descname">shape_class</code><a class="headerlink" href="#popupcad.graphics2d.proto.ProtoCircle.shape_class" title="Permalink to this definition">¶</a></dt>
@@ -1468,10 +1388,10 @@ Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.proto.ProtoLine">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.proto.</code><code class="descname">ProtoLine</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/proto.html#ProtoLine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.proto.ProtoLine" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.proto.ProtoTwoPoint" title="popupcad.graphics2d.proto.ProtoTwoPoint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.proto.ProtoTwoPoint</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsPathItem</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.proto.ProtoTwoPoint" title="popupcad.graphics2d.proto.ProtoTwoPoint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.proto.ProtoTwoPoint</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsPathItem</span></code></p>
 <dl class="attribute">
 <dt id="popupcad.graphics2d.proto.ProtoLine.basicbrush">
-<code class="descname">basicbrush</code><em class="property"> = PySide.QtCore.Qt.BrushStyle.NoBrush</em><a class="headerlink" href="#popupcad.graphics2d.proto.ProtoLine.basicbrush" title="Permalink to this definition">¶</a></dt>
+<code class="descname">basicbrush</code><em class="property"> = &lt;PyQt4.QtGui.QBrush object at 0x000000000714C668&gt;</em><a class="headerlink" href="#popupcad.graphics2d.proto.ProtoLine.basicbrush" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1501,10 +1421,10 @@ Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.proto.ProtoPath">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.proto.</code><code class="descname">ProtoPath</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/proto.html#ProtoPath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.proto.ProtoPath" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.proto.ProtoMultiPoint" title="popupcad.graphics2d.proto.ProtoMultiPoint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.proto.ProtoMultiPoint</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsPathItem</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.proto.ProtoMultiPoint" title="popupcad.graphics2d.proto.ProtoMultiPoint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.proto.ProtoMultiPoint</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsPathItem</span></code></p>
 <dl class="attribute">
 <dt id="popupcad.graphics2d.proto.ProtoPath.basicbrush">
-<code class="descname">basicbrush</code><em class="property"> = PySide.QtCore.Qt.BrushStyle.NoBrush</em><a class="headerlink" href="#popupcad.graphics2d.proto.ProtoPath.basicbrush" title="Permalink to this definition">¶</a></dt>
+<code class="descname">basicbrush</code><em class="property"> = &lt;PyQt4.QtGui.QBrush object at 0x000000000714C668&gt;</em><a class="headerlink" href="#popupcad.graphics2d.proto.ProtoPath.basicbrush" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1518,7 +1438,7 @@ Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.proto.ProtoPoly">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.proto.</code><code class="descname">ProtoPoly</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/proto.html#ProtoPoly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.proto.ProtoPoly" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.proto.ProtoMultiPoint" title="popupcad.graphics2d.proto.ProtoMultiPoint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.proto.ProtoMultiPoint</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsPathItem</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.proto.ProtoMultiPoint" title="popupcad.graphics2d.proto.ProtoMultiPoint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.proto.ProtoMultiPoint</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsPathItem</span></code></p>
 <dl class="attribute">
 <dt id="popupcad.graphics2d.proto.ProtoPoly.shape_class">
 <code class="descname">shape_class</code><a class="headerlink" href="#popupcad.graphics2d.proto.ProtoPoly.shape_class" title="Permalink to this definition">¶</a></dt>
@@ -1530,7 +1450,7 @@ Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.proto.ProtoRect2Point">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.proto.</code><code class="descname">ProtoRect2Point</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/proto.html#ProtoRect2Point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.proto.ProtoRect2Point" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.proto.ProtoTwoPoint" title="popupcad.graphics2d.proto.ProtoTwoPoint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.proto.ProtoTwoPoint</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsPathItem</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.proto.ProtoTwoPoint" title="popupcad.graphics2d.proto.ProtoTwoPoint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.proto.ProtoTwoPoint</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsPathItem</span></code></p>
 <dl class="attribute">
 <dt id="popupcad.graphics2d.proto.ProtoRect2Point.shape_class">
 <code class="descname">shape_class</code><a class="headerlink" href="#popupcad.graphics2d.proto.ProtoRect2Point.shape_class" title="Permalink to this definition">¶</a></dt>
@@ -1559,7 +1479,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad.graphics2d.static">
 <span id="popupcad-graphics2d-static-module"></span><h2>popupcad.graphics2d.static module<a class="headerlink" href="#module-popupcad.graphics2d.static" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.static.Static">
@@ -1572,12 +1492,12 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.static.Static.brushpattern">
-<code class="descname">brushpattern</code><em class="property"> = PySide.QtCore.Qt.BrushStyle.SolidPattern</em><a class="headerlink" href="#popupcad.graphics2d.static.Static.brushpattern" title="Permalink to this definition">¶</a></dt>
+<code class="descname">brushpattern</code><em class="property"> = 1</em><a class="headerlink" href="#popupcad.graphics2d.static.Static.brushpattern" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.static.Static.capstyle">
-<code class="descname">capstyle</code><em class="property"> = PySide.QtCore.Qt.PenCapStyle.RoundCap</em><a class="headerlink" href="#popupcad.graphics2d.static.Static.capstyle" title="Permalink to this definition">¶</a></dt>
+<code class="descname">capstyle</code><em class="property"> = 32</em><a class="headerlink" href="#popupcad.graphics2d.static.Static.capstyle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1592,7 +1512,7 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.static.Static.joinstyle">
-<code class="descname">joinstyle</code><em class="property"> = PySide.QtCore.Qt.PenJoinStyle.RoundJoin</em><a class="headerlink" href="#popupcad.graphics2d.static.Static.joinstyle" title="Permalink to this definition">¶</a></dt>
+<code class="descname">joinstyle</code><em class="property"> = 128</em><a class="headerlink" href="#popupcad.graphics2d.static.Static.joinstyle" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1622,7 +1542,7 @@ Please see LICENSE for full license.</p>
 
 <dl class="attribute">
 <dt id="popupcad.graphics2d.static.Static.style">
-<code class="descname">style</code><em class="property"> = PySide.QtCore.Qt.PenStyle.SolidLine</em><a class="headerlink" href="#popupcad.graphics2d.static.Static.style" title="Permalink to this definition">¶</a></dt>
+<code class="descname">style</code><em class="property"> = 1</em><a class="headerlink" href="#popupcad.graphics2d.static.Static.style" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1635,43 +1555,43 @@ Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.static.StaticCircle">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.static.</code><code class="descname">StaticCircle</code><span class="sig-paren">(</span><em>generic</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/static.html#StaticCircle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.static.StaticCircle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.static.Static" title="popupcad.graphics2d.static.Static"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.static.Static</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsPathItem</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.static.Static" title="popupcad.graphics2d.static.Static"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.static.Static</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsPathItem</span></code></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="popupcad.graphics2d.static.StaticLine">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.static.</code><code class="descname">StaticLine</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/static.html#StaticLine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.static.StaticLine" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.static.Static" title="popupcad.graphics2d.static.Static"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.static.Static</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsPathItem</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.static.Static" title="popupcad.graphics2d.static.Static"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.static.Static</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsPathItem</span></code></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="popupcad.graphics2d.static.StaticPath">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.static.</code><code class="descname">StaticPath</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/static.html#StaticPath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.static.StaticPath" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.static.Static" title="popupcad.graphics2d.static.Static"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.static.Static</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsPathItem</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.static.Static" title="popupcad.graphics2d.static.Static"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.static.Static</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsPathItem</span></code></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="popupcad.graphics2d.static.StaticPoly">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.static.</code><code class="descname">StaticPoly</code><span class="sig-paren">(</span><em>generic</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/static.html#StaticPoly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.static.StaticPoly" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.static.Static" title="popupcad.graphics2d.static.Static"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.static.Static</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsPathItem</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.static.Static" title="popupcad.graphics2d.static.Static"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.static.Static</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsPathItem</span></code></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="popupcad.graphics2d.static.StaticRect2Point">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.static.</code><code class="descname">StaticRect2Point</code><span class="sig-paren">(</span><em>generic</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/static.html#StaticRect2Point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.static.StaticRect2Point" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.static.Static" title="popupcad.graphics2d.static.Static"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.static.Static</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsPathItem</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.graphics2d.static.Static" title="popupcad.graphics2d.static.Static"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.static.Static</span></code></a>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.CommonShape" title="popupcad.graphics2d.graphicsitems.CommonShape"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.CommonShape</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsPathItem</span></code></p>
 </dd></dl>
 
 </div>
 <div class="section" id="module-popupcad.graphics2d.svg_support">
 <span id="popupcad-graphics2d-svg-support-module"></span><h2>popupcad.graphics2d.svg_support module<a class="headerlink" href="#module-popupcad.graphics2d.svg_support" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.svg_support.OutputSelection">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.svg_support.</code><code class="descname">OutputSelection</code><a class="reference internal" href="../_modules/popupcad/graphics2d/svg_support.html#OutputSelection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.svg_support.OutputSelection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QDialog</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QDialog</span></code></p>
 <dl class="method">
 <dt id="popupcad.graphics2d.svg_support.OutputSelection.acceptdata">
 <code class="descname">acceptdata</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/svg_support.html#OutputSelection.acceptdata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.svg_support.OutputSelection.acceptdata" title="Permalink to this definition">¶</a></dt>
@@ -1682,11 +1602,6 @@ Please see LICENSE for full license.</p>
 <code class="descname">selectExport</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/svg_support.html#OutputSelection.selectExport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.svg_support.OutputSelection.selectExport" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="popupcad.graphics2d.svg_support.OutputSelection.staticMetaObject">
-<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000008E43EC8&gt;</em><a class="headerlink" href="#popupcad.graphics2d.svg_support.OutputSelection.staticMetaObject" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="class">
@@ -1695,7 +1610,7 @@ Please see LICENSE for full license.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="popupcad.graphics2d.svg_support.SVGOutputSupport.renderprocess">
-<code class="descname">renderprocess</code><span class="sig-paren">(</span><em>basename</em>, <em>scaling</em>, <em>center</em>, <em>rotation</em>, <em>exportdir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/svg_support.html#SVGOutputSupport.renderprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.svg_support.SVGOutputSupport.renderprocess" title="Permalink to this definition">¶</a></dt>
+<code class="descname">renderprocess</code><span class="sig-paren">(</span><em>basename</em>, <em>scaling</em>, <em>exportdir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/svg_support.html#SVGOutputSupport.renderprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.svg_support.SVGOutputSupport.renderprocess" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1709,7 +1624,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad.graphics2d.text">
 <span id="popupcad-graphics2d-text-module"></span><h2>popupcad.graphics2d.text module<a class="headerlink" href="#module-popupcad.graphics2d.text" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.text.GenericText">
@@ -1762,7 +1677,7 @@ Please see LICENSE for full license.</p>
 
 <dl class="method">
 <dt id="popupcad.graphics2d.text.GenericText.painterpath">
-<code class="descname">painterpath</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#GenericText.painterpath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.GenericText.painterpath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">painterpath</code><span class="sig-paren">(</span><em>add_shift=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#GenericText.painterpath"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.GenericText.painterpath" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1772,17 +1687,17 @@ Please see LICENSE for full license.</p>
 
 <dl class="method">
 <dt id="popupcad.graphics2d.text.GenericText.to_generic_polygons">
-<code class="descname">to_generic_polygons</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#GenericText.to_generic_polygons"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.GenericText.to_generic_polygons" title="Permalink to this definition">¶</a></dt>
+<code class="descname">to_generic_polygons</code><span class="sig-paren">(</span><em>add_shift=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#GenericText.to_generic_polygons"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.GenericText.to_generic_polygons" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="popupcad.graphics2d.text.GenericText.to_generics">
-<code class="descname">to_generics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#GenericText.to_generics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.GenericText.to_generics" title="Permalink to this definition">¶</a></dt>
+<code class="descname">to_generics</code><span class="sig-paren">(</span><em>add_shift=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#GenericText.to_generics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.GenericText.to_generics" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="popupcad.graphics2d.text.GenericText.to_shapely">
-<code class="descname">to_shapely</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#GenericText.to_shapely"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.GenericText.to_shapely" title="Permalink to this definition">¶</a></dt>
+<code class="descname">to_shapely</code><span class="sig-paren">(</span><em>add_shift=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#GenericText.to_shapely"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.GenericText.to_shapely" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1790,20 +1705,20 @@ Please see LICENSE for full license.</p>
 <code class="descname">upgrade</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#GenericText.upgrade"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.GenericText.upgrade" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="popupcad.graphics2d.text.GenericText.vertices">
+<code class="descname">vertices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#GenericText.vertices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.GenericText.vertices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="popupcad.graphics2d.text.TextItem">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.text.</code><code class="descname">TextItem</code><span class="sig-paren">(</span><em>generic</em>, <em>parent</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#TextItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.TextItem" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsTextItem</span></code>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.Common" title="popupcad.graphics2d.graphicsitems.Common"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.Common</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsTextItem</span></code>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.Common" title="popupcad.graphics2d.graphicsitems.Common"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.Common</span></code></a></p>
 <dl class="method">
 <dt id="popupcad.graphics2d.text.TextItem.focusOutEvent">
 <code class="descname">focusOutEvent</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#TextItem.focusOutEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.TextItem.focusOutEvent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="popupcad.graphics2d.text.TextItem.staticMetaObject">
-<code class="descname">staticMetaObject</code><em class="property"> = &lt;PySide.QtCore.QMetaObject object at 0x0000000008E4A9C8&gt;</em><a class="headerlink" href="#popupcad.graphics2d.text.TextItem.staticMetaObject" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1816,7 +1731,7 @@ Please see LICENSE for full license.</p>
 <dl class="class">
 <dt id="popupcad.graphics2d.text.TextParent">
 <em class="property">class </em><code class="descclassname">popupcad.graphics2d.text.</code><code class="descname">TextParent</code><span class="sig-paren">(</span><em>generic</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#TextParent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.TextParent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PySide.QtGui.QGraphicsPathItem</span></code>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.Common" title="popupcad.graphics2d.graphicsitems.Common"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.Common</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt4.QtGui.QGraphicsPathItem</span></code>, <a class="reference internal" href="#popupcad.graphics2d.graphicsitems.Common" title="popupcad.graphics2d.graphicsitems.Common"><code class="xref py py-class docutils literal"><span class="pre">popupcad.graphics2d.graphicsitems.Common</span></code></a></p>
 <dl class="method">
 <dt id="popupcad.graphics2d.text.TextParent.copy">
 <code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/graphics2d/text.html#TextParent.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.graphics2d.text.TextParent.copy" title="Permalink to this definition">¶</a></dt>
@@ -1873,7 +1788,7 @@ Please see LICENSE for full license.</p>
 <div class="section" id="module-popupcad.graphics2d">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-popupcad.graphics2d" title="Permalink to this headline">¶</a></h2>
 <p>Written by Daniel M. Aukes and CONTRIBUTORS
-Email: danaukes&lt;at&gt;seas.harvard.edu.
+Email: danaukes&lt;at&gt;asu.edu.
 Please see LICENSE for full license.</p>
 </div>
 </div>

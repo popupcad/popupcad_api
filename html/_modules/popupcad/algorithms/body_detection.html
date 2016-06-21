@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,10 +54,10 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.algorithms.body_detection</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -71,9 +71,9 @@
 
 </div>
 <div class="viewcode-block" id="sort_lams"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.body_detection.sort_lams">[docs]</a><span class="k">def</span> <span class="nf">sort_lams</span><span class="p">(</span><span class="n">lams</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
-    <span class="n">dtype</span> <span class="o">=</span> <span class="p">[(</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)]</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">)]</span>
     <span class="n">mins</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
-    <span class="n">ii_mins</span> <span class="o">=</span> <span class="n">mins</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">])</span>
+    <span class="n">ii_mins</span> <span class="o">=</span> <span class="n">mins</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">])</span>
     <span class="n">lam_out</span> <span class="o">=</span> <span class="p">[</span><span class="n">lams</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">ii_mins</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">lam_out</span>
 

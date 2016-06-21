@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,17 +54,19 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.widgets.operationnetwork</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>    
+<span class="kn">import</span> <span class="nn">qt</span>
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
-<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">&#39;backend.qt4&#39;</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;PySide&#39;</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;backend.qt4&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">qt</span><span class="o">.</span><span class="n">loaded</span>
 <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_qt4agg</span> <span class="kn">import</span> <span class="n">FigureCanvasQTAgg</span> <span class="k">as</span> <span class="n">FigureCanvas</span>
 <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_qt4agg</span> <span class="kn">import</span> <span class="n">NavigationToolbar2QT</span> <span class="k">as</span> <span class="n">NavigationToolbar</span>
 <span class="kn">from</span> <span class="nn">matplotlib.figure</span> <span class="kn">import</span> <span class="n">Figure</span>
@@ -73,42 +75,43 @@
 <span class="n">spacing</span> <span class="o">=</span> <span class="o">.</span><span class="mi">25</span>
 
 <span class="n">arrow_style</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">arrow_style</span><span class="p">[</span><span class="s">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;black&#39;</span>
-<span class="n">arrow_style</span><span class="p">[</span><span class="s">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">arrow_style</span><span class="p">[</span><span class="s">&#39;zorder&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
-<span class="n">arrow_style</span><span class="p">[</span><span class="s">&#39;arrowstyle&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">patches</span><span class="o">.</span><span class="n">ArrowStyle</span><span class="o">.</span><span class="n">Simple</span><span class="p">(</span><span class="n">head_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">tail_width</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">arrow_style</span><span class="p">[</span><span class="s">&#39;mutation_scale&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">arrow_style</span><span class="p">[</span><span class="s">&#39;linewidth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">arrow_style</span><span class="p">[</span><span class="s">&#39;connectionstyle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">patches</span><span class="o">.</span><span class="n">ConnectionStyle</span><span class="o">.</span><span class="n">Arc3</span><span class="p">(</span><span class="n">rad</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">arrow_style</span><span class="p">[</span><span class="s">&#39;shrinkA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">arrow_style</span><span class="p">[</span><span class="s">&#39;shrinkB&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">arrow_style</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
+<span class="n">arrow_style</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">arrow_style</span><span class="p">[</span><span class="s1">&#39;zorder&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">arrow_style</span><span class="p">[</span><span class="s1">&#39;arrowstyle&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">patches</span><span class="o">.</span><span class="n">ArrowStyle</span><span class="o">.</span><span class="n">Simple</span><span class="p">(</span><span class="n">head_length</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">tail_width</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">arrow_style</span><span class="p">[</span><span class="s1">&#39;mutation_scale&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">arrow_style</span><span class="p">[</span><span class="s1">&#39;linewidth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">arrow_style</span><span class="p">[</span><span class="s1">&#39;connectionstyle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">patches</span><span class="o">.</span><span class="n">ConnectionStyle</span><span class="o">.</span><span class="n">Arc3</span><span class="p">(</span><span class="n">rad</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="c1">#arrow_style[&#39;connectionstyle&#39;] = matplotlib.patches.ConnectionStyle.Bar()</span>
+<span class="n">arrow_style</span><span class="p">[</span><span class="s1">&#39;shrinkA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">arrow_style</span><span class="p">[</span><span class="s1">&#39;shrinkB&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
 
 <span class="n">text_style</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">text_style</span><span class="p">[</span><span class="s">&#39;bbox&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">None</span>
-<span class="n">text_style</span><span class="p">[</span><span class="s">&#39;clip_on&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">True</span>
-<span class="n">text_style</span><span class="p">[</span><span class="s">&#39;size&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">16</span>
-<span class="n">text_style</span><span class="p">[</span><span class="s">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
-<span class="n">text_style</span><span class="p">[</span><span class="s">&#39;color&#39;</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;k&#39;</span>
-<span class="n">text_style</span><span class="p">[</span><span class="s">&#39;family&#39;</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;sans-serif&#39;</span>
-<span class="n">text_style</span><span class="p">[</span><span class="s">&#39;fontweight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;normal&#39;</span>
-<span class="n">text_style</span><span class="p">[</span><span class="s">&#39;zorder&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">text_style</span><span class="p">[</span><span class="s">&#39;horizontalalignment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;right&#39;</span>
-<span class="n">text_style</span><span class="p">[</span><span class="s">&#39;verticalalignment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;center&#39;</span>
+<span class="n">text_style</span><span class="p">[</span><span class="s1">&#39;bbox&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">None</span>
+<span class="n">text_style</span><span class="p">[</span><span class="s1">&#39;clip_on&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">True</span>
+<span class="n">text_style</span><span class="p">[</span><span class="s1">&#39;size&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">16</span>
+<span class="n">text_style</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">text_style</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;k&#39;</span>
+<span class="n">text_style</span><span class="p">[</span><span class="s1">&#39;family&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;sans-serif&#39;</span>
+<span class="n">text_style</span><span class="p">[</span><span class="s1">&#39;fontweight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;normal&#39;</span>
+<span class="n">text_style</span><span class="p">[</span><span class="s1">&#39;zorder&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">text_style</span><span class="p">[</span><span class="s1">&#39;horizontalalignment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span>
+<span class="n">text_style</span><span class="p">[</span><span class="s1">&#39;verticalalignment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span>
 
 <span class="n">circle_style</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">circle_style</span><span class="p">[</span><span class="s">&#39;s&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">100</span>
-<span class="n">circle_style</span><span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;r&#39;</span>
-<span class="n">circle_style</span><span class="p">[</span><span class="s">&#39;marker&#39;</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;o&#39;</span>
-<span class="n">circle_style</span><span class="p">[</span><span class="s">&#39;cmap&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">None</span>
-<span class="n">circle_style</span><span class="p">[</span><span class="s">&#39;vmin&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">None</span>
-<span class="n">circle_style</span><span class="p">[</span><span class="s">&#39;vmax&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">None</span>
-<span class="n">circle_style</span><span class="p">[</span><span class="s">&#39;alpha&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
-<span class="n">circle_style</span><span class="p">[</span><span class="s">&#39;linewidths&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">None</span>
-<span class="n">circle_style</span><span class="p">[</span><span class="s">&#39;label&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">None</span>
-<span class="n">circle_style</span><span class="p">[</span><span class="s">&#39;zorder&#39;</span><span class="p">]</span><span class="o">=</span> <span class="mi">0</span>
+<span class="n">circle_style</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">circle_style</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;r&#39;</span>
+<span class="n">circle_style</span><span class="p">[</span><span class="s1">&#39;marker&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;o&#39;</span>
+<span class="n">circle_style</span><span class="p">[</span><span class="s1">&#39;cmap&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">None</span>
+<span class="n">circle_style</span><span class="p">[</span><span class="s1">&#39;vmin&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">None</span>
+<span class="n">circle_style</span><span class="p">[</span><span class="s1">&#39;vmax&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">None</span>
+<span class="n">circle_style</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">circle_style</span><span class="p">[</span><span class="s1">&#39;linewidths&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">None</span>
+<span class="n">circle_style</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">=</span><span class="bp">None</span>
+<span class="n">circle_style</span><span class="p">[</span><span class="s1">&#39;zorder&#39;</span><span class="p">]</span><span class="o">=</span> <span class="mi">0</span>
 
 <div class="viewcode-block" id="GraphView"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.operationnetwork.GraphView">[docs]</a><span class="k">class</span> <span class="nc">GraphView</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;Title&#39;</span><span class="p">,</span> <span class="n">graph_title</span><span class="o">=</span><span class="s">&#39;Graph Title&#39;</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Title&#39;</span><span class="p">,</span> <span class="n">graph_title</span><span class="o">=</span><span class="s1">&#39;Graph Title&#39;</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">GraphView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -143,46 +146,93 @@
 
 </div></div>
 <div class="viewcode-block" id="action_method"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.operationnetwork.action_method">[docs]</a><span class="k">def</span> <span class="nf">action_method</span><span class="p">(</span><span class="n">parentwidget</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">FancyArrowPatch</span>
+    <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">FancyArrowPatch</span><span class="p">,</span><span class="n">PathPatch</span>
+    <span class="kn">from</span> <span class="nn">matplotlib.path</span> <span class="kn">import</span> <span class="n">Path</span>
+    <span class="kn">import</span> <span class="nn">dev_tools.hierarchy</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
     <span class="n">operations</span> <span class="o">=</span> <span class="n">parentwidget</span><span class="o">.</span><span class="n">design</span><span class="o">.</span><span class="n">operations</span>
     <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">operation</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">operation</span> <span class="ow">in</span> <span class="n">operations</span><span class="p">]</span>
-    <span class="n">labels</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">operation</span><span class="o">.</span><span class="n">id</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">operation</span><span class="p">))</span> <span class="k">for</span> <span class="n">operation</span> <span class="ow">in</span> <span class="n">operations</span><span class="p">])</span>
-    <span class="n">links</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">operations</span><span class="p">:</span>
-        <span class="n">parentrefs</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">parentrefs</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">parentref</span> <span class="ow">in</span> <span class="n">parentrefs</span><span class="p">:</span>
-            <span class="n">links</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">parentref</span><span class="p">,</span><span class="n">child</span><span class="o">.</span><span class="n">id</span><span class="p">])</span>
-    <span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">links</span><span class="p">]</span>
 
-    <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">spacing</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">spacing</span><span class="p">]</span>
-    <span class="n">xy</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">y</span><span class="o">*</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">]</span>    
-    <span class="n">pos</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">item</span><span class="p">,</span><span class="n">pos</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span><span class="p">,</span><span class="n">pos</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span><span class="n">xy</span><span class="p">)])</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
+        <span class="n">children</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        
+<span class="c1">#    labels = dict([(operation.id,str(operation)) for operation in operations])</span>
+<span class="c1">#    links = []</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">operations</span><span class="p">:</span>
+<span class="c1">#        parentrefs = child.parentrefs()</span>
+        <span class="k">for</span> <span class="n">parentref</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">parentrefs</span><span class="p">():</span>
+<span class="c1">#            links.append([parentref,child.id])</span>
+            <span class="n">children</span><span class="p">[</span><span class="n">parentref</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="c1">#    edges = [(item[0],item[1]) for item in links]</span>
+
+    <span class="n">connections</span> <span class="o">=</span> <span class="n">dev_tools</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">create_sorted_connections</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span><span class="n">children</span><span class="p">[</span><span class="n">item</span><span class="p">])</span>
+<span class="c1">#    num_levels = dev_tools.hierarchy.num_levels(connections)</span>
+    
+    <span class="n">arrow_points</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">arrow_points2</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1">#    codes = [Path.MOVETO,Path.CURVE3,Path.CURVE3]    </span>
+    <span class="n">codes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">MOVETO</span><span class="p">)</span>
+    <span class="n">codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">LINETO</span><span class="p">)</span>
+<span class="c1">#    codes.append(Path.CURVE3)</span>
+<span class="c1">#    codes.append(Path.CURVE3)</span>
+<span class="c1">#    codes.append(Path.LINETO)</span>
+<span class="c1">#    codes.append(Path.CURVE3)</span>
+<span class="c1">#    codes.append(Path.CURVE3)</span>
+<span class="c1">#    codes.append(Path.LINETO)</span>
+    <span class="n">codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">CURVE4</span><span class="p">)</span>
+    <span class="n">codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">CURVE4</span><span class="p">)</span>
+    <span class="n">codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">CURVE4</span><span class="p">)</span>
+    <span class="n">codes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">LINETO</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">:</span>
+        <span class="n">vertices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">vertices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">c</span><span class="o">.</span><span class="n">ii</span><span class="p">))</span>
+        <span class="n">vertices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span><span class="o">-</span><span class="n">c</span><span class="o">.</span><span class="n">ii</span><span class="p">))</span>
+<span class="c1">#        vertices.append((c.level+.75,c.ii))</span>
+        <span class="n">vertices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">c</span><span class="o">.</span><span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="n">c</span><span class="o">.</span><span class="n">ii</span><span class="p">))</span>
+<span class="c1">#        vertices.append((c.level+1,c.ii+.25))</span>
+<span class="c1">#        vertices.append((c.level+1,c.jj-.25))</span>
+        <span class="n">vertices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">c</span><span class="o">.</span><span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="n">c</span><span class="o">.</span><span class="n">jj</span><span class="p">))</span>
+<span class="c1">#        vertices.append((c.level+.75,c.jj))</span>
+        <span class="n">vertices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span><span class="o">-</span><span class="n">c</span><span class="o">.</span><span class="n">jj</span><span class="p">))</span>
+        <span class="n">vertices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">c</span><span class="o">.</span><span class="n">jj</span><span class="p">))</span>
+        <span class="n">arrow_points</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span><span class="n">codes</span><span class="p">)</span>
+        <span class="n">arrow_points2</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">=</span><span class="n">Path</span><span class="p">([(</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span><span class="o">-</span><span class="n">c</span><span class="o">.</span><span class="n">jj</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">c</span><span class="o">.</span><span class="n">jj</span><span class="p">),(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">c</span><span class="o">.</span><span class="n">jj</span><span class="p">)],[</span><span class="n">Path</span><span class="o">.</span><span class="n">MOVETO</span><span class="p">,</span><span class="n">Path</span><span class="o">.</span><span class="n">CURVE3</span><span class="p">,</span><span class="n">Path</span><span class="o">.</span><span class="n">CURVE3</span><span class="p">])</span>
+    
+<span class="c1">#    y = numpy.r_[spacing*len(ids):0:-1*spacing]</span>
+<span class="c1">#    xy = numpy.c_[y*0,y]    </span>
+<span class="c1">#    pos = dict([(item,pos) for item,pos in zip(ids,xy)])</span>
 
     <span class="n">w</span> <span class="o">=</span> <span class="n">GraphView</span><span class="p">(</span><span class="n">parentwidget</span><span class="p">)</span>
     <span class="n">w</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">autoscale</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">labelpos</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">key</span><span class="p">,</span><span class="n">value</span><span class="o">+</span><span class="p">[</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">pos</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+<span class="c1">#    labelpos = dict((key,value+[-0.1,0]) for key,value in pos.items())</span>
 
     <span class="n">w</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">link</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">labelpos</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">w</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span><span class="n">labels</span><span class="p">[</span><span class="n">link</span><span class="p">],</span><span class="o">**</span><span class="n">text_style</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
-        <span class="n">w</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">FancyArrowPatch</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span><span class="n">pos</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="o">**</span><span class="n">arrow_style</span><span class="p">))</span>
-    <span class="n">circlepos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">pos</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
-    <span class="n">w</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">circlepos</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">circlepos</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span><span class="o">**</span><span class="n">circle_style</span><span class="p">)</span>        
-    <span class="n">w</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s">&#39;equal&#39;</span><span class="p">)</span>
-    <span class="n">w</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">)</span>
+<span class="c1">#    for link,(x,y) in labelpos.items():</span>
+<span class="c1">#        w.text(x, y,labels[link],**text_style)</span>
+    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">operation</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">operations</span><span class="p">):</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">ii</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">operation</span><span class="p">),</span><span class="o">**</span><span class="n">text_style</span><span class="p">)</span>
+<span class="c1">#    for edge in edges:</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">:</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">PathPatch</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">arrow_points</span><span class="p">[</span><span class="n">c</span><span class="p">],</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">FancyArrowPatch</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">arrow_points2</span><span class="p">[</span><span class="n">c</span><span class="p">],</span><span class="o">**</span><span class="n">arrow_style</span><span class="p">))</span>
+<span class="c1">#    circlepos = numpy.array([(0,-item) for item in range(len(operations))])</span>
+<span class="c1">#    w.scatter(circlepos[:,0],circlepos[:,1],**circle_style)        </span>
+    <span class="n">w</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
     <span class="n">w</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">w</span>
 </div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
 
-    <span class="n">mbox</span> <span class="o">=</span> <span class="p">[[</span><span class="s">&#39;Dan&#39;</span><span class="p">,</span><span class="s">&#39;Sara&#39;</span><span class="p">],[</span><span class="s">&#39;Dan&#39;</span><span class="p">,</span><span class="s">&#39;Bill&#39;</span><span class="p">],[</span><span class="s">&#39;Sara&#39;</span><span class="p">,</span><span class="s">&#39;Bill&#39;</span><span class="p">]]</span>
+    <span class="n">mbox</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;Dan&#39;</span><span class="p">,</span><span class="s1">&#39;Sara&#39;</span><span class="p">],[</span><span class="s1">&#39;Dan&#39;</span><span class="p">,</span><span class="s1">&#39;Bill&#39;</span><span class="p">],[</span><span class="s1">&#39;Sara&#39;</span><span class="p">,</span><span class="s1">&#39;Bill&#39;</span><span class="p">]]</span>
     <span class="n">labels</span><span class="o">=</span> <span class="p">{}</span>
-    <span class="n">labels</span><span class="p">[</span><span class="s">&#39;Sara&#39;</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;Sara&#39;</span>
-    <span class="n">labels</span><span class="p">[</span><span class="s">&#39;Dan&#39;</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;Dan&#39;</span>
-    <span class="n">labels</span><span class="p">[</span><span class="s">&#39;Bill&#39;</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;Bill&#39;</span>
-    <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;Dan&#39;</span><span class="p">,</span><span class="s">&#39;Sara&#39;</span><span class="p">,</span><span class="s">&#39;Bill&#39;</span><span class="p">]</span>
+    <span class="n">labels</span><span class="p">[</span><span class="s1">&#39;Sara&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Sara&#39;</span>
+    <span class="n">labels</span><span class="p">[</span><span class="s1">&#39;Dan&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Dan&#39;</span>
+    <span class="n">labels</span><span class="p">[</span><span class="s1">&#39;Bill&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Bill&#39;</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Dan&#39;</span><span class="p">,</span><span class="s1">&#39;Sara&#39;</span><span class="p">,</span><span class="s1">&#39;Bill&#39;</span><span class="p">]</span>
     <span class="n">action_method</span><span class="p">(</span><span class="n">mbox</span><span class="p">,</span><span class="n">labels</span><span class="p">,</span><span class="n">order</span><span class="p">)</span>
 </pre></div>
 

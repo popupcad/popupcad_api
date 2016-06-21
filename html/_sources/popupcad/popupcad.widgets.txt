@@ -28,6 +28,14 @@ popupcad.widgets.errorlog module
     :undoc-members:
     :show-inheritance:
 
+popupcad.widgets.export_widget module
+-------------------------------------
+
+.. automodule:: popupcad.widgets.export_widget
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 popupcad.widgets.listeditor module
 ----------------------------------
 

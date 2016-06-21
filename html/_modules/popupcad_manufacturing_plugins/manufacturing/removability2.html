@@ -27,7 +27,7 @@
     <link rel="up" title="popupcad_manufacturing_plugins" href="../../popupcad_manufacturing_plugins.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,10 +54,10 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad_manufacturing_plugins.manufacturing.removability2</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -66,17 +66,17 @@
 <span class="kn">import</span> <span class="nn">popupcad</span>
 
 <div class="viewcode-block" id="Removability2"><a class="viewcode-back" href="../../../popupcad_manufacturing_plugins/popupcad_manufacturing_plugins.manufacturing.html#popupcad_manufacturing_plugins.manufacturing.removability2.Removability2">[docs]</a><span class="k">class</span> <span class="nc">Removability2</span><span class="p">(</span><span class="n">MultiValueOperation3</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Removability&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Removability&#39;</span>
     <span class="n">valuenames</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">defaults</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">keepout_types</span> <span class="o">=</span> <span class="n">enum</span><span class="o">.</span><span class="n">enum</span><span class="p">(</span>
-        <span class="n">one_way_up</span><span class="o">=</span><span class="s">&#39;one_way_up&#39;</span><span class="p">,</span>
-        <span class="n">one_way_down</span><span class="o">=</span><span class="s">&#39;one_way_down&#39;</span><span class="p">,</span>
-        <span class="n">two_way</span><span class="o">=</span><span class="s">&#39;two_way&#39;</span><span class="p">)</span>
+        <span class="n">one_way_up</span><span class="o">=</span><span class="s1">&#39;one_way_up&#39;</span><span class="p">,</span>
+        <span class="n">one_way_down</span><span class="o">=</span><span class="s1">&#39;one_way_down&#39;</span><span class="p">,</span>
+        <span class="n">two_way</span><span class="o">=</span><span class="s1">&#39;two_way&#39;</span><span class="p">)</span>
     <span class="n">keepout_type_default</span> <span class="o">=</span> <span class="n">keepout_types</span><span class="o">.</span><span class="n">one_way_up</span>
 
 <div class="viewcode-block" id="Removability2.operate"><a class="viewcode-back" href="../../../popupcad_manufacturing_plugins/popupcad_manufacturing_plugins.manufacturing.html#popupcad_manufacturing_plugins.manufacturing.removability2.Removability2.operate">[docs]</a>    <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
-        <span class="n">operation_ref</span><span class="p">,</span> <span class="n">output_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s">&#39;parent&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">operation_ref</span><span class="p">,</span> <span class="n">output_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_links</span><span class="p">[</span><span class="s1">&#39;parent&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">ls1</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">op_from_ref</span><span class="p">(</span><span class="n">operation_ref</span><span class="p">)</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="n">output_index</span><span class="p">]</span><span class="o">.</span><span class="n">csg</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keepout_type</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">keepout_types</span><span class="o">.</span><span class="n">one_way_up</span><span class="p">:</span>

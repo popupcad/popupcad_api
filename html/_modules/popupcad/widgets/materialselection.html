@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,16 +54,17 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.widgets.materialselection</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="c">#import popupcad.materials.materials as materials</span>
+<span class="c1">#import popupcad.materials.materials as materials</span>
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.layerdef</span> <span class="kn">import</span> <span class="n">LayerDef</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 
 <div class="viewcode-block" id="ClassItem"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.materialselection.ClassItem">[docs]</a><span class="k">class</span> <span class="nc">ClassItem</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QListWidgetItem</span><span class="p">):</span>
 
@@ -89,8 +90,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">rw</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QListWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">rw</span><span class="o">.</span><span class="n">itemDoubleClicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">add_item</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ok_button</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;&amp;Ok&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_button</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;&amp;Cancel&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ok_button</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;&amp;Ok&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cancel_button</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;&amp;Cancel&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ok_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cancel_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
 
@@ -109,12 +110,12 @@
         <span class="n">l2</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">l3</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">l2</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s">&#39;Material Selection&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Material Selection&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">initialize_right</span><span class="p">(</span><span class="n">initialright</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update_left</span><span class="p">()</span>
 
 <div class="viewcode-block" id="MaterialSelection.add_item"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.materialselection.MaterialSelection.add_item">[docs]</a>    <span class="k">def</span> <span class="nf">add_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">addlayer</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">class1</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">addlayer</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">class1</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span> <span class="o">=</span> <span class="bp">False</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update_left</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="MaterialSelection.update_left"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.materialselection.MaterialSelection.update_left">[docs]</a>    <span class="k">def</span> <span class="nf">update_left</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -143,7 +144,7 @@
             <span class="n">ci</span><span class="o">.</span><span class="n">setClass</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">lw</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">ci</span><span class="p">)</span>
 </div></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
 
     <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>

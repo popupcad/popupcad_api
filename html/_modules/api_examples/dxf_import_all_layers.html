@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>api_examples.dxf_import_all_layers &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body role="document">
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for api_examples.dxf_import_all_layers</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Script written by Nick Gravish</span>
+<span class="sd">Please see LICENSE for full license.</span>
+
+
+<span class="sd">dxf_import_all_layers.py</span>
+
+<span class="sd">This script demonstrates how to interact with and load sketches from DFX layers. Calling this script with the</span>
+<span class="sd">filename for a DXF as an argument will save a .CAD file to the DXF&#39;s directory with sketches generated from</span>
+<span class="sd">the DXF layers.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">import</span> <span class="nn">ezdxf</span>
+<span class="kn">import</span> <span class="nn">popupcad.filetypes.sketch</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericPolyline</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericPoly</span>
+<span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericLine</span>
+
+<div class="viewcode-block" id="import_dxf_layer_geometry"><a class="viewcode-back" href="../../api_examples/api_examples.html#api_examples.dxf_import_all_layers.import_dxf_layer_geometry">[docs]</a><span class="k">def</span> <span class="nf">import_dxf_layer_geometry</span><span class="p">(</span><span class="n">dxf</span><span class="p">,</span> <span class="n">layername</span><span class="p">):</span>
+    <span class="n">entities</span> <span class="o">=</span> <span class="n">dxf</span><span class="o">.</span><span class="n">entities</span>
+    <span class="n">generics</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">entities</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">dxf</span><span class="o">.</span><span class="n">layer</span> <span class="ow">in</span> <span class="n">layername</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">ezdxf</span><span class="o">.</span><span class="n">modern</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">Line</span><span class="p">):</span>
+                <span class="kn">import</span> <span class="nn">numpy</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">entity</span><span class="o">.</span><span class="n">dxf</span><span class="o">.</span><span class="n">start</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">entity</span><span class="o">.</span><span class="n">dxf</span><span class="o">.</span><span class="n">end</span><span class="p">[:</span><span class="mi">2</span><span class="p">]])</span>
+                <span class="n">generics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">GenericLine</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span>
+                        <span class="n">points</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                        <span class="p">[]))</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">ezdxf</span><span class="o">.</span><span class="n">modern</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">LWPolyline</span><span class="p">):</span>
+                <span class="kn">import</span> <span class="nn">numpy</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">get_points</span><span class="p">()])</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="n">points</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">closed</span><span class="p">:</span>
+                    <span class="n">generics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GenericPoly</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="p">[]))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">generics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GenericPolyline</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="p">[]))</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">ezdxf</span><span class="o">.</span><span class="n">modern</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">Point</span><span class="p">):</span>
+                <span class="kn">from</span> <span class="nn">popupcad.geometry.vertex</span> <span class="kn">import</span> <span class="n">DrawnPoint</span>
+                <span class="n">point</span> <span class="o">=</span> <span class="n">DrawnPoint</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">get_dxf_attrib</span><span class="p">(</span><span class="s1">&#39;location&#39;</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]))</span>
+                <span class="n">generics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">ezdxf</span><span class="o">.</span><span class="n">modern</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">Spline</span><span class="p">):</span>
+                <span class="n">knots</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get_knot_values</span><span class="p">()</span>
+                <span class="n">control_points</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get_control_points</span><span class="p">()</span>
+                <span class="n">weights</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">control_points</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">domain</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">spline_functions</span><span class="o">.</span><span class="n">make_domain</span><span class="p">(</span><span class="n">knots</span><span class="p">,</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">spline_functions</span><span class="o">.</span><span class="n">interpolated_points</span><span class="p">(</span><span class="n">control_points</span><span class="p">,</span> <span class="n">knots</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span>
+                                                                                  <span class="n">domain</span><span class="p">)</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="n">points</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">closed</span><span class="p">:</span>
+                    <span class="n">generics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GenericPoly</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="p">[]))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">generics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GenericPolyline</span><span class="o">.</span><span class="n">gen_from_point_lists</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="p">[]))</span>
+
+                    <span class="c1">#                        print(points)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+
+    <span class="n">new</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">sketch</span><span class="o">.</span><span class="n">Sketch</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+    <span class="n">new</span><span class="o">.</span><span class="n">addoperationgeometries</span><span class="p">(</span><span class="n">generics</span><span class="p">)</span>
+    <span class="n">newsketchname</span> <span class="o">=</span> <span class="n">layername</span> <span class="o">+</span> <span class="s1">&#39;.sketch&#39;</span>
+    <span class="n">new</span><span class="o">.</span><span class="n">updatefilename</span><span class="p">(</span><span class="n">newsketchname</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new</span>
+
+<span class="c1"># for testing</span>
+<span class="c1"># filename = &#39;/Users/nickgravish/popupCAD_files/sketches/Scissor02.dxf&#39;</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># get the filename passed in</span>
+
+    <span class="c1"># create the base CAD design file</span>
+    <span class="n">design</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">design</span><span class="o">.</span><span class="n">Design</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+    <span class="n">design</span><span class="o">.</span><span class="n">define_layers</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">LayerDef</span><span class="p">(</span><span class="o">*</span><span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">material2</span><span class="o">.</span><span class="n">default_sublaminate</span><span class="p">))</span>
+
+
+    <span class="c1"># load dxf file and select layer names</span>
+    <span class="kn">import</span> <span class="nn">ezdxf.modern</span>
+
+    <span class="n">dxf</span> <span class="o">=</span> <span class="n">ezdxf</span><span class="o">.</span><span class="n">readfile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">layer_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">dxf</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">dxf</span><span class="o">.</span><span class="n">layers</span><span class="p">]</span>
+
+    <span class="c1"># loop through layer names and load geometry</span>
+    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layer_names</span><span class="p">:</span>
+        <span class="c1"># create the sketch</span>
+        <span class="n">sketch</span> <span class="o">=</span> <span class="n">import_dxf_layer_geometry</span><span class="p">(</span><span class="n">dxf</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span>
+
+        <span class="c1"># add the sketch to the design file</span>
+        <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="n">sketch</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">sketch</span>
+
+    <span class="c1"># save cad file</span>
+    <span class="n">design</span><span class="o">.</span><span class="n">save_yaml</span><span class="p">(</span><span class="n">filename</span> <span class="o">+</span> <span class="s1">&#39;.cad&#39;</span><span class="p">)</span>
+
+    <span class="c1"># to visualize the result, but can be commented out.</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">editor</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">guis</span><span class="o">.</span><span class="n">editor</span><span class="o">.</span><span class="n">Editor</span><span class="p">()</span>
+    <span class="n">editor</span><span class="o">.</span><span class="n">load_design</span><span class="p">(</span><span class="n">design</span><span class="p">)</span>
+    <span class="n">editor</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

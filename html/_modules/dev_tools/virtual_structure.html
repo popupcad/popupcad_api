@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dev_tools.virtual_structure &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body role="document">
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for dev_tools.virtual_structure</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">import</span> <span class="nn">types</span>
+<span class="c1">#import shutil</span>
+
+<div class="viewcode-block" id="split"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.virtual_structure.split">[docs]</a><span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="n">module_name</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">module_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+    <span class="n">parent_path</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">a</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">basename</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">parent_path</span><span class="p">,</span><span class="n">basename</span>
+</div>
+<div class="viewcode-block" id="make_new_module"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.virtual_structure.make_new_module">[docs]</a><span class="k">def</span> <span class="nf">make_new_module</span><span class="p">(</span><span class="n">new_module_path</span><span class="p">):</span>
+    <span class="n">new_module</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">ModuleType</span><span class="p">(</span><span class="n">new_module_path</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">new_module_path</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_module</span>
+
+    <span class="n">parent_path</span><span class="p">,</span><span class="n">base_name</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">new_module_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">parent_path</span><span class="o">!=</span><span class="s1">&#39;&#39;</span><span class="p">:</span>    
+        <span class="n">parent_module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">parent_path</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">parent_module</span><span class="p">,</span><span class="n">base_name</span><span class="p">,</span><span class="n">new_module</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">new_module</span>
+</div>
+<div class="viewcode-block" id="remap_module"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.virtual_structure.remap_module">[docs]</a><span class="k">def</span> <span class="nf">remap_module</span><span class="p">(</span><span class="n">old_module_path</span><span class="p">,</span><span class="n">new_module_path</span><span class="p">):</span>
+    <span class="n">new_module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">old_module_path</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">new_module_path</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_module</span>
+
+    <span class="n">parent_path</span><span class="p">,</span><span class="n">base_name</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">new_module_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">parent_path</span><span class="o">!=</span><span class="s1">&#39;&#39;</span><span class="p">:</span>    
+        <span class="n">parent_module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">parent_path</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">parent_module</span><span class="p">,</span><span class="n">base_name</span><span class="p">,</span><span class="n">new_module</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_module</span>
+</div>
+<div class="viewcode-block" id="remap_class"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.virtual_structure.remap_class">[docs]</a><span class="k">def</span> <span class="nf">remap_class</span><span class="p">(</span><span class="n">old_class</span><span class="p">,</span><span class="n">new_class</span><span class="p">):</span>
+    <span class="n">old_path</span><span class="p">,</span><span class="n">old_basename</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">old_class</span><span class="p">)</span>
+    <span class="n">old_module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">old_path</span><span class="p">)</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">old_module</span><span class="p">,</span><span class="n">old_basename</span><span class="p">)</span>
+
+    <span class="n">new_path</span><span class="p">,</span><span class="n">new_basename</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">new_class</span><span class="p">)</span>
+    <span class="n">new_module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">new_module</span><span class="p">,</span><span class="n">new_basename</span><span class="p">,</span><span class="n">item</span><span class="p">)</span>
+</div>
+<span class="n">command_mapping</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">command_mapping</span><span class="p">[</span><span class="s1">&#39;make_new_module&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_new_module</span>
+<span class="n">command_mapping</span><span class="p">[</span><span class="s1">&#39;remap_module&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">remap_module</span>
+<span class="n">command_mapping</span><span class="p">[</span><span class="s1">&#39;remap_class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">remap_class</span>
+
+<div class="viewcode-block" id="save_commands"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.virtual_structure.save_commands">[docs]</a><span class="k">def</span> <span class="nf">save_commands</span><span class="p">(</span><span class="n">commands</span><span class="p">,</span><span class="n">filename</span><span class="p">):</span>    
+    <span class="kn">import</span> <span class="nn">yaml</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">commands</span><span class="p">,</span><span class="n">f</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="load_commands"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.virtual_structure.load_commands">[docs]</a><span class="k">def</span> <span class="nf">load_commands</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>    
+    <span class="kn">import</span> <span class="nn">yaml</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">commands</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">commands</span>
+</div>
+<div class="viewcode-block" id="run_commands"><a class="viewcode-back" href="../../dev_tools/dev_tools.html#dev_tools.virtual_structure.run_commands">[docs]</a><span class="k">def</span> <span class="nf">run_commands</span><span class="p">(</span><span class="n">commands</span><span class="p">):</span>    
+    <span class="k">for</span> <span class="n">command</span><span class="p">,</span><span class="n">args</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">:</span>
+        <span class="n">command_mapping</span><span class="p">[</span><span class="n">command</span><span class="p">](</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        </div>
+<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">modules_to_make</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">modules_to_make</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;popupcad.filetypes.constraints&#39;</span><span class="p">)</span>
+    
+    <span class="n">modules_to_remap</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">modules_to_remap</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;popupcad.filetypes.design&#39;</span><span class="p">,</span><span class="s1">&#39;popupcad.filetypes.design2&#39;</span><span class="p">))</span>
+    <span class="n">modules_to_remap</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;popupcad.filetypes.design&#39;</span><span class="p">,</span><span class="s1">&#39;ogle&#39;</span><span class="p">))</span>
+    
+    <span class="n">remap_classes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraint_system.ConstraintSystem&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.ConstraintSystem&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraints.FixedConstraint&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.fixed&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraints.HorizontalConstraint&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.horizontal&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraints.VerticalConstraint&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.vertical&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraints.DistanceConstraint&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.distance&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraints.CoincidentConstraint&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.coincident&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraints.XDistanceConstraint&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.distancex&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraints.YDistanceConstraint&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.distancey&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraints.AngleConstraint&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.angle&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraints.ParallelLinesConstraint&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.parallel&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraints.EqualLengthLinesConstraint&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.equal&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraints.PerpendicularLinesConstraint&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.perpendicular&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraints.PointLineDistanceConstraint&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.PointLine&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraints.LineMidpointConstraint&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.LineMidpoint&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraint_support.SymbolicLine&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.SymbolicLine&#39;</span><span class="p">])</span>
+    <span class="n">remap_classes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;popupcad.constraints.constraint_support.SymbolicVertex&#39;</span><span class="p">,</span> <span class="s1">&#39;popupcad.filetypes.constraints.SymbolicVertex&#39;</span><span class="p">])</span>
+    
+    <span class="n">commands</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">modules_to_make</span><span class="p">:</span>
+        <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;make_new_module&#39;</span><span class="p">,[</span><span class="n">item</span><span class="p">]])</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">modules_to_remap</span><span class="p">:</span>
+        <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;remap_module&#39;</span><span class="p">,</span><span class="nb">list</span><span class="p">(</span><span class="n">item</span><span class="p">)])</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">remap_classes</span><span class="p">:</span>
+        <span class="n">commands</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s1">&#39;remap_class&#39;</span><span class="p">,</span><span class="n">item</span><span class="p">])</span>
+        
+
+    <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;C:/Users/danaukes/Documents/code/popupcad/popupcad/supportfiles/virtual_structure.yaml&#39;</span>
+    <span class="n">save_commands</span><span class="p">(</span><span class="n">commands</span><span class="p">,</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">commands2</span> <span class="o">=</span> <span class="n">load_commands</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">command</span><span class="p">,</span><span class="n">args</span> <span class="ow">in</span> <span class="n">commands2</span><span class="p">:</span>
+        <span class="n">command_mapping</span><span class="p">[</span><span class="n">command</span><span class="p">](</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

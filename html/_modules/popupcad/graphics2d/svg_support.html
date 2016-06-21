@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,15 +54,16 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.graphics2d.svg_support</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
-<span class="kn">import</span> <span class="nn">PySide.QtSvg</span> <span class="kn">as</span> <span class="nn">qs</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">qt.QtSvg</span> <span class="kn">as</span> <span class="nn">qs</span>
 <span class="kn">import</span> <span class="nn">popupcad</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
@@ -75,24 +76,24 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">OutputSelection</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Inkscape</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QRadioButton</span><span class="p">(</span><span class="s">&#39;Inkscape&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">CorelDraw</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QRadioButton</span><span class="p">(</span><span class="s">&#39;CorelDraw&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Center</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QCheckBox</span><span class="p">(</span><span class="s">&#39;Center&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Inkscape</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QRadioButton</span><span class="p">(</span><span class="s1">&#39;Inkscape&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">CorelDraw</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QRadioButton</span><span class="p">(</span><span class="s1">&#39;CorelDraw&#39;</span><span class="p">)</span>
+<span class="c1">#        self.Center = qg.QCheckBox(&#39;Center&#39;)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignRight</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="o">.</span><span class="n">setValidator</span><span class="p">(</span><span class="n">StrictDoubleValidator</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">gui_negative_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_positive_infinity</span><span class="p">,</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">gui_default_decimals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">))</span>
+<span class="c1">#        self.rotation = qg.QLineEdit()</span>
+<span class="c1">#        self.rotation.setAlignment(qc.Qt.AlignRight)</span>
+<span class="c1">#        self.rotation.setText(str(0))</span>
+<span class="c1">#        self.rotation.setValidator(StrictDoubleValidator(popupcad.gui_negative_infinity, popupcad.gui_positive_infinity, popupcad.gui_default_decimals, self.rotation))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QSpinBox</span><span class="p">()</span>
+<span class="c1">#        self.rotation = qg.QSpinBox()</span>
         
 
-        <span class="n">button1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
-        <span class="n">button2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+        <span class="n">button1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Cancel&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">exportdir</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dirbutton</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dirbutton</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
         <span class="n">layout0</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
         <span class="n">layout0</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="p">)</span>
         <span class="n">layout0</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dirbutton</span><span class="p">)</span>
@@ -102,14 +103,14 @@
         <span class="n">layout2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
         <span class="n">layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button1</span><span class="p">)</span>
         <span class="n">layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button2</span><span class="p">)</span>
-        <span class="n">layout4</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
-        <span class="n">layout4</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Rotation&#39;</span><span class="p">))</span>
-        <span class="n">layout4</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="p">)</span>
+<span class="c1">#        layout4 = qg.QHBoxLayout()</span>
+<span class="c1">#        layout4.addWidget(qg.QLabel(&#39;Rotation&#39;))</span>
+<span class="c1">#        layout4.addWidget(self.rotation)</span>
         <span class="n">layout3</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
         <span class="n">layout3</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout0</span><span class="p">)</span>
         <span class="n">layout3</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout1</span><span class="p">)</span>
-        <span class="n">layout3</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Center</span><span class="p">)</span>
-        <span class="n">layout3</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout4</span><span class="p">)</span>
+<span class="c1">#        layout3.addWidget(self.Center)</span>
+<span class="c1">#        layout3.addLayout(layout4)</span>
         <span class="n">layout3</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout2</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">dirbutton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectExport</span><span class="p">)</span>
@@ -120,21 +121,17 @@
 
 <div class="viewcode-block" id="OutputSelection.acceptdata"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.svg_support.OutputSelection.acceptdata">[docs]</a>    <span class="k">def</span> <span class="nf">acceptdata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Inkscape</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
-            <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">inkscape_mm_conversion</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Center</span><span class="o">.</span><span class="n">isChecked</span><span class="p">(),</span> <span class="nb">float</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="o">.</span><span class="n">text</span><span class="p">()),</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">inkscape_mm_conversion</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">CorelDraw</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
-            <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">coreldraw_mm_conversion</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Center</span><span class="o">.</span><span class="n">isChecked</span><span class="p">(),</span> <span class="nb">float</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rotation</span><span class="o">.</span><span class="n">text</span><span class="p">()),</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">coreldraw_mm_conversion</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span>
 </div>
 <div class="viewcode-block" id="OutputSelection.selectExport"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.svg_support.OutputSelection.selectExport">[docs]</a>    <span class="k">def</span> <span class="nf">selectExport</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">directorypath</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="s">&quot;Select Directory&quot;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
-        <span class="n">directorypath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">directorypath</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">directorypath</span><span class="p">)</span>
+        <span class="n">directorypath</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s2">&quot;Select Directory&quot;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">directorypath</span><span class="o">!=</span><span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">directorypath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">directorypath</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dirbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">directorypath</span><span class="p">)</span>
 
 </div></div>
 <div class="viewcode-block" id="SVGOutputSupport"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.svg_support.SVGOutputSupport">[docs]</a><span class="k">class</span> <span class="nc">SVGOutputSupport</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -144,21 +141,9 @@
         <span class="n">accepted</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">accepted</span><span class="p">:</span>
             <span class="n">time</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">basic_functions</span><span class="o">.</span><span class="n">return_formatted_time</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">renderprocess</span><span class="p">(</span>
-                <span class="s">&#39;2D_screenshot_&#39;</span> <span class="o">+</span>
-                <span class="n">time</span> <span class="o">+</span>
-                <span class="s">&#39;.svg&#39;</span><span class="p">,</span>
-                <span class="o">*</span>
-                <span class="n">win</span><span class="o">.</span><span class="n">acceptdata</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">renderprocess</span><span class="p">(</span><span class="s1">&#39;2D_screenshot_&#39;</span> <span class="o">+</span> <span class="n">time</span> <span class="o">+</span><span class="s1">&#39;.svg&#39;</span><span class="p">,</span><span class="o">*</span><span class="n">win</span><span class="o">.</span><span class="n">acceptdata</span><span class="p">())</span>
 </div>
-<div class="viewcode-block" id="SVGOutputSupport.renderprocess"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.svg_support.SVGOutputSupport.renderprocess">[docs]</a>    <span class="k">def</span> <span class="nf">renderprocess</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">basename</span><span class="p">,</span>
-            <span class="n">scaling</span><span class="p">,</span>
-            <span class="n">center</span><span class="p">,</span>
-            <span class="n">rotation</span><span class="p">,</span>
-            <span class="n">exportdir</span><span class="p">):</span>
-        <span class="c">#        save prerender state</span>
+<div class="viewcode-block" id="SVGOutputSupport.renderprocess"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.svg_support.SVGOutputSupport.renderprocess">[docs]</a>    <span class="k">def</span> <span class="nf">renderprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">basename</span><span class="p">,</span><span class="n">scaling</span><span class="p">,</span><span class="n">exportdir</span><span class="p">):</span>
         <span class="n">tempmodes</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">try</span><span class="p">:</span>
@@ -169,7 +154,7 @@
         <span class="n">selected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
         <span class="n">tempbrush</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backgroundBrush</span><span class="p">()</span>
 
-<span class="c">#        prerender</span>
+<span class="c1">#        prerender</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setBackgroundBrush</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">())</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">try</span><span class="p">:</span>
@@ -187,8 +172,8 @@
         <span class="n">generator</span><span class="o">.</span><span class="n">setFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
         <span class="n">generator</span><span class="o">.</span><span class="n">setSize</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">()))</span>
         <span class="n">generator</span><span class="o">.</span><span class="n">setResolution</span><span class="p">(</span><span class="mf">90.0</span> <span class="o">/</span> <span class="n">scaling</span><span class="p">)</span>
-        <span class="n">generator</span><span class="o">.</span><span class="n">setTitle</span><span class="p">(</span><span class="s">&#39;SVG Generator Example Drawing&#39;</span><span class="p">)</span>
-        <span class="n">generator</span><span class="o">.</span><span class="n">setDescription</span><span class="p">(</span><span class="s">&#39;An SVG drawing created by the SVG Generator&#39;</span><span class="p">)</span>
+        <span class="n">generator</span><span class="o">.</span><span class="n">setTitle</span><span class="p">(</span><span class="s1">&#39;SVG Generator Example Drawing&#39;</span><span class="p">)</span>
+        <span class="n">generator</span><span class="o">.</span><span class="n">setDescription</span><span class="p">(</span><span class="s1">&#39;An SVG drawing created by the SVG Generator&#39;</span><span class="p">)</span>
 
         <span class="n">painter</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainter</span><span class="p">()</span>
 
@@ -201,14 +186,14 @@
         <span class="n">s</span> <span class="o">=</span> <span class="n">scaling</span>
         <span class="n">t</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
         <span class="n">t</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">())</span>
-        <span class="k">if</span> <span class="n">center</span><span class="p">:</span>
-            <span class="n">v1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">])</span>
-            <span class="n">theta</span> <span class="o">=</span> <span class="o">-</span><span class="n">rotation</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>
-            <span class="n">R</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-                <span class="p">[[</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)],</span> <span class="p">[</span><span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)]])</span>
-            <span class="n">v2</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span>
-            <span class="n">t</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="o">*</span><span class="n">v2</span><span class="p">)</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span>
+<span class="c1">#        if center:</span>
+<span class="c1">#            v1 = numpy.array([-self.width() / 2, -self.height() / 2])</span>
+<span class="c1">#            theta = -rotation * pi / 180</span>
+<span class="c1">#            R = numpy.array(</span>
+<span class="c1">#                [[cos(theta), sin(theta)], [-sin(theta), cos(theta)]])</span>
+<span class="c1">#            v2 = R.dot(v1)</span>
+<span class="c1">#            t.translate(*v2)</span>
+<span class="c1">#        t.rotate(rotation)</span>
         <span class="n">painter</span><span class="o">.</span><span class="n">setWorldTransform</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">painter</span><span class="p">)</span>
@@ -228,7 +213,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 </div></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
     <span class="n">win</span> <span class="o">=</span> <span class="n">OutputSelection</span><span class="p">()</span>
     <span class="n">win</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>

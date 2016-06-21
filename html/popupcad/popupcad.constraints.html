@@ -1,0 +1,811 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.constraints package &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body role="document">
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="popupcad-constraints-package">
+<h1>popupcad.constraints package<a class="headerlink" href="#popupcad-constraints-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-popupcad.constraints.constraint">
+<span id="popupcad-constraints-constraint-module"></span><h2>popupcad.constraints.constraint module<a class="headerlink" href="#module-popupcad.constraints.constraint" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;asu.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.constraints.constraint.Constraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraint.</code><code class="descname">Constraint</code><span class="sig-paren">(</span><em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint.Constraint.CleanupFlags">
+<code class="descname">CleanupFlags</code><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.CleanupFlags" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Enum</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint.Constraint.all_validity_tests">
+<code class="descname">all_validity_tests</code><em class="property"> = [(&lt;function Constraint.exactly_two_points at 0x0000000006E05EA0&gt;, 'Need exactly two points'), (&lt;function Constraint.at_least_two_points at 0x0000000006E05F28&gt;, 'Need at least two points'), (&lt;function Constraint.exactly_two_lines at 0x0000000006E0A048&gt;, 'Need exactly two lines'), (&lt;function Constraint.at_least_two_lines at 0x0000000006E0A0D0&gt;, 'Need at least two lines'), (&lt;function Constraint.at_least_one_line at 0x0000000006E0A158&gt;, 'Need at least one line'), (&lt;function Constraint.exactly_one_point_and_one_line at 0x0000000006E0A1E0&gt;, 'Need exactly one point and one line'), (&lt;function Constraint.at_least_one_point at 0x0000000006E0A2F0&gt;, 'Need at least one point')]</em><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.all_validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.at_least_one_line">
+<code class="descname">at_least_one_line</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.at_least_one_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.at_least_one_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.at_least_one_point">
+<code class="descname">at_least_one_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.at_least_one_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.at_least_one_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.at_least_two_lines">
+<code class="descname">at_least_two_lines</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.at_least_two_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.at_least_two_lines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.at_least_two_points">
+<code class="descname">at_least_two_points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.at_least_two_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.at_least_two_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.build_system_mapping">
+<code class="descname">build_system_mapping</code><span class="sig-paren">(</span><em>sys_vars</em>, <em>num_eq</em>, <em>eq_indeces</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.build_system_mapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.build_system_mapping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.check_valid">
+<code class="descname">check_valid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.check_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.check_valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.cleanup">
+<code class="descname">cleanup</code><span class="sig-paren">(</span><em>objects</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.cleanup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.cleanup_objects">
+<code class="descname">cleanup_objects</code><span class="sig-paren">(</span><em>objects</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.cleanup_objects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.cleanup_objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><em>identical=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint.Constraint.deletable">
+<code class="descname">deletable</code><em class="property"> = []</em><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.deletable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.edit">
+<code class="descname">edit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.edit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.exactly_one_point_and_one_line">
+<code class="descname">exactly_one_point_and_one_line</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.exactly_one_point_and_one_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.exactly_one_point_and_one_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.exactly_two_lines">
+<code class="descname">exactly_two_lines</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.exactly_two_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.exactly_two_lines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.exactly_two_points">
+<code class="descname">exactly_two_points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.exactly_two_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.exactly_two_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint.Constraint.f_constraints">
+<code class="descname">f_constraints</code><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.f_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint.Constraint.f_jacobian">
+<code class="descname">f_jacobian</code><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.f_jacobian" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint.Constraint.generated_equations">
+<code class="descname">generated_equations</code><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.generated_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.getallvertices">
+<code class="descname">getallvertices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.getallvertices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.getallvertices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.getlines">
+<code class="descname">getlines</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.getlines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.getlines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.getvertices">
+<code class="descname">getvertices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.getvertices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.getvertices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.init_symbolics">
+<code class="descname">init_symbolics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.init_symbolics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.init_symbolics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.jacobian">
+<code class="descname">jacobian</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.jacobian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.jacobian" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.mapped_f_constraints">
+<code class="descname">mapped_f_constraints</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.mapped_f_constraints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.mapped_f_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.mapped_f_jacobian">
+<code class="descname">mapped_f_jacobian</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.mapped_f_jacobian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.mapped_f_jacobian" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint.Constraint.name">
+<code class="descname">name</code><em class="property"> = 'Constraint'</em><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.constraints.constraint.Constraint.new">
+<em class="property">classmethod </em><code class="descname">new</code><span class="sig-paren">(</span><em>*objects</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.properties">
+<code class="descname">properties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.properties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.properties" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.throwvalidityerror">
+<code class="descname">throwvalidityerror</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.throwvalidityerror"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.throwvalidityerror" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.upgrade">
+<code class="descname">upgrade</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.upgrade"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.upgrade" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.valid">
+<code class="descname">valid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint.Constraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.exactly_two_points at 0x0000000006E05EA0&gt;, &lt;function Constraint.at_least_two_points at 0x0000000006E05F28&gt;, &lt;function Constraint.exactly_two_lines at 0x0000000006E0A048&gt;, &lt;function Constraint.at_least_two_lines at 0x0000000006E0A0D0&gt;, &lt;function Constraint.at_least_one_line at 0x0000000006E0A158&gt;, &lt;function Constraint.exactly_one_point_and_one_line at 0x0000000006E0A1E0&gt;, &lt;function Constraint.at_least_one_point at 0x0000000006E0A2F0&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint.Constraint.variables">
+<code class="descname">variables</code><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.variables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.Constraint.vertices_in_lines">
+<code class="descname">vertices_in_lines</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#Constraint.vertices_in_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.Constraint.vertices_in_lines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraint.ValueConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraint.</code><code class="descname">ValueConstraint</code><span class="sig-paren">(</span><em>value</em>, <em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#ValueConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.ValueConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.Constraint" title="popupcad.constraints.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.Constraint</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.constraints.constraint.ValueConstraint.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><em>identical=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#ValueConstraint.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.ValueConstraint.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint.ValueConstraint.edit">
+<code class="descname">edit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#ValueConstraint.edit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.ValueConstraint.edit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.constraints.constraint.ValueConstraint.getValue">
+<em class="property">classmethod </em><code class="descname">getValue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#ValueConstraint.getValue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.ValueConstraint.getValue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint.ValueConstraint.name">
+<code class="descname">name</code><em class="property"> = 'ValueConstraint'</em><a class="headerlink" href="#popupcad.constraints.constraint.ValueConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.constraints.constraint.ValueConstraint.new">
+<em class="property">classmethod </em><code class="descname">new</code><span class="sig-paren">(</span><em>*objects</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint.html#ValueConstraint.new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint.ValueConstraint.new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.constraints.constraint_support">
+<span id="popupcad-constraints-constraint-support-module"></span><h2>popupcad.constraints.constraint_support module<a class="headerlink" href="#module-popupcad.constraints.constraint_support" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;asu.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.constraints.constraint_support.SymbolicLine">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraint_support.</code><code class="descname">SymbolicLine</code><span class="sig-paren">(</span><em>v1</em>, <em>v2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_support.html#SymbolicLine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_support.SymbolicLine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.constraints.constraint_support.SymbolicLine.lv">
+<code class="descname">lv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_support.html#SymbolicLine.lv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_support.SymbolicLine.lv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_support.SymbolicLine.p1">
+<code class="descname">p1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_support.html#SymbolicLine.p1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_support.SymbolicLine.p1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_support.SymbolicLine.p2">
+<code class="descname">p2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_support.html#SymbolicLine.p2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_support.SymbolicLine.p2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_support.SymbolicLine.v">
+<code class="descname">v</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_support.html#SymbolicLine.v"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_support.SymbolicLine.v" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraint_support.SymbolicVertex">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraint_support.</code><code class="descname">SymbolicVertex</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_support.html#SymbolicVertex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_support.SymbolicVertex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.constraints.constraint_support.SymbolicVertex.p">
+<code class="descname">p</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_support.html#SymbolicVertex.p"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_support.SymbolicVertex.p" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="popupcad.constraints.constraint_support.UnknownType">
+<em class="property">exception </em><code class="descclassname">popupcad.constraints.constraint_support.</code><code class="descname">UnknownType</code><a class="reference internal" href="../_modules/popupcad/constraints/constraint_support.html#UnknownType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_support.UnknownType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraint_support.Variable">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraint_support.</code><code class="descname">Variable</code><a class="reference internal" href="../_modules/popupcad/constraints/constraint_support.html#Variable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_support.Variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">sympy.core.symbol.Symbol</span></code></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint_support.Variable.default_assumptions">
+<code class="descname">default_assumptions</code><em class="property"> = {}</em><a class="headerlink" href="#popupcad.constraints.constraint_support.Variable.default_assumptions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="popupcad.constraints.constraint_support.WrongArguments">
+<em class="property">exception </em><code class="descclassname">popupcad.constraints.constraint_support.</code><code class="descname">WrongArguments</code><a class="reference internal" href="../_modules/popupcad/constraints/constraint_support.html#WrongArguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_support.WrongArguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.constraints.constraint_system">
+<span id="popupcad-constraints-constraint-system-module"></span><h2>popupcad.constraints.constraint_system module<a class="headerlink" href="#module-popupcad.constraints.constraint_system" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;asu.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraint_system.</code><code class="descname">ConstraintSystem</code><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#ConstraintSystem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.add_constraint">
+<code class="descname">add_constraint</code><span class="sig-paren">(</span><em>constraint</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#ConstraintSystem.add_constraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.add_constraint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.atol">
+<code class="descname">atol</code><em class="property"> = 1e-10</em><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.atol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.cleanup">
+<code class="descname">cleanup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#ConstraintSystem.cleanup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.constrained_shift">
+<code class="descname">constrained_shift</code><span class="sig-paren">(</span><em>items</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#ConstraintSystem.constrained_shift"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.constrained_shift" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#ConstraintSystem.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.generator">
+<code class="descname">generator</code><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.generator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.get_vertices">
+<code class="descname">get_vertices</code><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.get_vertices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.ini">
+<code class="descname">ini</code><span class="sig-paren">(</span><em>vertex_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#ConstraintSystem.ini"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.ini" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.inilist">
+<code class="descname">inilist</code><span class="sig-paren">(</span><em>variables</em>, <em>ini</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#ConstraintSystem.inilist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.inilist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.rtol">
+<code class="descname">rtol</code><em class="property"> = 1e-10</em><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.rtol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#ConstraintSystem.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.update_selective">
+<code class="descname">update_selective</code><span class="sig-paren">(</span><em>vertices</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#ConstraintSystem.update_selective"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.update_selective" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.upgrade">
+<code class="descname">upgrade</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#ConstraintSystem.upgrade"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.upgrade" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.ConstraintSystem.vertex_dict">
+<code class="descname">vertex_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#ConstraintSystem.vertex_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.ConstraintSystem.vertex_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraint_system.Generator">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraint_system.</code><code class="descname">Generator</code><span class="sig-paren">(</span><em>constraints</em>, <em>vertex_dict</em>, <em>objects</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#Generator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.Generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="staticmethod">
+<dt id="popupcad.constraints.constraint_system.Generator.build_constraint_mappings">
+<em class="property">static </em><code class="descname">build_constraint_mappings</code><span class="sig-paren">(</span><em>constraints</em>, <em>variables</em>, <em>n_eq</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#Generator.build_constraint_mappings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.Generator.build_constraint_mappings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.Generator.get_equations">
+<code class="descname">get_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#Generator.get_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.Generator.get_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.Generator.get_variables">
+<code class="descname">get_variables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#Generator.get_variables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.Generator.get_variables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.Generator.n_constraints">
+<code class="descname">n_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#Generator.n_constraints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.Generator.n_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.Generator.n_eq">
+<code class="descname">n_eq</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#Generator.n_eq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.Generator.n_eq" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.Generator.n_vars">
+<code class="descname">n_vars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#Generator.n_vars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.Generator.n_vars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraint_system.Generator.regenerate_inner">
+<code class="descname">regenerate_inner</code><span class="sig-paren">(</span><em>objects</em>, <em>constraints</em>, <em>variables</em>, <em>n_eq</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraint_system.html#Generator.regenerate_inner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraint_system.Generator.regenerate_inner" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.constraints.constraints">
+<span id="popupcad-constraints-constraints-module"></span><h2>popupcad.constraints.constraints module<a class="headerlink" href="#module-popupcad.constraints.constraints" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;asu.edu.
+Please see LICENSE for full license.</p>
+<dl class="class">
+<dt id="popupcad.constraints.constraints.AngleConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraints.</code><code class="descname">AngleConstraint</code><span class="sig-paren">(</span><em>value</em>, <em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#AngleConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.AngleConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.ValueConstraint" title="popupcad.constraints.constraint.ValueConstraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.ValueConstraint</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.AngleConstraint.name">
+<code class="descname">name</code><em class="property"> = 'Angle'</em><a class="headerlink" href="#popupcad.constraints.constraints.AngleConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraints.AngleConstraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#AngleConstraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.AngleConstraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.AngleConstraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.at_least_one_line at 0x0000000006E0A158&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraints.AngleConstraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.AngleConstraint.value_text">
+<code class="descname">value_text</code><em class="property"> = 'enter angle(in degrees)'</em><a class="headerlink" href="#popupcad.constraints.constraints.AngleConstraint.value_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraints.CoincidentConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraints.</code><code class="descname">CoincidentConstraint</code><span class="sig-paren">(</span><em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#CoincidentConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.CoincidentConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.Constraint" title="popupcad.constraints.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.Constraint</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.CoincidentConstraint.name">
+<code class="descname">name</code><em class="property"> = 'Coincident Points'</em><a class="headerlink" href="#popupcad.constraints.constraints.CoincidentConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraints.CoincidentConstraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#CoincidentConstraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.CoincidentConstraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.CoincidentConstraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.at_least_two_points at 0x0000000006E05F28&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraints.CoincidentConstraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraints.DistanceConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraints.</code><code class="descname">DistanceConstraint</code><span class="sig-paren">(</span><em>value</em>, <em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#DistanceConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.DistanceConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.ValueConstraint" title="popupcad.constraints.constraint.ValueConstraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.ValueConstraint</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.DistanceConstraint.name">
+<code class="descname">name</code><em class="property"> = 'distance'</em><a class="headerlink" href="#popupcad.constraints.constraints.DistanceConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraints.DistanceConstraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#DistanceConstraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.DistanceConstraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.DistanceConstraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.exactly_two_points at 0x0000000006E05EA0&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraints.DistanceConstraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraints.EqualLengthLinesConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraints.</code><code class="descname">EqualLengthLinesConstraint</code><span class="sig-paren">(</span><em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#EqualLengthLinesConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.EqualLengthLinesConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.Constraint" title="popupcad.constraints.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.Constraint</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.EqualLengthLinesConstraint.name">
+<code class="descname">name</code><em class="property"> = 'Equal Length Lines'</em><a class="headerlink" href="#popupcad.constraints.constraints.EqualLengthLinesConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraints.EqualLengthLinesConstraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#EqualLengthLinesConstraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.EqualLengthLinesConstraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.EqualLengthLinesConstraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.at_least_two_lines at 0x0000000006E0A0D0&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraints.EqualLengthLinesConstraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraints.FixedConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraints.</code><code class="descname">FixedConstraint</code><span class="sig-paren">(</span><em>vertex_ids</em>, <em>values</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#FixedConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.FixedConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.Constraint" title="popupcad.constraints.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.Constraint</span></code></a></p>
+<dl class="method">
+<dt id="popupcad.constraints.constraints.FixedConstraint.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><em>identical=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#FixedConstraint.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.FixedConstraint.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.FixedConstraint.name">
+<code class="descname">name</code><em class="property"> = 'Fixed'</em><a class="headerlink" href="#popupcad.constraints.constraints.FixedConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="popupcad.constraints.constraints.FixedConstraint.new">
+<em class="property">classmethod </em><code class="descname">new</code><span class="sig-paren">(</span><em>*objects</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#FixedConstraint.new"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.FixedConstraint.new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraints.FixedConstraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#FixedConstraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.FixedConstraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.FixedConstraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.at_least_one_point at 0x0000000006E0A2F0&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraints.FixedConstraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraints.HorizontalConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraints.</code><code class="descname">HorizontalConstraint</code><span class="sig-paren">(</span><em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#HorizontalConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.HorizontalConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.Constraint" title="popupcad.constraints.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.Constraint</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.HorizontalConstraint.name">
+<code class="descname">name</code><em class="property"> = 'Horizontal'</em><a class="headerlink" href="#popupcad.constraints.constraints.HorizontalConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraints.HorizontalConstraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#HorizontalConstraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.HorizontalConstraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.HorizontalConstraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.at_least_two_points at 0x0000000006E05F28&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraints.HorizontalConstraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraints.LineMidpointConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraints.</code><code class="descname">LineMidpointConstraint</code><span class="sig-paren">(</span><em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#LineMidpointConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.LineMidpointConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.Constraint" title="popupcad.constraints.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.Constraint</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.LineMidpointConstraint.name">
+<code class="descname">name</code><em class="property"> = 'Point on Line Midpoint'</em><a class="headerlink" href="#popupcad.constraints.constraints.LineMidpointConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraints.LineMidpointConstraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#LineMidpointConstraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.LineMidpointConstraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.LineMidpointConstraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.exactly_one_point_and_one_line at 0x0000000006E0A1E0&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraints.LineMidpointConstraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraints.ParallelLinesConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraints.</code><code class="descname">ParallelLinesConstraint</code><span class="sig-paren">(</span><em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#ParallelLinesConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.ParallelLinesConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.Constraint" title="popupcad.constraints.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.Constraint</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.ParallelLinesConstraint.name">
+<code class="descname">name</code><em class="property"> = 'Parallel Lines'</em><a class="headerlink" href="#popupcad.constraints.constraints.ParallelLinesConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraints.ParallelLinesConstraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#ParallelLinesConstraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.ParallelLinesConstraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.ParallelLinesConstraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.at_least_two_lines at 0x0000000006E0A0D0&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraints.ParallelLinesConstraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraints.PerpendicularLinesConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraints.</code><code class="descname">PerpendicularLinesConstraint</code><span class="sig-paren">(</span><em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#PerpendicularLinesConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.PerpendicularLinesConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.Constraint" title="popupcad.constraints.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.Constraint</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.PerpendicularLinesConstraint.name">
+<code class="descname">name</code><em class="property"> = 'Perpendicular Lines'</em><a class="headerlink" href="#popupcad.constraints.constraints.PerpendicularLinesConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraints.PerpendicularLinesConstraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#PerpendicularLinesConstraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.PerpendicularLinesConstraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.PerpendicularLinesConstraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.exactly_two_lines at 0x0000000006E0A048&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraints.PerpendicularLinesConstraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraints.PointLineDistanceConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraints.</code><code class="descname">PointLineDistanceConstraint</code><span class="sig-paren">(</span><em>value</em>, <em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#PointLineDistanceConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.PointLineDistanceConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.ValueConstraint" title="popupcad.constraints.constraint.ValueConstraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.ValueConstraint</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.PointLineDistanceConstraint.name">
+<code class="descname">name</code><em class="property"> = 'Point-Line Distance'</em><a class="headerlink" href="#popupcad.constraints.constraints.PointLineDistanceConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraints.PointLineDistanceConstraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#PointLineDistanceConstraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.PointLineDistanceConstraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.PointLineDistanceConstraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.exactly_one_point_and_one_line at 0x0000000006E0A1E0&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraints.PointLineDistanceConstraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraints.VerticalConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraints.</code><code class="descname">VerticalConstraint</code><span class="sig-paren">(</span><em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#VerticalConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.VerticalConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.Constraint" title="popupcad.constraints.constraint.Constraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.Constraint</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.VerticalConstraint.name">
+<code class="descname">name</code><em class="property"> = 'Vertical'</em><a class="headerlink" href="#popupcad.constraints.constraints.VerticalConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraints.VerticalConstraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#VerticalConstraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.VerticalConstraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.VerticalConstraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.at_least_two_points at 0x0000000006E05F28&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraints.VerticalConstraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraints.XDistanceConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraints.</code><code class="descname">XDistanceConstraint</code><span class="sig-paren">(</span><em>value</em>, <em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#XDistanceConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.XDistanceConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.ValueConstraint" title="popupcad.constraints.constraint.ValueConstraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.ValueConstraint</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.XDistanceConstraint.name">
+<code class="descname">name</code><em class="property"> = 'X Distance'</em><a class="headerlink" href="#popupcad.constraints.constraints.XDistanceConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraints.XDistanceConstraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#XDistanceConstraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.XDistanceConstraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.XDistanceConstraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.at_least_one_point at 0x0000000006E0A2F0&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraints.XDistanceConstraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="popupcad.constraints.constraints.YDistanceConstraint">
+<em class="property">class </em><code class="descclassname">popupcad.constraints.constraints.</code><code class="descname">YDistanceConstraint</code><span class="sig-paren">(</span><em>value</em>, <em>vertex_ids</em>, <em>segment_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#YDistanceConstraint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.YDistanceConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#popupcad.constraints.constraint.ValueConstraint" title="popupcad.constraints.constraint.ValueConstraint"><code class="xref py py-class docutils literal"><span class="pre">popupcad.constraints.constraint.ValueConstraint</span></code></a></p>
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.YDistanceConstraint.name">
+<code class="descname">name</code><em class="property"> = 'Y Distance'</em><a class="headerlink" href="#popupcad.constraints.constraints.YDistanceConstraint.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="popupcad.constraints.constraints.YDistanceConstraint.symbolic_equations">
+<code class="descname">symbolic_equations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/popupcad/constraints/constraints.html#YDistanceConstraint.symbolic_equations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#popupcad.constraints.constraints.YDistanceConstraint.symbolic_equations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="popupcad.constraints.constraints.YDistanceConstraint.validity_tests">
+<code class="descname">validity_tests</code><em class="property"> = [&lt;function Constraint.at_least_one_point at 0x0000000006E0A2F0&gt;]</em><a class="headerlink" href="#popupcad.constraints.constraints.YDistanceConstraint.validity_tests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-popupcad.constraints">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-popupcad.constraints" title="Permalink to this headline">¶</a></h2>
+<p>Written by Daniel M. Aukes and CONTRIBUTORS
+Email: danaukes&lt;at&gt;asu.edu.
+Please see LICENSE for full license.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">popupcad.constraints package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-popupcad.constraints.constraint">popupcad.constraints.constraint module</a></li>
+<li><a class="reference internal" href="#module-popupcad.constraints.constraint_support">popupcad.constraints.constraint_support module</a></li>
+<li><a class="reference internal" href="#module-popupcad.constraints.constraint_system">popupcad.constraints.constraint_system module</a></li>
+<li><a class="reference internal" href="#module-popupcad.constraints.constraints">popupcad.constraints.constraints module</a></li>
+<li><a class="reference internal" href="#module-popupcad.constraints">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<form class="search" action="../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

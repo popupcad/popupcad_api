@@ -1,0 +1,46 @@
+popupcad.constraints package
+============================
+
+Submodules
+----------
+
+popupcad.constraints.constraint module
+--------------------------------------
+
+.. automodule:: popupcad.constraints.constraint
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.constraints.constraint_support module
+----------------------------------------------
+
+.. automodule:: popupcad.constraints.constraint_support
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.constraints.constraint_system module
+---------------------------------------------
+
+.. automodule:: popupcad.constraints.constraint_system
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.constraints.constraints module
+---------------------------------------
+
+.. automodule:: popupcad.constraints.constraints
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: popupcad.constraints
+    :members:
+    :undoc-members:
+    :show-inheritance:

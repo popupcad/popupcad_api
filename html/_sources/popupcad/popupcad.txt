@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
     popupcad.algorithms
+    popupcad.constraints
     popupcad.filetypes
     popupcad.geometry
     popupcad.graphics2d

@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,10 +54,10 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.algorithms.tetrahedron</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
@@ -106,37 +106,37 @@
             <span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">variable_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_list</span><span class="p">(</span><span class="n">density</span><span class="p">,</span><span class="n">point</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">I_xx_unscaled</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">)</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_J_det</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">))</span>
-<span class="c">#        return I_xx_unscaled(*variable_list)</span></div>
+<span class="c1">#        return I_xx_unscaled(*variable_list)</span></div>
 <div class="viewcode-block" id="Tetrahedron.I_yy"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.tetrahedron.Tetrahedron.I_yy">[docs]</a>    <span class="k">def</span> <span class="nf">I_yy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">density</span><span class="p">,</span><span class="n">point</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">point</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">variable_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_list</span><span class="p">(</span><span class="n">density</span><span class="p">,</span><span class="n">point</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">I_yy_unscaled</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">)</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_J_det</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">))</span>
-<span class="c">#        return I_yy_unscaled(*variable_list)</span></div>
+<span class="c1">#        return I_yy_unscaled(*variable_list)</span></div>
 <div class="viewcode-block" id="Tetrahedron.I_zz"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.tetrahedron.Tetrahedron.I_zz">[docs]</a>    <span class="k">def</span> <span class="nf">I_zz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">density</span><span class="p">,</span><span class="n">point</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">point</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">variable_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_list</span><span class="p">(</span><span class="n">density</span><span class="p">,</span><span class="n">point</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">I_zz_unscaled</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">)</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_J_det</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">))</span>
-<span class="c">#        return I_zz_unscaled(*variable_list)</span></div>
+<span class="c1">#        return I_zz_unscaled(*variable_list)</span></div>
 <div class="viewcode-block" id="Tetrahedron.I_xy"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.tetrahedron.Tetrahedron.I_xy">[docs]</a>    <span class="k">def</span> <span class="nf">I_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">density</span><span class="p">,</span><span class="n">point</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">point</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">variable_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_list</span><span class="p">(</span><span class="n">density</span><span class="p">,</span><span class="n">point</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">I_xy_unscaled</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">)</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_J_det</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">))</span>
-<span class="c">#        return I_xy_unscaled(*variable_list)</span></div>
+<span class="c1">#        return I_xy_unscaled(*variable_list)</span></div>
 <div class="viewcode-block" id="Tetrahedron.I_yz"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.tetrahedron.Tetrahedron.I_yz">[docs]</a>    <span class="k">def</span> <span class="nf">I_yz</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">density</span><span class="p">,</span><span class="n">point</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">point</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">variable_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_list</span><span class="p">(</span><span class="n">density</span><span class="p">,</span><span class="n">point</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">I_yz_unscaled</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">)</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_J_det</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">))</span>
-<span class="c">#        return I_yz_unscaled(*variable_list)</span></div>
+<span class="c1">#        return I_yz_unscaled(*variable_list)</span></div>
 <div class="viewcode-block" id="Tetrahedron.I_zx"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.tetrahedron.Tetrahedron.I_zx">[docs]</a>    <span class="k">def</span> <span class="nf">I_zx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">density</span><span class="p">,</span><span class="n">point</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">point</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">variable_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_list</span><span class="p">(</span><span class="n">density</span><span class="p">,</span><span class="n">point</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">I_zx_unscaled</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">)</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_J_det</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">))</span>
-<span class="c">#        return I_zx_unscaled(*variable_list)</span></div>
+<span class="c1">#        return I_zx_unscaled(*variable_list)</span></div>
 <div class="viewcode-block" id="Tetrahedron.I"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.tetrahedron.Tetrahedron.I">[docs]</a>    <span class="k">def</span> <span class="nf">I</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">density</span><span class="p">,</span><span class="n">point</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">point</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
@@ -149,13 +149,13 @@
         <span class="n">Izx</span> <span class="o">=</span> <span class="n">I_zx_unscaled</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">)</span>
         <span class="n">I</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">Ixx</span><span class="p">,</span><span class="n">Ixy</span><span class="p">,</span><span class="n">Izx</span><span class="p">],[</span><span class="n">Ixy</span><span class="p">,</span><span class="n">Iyy</span><span class="p">,</span><span class="n">Iyz</span><span class="p">],[</span><span class="n">Izx</span><span class="p">,</span><span class="n">Iyz</span><span class="p">,</span><span class="n">Izz</span><span class="p">]])</span>
         <span class="k">return</span> <span class="n">I</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">_J_det</span><span class="p">(</span><span class="o">*</span><span class="n">variable_list</span><span class="p">))</span>
-<span class="c">#        return I</span>
+<span class="c1">#        return I</span>
 
 
 
 
         </div></div>
-<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">p0</span><span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">p1</span><span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">p2</span><span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>

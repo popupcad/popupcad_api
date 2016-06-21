@@ -20,6 +20,14 @@ popupcad.guis.editor module
     :undoc-members:
     :show-inheritance:
 
+popupcad.guis.editor_menu_system_generator module
+-------------------------------------------------
+
+.. automodule:: popupcad.guis.editor_menu_system_generator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 popupcad.guis.icons module
 --------------------------
 
@@ -32,6 +40,14 @@ popupcad.guis.sketcher module
 -----------------------------
 
 .. automodule:: popupcad.guis.sketcher
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad.guis.sketcher_menu_system_generator module
+---------------------------------------------------
+
+.. automodule:: popupcad.guis.sketcher_menu_system_generator
     :members:
     :undoc-members:
     :show-inheritance:

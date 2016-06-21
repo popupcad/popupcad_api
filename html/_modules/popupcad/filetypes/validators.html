@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,22 +54,23 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.filetypes.validators</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 
 <div class="viewcode-block" id="StrictDoubleValidator"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.validators.StrictDoubleValidator">[docs]</a><span class="k">class</span> <span class="nc">StrictDoubleValidator</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QDoubleValidator</span><span class="p">):</span>
 
 <div class="viewcode-block" id="StrictDoubleValidator.validate"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.validators.StrictDoubleValidator.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_value</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
         <span class="n">state</span><span class="p">,</span> <span class="n">input_value</span><span class="p">,</span> <span class="n">pos</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">StrictDoubleValidator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">input_value</span><span class="p">),</span> <span class="n">pos</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">input_value</span> <span class="o">==</span> <span class="s">&#39;&#39;</span> <span class="ow">or</span> <span class="n">input_value</span> <span class="o">==</span> <span class="s">&#39;.&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">input_value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">input_value</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Intermediate</span><span class="p">,</span> <span class="n">input_value</span><span class="p">,</span> <span class="n">pos</span>
         <span class="k">if</span> <span class="n">state</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Acceptable</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Invalid</span><span class="p">,</span> <span class="n">input_value</span><span class="p">,</span> <span class="n">pos</span>

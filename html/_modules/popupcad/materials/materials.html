@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,17 +54,17 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.materials.materials</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Material"><a class="viewcode-back" href="../../../popupcad/popupcad.materials.html#popupcad.materials.materials.Material">[docs]</a><span class="k">class</span> <span class="nc">Material</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">display</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;color&#39;</span><span class="p">,</span> <span class="s">&#39;thickness&#39;</span><span class="p">]</span>
-    <span class="n">editable</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;*&#39;</span><span class="p">]</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;material&#39;</span>
+    <span class="n">display</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;thickness&#39;</span><span class="p">]</span>
+    <span class="n">editable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">]</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;material&#39;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">thickness</span> <span class="o">=</span> <span class="o">.</span><span class="mo">025</span>
     <span class="n">is_rigid</span><span class="o">=</span><span class="bp">False</span>
@@ -81,13 +81,13 @@
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-<span class="c">#    def __hash__(self):</span>
-<span class="c">#        return self.id</span>
-<span class="c">#</span>
-<span class="c">#    def __eq__(self, other):</span>
-<span class="c">#        if isinstance(other, type(self)):</span>
-<span class="c">#            return self.id == other.id</span>
-<span class="c">#        return False</span>
+<span class="c1">#    def __hash__(self):</span>
+<span class="c1">#        return self.id</span>
+<span class="c1">#</span>
+<span class="c1">#    def __eq__(self, other):</span>
+<span class="c1">#        if isinstance(other, type(self)):</span>
+<span class="c1">#            return self.id == other.id</span>
+<span class="c1">#        return False</span>
 
 <div class="viewcode-block" id="Material.upgrade"><a class="viewcode-back" href="../../../popupcad/popupcad.materials.html#popupcad.materials.materials.Material.upgrade">[docs]</a>    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">popupcad.filetypes.material2</span> <span class="kn">import</span> <span class="n">Material2</span>
@@ -102,51 +102,51 @@
     </div></div>
 <div class="viewcode-block" id="Carbon_0_90_0"><a class="viewcode-back" href="../../../popupcad/popupcad.materials.html#popupcad.materials.materials.Carbon_0_90_0">[docs]</a><span class="k">class</span> <span class="nc">Carbon_0_90_0</span><span class="p">(</span><span class="n">Material</span><span class="p">):</span>
     <span class="n">is_rigid</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Carbon(0-90-0)&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Carbon(0-90-0)&#39;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="o">.</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Pyralux"><a class="viewcode-back" href="../../../popupcad/popupcad.materials.html#popupcad.materials.materials.Pyralux">[docs]</a><span class="k">class</span> <span class="nc">Pyralux</span><span class="p">(</span><span class="n">Material</span><span class="p">):</span>
     <span class="n">is_adhesive</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Pyralux&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Pyralux&#39;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mf">175.</span> <span class="o">/</span> <span class="mi">256</span><span class="p">,</span> <span class="mf">81.</span> <span class="o">/</span> <span class="mi">256</span><span class="p">,</span> <span class="mf">81.</span> <span class="o">/</span> <span class="mi">256</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Kapton"><a class="viewcode-back" href="../../../popupcad/popupcad.materials.html#popupcad.materials.materials.Kapton">[docs]</a><span class="k">class</span> <span class="nc">Kapton</span><span class="p">(</span><span class="n">Material</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Kapton&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Kapton&#39;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Cardboard"><a class="viewcode-back" href="../../../popupcad/popupcad.materials.html#popupcad.materials.materials.Cardboard">[docs]</a><span class="k">class</span> <span class="nc">Cardboard</span><span class="p">(</span><span class="n">Material</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Cardboard&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Cardboard&#39;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="SMP"><a class="viewcode-back" href="../../../popupcad/popupcad.materials.html#popupcad.materials.materials.SMP">[docs]</a><span class="k">class</span> <span class="nc">SMP</span><span class="p">(</span><span class="n">Material</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;SMP&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;SMP&#39;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="o">.</span><span class="mi">75</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Silicone"><a class="viewcode-back" href="../../../popupcad/popupcad.materials.html#popupcad.materials.materials.Silicone">[docs]</a><span class="k">class</span> <span class="nc">Silicone</span><span class="p">(</span><span class="n">Material</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Silicone&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Silicone&#39;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="o">.</span><span class="mi">75</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Aluminum"><a class="viewcode-back" href="../../../popupcad/popupcad.materials.html#popupcad.materials.materials.Aluminum">[docs]</a><span class="k">class</span> <span class="nc">Aluminum</span><span class="p">(</span><span class="n">Material</span><span class="p">):</span>
     <span class="n">is_rigid</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Aluminum&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Aluminum&#39;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="o">.</span><span class="mi">75</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Copper"><a class="viewcode-back" href="../../../popupcad/popupcad.materials.html#popupcad.materials.materials.Copper">[docs]</a><span class="k">class</span> <span class="nc">Copper</span><span class="p">(</span><span class="n">Material</span><span class="p">):</span>
     <span class="n">is_rigid</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Copper&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Copper&#39;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">16</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="FR4"><a class="viewcode-back" href="../../../popupcad/popupcad.materials.html#popupcad.materials.materials.FR4">[docs]</a><span class="k">class</span> <span class="nc">FR4</span><span class="p">(</span><span class="n">Material</span><span class="p">):</span>
     <span class="n">is_rigid</span> <span class="o">=</span> <span class="bp">True</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;FR4&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;FR4&#39;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="o">.</span><span class="mi">85</span><span class="p">,</span> <span class="o">.</span><span class="mi">36</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Velcro"><a class="viewcode-back" href="../../../popupcad/popupcad.materials.html#popupcad.materials.materials.Velcro">[docs]</a><span class="k">class</span> <span class="nc">Velcro</span><span class="p">(</span><span class="n">Material</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Velcro&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Velcro&#39;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Dummy"><a class="viewcode-back" href="../../../popupcad/popupcad.materials.html#popupcad.materials.materials.Dummy">[docs]</a><span class="k">class</span> <span class="nc">Dummy</span><span class="p">(</span><span class="n">Material</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Dummy&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Dummy&#39;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span>
 </div>
 <span class="n">available_materials</span> <span class="o">=</span> <span class="p">[</span>
@@ -161,9 +161,9 @@
     <span class="n">Copper</span><span class="p">,</span>
     <span class="n">FR4</span><span class="p">,</span>
     <span class="n">SMP</span><span class="p">]</span>
-<span class="c"># available_materials.sort()</span>
+<span class="c1"># available_materials.sort()</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">popupcad.filetypes.layerdef</span> <span class="kn">import</span> <span class="n">LayerDef</span>
     <span class="n">sublaminate</span> <span class="o">=</span> <span class="n">LayerDef</span><span class="p">(</span>
         <span class="n">Carbon_0_90_0</span><span class="p">(),</span>

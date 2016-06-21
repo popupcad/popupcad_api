@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>popupcad.constraints.constraints &mdash; popupCAD API</title>
+    
+    <link rel="stylesheet" href="../../../_static/better.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="popupCAD API" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body role="document">
+    <header id="pageheader">
+      <div class="header_inner">
+        <ul class="horizontal">
+          <li><a title=" popupCAD.org - software for building laminate robots" href="/" id="logo">home</a></li>
+          <li><a href="/competition">design contest</a></li>
+          <li><a href="/docs/download">download</a></li>
+          <li><a href="/gallery/">gallery</a></li>
+          <li><a href="/docs/what-is-popupcad/">docs</a></li>
+          <li><a href="/tutorials/overview/">tutorials</a></li>
+          <li><a href="/news/">news</a></li>
+          </ul>
+
+      </div>
+      <div class="header_inner">
+        <h1>
+          <a href="../../../index.html ">Documentation</a>
+        </h1>
+      </div>
+    </header>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for popupcad.constraints.constraints</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+<span class="kn">import</span> <span class="nn">sympy</span>
+<span class="kn">import</span> <span class="nn">sympy.utilities</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">from</span> <span class="nn">popupcad.constraints.constraint_system</span> <span class="kn">import</span> <span class="n">ConstraintSystem</span>
+<span class="kn">from</span> <span class="nn">popupcad.constraints.constraint</span> <span class="kn">import</span> <span class="n">Constraint</span><span class="p">,</span><span class="n">ValueConstraint</span>
+<span class="kn">from</span> <span class="nn">popupcad.constraints.constraint_support</span> <span class="kn">import</span> <span class="o">*</span>     
+
+<div class="viewcode-block" id="FixedConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.FixedConstraint">[docs]</a><span class="k">class</span> <span class="nc">FixedConstraint</span><span class="p">(</span><span class="n">Constraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span>
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constraint</span><span class="o">.</span><span class="n">at_least_one_point</span><span class="p">]</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertex_ids</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertex_ids</span> <span class="o">=</span> <span class="n">vertex_ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">segment_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="FixedConstraint.new"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.FixedConstraint.new">[docs]</a>    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">popupcad.geometry.line</span> <span class="kn">import</span> <span class="n">Line</span>
+        <span class="kn">from</span> <span class="nn">popupcad.geometry.vertex</span> <span class="kn">import</span> <span class="n">BaseVertex</span>
+
+        <span class="n">segment_ids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">((</span><span class="n">line</span><span class="o">.</span><span class="n">vertex1</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">vertex2</span><span class="o">.</span><span class="n">id</span><span class="p">)))</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">objects</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">Line</span><span class="p">)]</span>
+        <span class="n">segment_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">segment_ids</span><span class="p">))</span>
+
+        <span class="n">vertex_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">vertex_ids</span><span class="o">.</span><span class="n">extend</span><span class="p">([(</span><span class="n">vertex</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">vertex</span><span class="o">.</span><span class="n">getpos</span><span class="p">())</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">objects</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span> <span class="n">BaseVertex</span><span class="p">)])</span>
+        <span class="n">vertex_ids</span><span class="o">.</span><span class="n">extend</span><span class="p">([(</span><span class="n">vertex</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">vertex</span><span class="o">.</span><span class="n">getpos</span><span class="p">())</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">objects</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="n">Line</span><span class="p">)</span> <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">vertex1</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">vertex2</span><span class="p">)])</span>
+        <span class="n">vertex_ids</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">vertex_ids</span><span class="p">)</span>
+
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">vertex_ids</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="nb">list</span><span class="p">(</span><span class="n">vertex_ids</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">check_valid</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">obj</span>
+</div>
+<div class="viewcode-block" id="FixedConstraint.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.FixedConstraint.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex_ids</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
+            <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
+<div class="viewcode-block" id="FixedConstraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.FixedConstraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">eqs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">vertex</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getvertices</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+            <span class="n">eqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertex</span><span class="o">.</span><span class="n">p</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">eqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertex</span><span class="o">.</span><span class="n">p</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">eqs</span>
+
+</div></div>
+<div class="viewcode-block" id="HorizontalConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.HorizontalConstraint">[docs]</a><span class="k">class</span> <span class="nc">HorizontalConstraint</span><span class="p">(</span><span class="n">Constraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Horizontal&#39;</span>
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constraint</span><span class="o">.</span><span class="n">at_least_two_points</span><span class="p">]</span>
+
+<div class="viewcode-block" id="HorizontalConstraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.HorizontalConstraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getallvertices</span><span class="p">()</span>
+        <span class="n">eqs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">vertex0</span> <span class="o">=</span> <span class="n">vertices</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">p0</span> <span class="o">=</span> <span class="n">vertex0</span><span class="o">.</span><span class="n">p</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">vertices</span><span class="p">:</span>
+            <span class="n">eqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertex</span><span class="o">.</span><span class="n">p</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">eqs</span>
+
+</div></div>
+<div class="viewcode-block" id="VerticalConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.VerticalConstraint">[docs]</a><span class="k">class</span> <span class="nc">VerticalConstraint</span><span class="p">(</span><span class="n">Constraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Vertical&#39;</span>
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constraint</span><span class="o">.</span><span class="n">at_least_two_points</span><span class="p">]</span>
+
+<div class="viewcode-block" id="VerticalConstraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.VerticalConstraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getallvertices</span><span class="p">()</span>
+        <span class="n">eqs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">vertex0</span> <span class="o">=</span> <span class="n">vertices</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">p0</span> <span class="o">=</span> <span class="n">vertex0</span><span class="o">.</span><span class="n">p</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">vertices</span><span class="p">:</span>
+            <span class="n">eqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertex</span><span class="o">.</span><span class="n">p</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">eqs</span>
+
+</div></div>
+<div class="viewcode-block" id="DistanceConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.DistanceConstraint">[docs]</a><span class="k">class</span> <span class="nc">DistanceConstraint</span><span class="p">(</span><span class="n">ValueConstraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;distance&#39;</span>
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constraint</span><span class="o">.</span><span class="n">exactly_two_points</span><span class="p">]</span>
+
+<div class="viewcode-block" id="DistanceConstraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.DistanceConstraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getallvertices</span><span class="p">()</span>
+        <span class="n">p0</span> <span class="o">=</span> <span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">p</span><span class="p">()</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">vertices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">p</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">:</span>
+            <span class="n">eq</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">eq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">eq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">eq</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">v1</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">-</span> <span class="n">p0</span>
+            <span class="n">l1</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span><span class="o">**.</span><span class="mi">5</span>
+            <span class="n">eq</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">eq</span><span class="p">]</span>
+
+</div></div>
+<div class="viewcode-block" id="CoincidentConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.CoincidentConstraint">[docs]</a><span class="k">class</span> <span class="nc">CoincidentConstraint</span><span class="p">(</span><span class="n">Constraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Coincident Points&#39;</span>
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constraint</span><span class="o">.</span><span class="n">at_least_two_points</span><span class="p">]</span>
+
+<div class="viewcode-block" id="CoincidentConstraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.CoincidentConstraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getallvertices</span><span class="p">()</span>
+        <span class="n">eq</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">p0</span> <span class="o">=</span> <span class="n">vertices</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span><span class="o">.</span><span class="n">p</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">vertices</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">vertex</span><span class="o">.</span><span class="n">p</span><span class="p">()</span>
+            <span class="n">eq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">eq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">eq</span>
+
+</div></div>
+<div class="viewcode-block" id="XDistanceConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.XDistanceConstraint">[docs]</a><span class="k">class</span> <span class="nc">XDistanceConstraint</span><span class="p">(</span><span class="n">ValueConstraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;X Distance&#39;</span>
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constraint</span><span class="o">.</span><span class="n">at_least_one_point</span><span class="p">]</span>
+
+<div class="viewcode-block" id="XDistanceConstraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.XDistanceConstraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getallvertices</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">eq</span> <span class="o">=</span> <span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">p</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">eq</span> <span class="o">=</span> <span class="p">((</span><span class="n">vertices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">p</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">p</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**.</span><span class="mi">5</span> <span class="o">-</span> \
+                <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**.</span><span class="mi">5</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">eq</span><span class="p">]</span>
+
+</div></div>
+<div class="viewcode-block" id="YDistanceConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.YDistanceConstraint">[docs]</a><span class="k">class</span> <span class="nc">YDistanceConstraint</span><span class="p">(</span><span class="n">ValueConstraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Y Distance&#39;</span>
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constraint</span><span class="o">.</span><span class="n">at_least_one_point</span><span class="p">]</span>
+
+<div class="viewcode-block" id="YDistanceConstraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.YDistanceConstraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getallvertices</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">flip_y</span><span class="p">:</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="mf">1.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">eq</span> <span class="o">=</span> <span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">p</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">*</span> <span class="n">temp</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">eq</span> <span class="o">=</span> <span class="p">((</span><span class="n">vertices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">p</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">p</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**.</span><span class="mi">5</span> <span class="o">-</span> \
+                <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**.</span><span class="mi">5</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">eq</span><span class="p">]</span>
+
+</div></div>
+<div class="viewcode-block" id="AngleConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.AngleConstraint">[docs]</a><span class="k">class</span> <span class="nc">AngleConstraint</span><span class="p">(</span><span class="n">ValueConstraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Angle&#39;</span>
+    <span class="n">value_text</span> <span class="o">=</span> <span class="s1">&#39;enter angle(in degrees)&#39;</span>
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constraint</span><span class="o">.</span><span class="n">at_least_one_line</span><span class="p">]</span>
+
+<div class="viewcode-block" id="AngleConstraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.AngleConstraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">v1</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">v</span><span class="p">()</span>
+            <span class="n">v2</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">l2</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">v1</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">v</span><span class="p">()</span>
+            <span class="n">v2</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">v</span><span class="p">()</span>
+            <span class="n">l2</span> <span class="o">=</span> <span class="n">v2</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">l1</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">v3</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span>
+            <span class="n">l3</span> <span class="o">=</span> <span class="n">v3</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v3</span><span class="p">)</span><span class="o">**.</span><span class="mi">5</span>
+            <span class="n">eq</span> <span class="o">=</span> <span class="n">l3</span> <span class="o">-</span> <span class="n">sympy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">*</span> <span class="n">sympy</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span> <span class="o">*</span> <span class="n">l1</span> <span class="o">*</span> <span class="n">l2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">eq</span> <span class="o">=</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">eq</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">eq</span><span class="p">]</span>
+
+</div></div>
+<div class="viewcode-block" id="ParallelLinesConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.ParallelLinesConstraint">[docs]</a><span class="k">class</span> <span class="nc">ParallelLinesConstraint</span><span class="p">(</span><span class="n">Constraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Parallel Lines&#39;</span>
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constraint</span><span class="o">.</span><span class="n">at_least_two_lines</span><span class="p">]</span>
+
+<div class="viewcode-block" id="ParallelLinesConstraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.ParallelLinesConstraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getlines</span><span class="p">()</span>
+        <span class="n">v1</span> <span class="o">=</span> <span class="n">lines</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">v</span><span class="p">()</span>
+        <span class="n">eq</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="n">v2</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">v</span><span class="p">()</span>
+            <span class="n">eq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">eq</span>
+
+</div></div>
+<div class="viewcode-block" id="EqualLengthLinesConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.EqualLengthLinesConstraint">[docs]</a><span class="k">class</span> <span class="nc">EqualLengthLinesConstraint</span><span class="p">(</span><span class="n">Constraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Equal Length Lines&#39;</span>
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constraint</span><span class="o">.</span><span class="n">at_least_two_lines</span><span class="p">]</span>
+
+<div class="viewcode-block" id="EqualLengthLinesConstraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.EqualLengthLinesConstraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getlines</span><span class="p">()</span>
+        <span class="n">vs</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">v</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">]</span>
+        <span class="n">lengths</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">**.</span><span class="mi">5</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vs</span><span class="p">]</span>
+        <span class="n">eqs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">length0</span> <span class="o">=</span> <span class="n">lengths</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">length</span> <span class="ow">in</span> <span class="n">lengths</span><span class="p">:</span>
+            <span class="n">eqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">length0</span> <span class="o">-</span> <span class="n">length</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">eqs</span>
+
+</div></div>
+<div class="viewcode-block" id="PerpendicularLinesConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.PerpendicularLinesConstraint">[docs]</a><span class="k">class</span> <span class="nc">PerpendicularLinesConstraint</span><span class="p">(</span><span class="n">Constraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Perpendicular Lines&#39;</span>
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constraint</span><span class="o">.</span><span class="n">exactly_two_lines</span><span class="p">]</span>
+
+<div class="viewcode-block" id="PerpendicularLinesConstraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.PerpendicularLinesConstraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">v1</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">v</span><span class="p">()</span>
+        <span class="n">v2</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">v</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+</div></div>
+<div class="viewcode-block" id="PointLineDistanceConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.PointLineDistanceConstraint">[docs]</a><span class="k">class</span> <span class="nc">PointLineDistanceConstraint</span><span class="p">(</span><span class="n">ValueConstraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Point-Line Distance&#39;</span>
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constraint</span><span class="o">.</span><span class="n">exactly_one_point_and_one_line</span><span class="p">]</span>
+
+<div class="viewcode-block" id="PointLineDistanceConstraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.PointLineDistanceConstraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getvertices</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">p</span><span class="p">()</span>
+        <span class="n">v1</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">-</span> <span class="n">line</span><span class="o">.</span><span class="n">p1</span><span class="p">()</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">v</span><span class="p">()</span>
+        <span class="n">lv</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">lv</span><span class="p">()</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span> <span class="o">/</span> <span class="n">lv</span>
+        <span class="n">p0</span> <span class="o">=</span> <span class="n">v</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="n">lv</span> <span class="o">+</span> <span class="n">line</span><span class="o">.</span><span class="n">p1</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">:</span>
+            <span class="n">eq</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">eq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">eq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">eq</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">v1</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">-</span> <span class="n">p0</span>
+            <span class="n">l1</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span><span class="o">**.</span><span class="mi">5</span>
+            <span class="n">eq</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">eq</span><span class="p">]</span>
+
+</div></div>
+<div class="viewcode-block" id="LineMidpointConstraint"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.LineMidpointConstraint">[docs]</a><span class="k">class</span> <span class="nc">LineMidpointConstraint</span><span class="p">(</span><span class="n">Constraint</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Point on Line Midpoint&#39;</span>
+    <span class="n">validity_tests</span> <span class="o">=</span> <span class="p">[</span><span class="n">Constraint</span><span class="o">.</span><span class="n">exactly_one_point_and_one_line</span><span class="p">]</span>
+
+<div class="viewcode-block" id="LineMidpointConstraint.symbolic_equations"><a class="viewcode-back" href="../../../popupcad/popupcad.constraints.html#popupcad.constraints.constraints.LineMidpointConstraint.symbolic_equations">[docs]</a>    <span class="k">def</span> <span class="nf">symbolic_equations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getvertices</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">p</span><span class="p">()</span>
+        <span class="n">p0</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">p1</span><span class="p">()</span> <span class="o">+</span> <span class="n">line</span><span class="o">.</span><span class="n">p2</span><span class="p">())</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="n">eq</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">eq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">eq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">eq</span>
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="c1">#    a = SymbolicVertex(1)</span>
+<span class="c1">#    b = SymbolicVertex(2)</span>
+<span class="c1">#    c = SymbolicVertex(3)</span>
+<span class="c1">#    d = SymbolicVertex(4)</span>
+    
+<span class="c1">#    line1 = a,b</span>
+<span class="c1">#    line2 = b,c</span>
+
+    <span class="n">constraint</span> <span class="o">=</span> <span class="n">perpendicular</span><span class="p">([],[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)])</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<form class="search" action="../../../search.html" method="get">
+  <input type="text" name="q"
+   placeholder="type to search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  <footer id="pagefooter">&copy; 2015, Daniel M. Aukes.
+
+  </footer>
+
+  
+  </body>
+</html>

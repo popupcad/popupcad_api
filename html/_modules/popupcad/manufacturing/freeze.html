@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,17 +54,20 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.manufacturing.freeze</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.laminate</span> <span class="kn">import</span> <span class="n">Laminate</span>
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.operation2</span> <span class="kn">import</span> <span class="n">Operation2</span>
 
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
 <span class="kn">from</span> <span class="nn">popupcad.widgets.dragndroptree</span> <span class="kn">import</span> <span class="n">DraggableTreeWidget</span>
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.design</span> <span class="kn">import</span> <span class="n">NoOperation</span>
 
@@ -82,11 +85,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">le1</span><span class="o">.</span><span class="n">selectIndeces</span><span class="p">([(</span><span class="n">selectedop</span><span class="p">,</span> <span class="n">outputref</span><span class="p">)])</span>
 
         <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Operation to Flatten&#39;</span><span class="p">))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Operation to Flatten&#39;</span><span class="p">))</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">le1</span><span class="p">)</span>
 
-        <span class="n">button1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
-        <span class="n">button2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+        <span class="n">button1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Cancel&#39;</span><span class="p">)</span>
 
         <span class="n">layout2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
         <span class="n">layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button1</span><span class="p">)</span>
@@ -106,7 +109,7 @@
 
 </div></div>
 <div class="viewcode-block" id="Freeze"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.freeze.Freeze">[docs]</a><span class="k">class</span> <span class="nc">Freeze</span><span class="p">(</span><span class="n">Operation2</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Freeze&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Freeze&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Freeze</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>

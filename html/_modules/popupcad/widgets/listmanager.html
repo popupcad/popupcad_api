@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,43 +54,41 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.widgets.listmanager</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 
 <div class="viewcode-block" id="ListItem"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.ListItem">[docs]</a><span class="k">class</span> <span class="nc">ListItem</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QListWidgetItem</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ListItem</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">()</span> <span class="o">|</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemFlag</span><span class="o">.</span><span class="n">ItemIsEditable</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setFlags</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">()</span> <span class="o">|</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemIsEditable</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ListItem.data"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.ListItem.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">role</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">DisplayRole</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">get_basename</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">UserRole</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span>
 </div>
 <div class="viewcode-block" id="ListItem.setData"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.ListItem.setData">[docs]</a>    <span class="k">def</span> <span class="nf">setData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">role</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">EditRole</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">set_basename</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-            <span class="k">return</span> <span class="bp">True</span>
-        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ItemDataRole</span><span class="o">.</span><span class="n">UserRole</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">role</span> <span class="o">==</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">UserRole</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-            <span class="k">return</span> <span class="bp">True</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">return</span>
 
 </div></div>
 <div class="viewcode-block" id="ListManager"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.ListManager">[docs]</a><span class="k">class</span> <span class="nc">ListManager</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
@@ -124,7 +122,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">doubleClicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itemDoubleClicked</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layout2</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
 
-<span class="c">#        self.itemlist.itemChanged.connect(self.items_updated)</span>
+<span class="c1">#        self.itemlist.itemChanged.connect(self.items_updated)</span>
         
 <div class="viewcode-block" id="ListManager.buildButtonItem"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.ListManager.buildButtonItem">[docs]</a>    <span class="k">def</span> <span class="nf">buildButtonItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
         <span class="n">button</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
@@ -133,8 +131,8 @@
 </div>
 <div class="viewcode-block" id="ListManager.widgets"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.ListManager.widgets">[docs]</a>    <span class="k">def</span> <span class="nf">widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">actions</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s">&#39;Save As...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_item</span><span class="p">))</span>
-        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s">&#39;Copy&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy_item</span><span class="p">))</span>
+        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;Save As...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_item</span><span class="p">))</span>
+        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;Copy&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy_item</span><span class="p">))</span>
         <span class="n">widgets</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">buildButtonItem</span><span class="p">(</span><span class="o">*</span><span class="n">action</span><span class="p">)</span> <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">widgets</span>
 </div>
@@ -194,9 +192,20 @@
     <span class="k">pass</span>
 
 </div>
+<div class="viewcode-block" id="SketchListViewer"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.SketchListViewer">[docs]</a><span class="k">class</span> <span class="nc">SketchListViewer</span><span class="p">(</span><span class="n">ListManager</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Sketch&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">design</span> <span class="o">=</span> <span class="n">design</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SketchListViewer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SketchListViewer.widgets"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.SketchListViewer.widgets">[docs]</a>    <span class="k">def</span> <span class="nf">widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">actions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;Save As...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_item</span><span class="p">))</span>
+        <span class="n">widgets</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">buildButtonItem</span><span class="p">(</span><span class="o">*</span><span class="n">action</span><span class="p">)</span> <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">widgets</span>
+</div></div>
 <div class="viewcode-block" id="SketchListManager"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.SketchListManager">[docs]</a><span class="k">class</span> <span class="nc">SketchListManager</span><span class="p">(</span><span class="n">ListManager</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Sketch&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Sketch&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">design</span> <span class="o">=</span> <span class="n">design</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">SketchListManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">itemlist</span><span class="o">.</span><span class="n">doubleClicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">edit_method</span><span class="p">)</span>
@@ -216,25 +225,28 @@
 
         <span class="n">sketcher</span> <span class="o">=</span> <span class="n">Sketcher</span><span class="p">(</span>
             <span class="bp">None</span><span class="p">,</span>
-            <span class="n">Sketch</span><span class="p">(),</span>
+            <span class="n">Sketch</span><span class="o">.</span><span class="n">new</span><span class="p">(),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="p">,</span>
             <span class="n">accept_method</span><span class="o">=</span><span class="n">accept_method</span><span class="p">,</span>
             <span class="n">selectops</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="n">sketcher</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">sketcher</span><span class="o">.</span><span class="n">move_center</span><span class="p">()</span>
+        
         <span class="n">sketcher</span><span class="o">.</span><span class="n">graphicsview</span><span class="o">.</span><span class="n">zoomToFit</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="SketchListManager.load_item"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.SketchListManager.load_item">[docs]</a>    <span class="k">def</span> <span class="nf">load_item</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">popupcad.filetypes.sketch</span> <span class="kn">import</span> <span class="n">Sketch</span>
         <span class="n">newitem</span> <span class="o">=</span> <span class="n">Sketch</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">newitem</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">newitem</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refresh_list</span><span class="p">(</span><span class="n">newitem</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">items_updated</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">newitem</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">newitem</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">newitem</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">refresh_list</span><span class="p">(</span><span class="n">newitem</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">items_updated</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="SketchListManager.widgets"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.SketchListManager.widgets">[docs]</a>    <span class="k">def</span> <span class="nf">widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">actions</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s">&#39;New...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_method</span><span class="p">))</span>
-        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s">&#39;Edit...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">edit_method</span><span class="p">))</span>
-        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s">&#39;Load...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_item</span><span class="p">))</span>
+        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;New...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_method</span><span class="p">))</span>
+        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;Edit...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">edit_method</span><span class="p">))</span>
+        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;Load...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_item</span><span class="p">))</span>
         <span class="n">widgets</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">buildButtonItem</span><span class="p">(</span><span class="o">*</span><span class="n">action</span><span class="p">)</span> <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">]</span>
         <span class="n">widgets</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">SketchListManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">widgets</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">widgets</span>
@@ -252,21 +264,21 @@
 </div>
 <div class="viewcode-block" id="AdvancedSketchListManager.widgets"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.AdvancedSketchListManager.widgets">[docs]</a>    <span class="k">def</span> <span class="nf">widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">widgets</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">widgets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buildButtonItem</span><span class="p">(</span><span class="s">&#39;Cleanup&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleanup</span><span class="p">))</span>
+        <span class="n">widgets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buildButtonItem</span><span class="p">(</span><span class="s1">&#39;Cleanup&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleanup</span><span class="p">))</span>
         <span class="n">widgets</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">AdvancedSketchListManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">widgets</span><span class="p">())</span>
-        <span class="n">widgets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buildButtonItem</span><span class="p">(</span><span class="s">&#39;Delete&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_item</span><span class="p">))</span>
+        <span class="n">widgets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buildButtonItem</span><span class="p">(</span><span class="s1">&#39;Delete&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_item</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">widgets</span>
 </div></div>
 <div class="viewcode-block" id="DesignListManager"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.DesignListManager">[docs]</a><span class="k">class</span> <span class="nc">DesignListManager</span><span class="p">(</span><span class="n">ListManager</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Sketch&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Sketch&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">design</span> <span class="o">=</span> <span class="n">design</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">DesignListManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">subdesigns</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-<span class="c">#        self.itemlist.doubleClicked.connect(self.edit_method)</span>
+<span class="c1">#        self.itemlist.doubleClicked.connect(self.edit_method)</span>
 
-<span class="c">#    def edit_method(self):</span>
-<span class="c">#        for item in self.itemlist.selectedItems():</span>
-<span class="c">#            item.value.edit(None,self.design,selectops = True)</span>
+<span class="c1">#    def edit_method(self):</span>
+<span class="c1">#        for item in self.itemlist.selectedItems():</span>
+<span class="c1">#            item.value.edit(None,self.design,selectops = True)</span>
 
 <div class="viewcode-block" id="DesignListManager.load_item"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.DesignListManager.load_item">[docs]</a>    <span class="k">def</span> <span class="nf">load_item</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">popupcad.filetypes.design</span> <span class="kn">import</span> <span class="n">Design</span>
@@ -278,7 +290,7 @@
 </div>
 <div class="viewcode-block" id="DesignListManager.widgets"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.DesignListManager.widgets">[docs]</a>    <span class="k">def</span> <span class="nf">widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">actions</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s">&#39;Load...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_item</span><span class="p">))</span>
+        <span class="n">actions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;Load...&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_item</span><span class="p">))</span>
         <span class="n">widgets</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">buildButtonItem</span><span class="p">(</span><span class="o">*</span><span class="n">action</span><span class="p">)</span> <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">actions</span><span class="p">]</span>
         <span class="n">widgets</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">DesignListManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">widgets</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">widgets</span>
@@ -296,15 +308,15 @@
 </div>
 <div class="viewcode-block" id="AdvancedDesignListManager.widgets"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.listmanager.AdvancedDesignListManager.widgets">[docs]</a>    <span class="k">def</span> <span class="nf">widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">widgets</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">widgets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buildButtonItem</span><span class="p">(</span><span class="s">&#39;Cleanup&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleanup</span><span class="p">))</span>
+        <span class="n">widgets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buildButtonItem</span><span class="p">(</span><span class="s1">&#39;Cleanup&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleanup</span><span class="p">))</span>
         <span class="n">widgets</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">super</span><span class="p">(</span><span class="n">AdvancedDesignListManager</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">widgets</span><span class="p">())</span>
-        <span class="n">widgets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buildButtonItem</span><span class="p">(</span><span class="s">&#39;Delete&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_item</span><span class="p">))</span>
+        <span class="n">widgets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buildButtonItem</span><span class="p">(</span><span class="s1">&#39;Delete&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_item</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">widgets</span>
 </div></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
     <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
-    <span class="n">dict1</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;asdf&#39;</span><span class="p">:</span> <span class="n">Dummy</span><span class="p">(),</span> <span class="s">&#39;xxx&#39;</span><span class="p">:</span> <span class="n">Dummy</span><span class="p">()}</span>
+    <span class="n">dict1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;asdf&#39;</span><span class="p">:</span> <span class="n">Dummy</span><span class="p">(),</span> <span class="s1">&#39;xxx&#39;</span><span class="p">:</span> <span class="n">Dummy</span><span class="p">()}</span>
     <span class="n">lm</span> <span class="o">=</span> <span class="n">ListManager</span><span class="p">(</span><span class="n">dict1</span><span class="p">)</span>
     <span class="n">lm</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>

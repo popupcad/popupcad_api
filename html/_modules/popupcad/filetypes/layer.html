@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,10 +54,10 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.filetypes.layer</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="kn">as</span> <span class="nn">sg</span>
@@ -70,21 +70,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">geoms</span> <span class="o">=</span> <span class="n">geoms</span>
 
 <div class="viewcode-block" id="Layer.union"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layer.Layer.union">[docs]</a>    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s">&#39;union&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s1">&#39;union&#39;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Layer.difference"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layer.Layer.difference">[docs]</a>    <span class="k">def</span> <span class="nf">difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s">&#39;difference&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s1">&#39;difference&#39;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Layer.intersection"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layer.Layer.intersection">[docs]</a>    <span class="k">def</span> <span class="nf">intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s">&#39;intersection&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s1">&#39;intersection&#39;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Layer.symmetric_difference"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layer.Layer.symmetric_difference">[docs]</a>    <span class="k">def</span> <span class="nf">symmetric_difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s">&#39;symmetric_difference&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">binaryoperation</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s1">&#39;symmetric_difference&#39;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Layer.buffer"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layer.Layer.buffer">[docs]</a>    <span class="k">def</span> <span class="nf">buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;resolution&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;resolution&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">default_buffer_resolution</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueoperation</span><span class="p">(</span><span class="s">&#39;buffer&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;resolution&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;resolution&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">default_buffer_resolution</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueoperation</span><span class="p">(</span><span class="s1">&#39;buffer&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Layer.add_geoms"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layer.Layer.add_geoms">[docs]</a>    <span class="k">def</span> <span class="nf">add_geoms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geoms</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">geoms</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">geoms</span><span class="p">)</span>

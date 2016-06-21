@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,10 +54,10 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.algorithms.removability</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.layer</span> <span class="kn">import</span> <span class="n">Layer</span>
@@ -79,7 +79,7 @@
 </div>
 <div class="viewcode-block" id="two_way"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.removability.two_way">[docs]</a><span class="k">def</span> <span class="nf">two_way</span><span class="p">(</span><span class="n">laminatein</span><span class="p">):</span>
     <span class="n">layers</span> <span class="o">=</span> <span class="n">laminatein</span><span class="o">.</span><span class="n">layerdef</span><span class="o">.</span><span class="n">layers</span>
-    <span class="n">laminateout</span> <span class="o">=</span> <span class="n">laminatein</span><span class="o">.</span><span class="n">unarylayeroperation</span><span class="p">(</span><span class="s">&#39;union&#39;</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">layers</span><span class="p">)</span>
+    <span class="n">laminateout</span> <span class="o">=</span> <span class="n">laminatein</span><span class="o">.</span><span class="n">unarylayeroperation</span><span class="p">(</span><span class="s1">&#39;union&#39;</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">layers</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">laminateout</span>
 
 </div>
@@ -93,8 +93,8 @@
 
 </div>
 <div class="viewcode-block" id="generate_removable_scrap"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.removability.generate_removable_scrap">[docs]</a><span class="k">def</span> <span class="nf">generate_removable_scrap</span><span class="p">(</span><span class="n">device</span><span class="p">,</span> <span class="n">sheet</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">device_buffer</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="c">#    scrap = sheet.difference(device)</span>
-    <span class="c">#    smaller_scrap = scrap.buffer(-tol)</span>
+    <span class="c1">#    scrap = sheet.difference(device)</span>
+    <span class="c1">#    smaller_scrap = scrap.buffer(-tol)</span>
     <span class="n">removability_up</span> <span class="o">=</span> <span class="n">one_way_up</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
     <span class="n">removability_down</span> <span class="o">=</span> <span class="n">one_way_down</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
     <span class="n">removability_both</span> <span class="o">=</span> <span class="n">two_way</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>

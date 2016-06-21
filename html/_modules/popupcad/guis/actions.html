@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,150 +54,168 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.guis.actions</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">popupcad</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+<span class="kn">import</span> <span class="nn">popupcad.guis.icons</span>
 
-<div class="viewcode-block" id="Action"><a class="viewcode-back" href="../../../popupcad/popupcad.guis.html#popupcad.guis.actions.Action">[docs]</a><span class="k">class</span> <span class="nc">Action</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QAction</span><span class="p">):</span>
-    <span class="k">pass</span>
+<div class="viewcode-block" id="MenuSystem"><a class="viewcode-back" href="../../../popupcad/popupcad.guis.html#popupcad.guis.actions.MenuSystem">[docs]</a><span class="k">class</span> <span class="nc">MenuSystem</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">shortcut_interpretation</span><span class="o">=</span><span class="p">{}</span>
+    <span class="n">shortcut_interpretation</span><span class="p">[</span><span class="s1">&#39;Ctrl+N&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">QKeySequence</span><span class="o">.</span><span class="n">New</span>
+    <span class="n">shortcut_interpretation</span><span class="p">[</span><span class="s1">&#39;Ctrl+O&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">QKeySequence</span><span class="o">.</span><span class="n">Open</span>
+    <span class="n">shortcut_interpretation</span><span class="p">[</span><span class="s1">&#39;Ctrl+S&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">QKeySequence</span><span class="o">.</span><span class="n">Save</span>
+    <span class="n">shortcut_interpretation</span><span class="p">[</span><span class="s1">&#39;Ctrl+Shift+S&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">QKeySequence</span><span class="o">.</span><span class="n">SaveAs</span>    
+    <span class="n">shortcut_interpretation</span><span class="p">[</span><span class="s1">&#39;Ctrl+Z&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">QKeySequence</span><span class="o">.</span><span class="n">Undo</span>
+    <span class="n">shortcut_interpretation</span><span class="p">[</span><span class="s1">&#39;Ctrl+Y&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">QKeySequence</span><span class="o">.</span><span class="n">Redo</span>
+    <span class="n">shortcut_interpretation</span><span class="p">[</span><span class="s1">&#39;Ctrl+X&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">QKeySequence</span><span class="o">.</span><span class="n">Cut</span>
+    <span class="n">shortcut_interpretation</span><span class="p">[</span><span class="s1">&#39;Ctrl+C&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">QKeySequence</span><span class="o">.</span><span class="n">Copy</span>
+    <span class="n">shortcut_interpretation</span><span class="p">[</span><span class="s1">&#39;Ctrl+V&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">qg</span><span class="o">.</span><span class="n">QKeySequence</span><span class="o">.</span><span class="n">Paste</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">action_defs</span><span class="p">,</span> <span class="n">toolbar_definitions</span><span class="p">,</span><span class="n">menu_struct</span><span class="p">,</span><span class="n">toolbar_struct</span><span class="p">,</span><span class="n">shortcuts</span><span class="p">,</span><span class="n">top_menu_key</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_defs</span> <span class="o">=</span> <span class="n">action_defs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_definitions</span> <span class="o">=</span> <span class="n">toolbar_definitions</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu_struct</span> <span class="o">=</span> <span class="n">menu_struct</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_struct</span> <span class="o">=</span> <span class="n">toolbar_struct</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shortcuts</span> <span class="o">=</span> <span class="n">shortcuts</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">top_menu_key</span> <span class="o">=</span> <span class="n">top_menu_key</span>
+
+<div class="viewcode-block" id="MenuSystem.build"><a class="viewcode-back" href="../../../popupcad/popupcad.guis.html#popupcad.guis.actions.MenuSystem.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shortcuts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">action_defs</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;shortcut&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        
+        <span class="n">shortcuts_translation</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">value</span><span class="p">,</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shortcuts</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="n">shortcuts_translation</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shortcut_interpretation</span><span class="p">)</span>
+        
+        <span class="n">icons</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">guis</span><span class="o">.</span><span class="n">icons</span><span class="o">.</span><span class="n">get_icons</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">key</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">build_action</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">parent</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">action_defs</span><span class="p">,</span><span class="n">shortcuts_translation</span><span class="p">,</span><span class="n">icons</span><span class="p">))</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_defs</span><span class="p">])</span>
+                
+        <span class="bp">self</span><span class="o">.</span><span class="n">other_items</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">other_items</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;separator&#39;</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_items</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_items</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_items</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">other_items</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">menu_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_menu</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">build_menu_r2</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">menu_struct</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">all_items</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">menu_list</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">menu_struct</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">top_menu_key</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbars</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">toolbar_menus</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">toolbar_struct</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">top_menu_key</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">all_items</span><span class="p">,</span><span class="n">icons</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="build"><a class="viewcode-back" href="../../../popupcad/popupcad.guis.html#popupcad.guis.actions.build">[docs]</a><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">editor</span><span class="p">):</span>
-    <span class="n">file_new</span> <span class="o">=</span> <span class="n">Action</span><span class="p">(</span><span class="s">&#39;New&#39;</span><span class="p">,</span><span class="n">editor</span><span class="p">)</span>
-    <span class="n">file_open</span> <span class="o">=</span> <span class="n">Action</span><span class="p">(</span><span class="s">&#39;Open...&#39;</span><span class="p">,</span><span class="n">editor</span><span class="p">)</span>
-    <span class="n">file_save</span> <span class="o">=</span> <span class="n">Action</span><span class="p">(</span><span class="s">&#39;Save&#39;</span><span class="p">,</span><span class="n">editor</span><span class="p">)</span>
-    <span class="n">file_save_as</span> <span class="o">=</span> <span class="n">Action</span><span class="p">(</span><span class="s">&#39;Save As...&#39;</span><span class="p">,</span><span class="n">editor</span><span class="p">)</span>
-    <span class="n">file_upgrade</span> <span class="o">=</span> <span class="n">Action</span><span class="p">(</span><span class="s">&#39;Upgrade&#39;</span><span class="p">,</span><span class="n">editor</span><span class="p">)</span>
-    <span class="n">file_export_svg</span> <span class="o">=</span> <span class="n">Action</span><span class="p">(</span><span class="s">&#39;Export to .svg...&#39;</span><span class="p">,</span><span class="n">editor</span><span class="p">)</span>
-    <span class="n">file_export_dxf</span> <span class="o">=</span> <span class="n">Action</span><span class="p">(</span><span class="s">&#39;Export to .dxf...&#39;</span><span class="p">,</span><span class="n">editor</span><span class="p">)</span>
-    <span class="n">file_export_dae</span> <span class="o">=</span> <span class="n">Action</span><span class="p">(</span><span class="s">&#39;Export to .dae...&#39;</span><span class="p">,</span><span class="n">editor</span><span class="p">)</span>
-    <span class="n">file_export_stl</span> <span class="o">=</span> <span class="n">Action</span><span class="p">(</span><span class="s">&#39;Export to .stl...&#39;</span><span class="p">,</span><span class="n">editor</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="MenuSystem.build_menu_r2"><a class="viewcode-back" href="../../../popupcad/popupcad.guis.html#popupcad.guis.actions.MenuSystem.build_menu_r2">[docs]</a>    <span class="k">def</span> <span class="nf">build_menu_r2</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="n">element</span><span class="p">,</span><span class="n">structure</span><span class="p">,</span><span class="n">dictionary</span><span class="p">,</span><span class="n">menu_list</span><span class="p">):</span>
+        <span class="n">menu</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QMenu</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">menu_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menu</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">structure</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">structure</span><span class="p">[</span><span class="n">element</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">:</span>
+                    <span class="n">subelement</span> <span class="o">=</span> <span class="n">dictionary</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subelement</span><span class="p">,</span><span class="n">qg</span><span class="o">.</span><span class="n">QAction</span><span class="p">):</span>
+                        <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">subelement</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">subelement</span><span class="o">==</span><span class="s1">&#39;separator&#39;</span><span class="p">:</span> <span class="c1">#if isinstance(item,type([])):</span>
+                        <span class="n">menu</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">submenu</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">build_menu_r2</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="n">structure</span><span class="p">,</span><span class="n">dictionary</span><span class="p">,</span><span class="n">menu_list</span><span class="p">)</span>
+                    <span class="n">menu</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="n">submenu</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">menu</span>
+                </div>
+<div class="viewcode-block" id="MenuSystem.build_toolbar"><a class="viewcode-back" href="../../../popupcad/popupcad.guis.html#popupcad.guis.actions.MenuSystem.build_toolbar">[docs]</a>    <span class="k">def</span> <span class="nf">build_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">toolbar_structure</span><span class="p">,</span><span class="n">top_element</span><span class="p">,</span><span class="n">dictionary</span><span class="p">,</span><span class="n">icons</span><span class="p">):</span>
+        <span class="n">toolbars</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">toolbar_menus</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">topitem</span> <span class="ow">in</span> <span class="n">toolbar_structure</span><span class="p">[</span><span class="n">top_element</span><span class="p">]:</span>
+            <span class="n">toolbar</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QToolBar</span><span class="p">(</span><span class="n">topitem</span><span class="p">)</span>
+            <span class="n">toolbar</span><span class="o">.</span><span class="n">setIconSize</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="n">popupcad</span><span class="o">.</span><span class="n">toolbar_icon_size</span><span class="p">,</span><span class="n">popupcad</span><span class="o">.</span><span class="n">toolbar_icon_size</span><span class="p">))</span>
+            <span class="n">toolbar</span><span class="o">.</span><span class="n">setToolButtonStyle</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ToolButtonTextUnderIcon</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">toolbar_structure</span><span class="p">[</span><span class="n">topitem</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="p">:</span>
+                    <span class="n">subelement</span> <span class="o">=</span> <span class="n">dictionary</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subelement</span><span class="p">,</span><span class="n">qg</span><span class="o">.</span><span class="n">QAction</span><span class="p">):</span>
+                        <span class="n">toolbar</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">subelement</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">subelement</span><span class="o">==</span><span class="s1">&#39;separator&#39;</span><span class="p">:</span> <span class="c1">#if isinstance(item,type([])):</span>
+                        <span class="n">toolbar</span><span class="o">.</span><span class="n">addSeparator</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">submenu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_menu_r2</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="n">toolbar_structure</span><span class="p">,</span><span class="n">dictionary</span><span class="p">,</span><span class="n">toolbar_menus</span><span class="p">)</span>
+                    <span class="n">tb</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QToolButton</span><span class="p">()</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">tb</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icons</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">toolbar_definitions</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s1">&#39;icon&#39;</span><span class="p">]])</span>
+                    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">tb</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">toolbar_definitions</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">])</span>
+                    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                    <span class="n">tb</span><span class="o">.</span><span class="n">setMenu</span><span class="p">(</span><span class="n">submenu</span><span class="p">)</span>
+                    <span class="n">tb</span><span class="o">.</span><span class="n">setPopupMode</span><span class="p">(</span><span class="n">tb</span><span class="o">.</span><span class="n">ToolButtonPopupMode</span><span class="o">.</span><span class="n">InstantPopup</span><span class="p">)</span>
+                    <span class="n">tb</span><span class="o">.</span><span class="n">setToolButtonStyle</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">ToolButtonTextUnderIcon</span><span class="p">)</span>
+                    <span class="n">toolbar</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">tb</span><span class="p">)</span>
+            <span class="n">toolbars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">toolbar</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">toolbars</span><span class="p">,</span><span class="n">toolbar_menus</span>
+
+</div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="MenuSystem.build_action"><a class="viewcode-back" href="../../../popupcad/popupcad.guis.html#popupcad.guis.actions.MenuSystem.build_action">[docs]</a>    <span class="k">def</span> <span class="nf">build_action</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">parent</span><span class="p">,</span><span class="n">action_defs</span><span class="p">,</span><span class="n">shortcuts_translation</span><span class="p">,</span><span class="n">icons</span><span class="p">):</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">action_defs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+        <span class="n">action_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">action_kwargs</span><span class="p">[</span><span class="s1">&#39;icon&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">icons</span><span class="p">[</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;icon&#39;</span><span class="p">]]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">action_kwargs</span><span class="p">[</span><span class="s1">&#39;statusTip&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;statusTip&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">action_kwargs</span><span class="p">[</span><span class="s1">&#39;shortcut&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">shortcuts_translation</span><span class="p">[</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;shortcut&#39;</span><span class="p">]]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        
+        <span class="n">action</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QAction</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="o">**</span><span class="n">action_kwargs</span><span class="p">)</span>
+            
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
     
-    <span class="n">file_actions</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">file_actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_new</span><span class="p">)</span>
-    <span class="n">file_actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_open</span><span class="p">)</span>
-    <span class="n">file_actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_save</span><span class="p">)</span>
-    <span class="n">file_actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_save_as</span><span class="p">)</span>
-    <span class="n">file_actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_upgrade</span><span class="p">)</span>
-    <span class="n">file_actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_export_svg</span><span class="p">)</span>
-    <span class="n">file_actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_export_dxf</span><span class="p">)</span>
-    <span class="n">file_actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_export_dae</span><span class="p">)</span>
-    <span class="n">file_actions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_export_stl</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">setCheckable</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;is_checkable&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
     
-    <span class="n">menu_file</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QMenu</span><span class="p">(</span><span class="s">&#39;File&#39;</span><span class="p">)</span>
-    <span class="p">[</span><span class="n">menu_file</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">file_actions</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">menu_file</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;is_checked&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
 
-
-
-<span class="c">#self.fileactions = []</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &quot;&amp;New&quot;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;new&#39;],&#39;shortcut&#39;: qg.QKeySequence.New,&#39;statusTip&#39;: &quot;Create a new file&quot;,&#39;triggered&#39;: self.newfile}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &quot;&amp;Open...&quot;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;open&#39;],&#39;shortcut&#39;: qg.QKeySequence.Open,&#39;statusTip&#39;: &quot;Open an existing file&quot;,&#39;triggered&#39;: self.open}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &quot;&amp;Save&quot;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;save&#39;],&#39;shortcut&#39;: qg.QKeySequence.Save,&#39;statusTip&#39;: &quot;Save the document to disk&quot;,&#39;triggered&#39;: self.save}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &quot;Save &amp;As...&quot;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;save&#39;],&#39;shortcut&#39;: qg.QKeySequence.SaveAs,&#39;statusTip&#39;: &quot;Save the document under a new name&quot;,&#39;triggered&#39;: self.saveAs}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &quot;Upgrade&quot;,&#39;kwargs&#39;: {&#39;statusTip&#39;: &quot;Upgrade the file&quot;,&#39;triggered&#39;: self.upgrade}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &#39;Export to stl&#39;, &#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;export&#39;],&#39;statusTip&#39;: &quot;Exports to a stl file&quot;,&#39;triggered&#39;: self.export_stl}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &#39;&amp;Export to SVG&#39;, &#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;export&#39;], &#39;triggered&#39;: self.exportLayerSVG}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &#39;Export to dxf&#39;, &#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;export&#39;],&#39;statusTip&#39;: &quot;Exports to a dxf file&quot;,&#39;triggered&#39;: self.export_dxf}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &#39;Export to dae&#39;, &#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;export&#39;],&#39;statusTip&#39;: &quot;Exports to a dae file&quot;,&#39;triggered&#39;: self.export_dae}})</span>
-<span class="c">#</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &quot;Save Joint Defs&quot;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.save_joint_def}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &quot;Export Laminate&quot;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.export_laminate}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &quot;Regen ID&quot;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.regen_id, }})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &quot;Preferences...&quot;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.preferences}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &quot;Render Icons&quot;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.gen_icons}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &quot;Build Documentation&quot;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.build_documentation}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &quot;License&quot;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.show_license}})</span>
-<span class="c">#self.fileactions.append({&#39;text&#39;: &quot;Update...&quot;,&#39;kwargs&#39;: {&#39;triggered&#39;: self.download_installer}})</span>
-<span class="c">#</span>
-<span class="c">#self.projectactions = []</span>
-<span class="c">#self.projectactions.append({&#39;text&#39;: &#39;&amp;Rebuild&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;refresh&#39;],&#39;shortcut&#39;: &#39;Ctrl+Shift+R&#39;,&#39;triggered&#39;: self.reprocessoperations_outer}})</span>
-<span class="c">#</span>
-<span class="c">#def dummy(action):</span>
-<span class="c">#    action.setCheckable(True)</span>
-<span class="c">#    action.setChecked(True)</span>
-<span class="c">#    self.act_autoreprocesstoggle = action</span>
-<span class="c">#self.projectactions.append({&#39;text&#39;: &#39;Auto Reprocess&#39;, &#39;kwargs&#39;: {}, &#39;prepmethod&#39;: dummy})</span>
-<span class="c">#</span>
-<span class="c">#self.projectactions.append(None)</span>
-<span class="c">#self.projectactions.append({&#39;text&#39;: &#39;Layer Order...&#39;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.editlayers}})</span>
-<span class="c">#self.projectactions.append({&#39;text&#39;: &#39;Laminate Properties...&#39;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.editlaminate}})</span>
-<span class="c">#self.projectactions.append({&#39;text&#39;: &#39;Sketches...&#39;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.sketchlist}})</span>
-<span class="c">#self.projectactions.append({&#39;text&#39;: &#39;SubDesigns...&#39;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.subdesigns}})</span>
-<span class="c">#self.projectactions.append({&#39;text&#39;: &#39;Replace...&#39;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.replace}})</span>
-<span class="c">#self.projectactions.append({&#39;text&#39;: &#39;Insert Laminate Op and Replace...&#39;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.insert_and_replace}})</span>
-<span class="c">#</span>
-<span class="c">#self.viewactions = []</span>
-<span class="c">#</span>
-<span class="c">#def dummy(action):</span>
-<span class="c">#    action.setCheckable(True)</span>
-<span class="c">#    action.setChecked(False)</span>
-<span class="c">#    self.act_view_3d = action</span>
-<span class="c">#self.viewactions.append({&#39;prepmethod&#39;: dummy,&#39;text&#39;: &#39;3D View&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;printapede&#39;],&#39;triggered&#39;: lambda: self.showhide2(self.view_3d_dock,self.act_view_3d)}})</span>
-<span class="c">#</span>
-<span class="c">#def dummy(action):</span>
-<span class="c">#    action.setCheckable(True)</span>
-<span class="c">#    action.setChecked(True)</span>
-<span class="c">#    self.act_view_ops = action</span>
-<span class="c">#self.viewactions.append({&#39;prepmethod&#39;: dummy,&#39;text&#39;: &#39;Operations&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;operations&#39;],&#39;triggered&#39;: lambda: self.showhide2(self.operationdock,self.act_view_ops)}})</span>
-<span class="c">#</span>
-<span class="c">#def dummy(action):</span>
-<span class="c">#    action.setCheckable(True)</span>
-<span class="c">#    action.setChecked(True)</span>
-<span class="c">#    self.act_view_layers = action</span>
-<span class="c">#self.viewactions.append({&#39;prepmethod&#39;: dummy,&#39;text&#39;: &#39;Layers&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;layers&#39;],&#39;triggered&#39;: lambda: self.showhide2(self.layerlistwidgetdock,self.act_view_layers)}})</span>
-<span class="c">#</span>
-<span class="c">#def dummy(action):</span>
-<span class="c">#    action.setCheckable(True)</span>
-<span class="c">#    action.setChecked(False)</span>
-<span class="c">#    self.act_view_errors = action</span>
-<span class="c">#self.viewactions.append({&#39;prepmethod&#39;: dummy, &#39;text&#39;: &#39;Error Log&#39;, &#39;kwargs&#39;: {&#39;triggered&#39;: lambda: self.showhide2(self.error_log, self.act_view_errors)}})</span>
-<span class="c">#</span>
-<span class="c">#self.viewactions.append({&#39;text&#39;: &#39;Zoom Fit&#39;,&#39;kwargs&#39;: {&#39;triggered&#39;: self.view_2d.zoomToFit,&#39;shortcut&#39;: &#39;Ctrl+F&#39;}})</span>
-<span class="c">#self.viewactions.append({&#39;text&#39;: &#39;Screenshot&#39;,&#39;kwargs&#39;: {&#39;triggered&#39;: self.scene.screenShot,&#39;shortcut&#39;: &#39;Ctrl+R&#39;}})</span>
-<span class="c">#self.viewactions.append({&#39;text&#39;: &#39;3D Screenshot&#39;, &#39;kwargs&#39;: {&#39;triggered&#39;: self.screenshot_3d}})</span>
-<span class="c">#</span>
-<span class="c">#self.tools1 = []</span>
-<span class="c">#self.tools1.append({&#39;text&#39;: &#39;Cleanup&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;cleanup&#39;],&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.cleanup2.Cleanup2)}})</span>
-<span class="c">#self.tools1.append({&#39;text&#39;: &#39;New Cleanup&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;cleanup&#39;],&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.cleanup3.Cleanup3)}})</span>
-<span class="c">#self.tools1.append({&#39;text&#39;: &#39;Simplify&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;simplify&#39;],&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.simplify2.Simplify2)}})</span>
-<span class="c">#self.tools1.append({&#39;text&#39;: &#39;JointOp&#39;,&#39;kwargs&#39;: {&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.joint_operation3.JointOperation3)}})</span>
-<span class="c">#self.tools1.append({&#39;text&#39;: &#39;HoleOp&#39;,&#39;kwargs&#39;: {&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.hole_operation.HoleOperation)}})</span>
-<span class="c">#self.tools1.append({&#39;text&#39;: &#39;Freeze&#39;, &#39;kwargs&#39;: {&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.freeze.Freeze)}})</span>
-<span class="c">#self.tools1.append({&#39;text&#39;: &#39;Cross-Section&#39;,&#39;kwargs&#39;: {&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.cross_section.CrossSection)}})</span>
-<span class="c">#self.tools1.append({&#39;text&#39;: &#39;SubOp&#39;,&#39;kwargs&#39;: {&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.sub_operation2.SubOperation2)}})</span>
-<span class="c">#self.tools1.append({&#39;text&#39;: &#39;Transform&#39;,&#39;kwargs&#39;: {&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.transform.TransformOperation)}})</span>
-<span class="c">##        self.tools1.append({&#39;text&#39;: &#39;Code Exec&#39;,&#39;kwargs&#39;: {&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.code_exec_op.CodeExecOperation)}})</span>
-<span class="c">#</span>
-<span class="c">#self.operationactions = []</span>
-<span class="c">#self.operationactions.append({&#39;text&#39;: &#39;&amp;SketchOp&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;polygons&#39;],&#39;shortcut&#39;: &#39;Ctrl+Shift+S&#39;,&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.simplesketchoperation.SimpleSketchOp)}})</span>
-<span class="c">#self.operationactions.append({&#39;text&#39;: &#39;&amp;LaminateOp&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;metaop&#39;],&#39;shortcut&#39;: &#39;Ctrl+Shift+M&#39;,&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.laminateoperation2.LaminateOperation2)}})</span>
-<span class="c">#self.operationactions.append({&#39;text&#39;: &#39;&amp;Dilate/Erode&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;bufferop&#39;],&#39;shortcut&#39;: &#39;Ctrl+Shift+B&#39;,&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.bufferop3.BufferOperation3)}})</span>
-<span class="c">#self.operationactions.append({&#39;text&#39;: &#39;&amp;PlaceOp&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;placeop&#39;],&#39;shortcut&#39;: &#39;Ctrl+Shift+P&#39;,&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.placeop8.PlaceOperation8)}})</span>
-<span class="c">#self.operationactions.append({&#39;text&#39;: &#39;L&amp;ocateOp&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;locate&#39;],&#39;shortcut&#39;: &#39;Ctrl+Shift+O&#39;,&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.locateoperation3.LocateOperation3)}})</span>
-<span class="c">#self.operationactions.append({&#39;text&#39;: &#39;Shift/Flip&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;shiftflip&#39;],&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.shiftflip3.ShiftFlip3)}})</span>
-<span class="c">#self.operationactions.append({&#39;text&#39;: &#39;&amp;LayerOp&#39;,&#39;kwargs&#39;: {&#39;icon&#39;: icons[&#39;layerop&#39;],&#39;shortcut&#39;: &#39;Ctrl+Shift+L&#39;,&#39;triggered&#39;: lambda: self.newoperation(popupcad.manufacturing.layerop2.LayerOp2)}})</span>
-<span class="c">#self.operationactions.append({&#39;text&#39;: &#39;More...&#39;, &#39;submenu&#39;: self.tools1, &#39;kwargs&#39;: {}})</span>
-<span class="c">#</span>
-<span class="c">#self.menu_file = self.addMenu(self.fileactions, name=&#39;File&#39;)</span>
-<span class="c">#self.menu_project = self.addMenu(self.projectactions, name=&#39;Project&#39;)</span>
-<span class="c">#self.menu_view = self.addMenu(self.viewactions, name=&#39;View&#39;)</span>
-<span class="c">#self.toolbar_operations, self.menu_operations = self.addToolbarMenu(self.operationactions, name=&#39;Operations&#39;)</span>
-<span class="c">#</span>
-<span class="c">##        menu_file = popupcad.guis.actions.build(self)</span>
-<span class="c">##        menu_bar = qg.QMenuBar()</span>
-<span class="c">##        menu_bar.addMenu(menu_file)</span>
-<span class="c">##        self.setMenuBar(menu_bar)</span>
-<span class="c">#</span>
-<span class="c">#self.showhide2(self.view_3d_dock, self.act_view_3d)</span>
-<span class="c">#self.showhide2(self.operationdock, self.act_view_ops)</span>
-<span class="c">#self.showhide2(self.layerlistwidgetdock, self.act_view_layers)</span>
-<span class="c">#self.showhide2(self.error_log, self.act_view_errors)</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">parent_trigger_method_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;triggered&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">parent_trigger_method_name</span><span class="p">,</span><span class="s1">&#39;__call__&#39;</span><span class="p">):</span>
+                <span class="n">parent_trigger_method</span> <span class="o">=</span> <span class="n">parent_trigger_method_name</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">parent_trigger_method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="n">parent_trigger_method_name</span><span class="p">)</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">parent_trigger_method</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span><span class="ne">AttributeError</span><span class="p">):</span>
+            <span class="k">pass</span>
+    
+        <span class="k">return</span> <span class="n">action</span>
+    </div>
+<div class="viewcode-block" id="MenuSystem.set_parent"><a class="viewcode-back" href="../../../popupcad/popupcad.guis.html#popupcad.guis.actions.MenuSystem.set_parent">[docs]</a>    <span class="k">def</span> <span class="nf">set_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">parent</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">value</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QApplication</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+<span class="c1">#    sys.exit(app.exec_())</span>
 </pre></div>
 
           </div>

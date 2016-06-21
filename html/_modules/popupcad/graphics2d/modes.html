@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,10 +54,10 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.graphics2d.modes</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
@@ -71,25 +71,25 @@
 </div>
 <div class="viewcode-block" id="InteractiveModes"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.modes.InteractiveModes">[docs]</a><span class="k">class</span> <span class="nc">InteractiveModes</span><span class="p">(</span><span class="n">Modes</span><span class="p">):</span>
     <span class="n">modelist</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;mode_defined&#39;</span><span class="p">)</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;mode_edit&#39;</span><span class="p">)</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;mode_selectable_edges&#39;</span><span class="p">)</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;mode_render&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mode_defined&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mode_edit&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mode_selectable_edges&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mode_render&#39;</span><span class="p">)</span>
 
 </div>
 <div class="viewcode-block" id="EdgeVertexStates"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.modes.EdgeVertexStates">[docs]</a><span class="k">class</span> <span class="nc">EdgeVertexStates</span><span class="p">(</span><span class="n">Modes</span><span class="p">):</span>
     <span class="n">modelist</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;state_hover&#39;</span><span class="p">)</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;state_neutral&#39;</span><span class="p">)</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;state_pressed&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;state_hover&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;state_neutral&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;state_pressed&#39;</span><span class="p">)</span>
 
 </div>
 <div class="viewcode-block" id="EdgeVertexModes"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.modes.EdgeVertexModes">[docs]</a><span class="k">class</span> <span class="nc">EdgeVertexModes</span><span class="p">(</span><span class="n">Modes</span><span class="p">):</span>
     <span class="n">modelist</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;mode_normal&#39;</span><span class="p">)</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;mode_edit&#39;</span><span class="p">)</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;mode_select&#39;</span><span class="p">)</span>
-    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;mode_render&#39;</span><span class="p">)</span></div>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mode_normal&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mode_edit&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mode_select&#39;</span><span class="p">)</span>
+    <span class="n">modelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mode_render&#39;</span><span class="p">)</span></div>
 </pre></div>
 
           </div>

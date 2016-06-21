@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,10 +54,10 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.filetypes.layerdef</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">popupcad</span>
@@ -66,8 +66,12 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refreshzvalues</span><span class="p">()</span>
         
+<div class="viewcode-block" id="LayerDef.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layerdef.LayerDef.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">]</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="o">*</span><span class="n">layers</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new</span>
+</div>
 <div class="viewcode-block" id="LayerDef.upgrade"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layerdef.LayerDef.upgrade">[docs]</a>    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">layers</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">upgrade</span><span class="p">()</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">]</span>
         <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="o">*</span><span class="n">layers</span><span class="p">)</span>
@@ -75,17 +79,18 @@
         </div>
 <div class="viewcode-block" id="LayerDef.addlayer"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layerdef.LayerDef.addlayer">[docs]</a>    <span class="k">def</span> <span class="nf">addlayer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">refreshzvalues</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="LayerDef.refreshzvalues"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layerdef.LayerDef.refreshzvalues">[docs]</a>    <span class="k">def</span> <span class="nf">refreshzvalues</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">zvalue</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_values</span>
+        </div>
+<div class="viewcode-block" id="LayerDef.calc_z_values"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layerdef.LayerDef.calc_z_values">[docs]</a>    <span class="k">def</span> <span class="nf">calc_z_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">zvalue</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">zval</span> <span class="o">=</span> <span class="mf">0.</span>
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[::</span><span class="mi">1</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">zvalue</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span> <span class="o">=</span> <span class="n">zval</span>
+            <span class="n">zvalue</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span> <span class="o">=</span> <span class="n">zval</span>
             <span class="n">zval</span> <span class="o">+=</span> <span class="n">layer</span><span class="o">.</span><span class="n">thickness</span>
-</div>
+        <span class="k">return</span> <span class="n">zvalue</span>
+        </div>
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">string</span> <span class="o">=</span> <span class="s">&#39;Laminate&#39;</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;Laminate&#39;</span>
         <span class="k">return</span> <span class="n">string</span>
 
 <div class="viewcode-block" id="LayerDef.getlayer"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layerdef.LayerDef.getlayer">[docs]</a>    <span class="k">def</span> <span class="nf">getlayer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">):</span>
@@ -111,15 +116,30 @@
         <span class="n">connected</span> <span class="o">=</span> <span class="p">[</span><span class="n">neighbor</span> <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">neighbors</span> <span class="k">if</span> <span class="p">(</span><span class="n">neighbor</span><span class="o">.</span><span class="n">is_adhesive</span> <span class="ow">or</span> <span class="n">layer</span><span class="o">.</span><span class="n">is_adhesive</span><span class="p">)]</span>
         <span class="k">return</span> <span class="n">connected</span>
 </div>
-<div class="viewcode-block" id="LayerDef.z_values"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layerdef.LayerDef.z_values">[docs]</a>    <span class="k">def</span> <span class="nf">z_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LayerDef.z_values2"><a class="viewcode-back" href="../../../popupcad/popupcad.filetypes.html#popupcad.filetypes.layerdef.LayerDef.z_values2">[docs]</a>    <span class="k">def</span> <span class="nf">z_values2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">zvalues</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">z</span> <span class="o">=</span> <span class="mf">0.</span>
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
-            <span class="n">zvalues</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;lower&#39;</span><span class="p">:</span><span class="n">z</span><span class="p">}</span>
+            <span class="n">zvalues</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lower&#39;</span><span class="p">:</span><span class="n">z</span><span class="p">}</span>
             <span class="n">z</span> <span class="o">+=</span> <span class="n">layer</span><span class="o">.</span><span class="n">thickness</span>
-            <span class="n">zvalues</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="s">&#39;upper&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span>
+            <span class="n">zvalues</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="s1">&#39;upper&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span>
         <span class="k">return</span> <span class="n">zvalues</span>
-        </div></div>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">z_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_z_values</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_z_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_z_values</span><span class="p">()</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_z_values</span>
+
+    <span class="nd">@z_values.deleter</span>
+    <span class="k">def</span> <span class="nf">z_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_z_values</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+            </div>
 </pre></div>
 
           </div>

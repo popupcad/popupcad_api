@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,16 +54,17 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.algorithms.painterpath</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Created on Sun Sep 27 12:29:46 2015</span>
+<span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
+<span class="sd">Please see LICENSE for full license.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">@author: danaukes</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">import</span> <span class="nn">popupcad</span>
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.genericshapes</span> <span class="kn">import</span> <span class="n">GenericPoly</span>
 
 <div class="viewcode-block" id="quadratic"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.painterpath.quadratic">[docs]</a><span class="k">def</span> <span class="nf">quadratic</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">p0</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">):</span>
@@ -86,7 +87,7 @@
 <div class="viewcode-block" id="painterpath_to_generics"><a class="viewcode-back" href="../../../popupcad/popupcad.algorithms.html#popupcad.algorithms.painterpath.painterpath_to_generics">[docs]</a><span class="k">def</span> <span class="nf">painterpath_to_generics</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">subdivision</span><span class="p">):</span>
     
     <span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">elementAt</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">elementCount</span><span class="p">())]</span>
-<span class="c">#    element_types = [str(item.type).split(&#39;.&#39;)[-1] for item in elements]</span>
+<span class="c1">#    element_types = [str(item.type).split(&#39;.&#39;)[-1] for item in elements]</span>
     
     <span class="n">vertex_lists</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">vertex_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -94,26 +95,26 @@
 
     <span class="k">while</span> <span class="ow">not</span> <span class="ow">not</span> <span class="n">elements</span><span class="p">:</span>
         <span class="n">element</span> <span class="o">=</span> <span class="n">elements</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="o">.</span><span class="n">ElementType</span><span class="o">.</span><span class="n">MoveToElement</span><span class="p">:</span>
-<span class="c">#            print(&#39;moveto&#39;,element.x,element.y)</span>
+        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="o">.</span><span class="n">MoveToElement</span><span class="p">:</span>
+<span class="c1">#            print(&#39;moveto&#39;,element.x,element.y)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vertex_list</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
                 <span class="n">vertex_lists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertex_list</span><span class="p">)</span>
                 <span class="n">vertex_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">element</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">element</span><span class="o">.</span><span class="n">y</span><span class="p">)]</span>
             <span class="n">lastelement</span> <span class="o">=</span> <span class="n">element</span>
                 
-        <span class="k">elif</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="o">.</span><span class="n">ElementType</span><span class="o">.</span><span class="n">LineToElement</span><span class="p">:</span>
-<span class="c">#            print(&#39;lineto&#39;,element.x,element.y)</span>
+        <span class="k">elif</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="o">.</span><span class="n">LineToElement</span><span class="p">:</span>
+<span class="c1">#            print(&#39;lineto&#39;,element.x,element.y)</span>
             <span class="n">vertex_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">element</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">element</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
             <span class="n">lastelement</span> <span class="o">=</span> <span class="n">element</span>
-        <span class="k">elif</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="o">.</span><span class="n">ElementType</span><span class="o">.</span><span class="n">CurveToElement</span><span class="p">:</span>
-<span class="c">#            print(&#39;curveto&#39;,element.x,element.y)</span>
+        <span class="k">elif</span> <span class="n">element</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="o">.</span><span class="n">CurveToElement</span><span class="p">:</span>
+<span class="c1">#            print(&#39;curveto&#39;,element.x,element.y)</span>
 
             <span class="n">subelements</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">next_is_data</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="k">while</span> <span class="n">next_is_data</span><span class="p">:</span>
                 <span class="n">subelements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elements</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
-                    <span class="n">next_is_data</span> <span class="o">=</span> <span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="o">==</span><span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="o">.</span><span class="n">ElementType</span><span class="o">.</span><span class="n">CurveToDataElement</span>
+                    <span class="n">next_is_data</span> <span class="o">=</span> <span class="n">elements</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="o">==</span><span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="o">.</span><span class="n">CurveToDataElement</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">next_is_data</span> <span class="o">=</span> <span class="bp">False</span>
     
@@ -127,7 +128,7 @@
                 <span class="n">lastelement</span> <span class="o">=</span> <span class="n">subelements</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
            
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span><span class="p">(</span><span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Wrong number of subelements&#39;</span><span class="p">))</span>
+                <span class="k">raise</span><span class="p">(</span><span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Wrong number of subelements&#39;</span><span class="p">))</span>
 
     <span class="n">vertex_lists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vertex_list</span><span class="p">)</span>
     <span class="n">polys</span> <span class="o">=</span> <span class="p">[]</span>

@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,19 +54,19 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.widgets.operationlist</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
 
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 
 <div class="viewcode-block" id="OperationList"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.operationlist.OperationList">[docs]</a><span class="k">class</span> <span class="nc">OperationList</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
-    <span class="c">#    opchange = qc.Signal()</span>
+    <span class="c1">#    opchange = qc.Signal()</span>
     <span class="n">unary_selected</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">()</span>
     <span class="n">binary_selected</span> <span class="o">=</span> <span class="n">qc</span><span class="o">.</span><span class="n">Signal</span><span class="p">()</span>
 
@@ -76,11 +76,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">unaryops</span> <span class="o">=</span> <span class="n">unaryops</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">binaryops</span> <span class="o">=</span> <span class="n">binaryops</span>
 
-<span class="c">#        self.addItems(text_list)</span>
+<span class="c1">#        self.addItems(text_list)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">combobox</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QComboBox</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">combobox</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="n">text_list</span><span class="p">)</span>
         <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Operation Type&#39;</span><span class="p">))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Operation Type&#39;</span><span class="p">))</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">combobox</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
@@ -100,7 +100,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">binary_selected</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
 </div>
 <div class="viewcode-block" id="OperationList.testchange"><a class="viewcode-back" href="../../../popupcad/popupcad.widgets.html#popupcad.widgets.operationlist.OperationList.testchange">[docs]</a>    <span class="k">def</span> <span class="nf">testchange</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c">#        self.opchange.emit()</span>
+        <span class="c1">#        self.opchange.emit()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_unary</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">unary_selected</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_binary</span><span class="p">():</span>

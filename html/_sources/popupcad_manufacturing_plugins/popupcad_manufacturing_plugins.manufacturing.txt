@@ -20,6 +20,14 @@ popupcad_manufacturing_plugins.manufacturing.customsupport4 module
     :undoc-members:
     :show-inheritance:
 
+popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup module
+--------------------------------------------------------------------------
+
+.. automodule:: popupcad_manufacturing_plugins.manufacturing.generatealignmentlayup
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 popupcad_manufacturing_plugins.manufacturing.identifybodies2 module
 -------------------------------------------------------------------
 
@@ -72,6 +80,14 @@ popupcad_manufacturing_plugins.manufacturing.supportcandidate4 module
 ---------------------------------------------------------------------
 
 .. automodule:: popupcad_manufacturing_plugins.manufacturing.supportcandidate4
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+popupcad_manufacturing_plugins.manufacturing.tilepart module
+------------------------------------------------------------
+
+.. automodule:: popupcad_manufacturing_plugins.manufacturing.tilepart
     :members:
     :undoc-members:
     :show-inheritance:

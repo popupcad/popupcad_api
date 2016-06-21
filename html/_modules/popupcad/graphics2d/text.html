@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,27 +54,28 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.graphics2d.text</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">PySide.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">popupcad.graphics2d.graphicsitems</span> <span class="kn">import</span> <span class="n">Common</span>
 <span class="kn">import</span> <span class="nn">popupcad</span>
 <span class="kn">import</span> <span class="nn">shapely.geometry</span> <span class="kn">as</span> <span class="nn">sg</span>
-<span class="kn">import</span> <span class="nn">popupcad.algorithms.painterpath</span> <span class="kn">as</span> <span class="nn">pp</span>
+<span class="kn">import</span> <span class="nn">qt.qt_hacks</span> <span class="kn">as</span> <span class="nn">qh</span>
 
 <div class="viewcode-block" id="GenericText"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText">[docs]</a><span class="k">class</span> <span class="nc">GenericText</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">editable</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;*&#39;</span><span class="p">]</span>
-    <span class="n">deletable</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;*&#39;</span><span class="p">]</span>
-    <span class="n">hidden</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+    <span class="n">editable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">]</span>
+    <span class="n">deletable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">]</span>
+    <span class="n">hidden</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="s">&#39;Arial&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="s1">&#39;Arial&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">font</span>
@@ -83,11 +84,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="GenericText.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identical</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span><span class="p">),</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">fontsize</span><span class="p">)</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">identical</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">fontsize</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">identical</span><span class="p">:</span>
             <span class="n">new</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
         <span class="k">return</span> <span class="n">new</span>
@@ -101,12 +98,15 @@
 <div class="viewcode-block" id="GenericText.is_construction"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.is_construction">[docs]</a>    <span class="k">def</span> <span class="nf">is_construction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">False</span>
 </div>
-<div class="viewcode-block" id="GenericText.to_generic_polygons"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.to_generic_polygons">[docs]</a>    <span class="k">def</span> <span class="nf">to_generic_polygons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GenericText.to_generic_polygons"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.to_generic_polygons">[docs]</a>    <span class="k">def</span> <span class="nf">to_generic_polygons</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">add_shift</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">popupcad.algorithms.painterpath</span> <span class="kn">as</span> <span class="nn">pp</span>
         <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span>
-        <span class="k">if</span> <span class="n">text</span> <span class="o">!=</span><span class="s">&#39;&#39;</span><span class="p">:</span>
+<span class="c1">#        small font scalings actually produce different paths.  use 10pt font as invariant size</span>
+        <span class="n">internal_font</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="k">if</span> <span class="n">text</span> <span class="o">!=</span><span class="s1">&#39;&#39;</span><span class="p">:</span>
             <span class="n">p</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="p">()</span>
-            <span class="n">font</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QFont</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span><span class="n">pointSize</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fontsize</span><span class="p">)</span>
-            <span class="n">p</span><span class="o">.</span><span class="n">addText</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">QPointF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">fontsize</span><span class="p">),</span><span class="n">font</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QFont</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span><span class="n">pointSize</span><span class="o">=</span><span class="n">internal_font</span><span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">addText</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">QPointF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">internal_font</span><span class="p">),</span><span class="n">font</span><span class="p">,</span><span class="n">text</span><span class="p">)</span>
             
             <span class="n">generic_polygons</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">painterpath_to_generics</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">popupcad</span><span class="o">.</span><span class="n">text_approximation</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -114,6 +114,10 @@
         <span class="n">T</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
         <span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">=-</span><span class="mi">1</span>
         <span class="n">generic_polygons</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">generic_polygons</span><span class="p">]</span>
+        <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fontsize</span><span class="o">/</span><span class="n">internal_font</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">generic_polygons</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">add_shift</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">generic_polygons</span><span class="p">:</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">getpos</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">generic_polygons</span>
         </div>
 <div class="viewcode-block" id="GenericText.generic_polys_to_shapely"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.generic_polys_to_shapely">[docs]</a>    <span class="k">def</span> <span class="nf">generic_polys_to_shapely</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">generic_polygons</span><span class="p">):</span>
@@ -129,19 +133,19 @@
             <span class="n">obj1</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">Polygon</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">obj1</span>
 </div>
-<div class="viewcode-block" id="GenericText.to_shapely"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.to_shapely">[docs]</a>    <span class="k">def</span> <span class="nf">to_shapely</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">generic_polygons</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_generic_polygons</span><span class="p">()</span>
+<div class="viewcode-block" id="GenericText.to_shapely"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.to_shapely">[docs]</a>    <span class="k">def</span> <span class="nf">to_shapely</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">add_shift</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+        <span class="n">generic_polygons</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_generic_polygons</span><span class="p">(</span><span class="n">add_shift</span><span class="p">)</span>
         <span class="n">shapely</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic_polys_to_shapely</span><span class="p">(</span><span class="n">generic_polygons</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">shapely</span>
         </div>
-<div class="viewcode-block" id="GenericText.to_generics"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.to_generics">[docs]</a>    <span class="k">def</span> <span class="nf">to_generics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">shapely</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">()</span>
+<div class="viewcode-block" id="GenericText.to_generics"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.to_generics">[docs]</a>    <span class="k">def</span> <span class="nf">to_generics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">add_shift</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+        <span class="n">shapely</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_shapely</span><span class="p">(</span><span class="n">add_shift</span><span class="p">)</span>
         <span class="n">shapelies</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">condition_shapely_entities</span><span class="p">(</span><span class="n">shapely</span><span class="p">)</span>
         <span class="n">generics</span> <span class="o">=</span> <span class="p">[</span><span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">csg_shapely</span><span class="o">.</span><span class="n">to_generic</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">shapelies</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">generics</span>
 </div>
-<div class="viewcode-block" id="GenericText.painterpath"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.painterpath">[docs]</a>    <span class="k">def</span> <span class="nf">painterpath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">generics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_generics</span><span class="p">()</span>
+<div class="viewcode-block" id="GenericText.painterpath"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.painterpath">[docs]</a>    <span class="k">def</span> <span class="nf">painterpath</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">add_shift</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+        <span class="n">generics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_generics</span><span class="p">(</span><span class="n">add_shift</span><span class="p">)</span>
         <span class="n">p2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPainterPath</span><span class="p">()</span>
         <span class="p">[</span><span class="n">p2</span><span class="o">.</span><span class="n">addPath</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">painterpath</span><span class="p">())</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">generics</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">p2</span>
@@ -157,6 +161,10 @@
 <div class="viewcode-block" id="GenericText.output_dxf"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.output_dxf">[docs]</a>    <span class="k">def</span> <span class="nf">output_dxf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">model_space</span><span class="p">,</span><span class="n">layer</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
         <span class="n">generics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_generics</span><span class="p">()</span>
         <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">output_dxf</span><span class="p">(</span><span class="n">model_space</span><span class="p">,</span><span class="n">layer</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">generics</span><span class="p">]</span>
+</div>
+<div class="viewcode-block" id="GenericText.vertices"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.GenericText.vertices">[docs]</a>    <span class="k">def</span> <span class="nf">vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
 </div></div>
 <div class="viewcode-block" id="TextParent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent">[docs]</a><span class="k">class</span> <span class="nc">TextParent</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsPathItem</span><span class="p">,</span> <span class="n">Common</span><span class="p">):</span>
     <span class="n">isDeletable</span> <span class="o">=</span> <span class="bp">True</span>
@@ -168,34 +176,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsItem</span><span class="o">.</span><span class="n">ItemIsMovable</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsItem</span><span class="o">.</span><span class="n">ItemIsSelectable</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QGraphicsItem</span><span class="o">.</span><span class="n">ItemIsFocusable</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span>
-            <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
-                <span class="mi">0</span><span class="p">,</span>
-                <span class="mi">0</span><span class="p">,</span>
-                <span class="mi">0</span><span class="p">,</span>
-                <span class="mi">1</span><span class="p">),</span>
-            <span class="mi">1</span><span class="p">,</span>
-            <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidLine</span><span class="p">,</span>
-            <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundCap</span><span class="p">,</span>
-            <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundJoin</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pen</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidLine</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundCap</span><span class="p">,</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RoundJoin</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pen</span><span class="o">.</span><span class="n">setCosmetic</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">brush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span>
-            <span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span>
-                <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidPattern</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">brush</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QColor</span><span class="o">.</span><span class="n">fromRgbF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">),</span> <span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">SolidPattern</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pen</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setBrush</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">brush</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setPos</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">getpos</span><span class="p">(</span><span class="n">scaling</span> <span class="o">=</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">view_scaling</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setFlag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ItemSendsGeometryChanges</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span> <span class="o">=</span> <span class="bp">False</span>
 
-<span class="c">#    def focusInEvent(self,*args,**kwargs):</span>
-<span class="c">#        self.editmode()</span>
+<span class="c1">#    def focusInEvent(self,*args,**kwargs):</span>
+<span class="c1">#        self.editmode()</span>
 <div class="viewcode-block" id="TextParent.itemChange"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent.itemChange">[docs]</a>    <span class="k">def</span> <span class="nf">itemChange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">change</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">change</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">GraphicsItemChange</span><span class="o">.</span><span class="n">ItemPositionHasChanged</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">changed_trigger</span> <span class="o">=</span> <span class="bp">False</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="p">()</span><span class="o">.</span><span class="n">savesnapshot</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">setpos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span><span class="o">.</span><span class="n">toTuple</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">pos</span><span class="o">.</span><span class="n">setpos</span><span class="p">(</span><span class="n">qh</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos</span><span class="p">()))</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">TextParent</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">itemChange</span><span class="p">(</span><span class="n">change</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="TextParent.editmode"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent.editmode">[docs]</a>    <span class="k">def</span> <span class="nf">editmode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -212,16 +209,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">editchild</span><span class="o">.</span><span class="n">setTextInteractionFlags</span><span class="p">(</span><span class="n">qc</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">NoTextInteraction</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">editchild</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">editchild</span><span class="o">.</span><span class="n">removefromscene</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">text</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">text</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">harddelete</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refreshview</span><span class="p">()</span>
-<span class="c">#        self.scene().savesnapshot.emit()</span>
+<span class="c1">#        self.scene().savesnapshot.emit()</span>
 </div>
 <div class="viewcode-block" id="TextParent.refreshview"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent.refreshview">[docs]</a>    <span class="k">def</span> <span class="nf">refreshview</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">painterpath</span><span class="p">()</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generic</span><span class="o">.</span><span class="n">painterpath</span><span class="p">(</span><span class="n">add_shift</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setPath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="c">#        path, dummy = self.generic.genpath(popupcad.view_scaling)</span>
-<span class="c">#        self.setPath(path)</span>
+<span class="c1">#        path, dummy = self.generic.genpath(popupcad.view_scaling)</span>
+<span class="c1">#        self.setPath(path)</span>
 </div>
 <div class="viewcode-block" id="TextParent.mouseDoubleClickEvent"><a class="viewcode-back" href="../../../popupcad/popupcad.graphics2d.html#popupcad.graphics2d.text.TextParent.mouseDoubleClickEvent">[docs]</a>    <span class="k">def</span> <span class="nf">mouseDoubleClickEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">editmode</span><span class="p">()</span>

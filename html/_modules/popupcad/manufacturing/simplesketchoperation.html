@@ -27,7 +27,7 @@
     <link rel="up" title="Module code" href="../../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   </head>
-  <body>
+  <body role="document">
     <header id="pageheader">
       <div class="header_inner">
         <ul class="horizontal">
@@ -54,13 +54,15 @@
           <div class="body" role="main">
             
   <h1>Source code for popupcad.manufacturing.simplesketchoperation</h1><div class="highlight"><pre>
-<span class="c"># -*- coding: utf-8 -*-</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Written by Daniel M. Aukes and CONTRIBUTORS</span>
-<span class="sd">Email: danaukes&lt;at&gt;seas.harvard.edu.</span>
+<span class="sd">Email: danaukes&lt;at&gt;asu.edu.</span>
 <span class="sd">Please see LICENSE for full license.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">PySide.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
+
+<span class="kn">import</span> <span class="nn">qt.QtCore</span> <span class="kn">as</span> <span class="nn">qc</span>
+<span class="kn">import</span> <span class="nn">qt.QtGui</span> <span class="kn">as</span> <span class="nn">qg</span>
 <span class="kn">import</span> <span class="nn">popupcad</span>
 <span class="kn">from</span> <span class="nn">popupcad.filetypes.operation2</span> <span class="kn">import</span> <span class="n">Operation2</span><span class="p">,</span> <span class="n">LayerBasedOperation</span>
 <span class="kn">from</span> <span class="nn">popupcad.widgets.listmanager</span> <span class="kn">import</span> <span class="n">SketchListManager</span>
@@ -92,10 +94,8 @@
                 <span class="n">item</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">()</span><span class="o">.</span><span class="n">layers</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">outputlayerselector</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QListWidget</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">outputlayerselector</span><span class="o">.</span><span class="n">setSelectionBehavior</span><span class="p">(</span>
-            <span class="n">qg</span><span class="o">.</span><span class="n">QListWidget</span><span class="o">.</span><span class="n">SelectionBehavior</span><span class="o">.</span><span class="n">SelectRows</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">outputlayerselector</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span>
-            <span class="n">qg</span><span class="o">.</span><span class="n">QListWidget</span><span class="o">.</span><span class="n">SelectionMode</span><span class="o">.</span><span class="n">MultiSelection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outputlayerselector</span><span class="o">.</span><span class="n">setSelectionBehavior</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QListWidget</span><span class="o">.</span><span class="n">SelectRows</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outputlayerselector</span><span class="o">.</span><span class="n">setSelectionMode</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QListWidget</span><span class="o">.</span><span class="n">SelectionMode</span><span class="o">.</span><span class="n">MultiSelection</span><span class="p">)</span>
 
         <span class="n">outputitems</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">popupcad</span><span class="o">.</span><span class="n">filetypes</span><span class="o">.</span><span class="n">listwidgetitem</span><span class="o">.</span><span class="n">ListWidgetItem</span><span class="p">(</span>
@@ -104,15 +104,15 @@
         <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">setSelected</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">customdata</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">selectedoutput</span><span class="p">)</span>
          <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">outputitems</span><span class="p">]</span>
 
-        <span class="n">button1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Ok&#39;</span><span class="p">)</span>
-        <span class="n">button2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s">&#39;Cancel&#39;</span><span class="p">)</span>
+        <span class="n">button1</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+        <span class="n">button2</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Cancel&#39;</span><span class="p">)</span>
         <span class="n">buttonlayout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
         <span class="n">buttonlayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button1</span><span class="p">)</span>
         <span class="n">buttonlayout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button2</span><span class="p">)</span>
 
         <span class="n">layout</span> <span class="o">=</span> <span class="n">qg</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sketchwidget</span><span class="p">)</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s">&#39;Select Layers&#39;</span><span class="p">))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">qg</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s1">&#39;Select Layers&#39;</span><span class="p">))</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outputlayerselector</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">buttonlayout</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
@@ -127,14 +127,14 @@
             <span class="k">return</span> <span class="bp">None</span>
 </div>
 <div class="viewcode-block" id="Dialog.acceptdata"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.simplesketchoperation.Dialog.acceptdata">[docs]</a>    <span class="k">def</span> <span class="nf">acceptdata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">sketch_links</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;sketch&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sketch</span><span class="p">()</span><span class="o">.</span><span class="n">id</span><span class="p">]}</span>
+        <span class="n">sketch_links</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sketch&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sketch</span><span class="p">()</span><span class="o">.</span><span class="n">id</span><span class="p">]}</span>
         <span class="n">layer_links</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">item</span><span class="o">.</span><span class="n">customdata</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputlayerselector</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()]</span>
         <span class="k">return</span> <span class="n">sketch_links</span><span class="p">,</span> <span class="n">layer_links</span>
 
 </div></div>
 <div class="viewcode-block" id="SimpleSketchOp"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.simplesketchoperation.SimpleSketchOp">[docs]</a><span class="k">class</span> <span class="nc">SimpleSketchOp</span><span class="p">(</span><span class="n">Operation2</span><span class="p">,</span> <span class="n">LayerBasedOperation</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;SketchOp&#39;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;SketchOp&#39;</span>
 
 <div class="viewcode-block" id="SimpleSketchOp.copy"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">new</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_links</span><span class="p">)</span>
@@ -152,7 +152,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">layer_links</span> <span class="o">=</span> <span class="n">layer_links</span>
 </div>
 <div class="viewcode-block" id="SimpleSketchOp.operate"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.operate">[docs]</a>    <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
-        <span class="n">sketch</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="p">[</span><span class="s">&#39;sketch&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">sketch</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="p">[</span><span class="s1">&#39;sketch&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
         <span class="n">layerdef</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">return_layer_definition</span><span class="p">()</span>
         <span class="n">layers</span> <span class="o">=</span> <span class="p">[</span><span class="n">layerdef</span><span class="o">.</span><span class="n">getlayer</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_links</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">popupcad</span><span class="o">.</span><span class="n">algorithms</span><span class="o">.</span><span class="n">manufacturing_functions</span><span class="o">.</span><span class="n">sketch_operation</span><span class="p">(</span>
@@ -166,7 +166,7 @@
         <span class="k">return</span> <span class="n">dialog</span>
 </div>
 <div class="viewcode-block" id="SimpleSketchOp.buildeditdialog"><a class="viewcode-back" href="../../../popupcad/popupcad.manufacturing.html#popupcad.manufacturing.simplesketchoperation.SimpleSketchOp.buildeditdialog">[docs]</a>    <span class="k">def</span> <span class="nf">buildeditdialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">design</span><span class="p">):</span>
-        <span class="n">sketch</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="p">[</span><span class="s">&#39;sketch&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">sketch</span> <span class="o">=</span> <span class="n">design</span><span class="o">.</span><span class="n">sketches</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sketch_links</span><span class="p">[</span><span class="s1">&#39;sketch&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
         <span class="n">dialog</span> <span class="o">=</span> <span class="n">Dialog</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">design</span><span class="p">,</span>
